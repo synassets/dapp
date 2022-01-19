@@ -176,14 +176,11 @@
                 <div @click="approve5()" class="pc-ido-btn3" v-show="step==2&&!this.isApprovaled5&&!isOgMarket&&!isShowProgress&&whitelist">Approve</div>
                 <div @click="presalesOffer2()" class="pc-ido-btn3" v-show="step==2&&this.isApprovaled2&&isOgMarket&&!isShowProgress&&whitelist">Enable</div>
                 <div @click="presalesOffer5()" class="pc-ido-btn3" v-show="step==2&&this.isApprovaled5&&!isOgMarket&&!isShowProgress&&whitelist">Enable</div>
-
-                <div  class="pc-ido-btn3x" v-show="isShowProgress&&whitelist">Waiting</div>
+<!--              -->
+                <div   v-show="isShowProgress&&whitelist" class="pc-ido-btn3x"  @click="waiting">
+                  <img :src="gif"  style="width: 20px;height: 20px;float:left;margin-left:20px;margin-top: 15px;"   alt="zh" />
+                  Waiting</div>
                 <div  class="pc-ido-btn3" v-show="!whitelist&&step==2" @click="goLink(1)"> need whitelist</div>
-
-
-
-
-
 
                 <div   v-show="step!=3"  style="width: 400px;height: 2px;background: #5F5F5F;margin: 40px auto 0px auto;"></div>
 
@@ -457,7 +454,7 @@
         <div style="width: 6.8rem;height: 0.7rem;background: #FFFFFF;margin: 0.1rem auto 0 auto;position: relative">
           <input  v-model="stakeAmount" type="text" style="height:0.6rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"  />
 
-          <div @click="clickMaxValue()" style="cursor: pointer;border-radius: 0.5rem;padding: 0.05rem 0.2rem;font-size: 0.18rem; font-family: Selawik;background: #1f1f1f; color: #FFFFFF;position: absolute;right: 0.2rem;top: 0.1rem;" >{{'MAX'}}</div>
+          <div @click="clickMaxValue()" style="cursor: pointer;border-radius: 0.5rem;padding: 0.05rem 0.2rem;font-size: 0.1rem; font-family: Selawik;background: #1f1f1f; color: #FFFFFF;position: absolute;right: 0.2rem;top: 0.1rem;" >{{'MAX'}}</div>
           <!--<div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;
           height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
         </div>
@@ -478,7 +475,8 @@
 
 
 
-        <div   v-show="isShowProgress&&whitelist"  class="h5-ido-btn3x">
+        <div   v-show="isShowProgress&&whitelist"  class="h5-ido-btn3x" @click="waiting">
+          <img :src="gif"  style="width: 0.37rem;height: 0.37rem;;float:left;margin-left:0.15rem;margin-top: 0.15rem;"   alt="zh" />
           Waiting
         </div>
         <div   v-show="!whitelist&&step==2"  class="h5-ido-btn3"  @click="goLink(1)">
@@ -693,7 +691,7 @@ import {
 } from "../../utils/Wallet";
 import { createWatcher } from '@makerdao/multicall';
 // import BigNumber from "bignumber.js";
-import {share,close} from "../../utils/images";
+import {share,close,gif} from "../../utils/images";
 import Cookies from "js-cookie";
 export default {
   name: "Index",
@@ -704,6 +702,7 @@ export default {
     return {
       share,
       close,
+      gif,
       pc_ido_img1,
       pc_ido_img2,
       allowance2 :0,
@@ -1336,7 +1335,8 @@ export default {
           return;
         }
         let xxx =  this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala ;
-        if (this.stakeAmount < xxx) {
+        let max = this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala ;
+        if (this.stakeAmount < xxx||this.stakeAmount>max) {
           this.$message.error('Error,please enter the correct amount!');
           return;
         }
@@ -1379,6 +1379,9 @@ export default {
         console.log('ok')
       }
     },
+    waiting(){
+      this.$message.info('please waiting.');
+    },
     async presalesOffer5(){
 
       /* if(true){
@@ -1416,7 +1419,8 @@ export default {
           return;
         }
         let xxx =  this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala ;
-        if (this.stakeAmount < xxx) {
+        let max = this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala ;
+        if (this.stakeAmount < xxx||this.stakeAmount>max) {
           this.$message.error('Error,please enter the correct amount!');
           return;
         }

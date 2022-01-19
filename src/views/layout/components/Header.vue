@@ -61,8 +61,8 @@
             <div class="pc-div-btn2-item1">
               <img  class="pc-div-btn2-item2" :src="sat_icon" />
               <div  class="pc-div-btn2-item3" >{{this.data.IDO.OG.symbol}}</div>
-              <div  class="pc-div-btn2-item4" >{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-              <div  class="pc-div-btn2-item5" >{{'$ '+calcT12Amount}}</div>
+              <div  class="pc-div-btn2-item4" >{{satBalance.toFixed(2)+' '+this.data.IDO.OG.symbol}}</div>
+              <div  class="pc-div-btn2-item5" >{{'$ '+calcT12Amount.toFixed(2)}}</div>
             </div>
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet </div>

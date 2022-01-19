@@ -50,3 +50,7 @@ export const share = require("@/assets/img/share.png");
 export const close = require("@/assets/img/close.png");
 
 export const sat_icon = require("@/assets/img/sat_icon.png");
+
+
+
+export const gif = require("@/assets/img/gif.gif");
