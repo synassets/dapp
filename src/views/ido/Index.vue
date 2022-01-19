@@ -178,7 +178,7 @@
                 <div @click="presalesOffer5()" class="pc-ido-btn3" v-show="step==2&&this.isApprovaled5&&!isOgMarket&&!isShowProgress&&whitelist">Enable</div>
 <!--              -->
                 <div   v-show="isShowProgress&&whitelist" class="pc-ido-btn3x"  @click="waiting">
-                  <img :src="gif"  style="width: 20px;height: 20px;float:left;margin-left:20px;margin-top: 15px;"   alt="zh" />
+                  <img :src="gif"  style="width: 20px;height: 20px;float:right;margin-right:20px;margin-top: 15px;"   alt="zh" />
                   Waiting</div>
                 <div  class="pc-ido-btn3" v-show="!whitelist&&step==2" @click="goLink(1)"> need whitelist</div>
 
@@ -476,7 +476,7 @@
 
 
         <div   v-show="isShowProgress&&whitelist"  class="h5-ido-btn3x" @click="waiting">
-          <img :src="gif"  style="width: 0.37rem;height: 0.37rem;;float:left;margin-left:0.15rem;margin-top: 0.15rem;"   alt="zh" />
+          <img :src="gif"  style="width: 0.37rem;height: 0.37rem;;float:right;margin-right:0.15rem;margin-top: 0.15rem;"   alt="zh" />
           Waiting
         </div>
         <div   v-show="!whitelist&&step==2"  class="h5-ido-btn3"  @click="goLink(1)">
@@ -1392,7 +1392,7 @@ export default {
         this.$message.info('Waiting ');
         return
       }
-      /*   if(!this.inviteable) {
+        if(!this.inviteable) {
            if (!isAddress(this.refAddress)) {
              this.$message.error('Error,please use invitation link!');
              return
@@ -1407,7 +1407,7 @@ export default {
            }
          }else{
            this.refAddress =  this.address
-         }*/
+         }
       if(this.isShowTimestamp5){
         this.$message.error('Coming soon');
         return;
