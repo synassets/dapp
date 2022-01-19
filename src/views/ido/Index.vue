@@ -1470,7 +1470,7 @@ export default {
           this.formatTime1(timestamp2);
         }else{
           timestamp2 =    moment(this.closeAtOG* 1000).diff(moment(), "seconds");
-          console.log('timestamp2 2= '+timestamp2);
+          // console.log('timestamp2 2= '+timestamp2);
           if(timestamp2 > 0){
             this.step = 2;
             this.formatTime1(timestamp2);
@@ -1486,7 +1486,7 @@ export default {
           this.formatTime1(timestamp5);
         }else{
           timestamp5 =    moment(this.closeAtNOG * 1000).diff(moment(), "seconds");
-          console.log('timestamp5 2= '+timestamp5);
+          // console.log('timestamp5 2= '+timestamp5);
           if(timestamp5 > 0){
             this.step = 2;
             this.formatTime1(timestamp5);
