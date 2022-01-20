@@ -29,8 +29,8 @@
       <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img :src="sat_icon" style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;" />
         <div style="position: absolute;left: 1.4rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0.3rem;">SAT</div>
-        <div style="position: absolute;right: 0rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0rem;">{{satBalance.toFixed(2)+' '+this.data.IDO.OG.symbol}}</div>
-        <div style="position: absolute;right: 0rem;top: 0.5rem;font-size: 0.21rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;color: #808080">{{'$ '+calcT12Amount.toFixed(2)}}</div>
+        <div style="position: absolute;right: 0rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0rem;">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
+        <div style="position: absolute;right: 0rem;top: 0.5rem;font-size: 0.21rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;color: #808080">{{'$ '+calcT12Amount}}</div>
 
       </div>
 
@@ -61,8 +61,8 @@
             <div class="pc-div-btn2-item1">
               <img  class="pc-div-btn2-item2" :src="sat_icon" />
               <div  class="pc-div-btn2-item3" >{{this.data.IDO.OG.symbol}}</div>
-              <div  class="pc-div-btn2-item4" >{{satBalance.toFixed(2)+' '+this.data.IDO.OG.symbol}}</div>
-              <div  class="pc-div-btn2-item5" >{{'$ '+calcT12Amount.toFixed(2)}}</div>
+              <div  class="pc-div-btn2-item4" >{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
+              <div  class="pc-div-btn2-item5" >{{'$ '+calcT12Amount}}</div>
             </div>
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet </div>
@@ -126,26 +126,26 @@ export default {
     }),
   },
   created() {
-    let thisThat = this;
-    window.ethereum.on("accountsChanged", function(accounts) {
-      init();
-      thisThat.address= accounts[0];
-      console.log('accountsChanged1='+accounts[0]);//一旦切换账号这里就会执行
-
-    });
+    this.data =  getDATA();
     this.initData()
   },
 
+mounted() {
+  let thisThat = this;
+  window.ethereum.on("accountsChanged", function(accounts) {
+    init();
+    thisThat.address= accounts[0];
+    console.log('accountsChanged1='+accounts[0]);//一旦切换账号这里就会执行
+
+  });
+},
 
   methods: {
     addSatCoin(){
-      // this.$message.info("Coming Soon!");
       addSATCoin()
     },
     async initData(){
-      this.data =  getDATA();
       this.address = await getAddress();
-
       this.configData =  getConfigData()
       this.interval =  setInterval(this.getAddress(), 2000);
       this.getInfo();
@@ -214,25 +214,8 @@ export default {
     onClickShowMenu() {
       this.isShowMenu = !this.isShowMenu;
     },
-    goPageMark(url) {
-      this.tab = 1;
-      if (this.$route.path !== url) {
-        this.$router.push(url);
-      }
-    },
-    onTabClick(index) {
-      this.tab = index;
-      // this.changeLang()
-      if (index == 1) {
-        this.$router.push("/dashboard");
-      } else if (index == 2) {
-        this.$router.push("/staking");
-      } else if (index == 3) {
-        // this.$router.push("/vault")
-      } else if (index == 5) {
-        this.$router.push("/mine");
-      }
-    },
+
+
     getInfo(){
 
       if(this.address==''){
@@ -265,16 +248,21 @@ export default {
       watcher.subscribe(update => {
         console.log(`Update: ${update.type} = ${update.value}`);
         if(update.type=='balanceOf'){
-          if(update.value>0)
+          if(update.value>0){
             this.satBalance = update.value / this.data.IDO.OG.symbolScala
+            this.satBalance   =  this.satBalance.toFixed(2)
+          }
+
         }else if(update.type=='calcT12'){
           let calcT12 = update.value / this.data.IDO.OG.scala
           let calcT12PricePerToken =   (1 /  calcT12).toFixed(6)
           this.calcT12Amount =  this.satBalance * calcT12PricePerToken;
+          this.calcT12Amount = this.calcT12Amount.toFixed(2)
         }else if(update.type=='calcT15'){
           let calcT15 = update.value / this.data.IDO.NOG.scala
           let calcT15PricePerToken =  ( 1 /  calcT15).toFixed(6)
           this.calcT15Amount =  this.satBalance * calcT15PricePerToken;
+          this.calcT15Amount = this.calcT15Amount.toFixed(2)
         }
 
 
