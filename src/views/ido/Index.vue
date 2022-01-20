@@ -801,7 +801,7 @@ export default {
 
   },
   created() {
-
+    this.data =  getDATA();
     let thisThat = this;
     window.ethereum.on("accountsChanged", function(accounts) {
       init();
@@ -810,7 +810,7 @@ export default {
 
     });
     this.refAddress = Cookies.get("ref");
-    this.data =  getDATA();
+
     this.configData = getConfigData()
     this.OgContractAddress = this.data.IDO.OG.contractAddress
     this.NogContractAddress = this.data.IDO.NOG.contractAddress
