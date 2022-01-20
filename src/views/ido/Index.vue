@@ -687,7 +687,7 @@ import {
 
   getAddress,
   init, toWei,
-  getChainId, getDATA, doApprove2New, saleSwap, getAllowanceNew, getConfigData, isAddress
+  getChainId, getDATA, doApprove2New, saleSwap, getAllowanceNew, getConfigData, isAddress, getGasPrice
 } from "../../utils/Wallet";
 import { createWatcher } from '@makerdao/multicall';
 // import BigNumber from "bignumber.js";
@@ -788,6 +788,7 @@ export default {
       closeAtOG:0  ,
       openAtNOG:0,
       closeAtNOG:0  ,
+      gasPrice:0
     };
   },
   computed: {
@@ -800,6 +801,7 @@ export default {
 
   },
   created() {
+
     let thisThat = this;
     window.ethereum.on("accountsChanged", function(accounts) {
       init();
@@ -844,7 +846,6 @@ export default {
   */
     setInterval(this.timeDeal, 1000);
 
-
   },
 
   methods: {
@@ -868,6 +869,7 @@ export default {
       let myAddress =  Base64.encode(this.address);
       this.shareLinkUrl = "http://" + window.location.host + "?ref=" + myAddress;
     },
+
     async getChainId(){
       let msg = await getChainId();
       if(msg.length > 0){

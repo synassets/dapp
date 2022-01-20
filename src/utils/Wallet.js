@@ -39,6 +39,28 @@ export function getConfigData() {
   return contarctData.Config;
 }
 
+
+export async function getGasPrice() {
+  return new Promise((resolve, reject) => {
+  return   new web3.eth.getGasPrice()
+        .then((data) => {
+          console.log('=================data'+JSON.stringify(data))
+          resolve(
+            data
+          );
+          return data
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+ /*   setTimeout(() => {
+      reject("timeout");
+    }, 200000);*/
+  });
+}
+
+
 export async function initConnection() {
   if (store.state.app.is_wallet) {
     const provider = window.ethereum || window.web3.currentProvider;
@@ -658,13 +680,18 @@ export function getBalanceForGons( amount) {
 
 ///////////////////////////////new ////////////////////////
 export async function doApprove2New(amount, pool, contractAddress, spender) {
+
+
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
+
   return new Promise(resolve => {
     const contract_obj = getContractNew(pool,contractAddress);
+
     contract_obj.methods
         .approve(spender, amount)
-        .send({
-          from: getAddress(),
-        })
+        .send({from: getAddress(),
+          gasPrice: price})
         .then((data) => {
           resolve({
             status: true,
@@ -689,11 +716,14 @@ export async function doApprove2New(amount, pool, contractAddress, spender) {
 
 export async function saleSwap(amount, pool,contractAddress,inviteAddress) {
 
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   return new Promise((resolve) => {
     const contract_obj = getContractNew(pool,contractAddress)
     contract_obj.methods
         .swap(amount,inviteAddress)
-        .send({from: getAddress()})
+        .send({from: getAddress(),
+          gasPrice: price})
         .then((data) => {
           resolve({
             status: true,
@@ -709,6 +739,7 @@ export async function saleSwap(amount, pool,contractAddress,inviteAddress) {
 
 
 export function getAllowanceNew( type, contractAddress,spender) {
+
   return new Promise((resolve, reject) => {
     const contract_obj = getContractNew(type,contractAddress);
     contract_obj.methods
