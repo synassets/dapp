@@ -15,7 +15,6 @@
         </div>
       </div>
 
-      <!---2-->
       <div style="width: 100%;display: flex;">
         <div style="width: 249px;height: 100px;"></div>
         <div style="flex: 1;z-index: 999;">
@@ -122,7 +121,6 @@
                   Closed
                 </div>
 
-                <!--             -->
                 <img v-show="this.inviteable" :src="share"  class="pc_share_img" alt />
                 <div  v-show="this.inviteable"  class="pc_share_img" style="font-size: 14px;z-index: 999" @click="showInviteClick()">
 
@@ -133,7 +131,6 @@
                 <div style="position: absolute;top: 0px;left: 0px;text-align: center;font-size: 14px;font-family: Selawik; font-weight: 600; color: #FFFFFF;width:480px;padding-top: 45px; ">
                   Fundraise Goal
                 </div>
-
 
                 <div v-show="isOgMarket&&step!=3" style="position: absolute;top: 50px;left: 0px;text-align: center;font-size: 20px;font-family: Selawik; font-weight: 600; color: #FFFFFF;width:480px;padding-top: 20px; ">
                   {{   this.formatAmount(  this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current  }}
@@ -172,11 +169,11 @@
                   <div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 8px;" >{{'MAX'}}</div>
 
                 </div>
-                <div @click="approve2()" class="pc-ido-btn3" v-show="step==2&&!this.isApprovaled2&&isOgMarket&&!isShowProgress&&whitelist">Approve</div>
-                <div @click="approve5()" class="pc-ido-btn3" v-show="step==2&&!this.isApprovaled5&&!isOgMarket&&!isShowProgress&&whitelist">Approve</div>
-                <div @click="presalesOffer2()" class="pc-ido-btn3" v-show="step==2&&this.isApprovaled2&&isOgMarket&&!isShowProgress&&whitelist">Enable</div>
-                <div @click="presalesOffer5()" class="pc-ido-btn3" v-show="step==2&&this.isApprovaled5&&!isOgMarket&&!isShowProgress&&whitelist">Enable</div>
-<!--              -->
+                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist">Approve</div>
+                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress&&whitelist">Approve</div>
+                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist">Enable</div>
+                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress&&whitelist">Enable</div>
+
                 <div   v-show="isShowProgress&&whitelist" class="pc-ido-btn3x"  @click="waiting">
                   <img :src="gif"  style="width: 20px;height: 20px;margin-top: 15px;"   alt="zh" />
                   </div>
@@ -208,9 +205,7 @@
 
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"></div>
                   </div>
-
                   <div class="pc-ido-time" style="margin-left: 27px;">{{ this.mS0+''+this.mS1}}</div>
-
 
                 </div>
                 <div   v-show="step!=3"  style="width: 300px;margin: 8px auto 0px auto;display: flex;">
@@ -231,30 +226,7 @@
 
                   <div class="pc-ido-time1" style="margin-left: 27px;">{{ 'Seconds'}}</div>
 
-
                 </div>
-                <!--
-
-                <div style="width: 3.7rem;margin: 0.3rem auto 0 auto;display: flex;">
-           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;">{{ 'Days'}}</div>
-           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
-
-           </div>
-           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;">{{ 'Hours'}}</div>
-           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
-
-           </div>
-           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;">{{ 'Minutes'}}</div>
-           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
-
-           </div>
-           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;">{{ 'Seconds'}}</div>
-         </div>
-
-              <div style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;" v-show="isOgMarket">   {{ ' 1 '+ this.data.IDO.OG.symbol + ' = '  +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current    }}</div>
-            <div style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;" v-show="!isOgMarket">   {{  ' 1 '+ this.data.IDO.NOG.symbol + ' = '  +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current      }}</div>
-
-                -->
                 <div  v-show="step==3"  style="width: 400px;margin:20px auto 0px auto;display: flex;font-size: 14px; font-family: Selawik;font-weight: 400;color: #AAAAAA;position: relative;">
                   Ratio
                   <div v-show="isOgMarket"  style="position: absolute;right: 0px;color: #FFFFFF;"> {{ ' 1 '+ this.data.IDO.OG.symbol + ' = '  +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current    }}</div>
@@ -293,14 +265,7 @@
       <div style="font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #808080;padding-left: 0.87rem;">IDO: Initial DAO Offerings</div>
       <div style="margin-top: 0.1rem;font-size: 0.19rem;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 0.87rem;">All consensus-builder can buy token fairly.</div>
 
-      <!--linear-gradient(-45deg, #25434A 0%, #4A3E48  100%)
-            <span @click="clickOgMarket(true)" v-show="isOgMarket" style="position: absolute;font-size: 0.27rem;font-family: Lato;font-weight: bold;text-decoration: underline;color: #FFFFFF;left: 0.4rem;top: 0.4rem;">OG Sale</span>
-            <span @click="clickOgMarket(true)"  v-show="!isOgMarket" style="position: absolute;font-size: 0.27rem;font-family: Lato;font-weight: bold;color: #FFFFFF;left: 0.4rem;top: 0.4rem;">OG Sale</span>
 
-            <span @click="clickOgMarket(false)"  v-show="!isOgMarket" style="position: absolute;font-size: 0.27rem;font-family: Lato;font-weight: bold;text-decoration: underline;color: #FFFFFF;left: 2.3rem;top:0.4rem;">Public Sale</span>
-            <span @click="clickOgMarket(false)"  v-show="isOgMarket" style="position: absolute;font-size: 0.27rem;font-family: Lato;font-weight: bold;color: #FFFFFF;left:2.3rem;top: 0.4rem;">Public Sale</span>
-
-  -->
       <div style="padding-left: 0.84rem;margin-top:0.81rem;display: flex ">
         <div  @click="clickOgMarket(true)"   :class="isOgMarket ?'h5-ido-btn1':'h5-ido-btn2'">
           OG Market
@@ -459,17 +424,17 @@
           height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
         </div>
 
-        <div @click="approve2()"   v-show="step==2&&!this.isApprovaled2&&isOgMarket&&!isShowProgress&&whitelist" class="h5-ido-btn3" >
+        <div @click="OgApprove()" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist" class="h5-ido-btn3" >
           Approve
         </div>
-        <div @click="approve5()"  v-show="step==2&&!this.isApprovaled5&&!isOgMarket&&!isShowProgress"  class="h5-ido-btn3">
+        <div @click="PublicApprove()" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Approve
         </div>
 
-        <div @click="presalesOffer2()"   v-show="step==2&&this.isApprovaled2&&isOgMarket&&!isShowProgress&&whitelist" class="h5-ido-btn3" >
+        <div @click="OgSale()" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist" class="h5-ido-btn3" >
           Enable
         </div>
-        <div @click="presalesOffer5()"  v-show="step==2&&this.isApprovaled5&&!isOgMarket&&!isShowProgress&&whitelist"  class="h5-ido-btn3">
+        <div @click="publicSale()" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Enable
         </div>
 
@@ -676,21 +641,15 @@ import MyDialog from "@/views/components/myDialog";
 
 let Base64 = require('js-base64').Base64
 
-/*import store from "@/store";
-import moment from "moment";*/
-// import BigNumber from "bignumber.js";
+
 import moment from "moment";
 import {
-
-
   formatWei,
-
   getAddress,
   init, toWei,
-  getChainId, getDATA, doApprove2New, saleSwap, getAllowanceNew, getConfigData, isAddress, getGasPrice
+  getChainId, getDATA, doApprove2New, saleSwap, getAllowanceNew, getConfigData, isAddress
 } from "../../utils/Wallet";
 import { createWatcher } from '@makerdao/multicall';
-// import BigNumber from "bignumber.js";
 import {share,close,gif} from "../../utils/images";
 import Cookies from "js-cookie";
 export default {
@@ -706,9 +665,9 @@ export default {
       pc_ido_img1,
       pc_ido_img2,
       allowance2 :0,
-      isApprovaled2:false,
+      isOGApprovaled:false,
       allowance5 :0,
-      isApprovaled5:false,
+      isPublicSaleApprovaled:false,
       timePurchased2: '',
       timePurchased5: '',
       countDown:'Count down   ',
@@ -820,30 +779,9 @@ export default {
     this.getInfo()
     this.getChainId();
 
-    // this.timePurchased2 = this.data.IDO.OG.openAt;
-    // this.timePurchased5 = this.data.IDO.NOG.openAt;
-    //
-    // this.time2 = this.format(this.timePurchased2)
-    // this.time5 = this.format(this.timePurchased5)
-    //
-    // this.timeEnd2 = this.format(this.data.IDO.OG.closeAt)
-    // this.timeEnd5 = this.format(this.data.IDO.NOG.closeAt)
 
     this.getAllowanceValue();
-    /*  var timestamp = (new Date().getTime() )/ 1000;
 
-      if(timestamp>this.timeClaim5){
-        this.showClaim5 = true;
-      }
-
-      if(timestamp>this.timeClaim2){
-        this.showClaim2 = true;
-
-      }
-
-      this.showTimeClaim2 = this.format(this.timeClaim2)
-      this.showTimeClaim5 = this.format(this.timeClaim5)
-  */
     setInterval(this.timeDeal, 1000);
 
   },
@@ -907,20 +845,6 @@ export default {
       }
     },
     clickOgMarket(val){
-      /*      if(val){
-              /!*    if(this.isShowTimestamp2){
-                    this.$message.error('Coming soon');*!/
-              return;
-              // }
-            }else{
-              /!*
-               if(this.isShowTimestamp5){
-                 this.$message.error('Coming soon');
-
-               }*!/
-              this.$message.error('Coming soon');
-              return;
-            }*/
 
 
       this.isOgMarket = val;
@@ -938,27 +862,11 @@ export default {
       }
     },
 
-
-    onTabClick(index) {
-      this.tab = index;
-
-      // this.changeLang()
-      if (index == 1) {
-        this.$router.push("/dashboard");
-      }   else if (index == 2) {
-        this.$router.push("/staking");
-      } else if (index == 3) {
-        this.$router.push("/three")
-      } else if (index == 4) {
-        this.$router.push("/bond");
-      }
-
-    },
     goLink(url) {
       if(url==1){
         window.open(this.configData.discord);
       }else if(url==2){
-        window.open(this.configData.whiteList);
+        window.open(this.configData.whiteListURL);
       }else {
         window.open(url);
       }
@@ -1153,7 +1061,7 @@ export default {
         }else if(update.type=='currentAddressBalanceOf5'){
           this.currentAddressBalanceOf5 = update.value /  this.data.IDO.NOG.scala ;
           this.currentAddressBalanceOf5_format = this.formatAmount(this.currentAddressBalanceOf5);
-        }else if(update.type=='whitelist'){
+          }else if(update.type=='whitelist'){
           this.whitelist = update.value ;
         }else if(update.type=='inviteable'){
           this.inviteable = update.value ;
@@ -1178,34 +1086,15 @@ export default {
       });
       watcher.start();
     },
-    async getBalanceForGonsValue() {
-      /*     // alert(' this.warmupInfo2 '+ this.warmupInfo2 )
-           const res = await getBalanceForGons( this.warmupInfo2 );
-           // alert(res)
-           if (res.status) {
-             // this.allowance2 = Number(formatWei(res.data)).toFixed(0);
-             this.YourClaimablesVSD =  (res.data /1000000000).toFixed(2);
-           }
 
-           const result = await getAllowance("dai_coin","0x92420bcF292a68c022e7567019Bd118EBDD4B8FA");
-           if (result.status) {
-             this.allowance5 = Number(formatWei(result.data)).toFixed(0);
-
-             if(this.allowance5 <999999){
-               this.isApprovaled5 = false;
-             }else{
-               this.isApprovaled5 = true;
-             }
-           }*/
-    },
     async getAllowanceValue() {
       const res = await getAllowanceNew("coin", this.data.IDO.OG.currentAddress,this.data.IDO.OG.contractAddress);
       if (res.status) {
         this.allowance2 = Number(formatWei(res.data)).toFixed(0);
         if(this.allowance2 <999999){
-          this.isApprovaled2 = false;
+          this.isOGApprovaled = false;
         }else{
-          this.isApprovaled2 = true;
+          this.isOGApprovaled = true;
         }
       }
 
@@ -1214,17 +1103,14 @@ export default {
       if (result.status) {
         this.allowance5 = Number(formatWei(result.data)).toFixed(0);
         if(this.allowance5 <999999){
-          this.isApprovaled5 = false;
+          this.isPublicSaleApprovaled = false;
         }else{
-          this.isApprovaled5 = true;
+          this.isPublicSaleApprovaled = true;
         }
       }
     },
-    async approve2() {
-      /*      if(true){
-              this.$message.info('over ');
-              return
-            }*/
+    async OgApprove() {
+
       if(this.isShowProgress){
         this.$message.info('Waiting ');
         return
@@ -1270,10 +1156,10 @@ export default {
         this.$message.error('Approve Failure');
         return;
       }else{
-        this.isApprovaled2 = true;
+        this.isOGApprovaled = true;
       }
     },
-    async approve5() {
+    async PublicApprove() {
       if(this.isShowProgress){
         this.$message.info('Waiting ');
         return
@@ -1296,11 +1182,11 @@ export default {
         this.$message.error('Approve Failure');
         return;
       }else{
-        this.isApprovaled5 = true;
+        this.isPublicSaleApprovaled = true;
 
       }
     },
-    async  presalesOffer2(){
+    async  OgSale(){
       /*      if(true){
               this.$message.info('over ');
               return
@@ -1357,7 +1243,7 @@ export default {
             this.stakeAmount
         ) {
           this.$message.error('Error,please try again and confirm the transaction!');
-          this.isApprovaled2 = false;
+          this.isOGApprovaled = false;
           return;
         }
 
@@ -1395,7 +1281,7 @@ export default {
     waiting(){
       this.$message.info('please waiting.');
     },
-    async presalesOffer5(){
+    async publicSale(){
 
       /* if(true){
          this.$message.info('over ');
@@ -1438,22 +1324,16 @@ export default {
           return;
         }
 
-        if (
-            this.allowance5 <
-            this.stakeAmount
-        ) {
+        if (this.allowance5 <this.stakeAmount) {
           this.$message.error('Error,please try again and confirm the transaction!');
-          this.isApprovaled5 = false;
+          this.isPublicSaleApprovaled = false;
           return;
         }
         if (this.stakeAmount>this.myAllocationAmount5) {
           this.$message.error('Error,please enter the correct amount!');
           return;
         }
-        if (
-            this.currentAddressBalanceOf5 <
-            this.stakeAmount
-        ) {
+        if (this.currentAddressBalanceOf5 < this.stakeAmount ) {
           this.$message.error('Insufficient Balance !');
           return;
         }
@@ -1482,16 +1362,13 @@ export default {
     timeDeal() {
       if(this.openAtOG==0||this.closeAtOG==0||this.openAtNOG==0||this.closeAtNOG==0)
         return ;
-      // this.$message.info('Coming Soondsfgssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss ');/**/
       if(this.isOgMarket){
         var timestamp2 =    moment(this.openAtOG * 1000).diff(moment(), "seconds");
-        // console.log('timestamp2 1= '+timestamp2);
         if(timestamp2 > 0){
           this.step = 1;
           this.formatTime1(timestamp2);
         }else{
           timestamp2 =    moment(this.closeAtOG* 1000).diff(moment(), "seconds");
-          // console.log('timestamp2 2= '+timestamp2);
           if(timestamp2 > 0){
             this.step = 2;
             this.formatTime1(timestamp2);
@@ -1501,13 +1378,11 @@ export default {
         }
       }else{
         var timestamp5 =    moment(this.openAtNOG* 1000).diff(moment(), "seconds");
-        // console.log('timestamp5 1= '+timestamp5);
         if(timestamp5 > 0){
           this.step = 1;
           this.formatTime1(timestamp5);
         }else{
           timestamp5 =    moment(this.closeAtNOG * 1000).diff(moment(), "seconds");
-          // console.log('timestamp5 2= '+timestamp5);
           if(timestamp5 > 0){
             this.step = 2;
             this.formatTime1(timestamp5);
@@ -1533,7 +1408,6 @@ export default {
       }
     },
     formatTime1(difTime){
-      // console.log('difTime=================================='+difTime)
       var h0Time = "0";
       var h1Time = "0";
       var m0Time = "0";

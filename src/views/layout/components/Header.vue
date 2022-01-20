@@ -127,7 +127,6 @@ export default {
   },
   created() {
     this.data =  getDATA();
-
     this.initData()
   },
 
@@ -143,13 +142,10 @@ mounted() {
 
   methods: {
     addSatCoin(){
-      // this.$message.info("Coming Soon!");
       addSATCoin()
     },
     async initData(){
-
       this.address = await getAddress();
-
       this.configData =  getConfigData()
       this.interval =  setInterval(this.getAddress(), 2000);
       this.getInfo();
@@ -218,25 +214,8 @@ mounted() {
     onClickShowMenu() {
       this.isShowMenu = !this.isShowMenu;
     },
-    goPageMark(url) {
-      this.tab = 1;
-      if (this.$route.path !== url) {
-        this.$router.push(url);
-      }
-    },
-    onTabClick(index) {
-      this.tab = index;
-      // this.changeLang()
-      if (index == 1) {
-        this.$router.push("/dashboard");
-      } else if (index == 2) {
-        this.$router.push("/staking");
-      } else if (index == 3) {
-        // this.$router.push("/vault")
-      } else if (index == 5) {
-        this.$router.push("/mine");
-      }
-    },
+
+
     getInfo(){
 
       if(this.address==''){
