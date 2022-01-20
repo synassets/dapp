@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /deep/ .el-dialog {
+  ::v-deep .el-dialog {
     background-color: #242424;
     box-shadow: 0 0 0.16rem rgba(0, 0, 0, 0.7);
     // border-top: 0.08rem solid $color-main;
@@ -85,12 +85,12 @@ export default {
   .md_red {
     color: $color-main;
   }
-  /deep/ .el-dialog__headerbtn {
+  ::v-deep .el-dialog__headerbtn {
     font-size: 0.5rem;
   }
 
 
-/deep/ .el-dialog__body {
+::v-deep .el-dialog__body {
   padding-top: 0.2rem;
 }
 

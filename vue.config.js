@@ -56,6 +56,7 @@ module.exports = {
     sourceMap: false,
     loaderOptions: {
       sass: {
+        implementation: require('sass'),
         prependData: `@import "~@/assets/css/color.scss";`
       }
     }

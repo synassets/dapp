@@ -1846,19 +1846,19 @@ export default {
 
 
 
-/deep/.el-dialog__headerbtn .el-dialog__close {
+::v-deep.el-dialog__headerbtn .el-dialog__close {
   color: #242424;
 }
-/deep/.el-dialog__header {
+::v-deep.el-dialog__header {
   padding:  0px 0px;
 }
-/deep/ .el-dialog__body {
+::v-deep .el-dialog__body {
   padding: 0px 0px ;
   color: #242424;
   font-size: 14px;
   word-break: break-all;
 }
-/deep/.el-dialog {
+::v-deep.el-dialog {
   background-color: #242424;
   box-shadow: 0 0 0.16rem rgba(0, 0, 0, 0.7);
   //box-shadow: 0px 3px 9px 0px rgba(231, 87, 121, 0.56);
@@ -1870,7 +1870,7 @@ export default {
 
   border-radius: 20px;
 }
-/deep/.el-message{
+::v-deep.el-message{
   margin-top: 400px !important;
 }
 .el-message{

@@ -72,7 +72,7 @@ html, body {
   //max-width: 10rem;
   margin: auto;
   height: 100%;
-  /deep/ .el-loading-spinner .path {
+  ::v-deep .el-loading-spinner .path {
     stroke: $color-main;
   }
 }

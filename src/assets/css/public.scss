@@ -259,7 +259,7 @@ a:active {
   align-items: flex-end;
 }
 
-/deep/ .el-dialog__body {
+::v-deep .el-dialog__body {
   padding-top: 0.2rem !important;
 }
 
@@ -322,15 +322,15 @@ select {
 /*.el-message{
   margin-top: 200px !important;
 }
-/deep/.el-message{
+::v-deep.el-message{
   margin-top: 200px !important;
 }*/
-/deep/ .el-dialog__headerbtn {
+::v-deep .el-dialog__headerbtn {
   top: 8px !important;
   // background: url('https://') left no-repeat;
   background-size: cover;
 }
-/deep/ .el-dialog__headerbtn i {
+::v-deep .el-dialog__headerbtn i {
   content: "0px";
   font-size: 25px;
   visibility: hidden;
