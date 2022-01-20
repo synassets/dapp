@@ -1264,12 +1264,13 @@ export default {
           this.data.IDO.OG.contractAddress,
       );
       this.isShowProgress = false;
+      this.getInfo();
+      this.getAllowanceValue();
       if (!resApprove || !resApprove.status) {
         this.$message.error('Approve Failure');
         return;
       }else{
         this.isApprovaled2 = true;
-        this.getAllowanceValue();
       }
     },
     async approve5() {
@@ -1289,12 +1290,14 @@ export default {
           this.data.IDO.NOG.contractAddress,
       );
       this.isShowProgress = false;
+      this.getInfo();
+      this.getAllowanceValue();
       if (!resApprove || !resApprove.status) {
         this.$message.error('Approve Failure');
         return;
       }else{
         this.isApprovaled5 = true;
-        this.getAllowanceValue();
+
       }
     },
     async  presalesOffer2(){
@@ -1342,6 +1345,13 @@ export default {
           this.$message.error('Error,please enter the correct amount!');
           return;
         }
+
+        if (this.stakeAmount>this.myAllocationAmount2) {
+          this.$message.error('Error,please enter the correct amount!');
+          return;
+        }
+
+
         if (
             this.allowance2 <
             this.stakeAmount
@@ -1368,10 +1378,11 @@ export default {
             this.refAddress
         );
         this.isShowProgress = false;
+        this.getInfo();
         if (res.status){
           this.stakeAmount = '';
           this.$message.success('Success');
-          this.getInfo();
+
         }else {
           this.$message.error(res.error.message);
         }
@@ -1435,7 +1446,10 @@ export default {
           this.isApprovaled5 = false;
           return;
         }
-
+        if (this.stakeAmount>this.myAllocationAmount5) {
+          this.$message.error('Error,please enter the correct amount!');
+          return;
+        }
         if (
             this.currentAddressBalanceOf5 <
             this.stakeAmount
@@ -1451,10 +1465,11 @@ export default {
             this.refAddress
         );
         this.isShowProgress = false;
+        this.getInfo();
         if (res.status){
           this.stakeAmount = '';
           this.$message.success('Success');
-          this.getInfo();
+
         }else {
           this.$message.error(res.error.message);
         }
