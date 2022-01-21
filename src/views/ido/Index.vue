@@ -169,15 +169,15 @@
                   <div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 8px;" >{{'MAX'}}</div>
 
                 </div>
-                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist">Approve</div>
-                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress&&whitelist">Approve</div>
-                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist">Enable</div>
-                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress&&whitelist">Enable</div>
+                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist">Approve</div>
+                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress">Approve</div>
+                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist">Enable</div>
+                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress">Enable</div>
 
-                <div   v-show="isShowProgress&&whitelist" class="pc-ido-btn3x"  @click="waiting">
+                <div v-show="isShowProgress&&ogWhitelist" class="pc-ido-btn3x" @click="waiting">
                   <img :src="gif"  style="width: 20px;height: 20px;margin-top: 15px;"   alt="zh" />
                   </div>
-                <div  class="pc-ido-btn3" v-show="!whitelist&&step==2" @click="goLink(1)"> need whitelist</div>
+                <div class="pc-ido-btn3" v-show="!ogWhitelist&&step==2" @click="goLink(1)"> need whitelist</div>
 
                 <div   v-show="step!=3"  style="width: 400px;height: 2px;background: #5F5F5F;margin: 40px auto 0px auto;"></div>
 
@@ -424,14 +424,14 @@
           height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
         </div>
 
-        <div @click="OgApprove()" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist" class="h5-ido-btn3" >
+        <div @click="OgApprove()" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
           Approve
         </div>
         <div @click="PublicApprove()" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Approve
         </div>
 
-        <div @click="OgSale()" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&whitelist" class="h5-ido-btn3" >
+        <div @click="OgSale()" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
           Enable
         </div>
         <div @click="publicSale()" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
@@ -441,10 +441,10 @@
 
 
 
-        <div   v-show="isShowProgress&&whitelist"  class="h5-ido-btn3x" @click="waiting">
+        <div v-show="isShowProgress&&ogWhitelist" class="h5-ido-btn3x" @click="waiting">
           <img :src="gif"  style="width: 0.37rem;height: 0.37rem;margin-top: 0.15rem;"   alt="zh" />
         </div>
-        <div   v-show="!whitelist&&step==2"  class="h5-ido-btn3"  @click="goLink(1)">
+        <div v-show="!ogWhitelist&&step==2" class="h5-ido-btn3" @click="goLink(1)">
           need whitelist
         </div>
 
@@ -736,7 +736,7 @@ export default {
       address:'',
       stakeAmount: '',
       isOgMarket:true,
-      whitelist:false,
+      ogWhitelist:false,
       inviteable:false,
 
       isShowProgress:false,
@@ -983,7 +983,7 @@ export default {
             {
               target: this.data.IDO.OG.contractAddress,
               call: ['whitelist(address)(bool)',this.address],
-              returns: [['whitelist']]
+              returns: [['OGwhitelist']]
             },
             {
               target: this.data.IDO.OG.contractAddress,
@@ -1061,8 +1061,8 @@ export default {
         }else if(update.type=='currentAddressBalanceOf5'){
           this.currentAddressBalanceOf5 = update.value /  this.data.IDO.NOG.scala ;
           this.currentAddressBalanceOf5_format = this.formatAmount(this.currentAddressBalanceOf5);
-          }else if(update.type=='whitelist'){
-          this.whitelist = update.value ;
+        }else if(update.type=='whitelist'){
+          this.ogWhitelist = update.value ;
         }else if(update.type=='inviteable'){
           this.inviteable = update.value ;
         }else if(update.type=='openAtOG'){
@@ -1133,7 +1133,7 @@ export default {
         this.refAddress =  this.address
       }
 
-      if(!this.whitelist){
+      if(!this.ogWhitelist){
         this.$message.error('Error,please use whitelist! ');
         return
       }
@@ -1151,7 +1151,7 @@ export default {
       );
       this.isShowProgress = false;
       this.getInfo();
-      this.getAllowanceValue();
+      await this.getAllowanceValue();
       if (!resApprove || !resApprove.status) {
         this.$message.error('Approve Failure');
         return;
@@ -1177,7 +1177,7 @@ export default {
       );
       this.isShowProgress = false;
       this.getInfo();
-      this.getAllowanceValue();
+      await this.getAllowanceValue();
       if (!resApprove || !resApprove.status) {
         this.$message.error('Approve Failure');
         return;
@@ -1211,7 +1211,7 @@ export default {
       }else{
         this.refAddress =  this.address
       }
-      if(!this.whitelist){
+      if(!this.ogWhitelist){
         this.$message.error('Error,please use whitelist! ');
         return
       }
