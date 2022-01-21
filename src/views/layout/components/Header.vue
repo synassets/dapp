@@ -135,8 +135,7 @@ mounted() {
   window.ethereum.on("accountsChanged", function(accounts) {
     init();
     thisThat.address= accounts[0];
-    console.log('accountsChanged1='+accounts[0]);//一旦切换账号这里就会执行
-
+    console.log('accountsChanged1='+accounts[0]);
   });
 },
 

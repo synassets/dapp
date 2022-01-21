@@ -169,10 +169,10 @@
                   <div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 8px;" >{{'MAX'}}</div>
 
                 </div>
-                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist">Approve</div>
-                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress">Approve</div>
-                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist">Enable</div>
-                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress">Enable</div>
+                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist">Approve</div>
+                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress">Approve</div>
+                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist">Enable</div>
+                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress">Enable</div>
 
                 <div v-show="isShowProgress&&ogWhitelist" class="pc-ido-btn3x" @click="waiting">
                   <img :src="gif"  style="width: 20px;height: 20px;margin-top: 15px;"   alt="zh" />
@@ -424,17 +424,17 @@
           height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
         </div>
 
-        <div @click="OgApprove()" v-show="step==2&&!this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
+        <div @click="OgApprove()" v-show="step==2&&!this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
           Approve
         </div>
-        <div @click="PublicApprove()" v-show="step==2&&!this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
+        <div @click="PublicApprove()" v-show="step==2&&!this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Approve
         </div>
 
-        <div @click="OgSale()" v-show="step==2&&this.isOGApprovaled&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
+        <div @click="OgSale()" v-show="step==2&&this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
           Enable
         </div>
-        <div @click="publicSale()" v-show="step==2&&this.isPublicSaleApprovaled&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
+        <div @click="publicSale()" v-show="step==2&&this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Enable
         </div>
 
@@ -665,9 +665,9 @@ export default {
       pc_ido_img1,
       pc_ido_img2,
       allowance2 :0,
-      isOGApprovaled:false,
+      isOGApproved:false,
       allowance5 :0,
-      isPublicSaleApprovaled:false,
+      isPublicSaleApproved:false,
       timePurchased2: '',
       timePurchased5: '',
       countDown:'Count down   ',
@@ -762,12 +762,7 @@ export default {
   created() {
     this.data =  getDATA();
     let thisThat = this;
-    window.ethereum.on("accountsChanged", function(accounts) {
-      init();
-      thisThat.address= accounts[0];
-      console.log('accountsChanged2='+accounts[0]);//一旦切换账号这里就会执行
 
-    });
     this.refAddress = Cookies.get("ref");
 
     this.configData = getConfigData()
@@ -785,6 +780,17 @@ export default {
     setInterval(this.timeDeal, 1000);
 
   },
+
+  mounted() {
+    let thisThat = this;
+    window.ethereum.on("accountsChanged", function(accounts) {
+      init();
+      thisThat.address= accounts[0];
+      console.log('accountsChanged1='+accounts[0]);//
+
+    });
+  },
+
 
   methods: {
     onCopy(e){
@@ -1092,9 +1098,9 @@ export default {
       if (res.status) {
         this.allowance2 = Number(formatWei(res.data)).toFixed(0);
         if(this.allowance2 <999999){
-          this.isOGApprovaled = false;
+          this.isOGApproved = false;
         }else{
-          this.isOGApprovaled = true;
+          this.isOGApproved = true;
         }
       }
 
@@ -1103,9 +1109,9 @@ export default {
       if (result.status) {
         this.allowance5 = Number(formatWei(result.data)).toFixed(0);
         if(this.allowance5 <999999){
-          this.isPublicSaleApprovaled = false;
+          this.isPublicSaleApproved = false;
         }else{
-          this.isPublicSaleApprovaled = true;
+          this.isPublicSaleApproved = true;
         }
       }
     },
@@ -1156,7 +1162,7 @@ export default {
         this.$message.error('Approve Failure');
         return;
       }else{
-        this.isOGApprovaled = true;
+        this.isOGApproved = true;
       }
     },
     async PublicApprove() {
@@ -1182,7 +1188,7 @@ export default {
         this.$message.error('Approve Failure');
         return;
       }else{
-        this.isPublicSaleApprovaled = true;
+        this.isPublicSaleApproved = true;
 
       }
     },
@@ -1243,7 +1249,7 @@ export default {
             this.stakeAmount
         ) {
           this.$message.error('Error,please try again and confirm the transaction!');
-          this.isOGApprovaled = false;
+          this.isOGApproved = false;
           return;
         }
 
@@ -1326,7 +1332,7 @@ export default {
 
         if (this.allowance5 <this.stakeAmount) {
           this.$message.error('Error,please try again and confirm the transaction!');
-          this.isPublicSaleApprovaled = false;
+          this.isPublicSaleApproved = false;
           return;
         }
         if (this.stakeAmount>this.myAllocationAmount5) {
