@@ -22,7 +22,7 @@ const app = {
     inviter: "",
     usdtBalance: 0,
 
-    lang: "zh-TW",
+    lang: "en",
     wallet: "",
     is_wallet: false,
     is_guide: false,

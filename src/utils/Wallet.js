@@ -17,21 +17,8 @@ export let web3 = null,
   eminfo_update_timer = null;
 const contarctData =  require('../config/data.json')
 export function getDATA() {
-  let chainType = Cookies.get("CHAIN_TYPE");
 
-  if (!chainType||chainType.length==0) {
-    chainType = "SAT";
-  }
-
-  let data = {};
-  if(chainType=='ETH'){
-    data = contarctData.ETH
-  }else if(chainType=='DOT'){
-    data = contarctData.DOT
-  }else if(chainType=='SAT'){
-    data = contarctData.SAT
-  }
-  return data
+  return contarctData.SAT
 
 }
 
@@ -236,9 +223,8 @@ export function getAddress() {
   let address = "";
   if (typeof window.ethereum != "undefined") {
     address = window.ethereum.selectedAddress;
-    // alert("fsdafdsa = " + window.ethereum.networkVersion);
   } else {
-    // alert(" window.web3.eth. = " + window.web3.eth.networkVersion);
+   
   }
   return address;
 }

@@ -176,8 +176,8 @@
 
                 <div v-show="isShowProgress&&ogWhitelist" class="pc-ido-btn3x" @click="waiting">
                   <img :src="gif"  style="width: 20px;height: 20px;margin-top: 15px;"   alt="zh" />
-                  </div>
-                <div class="pc-ido-btn3" v-show="!ogWhitelist&&step==2" @click="goLink(1)"> need whitelist</div>
+                </div>
+                <div class="pc-ido-btn3" v-show="isOgMarket&&!ogWhitelist&&step==2" @click="goLink(1)"> need whitelist</div>
 
                 <div   v-show="step!=3"  style="width: 400px;height: 2px;background: #5F5F5F;margin: 40px auto 0px auto;"></div>
 
@@ -441,10 +441,10 @@
 
 
 
-        <div v-show="isShowProgress&&ogWhitelist" class="h5-ido-btn3x" @click="waiting">
+        <div v-show="isShowProgress" class="h5-ido-btn3x" @click="waiting">
           <img :src="gif"  style="width: 0.37rem;height: 0.37rem;margin-top: 0.15rem;"   alt="zh" />
         </div>
-        <div v-show="!ogWhitelist&&step==2" class="h5-ido-btn3" @click="goLink(1)">
+        <div v-show="isOgMarket&&!ogWhitelist&&step==2" class="h5-ido-btn3" @click="goLink(1)">
           need whitelist
         </div>
 

@@ -1,13 +1,12 @@
 import Vue from "vue";
-// import ElementUI from "element-ui";
-// import "element-ui/lib/theme-chalk/index.css";
+
 import i18n from "@/utils/lang";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./router/action";
 import bus from "@/utils/bus";
-// import "amfe-flexible";
+
 import "@/utils/screen";
 import moment from "moment";
 import "@/assets/css/public.scss";
@@ -28,7 +27,7 @@ Vue.prototype.$moment = moment;
 Vue.use(VueClipboard);
 import Cookies from "js-cookie";
 Vue.config.productionTip = false;
-//  - 
+
 const ElementUI = window.ELEMENT;
 let Base64 = require('js-base64').Base64
 Vue.use(ElementUI, {
@@ -41,8 +40,7 @@ if (ref != null) {
   ref = Base64.decode(ref);
   if (isAddress(ref)) {
     Cookies.set("ref", ref, { expires: 31 });
-/*    store.commit(SET_REF_INVITE_CODE, ref);
-    this.$store.commit("SET_INVITER", ref);*/
+
   }
 }
 
@@ -59,32 +57,13 @@ if (is_wallet) {
     default:
       wallet = WALLET_OTHER;
   }
-  //   if (window.ethereum.networkVersion != 56) {
-  //     is_wallet = false;
-  //   }
+
 }
 store.dispatch("update_env", {
   wallet,
   is_wallet,
 });
 
-/**
- * If you try to jump or open
- */
-/*if (!is_wallet) {
-  const iframe = document.createElement("iframe");
-  iframe.style.display = "none";
-  iframe.src =
-    "imtokenv2://navigate?screen=DappView&url=" +
-    encodeURIComponent(window.location.href);
-  document.body.appendChild(iframe);
-
-  setTimeout(function() {
-    if (!document.hidden && !is_weixin()) {
-      store.commit(SET_IS_NO_WALLET, true);
-    }
-  }, 5000);
-}*/
 
 
 

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+
 import { STATISTIC_SET_IS_LOADING, STATISTIC_SET_IS_LOADING_ERROR, STATISTIC_CLEAN_ALL, STATISTIC_UPDATE_DATA } from '../mutation-types';
 
 export default {
