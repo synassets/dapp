@@ -11,7 +11,7 @@ const wallet  ={
    },
   getters: {
     is_connected: state => {
-      let teo =  state.target_chain_id == state.chain_id && state.target_chain_id !=0 && state.address!="0x0000000000000000000000000000000000000000";
+      let teo =  state.target_chain_id == state.chain_id && state.target_chain_id !=0 && state.address!="0x0000000000000000000000000000000000000000"&& state.address!="0";
       return teo;
     },
     chain_id: state => {
