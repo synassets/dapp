@@ -101,9 +101,9 @@
                   <div v-show="!isOgMarket"  class="pc-div1-right" >{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala)  +' '+ this.data.IDO.OG.current  }}</div>
                 </div>
                 <div style="width: 380px;height: 16px;background: #5F5F5F;border-radius:  8px;margin: 20px auto 0px auto;position: relative;">
-                  <div v-show="isOgMarket"   :style="'width:'+ this.pcProgress2+'px;'" class="pc-progress">
+                  <div v-show="isOgMarket" :style="'width:'+ this.pc_OG_Progress+'px;'" class="pc-progress">
                   </div>
-                  <div v-show="!isOgMarket"  :style="'width:'+ this.pcProgress5+'px;'" class="pc-progress">
+                  <div v-show="!isOgMarket" :style="'width:'+ this.pc_NOG_Progress+'px;'" class="pc-progress">
                   </div>
                 </div>
 
@@ -121,8 +121,8 @@
                   Closed
                 </div>
 
-                <img v-show="this.inviteable" :src="share"  class="pc_share_img" alt />
-                <div  v-show="this.inviteable"  class="pc_share_img" style="font-size: 14px;z-index: 999" @click="showInviteClick()">
+                <img v-show="this.is_og_ambassador" :src="share" class="pc_share_img" alt />
+                <div v-show="this.is_og_ambassador" class="pc_share_img" style="font-size: 14px;z-index: 999" @click="showInviteClick()">
 
               <span class="pc_share_div">Only ambassador have the right of invitation
                 and gain SAT invite reward of 4%,
@@ -147,8 +147,8 @@
 
                 <div  v-show="step!=3"  style="width: 400px;margin:20px auto 0px auto;display: flex;font-size: 14px; font-family: Selawik;font-weight: 400;color: #AAAAAA;position: relative;">
                   Allocation
-                  <div v-show="isOgMarket"  style="position: absolute;right: 0px;color: #FFFFFF;">{{this.myAllocationAmount2_format +' ' +this.data.IDO.OG.current+'  (Max)'}}</div>
-                  <div v-show="!isOgMarket"  style="position: absolute;right: 0px;color: #FFFFFF;">{{this.myAllocationAmount5_format +' ' +this.data.IDO.NOG.current+'  (Max)'}}</div>
+                  <div v-show="isOgMarket"  style="position: absolute;right: 0px;color: #FFFFFF;">{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + '  (Max)' }}</div>
+                  <div v-show="!isOgMarket"  style="position: absolute;right: 0px;color: #FFFFFF;">{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + '  (Max)' }}</div>
                 </div>
                 <div  v-show="step!=3"  style="width: 400px;margin:20px auto 0px auto;display: flex;font-size: 14px; font-family: Selawik;font-weight: 400;color: #AAAAAA;position: relative;">
                   Price per token
@@ -169,10 +169,10 @@
                   <div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 8px;" >{{'MAX'}}</div>
 
                 </div>
-                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist">Approve</div>
-                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress">Approve</div>
-                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist">Enable</div>
-                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress">Enable</div>
+                <div @click="OgApprove()" class="pc-ido-btn3" v-show="step==2&&!isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist">Approve</div>
+                <div @click="PublicApprove()" class="pc-ido-btn3" v-show="step==2&&!isPublicSaleApproved&&!isOgMarket&&!isShowProgress">Approve</div>
+                <div @click="OgSale()" class="pc-ido-btn3" v-show="step==2&&isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist">Enable</div>
+                <div @click="publicSale()" class="pc-ido-btn3" v-show="step==2&&isPublicSaleApproved&&!isOgMarket&&!isShowProgress">Enable</div>
 
                 <div v-show="isShowProgress&&ogWhitelist" class="pc-ido-btn3x" @click="waiting">
                   <img :src="gif"  style="width: 20px;height: 20px;margin-top: 15px;"   alt="zh" />
@@ -186,21 +186,21 @@
 
                 <div   v-show="step!=3"  style="width: 300px;margin: 20px auto 0px auto;display: flex;">
                   <div class="pc-ido-time">{{ this.mDay >=10 ? this.mDay:'0'+this.mDay}}</div>
-                  <div style="margin-left: 27px;margin-top: 10px">
+                  <div style="margin-left: 27px;margin-top: 8px">
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;"></div>
 
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"></div>
                   </div>
                   <div class="pc-ido-time" style="margin-left: 27px;">{{ this.mH0+''+this.mH1}}</div>
 
-                  <div style="margin-left: 27px;margin-top: 10px">
+                  <div style="margin-left: 27px;margin-top: 8px">
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;"></div>
 
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"></div>
                   </div>
                   <div class="pc-ido-time" style="margin-left: 27px;">{{ this.mM0+''+this.mM1}}</div>
 
-                  <div style="margin-left: 27px;margin-top: 10px">
+                  <div style="margin-left: 27px;margin-top: 8px">
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;"></div>
 
                     <div style="width: 6px; height: 6px;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"></div>
@@ -224,7 +224,7 @@
 
                   </div>
 
-                  <div class="pc-ido-time1" style="margin-left: 27px;">{{ 'Seconds'}}</div>
+                  <div class="pc-ido-time1" style="margin-left: 15px;">{{ 'Seconds'}}</div>
 
                 </div>
                 <div  v-show="step==3"  style="width: 400px;margin:20px auto 0px auto;display: flex;font-size: 14px; font-family: Selawik;font-weight: 400;color: #AAAAAA;position: relative;">
@@ -279,8 +279,8 @@
       <!----not start --->
       <div style="width: 8.27rem;padding-bottom: 0.63rem;background: #242424;border-radius: 0.13rem;margin:0.55rem auto 0rem auto;position: relative; "   v-show="step==1" >
 
-        <img v-show="this.inviteable" :src="share"  class="h5_share_img" alt />
-        <div v-show="this.inviteable"   class="h5_share_img" @click="showInviteClick()">
+        <img v-show="this.is_og_ambassador" :src="share" class="h5_share_img" alt />
+        <div v-show="this.is_og_ambassador" class="h5_share_img" @click="showInviteClick()">
 
               <span class="h5_share_div">Only ambassador have the right of invitation
                 and gain SAT invite reward of 4%,
@@ -296,8 +296,8 @@
 
         <div style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;">
           Allocation  Price per token
-          <div v-show="isOgMarket" style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{this.myAllocationAmount2_format +' ' +this.data.IDO.OG.current+'  (Max)'}}</div>
-          <div v-show="!isOgMarket" style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{this.myAllocationAmount5_format +' ' +this.data.IDO.NOG.current+'  (Max)'}}</div>
+          <div v-show="isOgMarket" style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + '  (Max)' }}</div>
+          <div v-show="!isOgMarket" style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + '  (Max)' }}</div>
         </div>
         <div style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;">
           Price per token
@@ -338,19 +338,19 @@
           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;">{{ this.mS0+''+this.mS1}}</div>
         </div>
         <div style="width: 3.7rem;margin: 0.3rem auto 0 auto;display: flex;">
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Days'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Days'}}</div>
           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
 
           </div>
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Hours'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Hours'}}</div>
           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
 
           </div>
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Minutes'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Minutes'}}</div>
           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
 
           </div>
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Seconds'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Seconds'}}</div>
         </div>
       </div>
 
@@ -383,8 +383,8 @@
       <!-----end close-->
       <!--0   -->
       <div style="width: 8.27rem;padding-bottom: 0.63rem;background: #242424;border-radius: 0.13rem;margin:0.55rem auto 0rem auto;position: relative; "  v-show="step==2">
-        <img  v-show="this.inviteable" :src="share"  class="h5_share_img" alt />
-        <div   v-show="this.inviteable" class="h5_share_img" @click="showInviteClick()">
+        <img v-show="this.is_og_ambassador" :src="share" class="h5_share_img" alt />
+        <div v-show="this.is_og_ambassador" class="h5_share_img" @click="showInviteClick()">
 
               <span class="h5_share_div">Only ambassador have the right of invitation
                 and gain SAT invite reward of 4%,
@@ -399,8 +399,8 @@
         <div style="height: 0.03rem; background: #5F5F5F;width: 6.8rem;text-align: center;margin: 0.32rem auto 0rem auto;"></div>
         <div style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;">
           Allocation  Price per token
-          <div v-show="isOgMarket"  style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{this.myAllocationAmount2_format +' ' +this.data.IDO.OG.current+'  (Max)'}}</div>
-          <div v-show="!isOgMarket"  style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{this.myAllocationAmount5_format +' ' +this.data.IDO.NOG.current+'  (Max)'}}</div>
+          <div v-show="isOgMarket"  style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + '  (Max)' }}</div>
+          <div v-show="!isOgMarket"  style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;">{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + '  (Max)' }}</div>
 
         </div>
         <div style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;">
@@ -419,22 +419,23 @@
         <div style="width: 6.8rem;height: 0.7rem;background: #FFFFFF;margin: 0.1rem auto 0 auto;position: relative">
           <input  v-model="stakeAmount" type="text" style="height:0.6rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"  />
 
-          <div @click="clickMaxValue()" style="cursor: pointer;border-radius: 0.5rem;padding: 0.05rem 0.2rem;font-size: 0.1rem; font-family: Selawik;background: #1f1f1f; color: #FFFFFF;position: absolute;right: 0.2rem;top: 0.1rem;" >{{'MAX'}}</div>
+          <div @click="clickMaxValue()" style="cursor: pointer;border-radius: 0.5rem;padding: 0.05rem 0.2rem;font-size: 0.1rem; font-family: Selawik;background: #1f1f1f; color: #FFFFFF;position: absolute;right: 0.2rem;
+          top: 0.25rem;" >{{'MAX'}}</div>
           <!--<div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;
           height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
         </div>
 
-        <div @click="OgApprove()" v-show="step==2&&!this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
+        <div @click="OgApprove()" v-show="step==2&&!isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
           Approve
         </div>
-        <div @click="PublicApprove()" v-show="step==2&&!this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
+        <div @click="PublicApprove()" v-show="step==2&&!isPublicSaleApproved&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Approve
         </div>
 
-        <div @click="OgSale()" v-show="step==2&&this.isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
+        <div @click="OgSale()" v-show="step==2&&isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist" class="h5-ido-btn3" >
           Enable
         </div>
-        <div @click="publicSale()" v-show="step==2&&this.isPublicSaleApproved&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
+        <div @click="publicSale()" v-show="step==2&&isPublicSaleApproved&&!isOgMarket&&!isShowProgress" class="h5-ido-btn3">
           Enable
         </div>
 
@@ -475,19 +476,19 @@
           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;">{{ this.mS0+''+this.mS1}}</div>
         </div>
         <div style="width: 3.7rem;margin: 0.3rem auto 0 auto;display: flex;">
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Days'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Days'}}</div>
           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
 
           </div>
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Hours'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Hours'}}</div>
           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
 
           </div>
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Minutes'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Minutes'}}</div>
           <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
 
           </div>
-          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;">{{ 'Seconds'}}</div>
+          <div style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.7rem">{{ 'Seconds'}}</div>
         </div>
       </div>
 
@@ -500,9 +501,9 @@
           <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current  }}</div>
         </div>
         <div style="width: 6.8rem; height: 0.21rem;background: #5F5F5F;border-radius: 0.13rem;margin: 0.31rem auto 0rem auto;position: relative;">
-          <div  v-show="isOgMarket"  :style="'width:'+ this.h5Progress2+'rem;'"   class="h5-progress">
+          <div v-show="isOgMarket" :style="'width:'+ this.h5_OG_Progress+'rem;'" class="h5-progress">
           </div>
-          <div  v-show="!isOgMarket"   :style="'width:'+ this.h5Progress5+'rem;'"  class="h5-progress">
+          <div v-show="!isOgMarket" :style="'width:'+ this.h5_NOG_Progress+'rem;'" class="h5-progress">
           </div>
         </div>
 
@@ -644,14 +645,11 @@ let Base64 = require('js-base64').Base64
 
 import moment from "moment";
 import {
-  formatWei,
-  getAddress,
-  init, toWei,
-  getChainId, getDATA, doApprove2New, saleSwap, getAllowanceNew, getConfigData, isAddress
+    toWei,
+   getDATA, doApprove2New, saleSwap,  getConfigData, isAddress
 } from "../../utils/Wallet";
 import { createWatcher } from '@makerdao/multicall';
 import {share,close,gif} from "../../utils/images";
-import Cookies from "js-cookie";
 export default {
   name: "Index",
   components: {
@@ -664,10 +662,9 @@ export default {
       gif,
       pc_ido_img1,
       pc_ido_img2,
-      allowance2 :0,
-      isOGApproved:false,
-      allowance5 :0,
-      isPublicSaleApproved:false,
+      OG_allowance :0,
+
+      NOG_allowance :0,
       timePurchased2: '',
       timePurchased5: '',
       countDown:'Count down   ',
@@ -699,19 +696,19 @@ export default {
       amountTotal02_format:'',
       amountTotal05_format:'',
 
-      amountSwapped12:0,
+      my_amount_OG_Swapped:0,
       amountSwapped15:0,
 
       myAllocationAmount2:0,
       myAllocationAmount5:0,
 
-      myAllocationAmount2_format:0,
-      myAllocationAmount5_format:0,
+      my_Allocation_OG_Amount_format:0,
+      my_Allocation_NOG_Amount_format:0,
 
-      pcProgress2:0,
-      pcProgress5:0,
-      h5Progress2:0,
-      h5Progress5:0,
+      pc_OG_Progress:0,
+      pc_NOG_Progress:0,
+      h5_OG_Progress:0,
+      h5_NOG_Progress:0,
 
       mDay :0,
       mH0 :0,
@@ -732,28 +729,38 @@ export default {
       isShowTimestamp5: false,
       showTimestamp2: '',
       showTimestamp5: '',
-
-      address:'',
       stakeAmount: '',
       isOgMarket:true,
       ogWhitelist:false,
-      inviteable:false,
+      is_og_ambassador:false,
 
       isShowProgress:false,
       showInviteDialog:false,
       shareLinkUrl:'',
-      refAddress:'',
       openAtOG:0,
       closeAtOG:0  ,
       openAtNOG:0,
       closeAtNOG:0  ,
-      gasPrice:0
+      gasPrice:0,
+      Mult_watcher:0
     };
   },
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      address:state => state.wallet.address,
+      refAddress:state => state.wallet.invite_address,
+
+      isPublicSaleApproved:state =>{
+          return state.NOG_allowance > 999999
+        },
+      isOGApproved:state =>{
+        return state.OG_allowance > 999999
+      },
+
     }),
+
+
     inviteLink() {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
     },
@@ -761,34 +768,12 @@ export default {
   },
   created() {
     this.data =  getDATA();
-    let thisThat = this;
-
-    this.refAddress = Cookies.get("ref");
 
     this.configData = getConfigData()
-    this.OgContractAddress = this.data.IDO.OG.contractAddress
-    this.NogContractAddress = this.data.IDO.NOG.contractAddress
-
-    this.address= getAddress();
-
-    this.getInfo()
-    this.getChainId();
-
-
-    this.getAllowanceValue();
+    this.getStartWatch()
 
     setInterval(this.timeDeal, 1000);
 
-  },
-
-  mounted() {
-    let thisThat = this;
-    window.ethereum.on("accountsChanged", function(accounts) {
-      init();
-      thisThat.address= accounts[0];
-      console.log('accountsChanged1='+accounts[0]);//
-
-    });
   },
 
 
@@ -814,24 +799,10 @@ export default {
       this.shareLinkUrl = "http://" + window.location.host + "?ref=" + myAddress;
     },
 
-    async getChainId(){
-      let msg = await getChainId();
-      if(msg.length > 0){
-        this.$message.error(msg);
-        return;
-      }
-      let thatthis = this;
-      setTimeout(() => {
-        thatthis.address = getAddress();
-      }, 3000);
-    },
-    async initCollect() {
-      await init();
-      await this.getChainId();
-    },
     closedClickSetDialog(){
       this.showMigrateDialog = false;
     },
+
     clickMaxValue(){
       if(this.isOgMarket){
         if(this.myAllocationAmount2 > this.currentAddressBalanceOf2){
@@ -928,22 +899,32 @@ export default {
       // return m + ' '+d+'th'+' @ '+h+' UTC'
       return h + ' , '+d+'th'+' ,  '+m+' UTC'
     },
-    getInfo(){
-
-      if(this.address==''){
-        this.address = '0x0000000000000000000000000000000000000000';
+    getStartWatch(){
+      if(this.Mult_watcher){
+        console.error("this.Mult_watcher Is Created")
+        return
       }
-      const watcher = createWatcher(
+      this.Mult_watcher = createWatcher(
           [
+            {
+              target: this.data.IDO.OG.currentAddress,
+              call: ['allowance(address,address)(uint256)',this.address,this.data.IDO.OG.contractAddress],
+              returns: [['OG_allowance']]
+            },
+            {
+              target: this.data.IDO.NOG.currentAddress,
+              call: ['allowance(address,address)(uint256)',this.address,this.data.IDO.NOG.contractAddress],
+              returns: [['NOG_allowance']]
+            },
             {
               target: this.data.IDO.OG.contractAddress,
               call: ['amountSwapped1(address)(uint256)',this.address],
-              returns: [['amountSwapped12']]
+              returns: [['my_amount_OG_Swapped']]
             },
             {
               target: this.data.IDO.NOG.contractAddress,
               call: ['amountSwapped1(address)(uint256)',this.address],
-              returns: [['amountSwapped15']]
+              returns: [['my_amount_NOG_Swapped']]
             },
             {
               target: this.data.IDO.OG.contractAddress,
@@ -994,7 +975,7 @@ export default {
             {
               target: this.data.IDO.OG.contractAddress,
               call: ['inviteable(address)(bool)',this.address],
-              returns: [['inviteable']]
+              returns: [['OG_ambassador']]
             },
             {
               target: this.data.IDO.OG.contractAddress,
@@ -1023,31 +1004,38 @@ export default {
             interval: 15000
           }
       );
-      watcher.subscribe(update => {
+      this.Mult_watcher.subscribe(update => {
         console.log(`Update: ${update.type} = ${update.value}`);
-        if(update.type=='amountSwapped12'){
-          this.amountSwapped12 = update.value /  this.data.IDO.OG.scala ;
+
+        if(update.type=='OG_allowance'){
+          this.OG_allowance = (Number(update.value)/10**18).toFixed(0)
+        }
+        else if(update.type=='NOG_allowance'){
+          this.NOG_allowance = (Number(update.value)/10**18).toFixed(0)
+
+        }else  if(update.type=='my_amount_OG_Swapped'){
+          this.my_amount_OG_Swapped = update.value /  this.data.IDO.OG.scala ;
           let maxAmount1PerWallet = this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala ;
-          this.myAllocationAmount2 =  maxAmount1PerWallet - this.amountSwapped12;
-          this.myAllocationAmount2_format = this.formatAmount(this.myAllocationAmount2);
-        }else if(update.type=='amountSwapped15'){
+          this.myAllocationAmount2 =  maxAmount1PerWallet - this.my_amount_OG_Swapped;
+          this.my_Allocation_OG_Amount_format = this.formatAmount(this.myAllocationAmount2);
+        }else if(update.type=='my_amount_NOG_Swapped'){
           this.amountSwapped15 = update.value /  this.data.IDO.NOG.scala ;
           let maxAmount1PerWallet = this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala ;
           this.myAllocationAmount5 =  maxAmount1PerWallet - this.amountSwapped15;
-          this.myAllocationAmount5_format = this.formatAmount(this.myAllocationAmount5);
+          this.my_Allocation_NOG_Amount_format = this.formatAmount(this.myAllocationAmount5);
         }else if(update.type=='amountTotal12'){
           this.amountTotal12 = update.value /  this.data.IDO.OG.scala ;
           this.amountTotal12_format = this.formatAmount(this.amountTotal12);
           if(this.amountTotal12>0 ){
-            this.pcProgress2 =   update.value*380/this.data.IDO.OG.maxAmount1;
-            this.h5Progress2 =   update.value*6.8/this.data.IDO.OG.maxAmount1;
+            this.pc_OG_Progress =   update.value*380/this.data.IDO.OG.maxAmount1;
+            this.h5_OG_Progress =   update.value*6.8/this.data.IDO.OG.maxAmount1;
           }
         }else if(update.type=='amountTotal15'){
           this.amountTotal15 =  update.value /  this.data.IDO.NOG.scala ;
           this.amountTotal15_format = this.formatAmount(this.amountTotal15);
           if(this.amountTotal15>0 ){
-            this.pcProgress5 =   update.value*380/this.data.IDO.NOG.maxAmount1;
-            this.h5Progress5 =   update.value*6.8/this.data.IDO.NOG.maxAmount1;
+            this.pc_NOG_Progress =   update.value*380/this.data.IDO.NOG.maxAmount1;
+            this.h5_NOG_Progress =   update.value*6.8/this.data.IDO.NOG.maxAmount1;
           }
         }else if(update.type=='amountTotal02'){
           this.amountTotal02 = update.value /  this.data.IDO.OG.scala ;
@@ -1069,8 +1057,8 @@ export default {
           this.currentAddressBalanceOf5_format = this.formatAmount(this.currentAddressBalanceOf5);
         }else if(update.type=='whitelist'){
           this.ogWhitelist = update.value ;
-        }else if(update.type=='inviteable'){
-          this.inviteable = update.value ;
+        }else if(update.type=='OG_ambassador'){
+          this.is_og_ambassador = update.value ;
         }else if(update.type=='openAtOG'){
           this.openAtOG = update.value ;
           this.timePurchased2 =this.openAtOG ;
@@ -1087,41 +1075,18 @@ export default {
           this.time5 = this.format(this.timePurchased5)
         }
       });
-      watcher.onNewBlock(blockNumber => {
-        this.blockNumber = blockNumber;
-      });
-      watcher.start();
+
+      this.Mult_watcher.start();
+
     },
 
-    async getAllowanceValue() {
-      const res = await getAllowanceNew("coin", this.data.IDO.OG.currentAddress,this.data.IDO.OG.contractAddress);
-      if (res.status) {
-        this.allowance2 = Number(formatWei(res.data)).toFixed(0);
-        if(this.allowance2 <999999){
-          this.isOGApproved = false;
-        }else{
-          this.isOGApproved = true;
-        }
-      }
-
-      const result = await getAllowanceNew("coin", this.data.IDO.NOG.currentAddress,this.data.IDO.NOG.contractAddress);
-
-      if (result.status) {
-        this.allowance5 = Number(formatWei(result.data)).toFixed(0);
-        if(this.allowance5 <999999){
-          this.isPublicSaleApproved = false;
-        }else{
-          this.isPublicSaleApproved = true;
-        }
-      }
-    },
     async OgApprove() {
 
       if(this.isShowProgress){
         this.$message.info('Waiting ');
         return
       }
-      if(!this.inviteable){
+      if(!this.is_og_ambassador){
         if(!isAddress(this.refAddress)){
           this.$message.error('Error,please use invitation link!');
           return
@@ -1144,30 +1109,27 @@ export default {
         return
       }
       if(this.isShowTimestamp2){
-        this.$message.error('Coming soon');
+        this.$message.error('Coming soon....');
         return;
       }
       this.isShowProgress = true;
 
-      let resApprove = await doApprove2New(
-          toWei(99999999999),
-          'coin',
-          this.data.IDO.OG.currentAddress,
-          this.data.IDO.OG.contractAddress,
-      );
-      this.isShowProgress = false;
-      this.getInfo();
-      await this.getAllowanceValue();
-      if (!resApprove || !resApprove.status) {
-        this.$message.error('Approve Failure');
-        return;
-      }else{
-        this.isOGApproved = true;
+      try {
+        await doApprove2New(
+            toWei(99999999999),
+            'coin',
+            this.data.IDO.OG.currentAddress,
+            this.data.IDO.OG.contractAddress,
+        );
+        await this.Mult_watcher.poll();
+      } catch (e) {
+        console.error("OgApprove failed")
       }
+      this.isShowProgress = false;
     },
     async PublicApprove() {
       if(this.isShowProgress){
-        this.$message.info('Waiting ');
+        this.$message.info('Waiting.....');
         return
       }
       if(this.isShowTimestamp5){
@@ -1175,39 +1137,31 @@ export default {
         return;
       }
       this.isShowProgress = true;
-      let resApprove = await doApprove2New(
-          toWei(99999999999),
-          'coin',
-          this.data.IDO.NOG.currentAddress,
-          this.data.IDO.NOG.contractAddress,
-      );
-      this.isShowProgress = false;
-      this.getInfo();
-      await this.getAllowanceValue();
-      if (!resApprove || !resApprove.status) {
-        this.$message.error('Approve Failure');
-        return;
-      }else{
-        this.isPublicSaleApproved = true;
 
+      try {
+        await doApprove2New(
+            toWei(99999999999),
+            'coin',
+            this.data.IDO.NOG.currentAddress,
+            this.data.IDO.NOG.contractAddress,
+        );
+        await this.Mult_watcher.poll();
+      } catch (e) {
+        console.error("PublicApprove failed")
       }
+
+      this.isShowProgress = false;
+
     },
     async  OgSale(){
-      /*      if(true){
-              this.$message.info('over ');
-              return
-            }*/
+
       if(this.isShowProgress){
         this.$message.info('Waiting ');
         return
       }
-      if(!this.inviteable) {
+      if(!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
           this.$message.error('Error,please use invitation link!');
-          return
-        }
-        if (this.refAddress.length < 10) {
-          this.$message.error('Error,please use invitation link! ');
           return
         }
         if (this.refAddress == this.address) {
@@ -1225,7 +1179,7 @@ export default {
         this.$message.error('Coming soon');
         return;
       }
-      // this.showMask = true;
+
       try {
         if (isNaN(this.stakeAmount)) {
           this.$message.error( 'Error,please enter the correct amount!' ); //this.$t("mining.AmountNAN")
@@ -1244,33 +1198,23 @@ export default {
         }
 
 
-        if (
-            this.allowance2 <
-            this.stakeAmount
-        ) {
+        if (this.OG_allowance < this.stakeAmount ) {
           this.$message.error('Error,please try again and confirm the transaction!');
           this.isOGApproved = false;
           return;
         }
 
-        if (
-            this.currentAddressBalanceOf2 <
-            this.stakeAmount
-        ) {
+        if (this.currentAddressBalanceOf2 < this.stakeAmount ) {
           this.$message.error('Insufficient Balance !');
           return;
         }
-
         this.isShowProgress = true;
-        // toWei(this.stakeAmount)   ,
         let res = await saleSwap(
            this.stakeAmount * this.data.IDO.NOG.scala   ,
             'TokenSale',
             this.data.IDO.OG.contractAddress,
             this.refAddress
         );
-        this.isShowProgress = false;
-        this.getInfo();
         if (res.status){
           this.stakeAmount = '';
           this.$message.success('Success');
@@ -1278,41 +1222,34 @@ export default {
         }else {
           this.$message.error(res.error.message);
         }
-
+        await this.Mult_watcher.poll();
+        this.isShowProgress = false;
       }
       finally {
-        console.log('ok')
+        console.error('ok')
       }
     },
     waiting(){
-      this.$message.info('please waiting.');
+      this.$message.info('please wait.....');
     },
     async publicSale(){
 
-      /* if(true){
-         this.$message.info('over ');
-         return
-       }*/
+
       if(this.isShowProgress){
         this.$message.info('Waiting ');
         return
       }
-        if(!this.inviteable) {
-           if (!isAddress(this.refAddress)) {
-             this.$message.error('Error,please use invitation link!');
-             return
-           }
-           if (this.refAddress.length < 10) {
-             this.$message.error('Error,please use invitation link! ');
-             return
-           }
-           if (this.refAddress == this.address) {
-             this.$message.error('Error,invalid invitation !');
-             return
-           }
-         }else{
-           this.refAddress =  this.address
+
+       if (!isAddress(this.refAddress)) {
+           this.$message.error('Error,please use invitation link!');
+           return
          }
+
+       if (this.refAddress == this.address) {
+         this.$message.error('Error,invalid invitation !');
+         return
+       }
+
       if(this.isShowTimestamp5){
         this.$message.error('Coming soon');
         return;
@@ -1330,7 +1267,7 @@ export default {
           return;
         }
 
-        if (this.allowance5 <this.stakeAmount) {
+        if (this.NOG_allowance <this.stakeAmount) {
           this.$message.error('Error,please try again and confirm the transaction!');
           this.isPublicSaleApproved = false;
           return;
@@ -1350,8 +1287,7 @@ export default {
             this.data.IDO.NOG.contractAddress,
             this.refAddress
         );
-        this.isShowProgress = false;
-        this.getInfo();
+        await this.Mult_watcher.poll();
         if (res.status){
           this.stakeAmount = '';
           this.$message.success('Success');
@@ -1359,6 +1295,8 @@ export default {
         }else {
           this.$message.error(res.error.message);
         }
+
+        this.isShowProgress = false;
 
       } finally {
         /*     this.showMask = false;

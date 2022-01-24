@@ -35,7 +35,6 @@ export default {
 
   },
   methods: {
-
     handleEnvSet() {
       let config = this.baseConfig;
       console.log("===ENV==="+process.env.NODE_ENV);

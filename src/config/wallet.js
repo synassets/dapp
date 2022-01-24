@@ -1,5 +1,6 @@
-let contarct_data = null
 
-contarct_data =  require('./mainnet.json')
+let contract_data = null
 
-export const CONTARCT_DATA = contarct_data
+contract_data =  require('./mainnet.json')
+
+export const CONTRACT_DATA = contract_data

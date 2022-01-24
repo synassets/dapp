@@ -75,10 +75,12 @@ module.exports = {
   //  source map？
   productionSourceMap: process.env.NODE_ENV !== 'production',
 
+
+
+
   configureWebpack: config => {
     // 
     config.externals = externals;
-
     if(isProd){
       // 
       config.plugins.push(new UglifyJsPlugin({
@@ -100,6 +102,7 @@ module.exports = {
         }
       }))
     }
+
   },
 
 

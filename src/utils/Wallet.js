@@ -1,29 +1,19 @@
-import Web3, { utils } from "web3";
+import Web3  from "web3";
 import store from "@/store";
-import BigNumber from "bignumber.js";
-import Timer from "timer.js";
-import _ from "lodash";
 
 import {
-  CONTARCT_ETHPRO,
-
-  CONTARCT_DATA,
+  CONTRACT_DATA,
 } from "../config/wallet";
 
-import Cookies from "js-cookie";
 
-
-export let web3 = null,
-  eminfo_update_timer = null;
-const contarctData =  require('../config/data.json')
+export let web3 = null;
+const contractData =  require('../config/data.json')
 export function getDATA() {
-
-  return contarctData.SAT
-
+  return contractData.SAT
 }
 
 export function getConfigData() {
-  return contarctData.Config;
+  return contractData.Config;
 }
 
 
@@ -49,51 +39,85 @@ export async function getGasPrice() {
 
 
 export async function initConnection() {
-  if (store.state.app.is_wallet) {
-    const provider = window.ethereum || window.web3.currentProvider;
-    web3 = new Web3(provider);
-    if (typeof window.ethereum != "undefined") {
-      await window.ethereum.enable();
+  let is_wallet = !!window.ethereum || !!window.web3;
+
+  try {
+    try {
+      await store.commit("SET_IS_WALLET", is_wallet);
+      store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
+    } catch (e) {
+      console.error("initConnection err 1")
     }
-  } else {
-    const RPC = getConfigData().rpcUrl;
-    web3 = new Web3(RPC);
-  }
 
-  return web3;
-}
+    try {
+      if (is_wallet) {
+        const provider = window.ethereum || window.web3.currentProvider;
+        web3 = new Web3(provider);
+        if (typeof window.ethereum != "undefined") {
+          await window.ethereum.enable();
+        }
+      } else {
+        const RPC = getConfigData().rpcUrl;
+        web3 = new Web3(RPC);
+      }
+    } catch (e) {
+      console.error("initConnection err 2")
+    }
 
-export function initTimer() {
-  eminfo_update_timer = new Timer({
-    tick: 15,
-    ontick: _.throttle(() => {
-      updateEmInfo();
-      //  alert("ccc = "+getAddress())
-    }, 15000),
-  });
-}
+    try {
+      let chainId = await web3.eth.getChainId();
+      store.commit("SET_CHAIN_ID", chainId);
+      if (chainId != getConfigData().chainId) {  // polygon test 80001  polygon main 137
+        await switchChain();
+      }
 
-export function startTimer() {
-  if (
-    eminfo_update_timer != null &&
-    eminfo_update_timer.getStatus() != "started"
-  ) {
-    eminfo_update_timer.start(99999999);
+      chainId = await web3.eth.getChainId();
+      store.commit("SET_CHAIN_ID", chainId);
+    } catch (e) {
+      console.error("initConnection err 3")
+    }
+
+    try {
+      if (typeof window.ethereum != "undefined"){
+        window.ethereum.on("accountsChanged", function (accounts) {
+            updateAddress(accounts);
+        });
+      }
+
+    } catch (e) {
+      console.error(e.toString())
+    }
+
+
+    try {
+      await updateAddress(await getAddress());
+    } catch (e) {
+      console.error("initConnection err 4")
+    }
+    console.log("initConnection end");
+    return web3;
+
+  } catch (e) {
+    console.error("initConnection ended "+e.message);
   }
 }
-export async function getChainId(){
-  const chainId =  await window.ethereum.request({ method: 'eth_chainId' });
-  if(chainId!=getConfigData().chainId){  // polygon test 80001  polygon main 137
-    await switchChain()
-    return '';
-  }else{
-    return '';
+
+
+async function InitRef(){
+  let Base64 = require('js-base64').Base64
+  const url_params = new URLSearchParams(window.location.search);
+  let ref = url_params.get("ref");
+  if (ref != null) {
+    ref = Base64.decode(ref);
+    if (isAddress(ref)) {
+      store.commit("SET_REF_ADDRESS",ref);
+    }
+    else {
+      store.commit("SET_REF_ADDRESS",null);
+    }
   }
 }
-export async function getChainIdVlaue(){
-  const chainId =  await window.ethereum.request({ method: 'eth_chainId' });
-   return chainId;
-}
+
 export async function   switchChain(){
   let chainId = getConfigData().chainId
   let chainId0x ="0x" + chainId.toString(16);
@@ -115,14 +139,7 @@ export async function   switchChain(){
         blockExplorerUrls: ['https://polygonscan.com/'],*/
       }],
     });
-   await init();
 
-  /*  if (wasAdded) {
-
-      console.log('Thanks for your interest!');
-    } else {
-      console.log('Your loss!');
-    }*/
   } catch (error) {
 
     console.log(error);
@@ -160,45 +177,38 @@ export async function   addSATCoin(){
   }
 }
 
-export async function initData() {
-  try {
-    await updateEmInfo();
-  } catch (e) {
-    console.log(e);
-  }
-}
+
 
 export async function init() {
   try {
-    await initConnection();
-    await updateEmInfo();
-    initTimer();
-    startTimer();
+     await InitRef();
+     await initConnection(getConfigData().chainId);
   } catch (e) {
-    console.log(e);
+    console.error("init failed ");
   }
 }
 
 export function getContract(contract) {
-  const contract_info = CONTARCT_DATA[contract];
+  const contract_info = CONTRACT_DATA[contract];
   return new web3.eth.Contract(contract_info.abi, contract_info.address);
 }
+
 export function getContractNew(contract,address) {
-  const contract_info = CONTARCT_DATA[contract];
+  const contract_info = CONTRACT_DATA[contract];
   return new web3.eth.Contract(contract_info.abi, address);
 }
 
 export function getContractAddress(contract) {
-  const contract_info = CONTARCT_DATA[contract];
+  const contract_info = CONTRACT_DATA[contract];
   return contract_info.address;
 }
 
 export function getContractByAddress(address) {
   let contract_list = [];
-  for (const contract in CONTARCT_DATA) {
+  for (const contract in CONTRACT_DATA) {
     if (
       address.toLocaleLowerCase() ==
-      CONTARCT_DATA[contract].address.toLocaleLowerCase()
+      CONTRACT_DATA[contract].address.toLocaleLowerCase()
     ) {
       contract_list.push(contract);
     }
@@ -206,28 +216,35 @@ export function getContractByAddress(address) {
   return contract_list;
 }
 
-export async function updateEmInfo() {
-  let address = getAddress();
 
-  store.commit("SET_DEF_ADDRESS", address);
+async function getAddress() {
+  try {
+    let address = await web3.eth.getAccounts();
+    if (address && address.length > 0) {
+
+      return address;
+    }
+  } catch (e) {
+    console.log("getAddress failed");
+  }
+  return {};
+}
+
+export async function updateAddress(_address) {
+  let m_address = _address;
+  if(m_address && m_address.length && m_address.length > 0){
+    store.commit("SET_ADDRESS", m_address[0]);
+  }
+  else {
+    store.commit("SET_ADDRESS", "0");
+  }
 }
 
 export function isAddress(address) {
-  return utils.isAddress(address);
+  return web3.utils.isAddress(address);
 }
 
-export function getAddress() {
-  if (!store.state.app.is_wallet) {
-    return "";
-  }
-  let address = "";
-  if (typeof window.ethereum != "undefined") {
-    address = window.ethereum.selectedAddress;
-  } else {
-   
-  }
-  return address;
-}
+
 
 export async function getBlock(number) {
   return await web3.eth.getBlock(number);
@@ -252,39 +269,26 @@ export async function getBalance(address) {
   return balance;
 }
 
-export function formatWei(amount) {
-  return utils.fromWei(new BigNumber(amount).toFixed(), "ether");
-}
-
-export function toWei(amount) {
-  return utils.toWei(new BigNumber(amount).toFixed(), "ether");
-}
-
-export function toByte(mixed, length = 32) {
-  if (!utils.isHexStrict(mixed)) {
-    mixed = utils.toHex(mixed);
-  }
-  return utils.padRight(mixed, length);
-}
+// export function formatWei(amount) {
+//   return utils.fromWei(new BigNumber(amount).toFixed(), "ether");
+// }
+//
+// export function toWei(amount) {
+//   return utils.toWei(new BigNumber(amount).toFixed(), "ether");
+// }
+//
+// export function toByte(mixed, length = 32) {
+//   if (!utils.isHexStrict(mixed)) {
+//     mixed = utils.toHex(mixed);
+//   }
+//   return utils.padRight(mixed, length);
+// }
 
 export function trim(value) {
   return value.trim().replace(/[\0\s]*/g, "");
 }
 
-export function isValidCode(code) {
-  return new Promise((resolve, reject) => {
-    const contract_obj = getContract(CONTARCT_ETHPRO);
-    contract_obj.methods
-      .isValid(web3.utils.fromAscii(code, 32))
-      .call()
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
+
 
 
 
@@ -295,7 +299,7 @@ export async function approve(amount, type, approveAddress) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContract(type);
     contract_obj.methods
-      .approve(approveAddress, toWei(amount * 1000))
+      .approve(approveAddress, (amount * 1000*10**18))
       .send({
         from: getAddress(),
       })
@@ -399,26 +403,6 @@ export async function balanceOf(token) {
   })
 }
 
-export async function allowanceOf(type, pool) {
-  return new Promise(resolve => {
-    const contract_obj = getContract(type);
-    const spender = getContractAddress(pool);
-
-    contract_obj.methods
-        .allowance(getAddress(), spender)
-        .call()
-        .then((data) => {
-          resolve({
-            status: true,
-            data
-          })
-        })
-        .catch((e) => resolve({
-          status: false,
-          error: e
-        }));
-  });
-}
 
 export async function doApprove1(amount, type, spender) {
   return new Promise(resolve => {

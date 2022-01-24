@@ -6,11 +6,11 @@
           <img :src="h5_menu" style="cursor: pointer;width: 0.48rem;height: 0.39rem;margin-left: 0.3rem;margin-bottom: 0.24rem;"/>
         </div>
 
-        <div  v-show="this.address == null || this.address.length < 8 ||  this.address =='0x0000000000000000000000000000000000000000'||this.chainId != this.configData.chainId" @click="initCollect"   class="div-header-connect-btn">
+        <div v-show="!is_connected" @click="PreInitial" class="div-header-connect-btn">
           Connect Wallet
         </div>
 
-        <div  @click="isShowAddWallet=true" v-show="this.address != null && this.address.length >8 && this.address !='0x0000000000000000000000000000000000000000'&&this.chainId == this.configData.chainId"   class="div-header-connect-btn">
+        <div  @click="isShowAddWallet=true" v-show="is_connected"   class="div-header-connect-btn">
           {{this.address != null && this.address.length >8 ? this.address.substr(0,4) +"****"+ this.address.substr(this.address.length-4,this.address.length-1) : 0 }}
         </div>
       </div>
@@ -45,12 +45,12 @@
 
     <div v-show="!isMobile" style="width: 100%;height: 85px;background: #161616;position: fixed;top: 0px;z-index: 9999;">
       <div style="width: 100%;height: 85px;background: #161616;position: relative;">
-        <div  v-show="this.address == null || this.address.length < 8 ||  this.address =='0x0000000000000000000000000000000000000000'||this.chainId != this.configData.chainId" @click="initCollect"
+        <div  v-show="!is_connected" @click="PreInitial"
               class="pc-div-btn1">
           Connect Wallet
         </div>
 
-        <div  v-show="this.address != null && this.address.length >8 && this.address !='0x0000000000000000000000000000000000000000'&&this.chainId == this.configData.chainId"
+        <div  v-show="is_connected"
               class="pc-div-btn1">
           {{this.address != null && this.address.length >8 ? this.address.substr(0,4) +"****"+ this.address.substr(this.address.length-4,this.address.length-1) : 0 }}
         </div>
@@ -77,15 +77,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { h5_menu,metamask ,sat_icon,close} from "@/utils/images";
-
+import {mapGetters, mapState} from "vuex";
+import {close, h5_menu, metamask, sat_icon} from "@/utils/images";
 
 import Cookies from "js-cookie";
-import {addSATCoin, getAddress, getChainId, getChainIdVlaue, getConfigData, getDATA, init} from "../../../utils/Wallet";
-import { createWatcher } from '@makerdao/multicall';
-
-
+import {addSATCoin, getConfigData, getDATA, init} from "../../../utils/Wallet";
+import {createWatcher} from '@makerdao/multicall';
 
 export default {
   name: "Header",
@@ -107,10 +104,9 @@ export default {
       tab: 1,
       isZh: true,
       isShowMenu: false,
-      address: '',
       interval:'',
       chainId:1,
-      satBalance:0,
+
       calcT12Amount:0,
       calcT15Amount:0,
       isShowAddWallet:false,
@@ -123,64 +119,29 @@ export default {
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      address:state => state.wallet.address,
+      satBalance:state => state.wallet.sat_balance,
+    }),
+    ...mapGetters({
+      "is_connected":"is_connected",
     }),
   },
+
+
   created() {
     this.data =  getDATA();
-    this.initData()
+    this.configData =  getConfigData()
+    this.PreInitial();
+    this.StartWatch();
   },
 
-mounted() {
-  let thisThat = this;
-  window.ethereum.on("accountsChanged", function(accounts) {
-    init();
-    thisThat.address= accounts[0];
-    console.log('accountsChanged1='+accounts[0]);
-  });
-},
 
   methods: {
     addSatCoin(){
       addSATCoin()
     },
-    async initData(){
-      this.address = await getAddress();
-      this.configData =  getConfigData()
-      this.interval =  setInterval(this.getAddress(), 2000);
-      this.getInfo();
-    },
-    async getAddress(){
-      this.chainId = await getChainIdVlaue();
-      if(this.address&&this.address.length>10&&this.interval&&this.chainId == this.configData.chainId){
-
-        this.address =   getAddress();
-        clearInterval(this.interval)
-        this.interval = null;
-        return
-      }else{
-
-        this.address =   getAddress();
-
-      }
-    },
-    async getAddress1(){
-      this.address = await this.getChainId();
-    },
-    async getChainId(){
-      let msg = await getChainId();
-      if(msg.length > 0){
-        this.$message.error(msg);
-        return;
-      }
-      let thatthis = this;
-      setTimeout(() => {
-        thatthis.address = getAddress();
-      }, 3000);
-    },
-    async initCollect() {
+    async PreInitial() {
       await init();
-      await this.getChainId();
-      this.chainId = await getChainIdVlaue();
     },
     onShowMenu() {
       this.$bus.$emit("formBus", true);
@@ -215,28 +176,15 @@ mounted() {
     },
 
 
-    getInfo(){
+    StartWatch(){
 
-      if(this.address==''){
-        this.address = '0x0000000000000000000000000000000000000000';
-      }
       const watcher = createWatcher(
           [
             {
               target: this.data.IDO.OG.address,
               call: ['balanceOf(address)(uint256)',this.address],
-              returns: [['balanceOf']]
+              returns: [['balanceOfSat']]
             },
-            {
-              target: this.data.IDO.OG.contractAddress,
-              call: ['calcT1(uint256)(uint256)',this.data.IDO.OG.scala],
-              returns: [['calcT12']]
-            },
-            {
-              target: this.data.IDO.NOG.contractAddress,
-              call: ['calcT1(uint256)(uint256)',this.data.IDO.NOG.scala],
-              returns: [['calcT15']]
-            }
           ],
           {
             rpcUrl: this.configData.rpcUrl,
@@ -246,22 +194,12 @@ mounted() {
       );
       watcher.subscribe(update => {
         console.log(`Update: ${update.type} = ${update.value}`);
-        if(update.type=='balanceOf'){
+        if(update.type=='balanceOfSat'){
           if(update.value>0){
-            this.satBalance = update.value / this.data.IDO.OG.symbolScala
-            this.satBalance   =  this.satBalance.toFixed(2)
+            let temp = update.value / this.data.IDO.OG.symbolScala
+            temp   =  temp.toFixed(2);
+            this.$store.commit("SET_SAT_BALANCE",temp);
           }
-
-        }else if(update.type=='calcT12'){
-          let calcT12 = update.value / this.data.IDO.OG.scala
-          let calcT12PricePerToken =   (1 /  calcT12).toFixed(6)
-          this.calcT12Amount =  this.satBalance * calcT12PricePerToken;
-          this.calcT12Amount = this.calcT12Amount.toFixed(2)
-        }else if(update.type=='calcT15'){
-          let calcT15 = update.value / this.data.IDO.NOG.scala
-          let calcT15PricePerToken =  ( 1 /  calcT15).toFixed(6)
-          this.calcT15Amount =  this.satBalance * calcT15PricePerToken;
-          this.calcT15Amount = this.calcT15Amount.toFixed(2)
         }
 
 
