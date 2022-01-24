@@ -4,7 +4,7 @@ import store from "@/store";
 import {
   CONTRACT_DATA,
 } from "../config/wallet";
-
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export let web3 = null;
 const contractData =  require('../config/data.json')
@@ -36,58 +36,71 @@ export async function getGasPrice() {
     }, 200000);*/
   });
 }
+async function initConnectionMetaMaskProvider(){
+  let is_metamask = !!window.ethereum || !!window.web3;
+  if(!is_metamask){
+    console.error("have no metamask");
+    return null;
+  }
+  const provider = window.ethereum || window.web3.currentProvider;
+  await window.ethereum.enable();
+  return  provider;
+}
 
 
-export async function initConnection() {
-  let is_wallet = !!window.ethereum || !!window.web3;
+async function initConnectionWalletConnectionProvider(){
+  try {
+    const provider = new WalletConnectProvider({
+      bridge: "https://bridge.myhostedserver.com",
+      rpc: {
+        137: "https://matic-mainnet.chainstacklabs.com"
+      },
+      chainId: 137,
+      network: 'matic'
+    });
+
+    //  Enable session (triggers QR Code modal)
+    await provider.enable();
+
+   return  provider;
+  } catch (e) {
+    console.error("initConnectionWalletConnection");
+  }
+  return  null;
+}
+
+
+
+
+export async function initConnection(type) {
+  let provider = null;
+  if(type=="meta_mask"){
+     provider =await initConnectionMetaMaskProvider();
+     }
+  else {
+    provider = await  initConnectionWalletConnectionProvider();
+  }
+  store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
+
+  web3 = new Web3(provider);
 
   try {
-    try {
-      await store.commit("SET_IS_WALLET", is_wallet);
-      store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
-    } catch (e) {
-      console.error("initConnection err 1")
-    }
-
-    try {
-      if (is_wallet) {
-        const provider = window.ethereum || window.web3.currentProvider;
-        web3 = new Web3(provider);
-        if (typeof window.ethereum != "undefined") {
-          await window.ethereum.enable();
-        }
-      } else {
-        const RPC = getConfigData().rpcUrl;
-        web3 = new Web3(RPC);
-      }
-    } catch (e) {
-      console.error("initConnection err 2")
-    }
 
     try {
       let chainId = await web3.eth.getChainId();
       store.commit("SET_CHAIN_ID", chainId);
       if (chainId != getConfigData().chainId) {  // polygon test 80001  polygon main 137
-        await switchChain();
+         if(!!window.ethereum || !!window.web3) {
+           await switchChain();
+         }
       }
 
       chainId = await web3.eth.getChainId();
       store.commit("SET_CHAIN_ID", chainId);
+
     } catch (e) {
       console.error("initConnection err 3")
     }
-
-    try {
-      if (typeof window.ethereum != "undefined"){
-        window.ethereum.on("accountsChanged", function (accounts) {
-            updateAddress(accounts);
-        });
-      }
-
-    } catch (e) {
-      console.error(e.toString())
-    }
-
 
     try {
       await updateAddress(await getAddress());
@@ -182,7 +195,7 @@ export async function   addSATCoin(){
 export async function init() {
   try {
      await InitRef();
-     await initConnection(getConfigData().chainId);
+     await initConnection("");
   } catch (e) {
     console.error("init failed ");
   }

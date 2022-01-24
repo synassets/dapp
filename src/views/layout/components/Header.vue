@@ -84,6 +84,9 @@ import Cookies from "js-cookie";
 import {addSATCoin, getConfigData, getDATA, init} from "../../../utils/Wallet";
 import {createWatcher} from '@makerdao/multicall';
 
+
+
+
 export default {
   name: "Header",
   components: {

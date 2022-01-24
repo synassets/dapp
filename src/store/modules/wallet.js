@@ -4,7 +4,6 @@ const wallet  ={
     address: '0x0000000000000000000000000000000000000000',
     invite_address:null,
     balance: 0,
-    is_wallet:false,
     chain_id:0,
     target_chain_id:0,
     sat_balance:0,
@@ -28,9 +27,6 @@ const wallet  ={
     },
     invite_address: state => {
       return state.invite_address
-    },
-    is_wallet : state => {
-      return state.is_wallet
     },
     target_chain_id: state => {
       return state.target_chain_id
@@ -60,10 +56,7 @@ const wallet  ={
       // console.log("address :-> "+payload);
       state.address = payload
     },
-    SET_IS_WALLET:(state, payload)=> {
-      console.log("SET_IS_WALLET :" + payload)
-      state.is_wallet = payload
-    },
+
     SET_REF_ADDRESS:(state, payload)=> {
       if (payload === 0) {
         state.invite_address = ''
