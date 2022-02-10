@@ -1,4 +1,3 @@
-
 export const pc_logo = require("@/assets/img/pc_logo.png");
 export const pc_discord = require("@/assets/img/pc_discord.svg");
 export const pc_github = require("@/assets/img/pc_github.svg");
@@ -51,6 +50,6 @@ export const close = require("@/assets/img/close.png");
 
 export const sat_icon = require("@/assets/img/sat_icon.png");
 
-
-
 export const gif = require("@/assets/img/gif.gif");
+export const icon_fox = require("@/assets/img/icon_fox.png");
+export const icon_wifi = require("@/assets/img/icon_wifi.png");
