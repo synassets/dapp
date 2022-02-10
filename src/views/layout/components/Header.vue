@@ -60,7 +60,7 @@
         >{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
         <div
           style="position: absolute;right: 0rem;top: 0.5rem;font-size: 0.21rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;color: #808080"
-        >{{'$ '+calcT12Amount}}</div>
+        >{{ '$ ' + staValve }}</div>
       </div>
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
@@ -91,7 +91,7 @@
               <img class="pc-div-btn2-item2" :src="sat_icon" />
               <div class="pc-div-btn2-item3">{{this.data.IDO.OG.symbol}}</div>
               <div class="pc-div-btn2-item4">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-              <div class="pc-div-btn2-item5">{{'$ '+calcT12Amount}}</div>
+              <div class="pc-div-btn2-item5">{{ '$ ' + staValve }}</div>
             </div>
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
@@ -193,7 +193,6 @@ import {
   addSATCoin,
   getConfigData,
   getDATA,
-  init
 } from "../../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 
@@ -224,13 +223,13 @@ export default {
       interval: "",
       chainId: 1,
 
-      calcT12Amount: 0,
-      calcT15Amount: 0,
+      staValve: 0,
       isShowAddWallet: false,
       showSelectWalletDialog: false,
       configData: {
         chainId: 0
       },
+      contract_watch:null,
       data: {}
     };
   },
@@ -295,7 +294,12 @@ export default {
     },
 
     StartWatch() {
-      const watcher = createWatcher(
+
+      if(this.contract_watch != null){
+        return;
+      }
+
+      this.contract_watch = createWatcher(
         [
           {
             target: this.data.IDO.OG.address,
@@ -309,7 +313,7 @@ export default {
           interval: 15000
         }
       );
-      watcher.subscribe(update => {
+      this.contract_watch.subscribe(update => {
         console.log(`Update: ${update.type} = ${update.value}`);
         if (update.type == "balanceOfSat") {
           if (update.value > 0) {
@@ -319,10 +323,10 @@ export default {
           }
         }
       });
-      watcher.onNewBlock(blockNumber => {
+      this.contract_watch.onNewBlock(blockNumber => {
         this.blockNumber = blockNumber;
       });
-      watcher.start();
+      this.contract_watch.start();
     }
   }
 };
