@@ -36,7 +36,7 @@ export async function getGasPrice() {
     }, 200000);*/
   });
 }
-async function initConnectionMetaMaskProvider(){
+async function createMetaMaskProvider(){
   let is_metamask = !!window.ethereum || !!window.web3;
   if(!is_metamask){
     console.error("have no metamask");
@@ -48,10 +48,10 @@ async function initConnectionMetaMaskProvider(){
 }
 
 
-async function initConnectionWalletConnectionProvider(){
+async function createWalletConnectionProvider(){
   try {
     const provider = new WalletConnectProvider({
-      bridge: "https://bridge.myhostedserver.com",
+      bridge: "https://bridge.walletconnect.org",
       rpc: {
         137: "https://matic-mainnet.chainstacklabs.com"
       },
@@ -61,6 +61,24 @@ async function initConnectionWalletConnectionProvider(){
 
     //  Enable session (triggers QR Code modal)
     await provider.enable();
+
+    // Subscribe to accounts change
+    provider.on("accountsChanged", (accounts) => {
+       console.log("accountsChanged by walletconnect :" + JSON.stringify(accounts));
+       updateAddress(accounts);
+    });
+
+// Subscribe to chainId change
+    provider.on("chainChanged", (chainId) => {
+      console.log("chainChanged by walletconnect :",chainId);
+      store.commit("SET_CHAIN_ID", chainId);
+    });
+
+// Subscribe to session disconnection
+    provider.on("disconnect", ( number, reason) => {
+      console.log("chainChanged by walletconnect :"+number+reason);
+      updateAddress(null);
+    });
 
    return  provider;
   } catch (e) {
@@ -75,10 +93,10 @@ async function initConnectionWalletConnectionProvider(){
 export async function initConnection(type) {
   let provider = null;
   if(type=="meta_mask"){
-     provider =await initConnectionMetaMaskProvider();
+     provider =await createMetaMaskProvider();
      }
   else {
-    provider = await  initConnectionWalletConnectionProvider();
+    provider = await  createWalletConnectionProvider();
   }
   store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
 
@@ -90,7 +108,7 @@ export async function initConnection(type) {
       let chainId = await web3.eth.getChainId();
       store.commit("SET_CHAIN_ID", chainId);
       if (chainId != getConfigData().chainId) {  // polygon test 80001  polygon main 137
-         if(!!window.ethereum || !!window.web3) {
+         if(type=="meta_mask" && (!!window.ethereum || !!window.web3)) {
            await switchChain();
          }
       }
