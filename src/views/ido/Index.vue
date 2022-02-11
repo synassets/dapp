@@ -208,8 +208,6 @@
                   style="font-size: 14px;z-index: 999"
                   @click="showInviteClick()"
                 >
-
-
                   <span class="pc_share_div">
                     Only ambassador have the right of invitation
                     and gain SAT invite reward of 4%,
