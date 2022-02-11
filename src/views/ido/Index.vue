@@ -1052,8 +1052,6 @@
 
 <script>
 import { mapState } from "vuex";
-
-// import { utils } from "web3";
 import { pc_ido_img1, pc_ido_img2 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
 
