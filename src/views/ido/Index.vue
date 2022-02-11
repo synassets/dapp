@@ -20,7 +20,6 @@
           </div>
         </div>
       </div>
-
       <div style="width: 100%;display: flex;">
         <div style="width: 249px;height: 100px;"></div>
         <div style="flex: 1;z-index: 999;">
