@@ -50,10 +50,12 @@ async function createMetaMaskProvider(){
 
 async function createWalletConnectionProvider(){
   try {
+
     const provider = new WalletConnectProvider({
       bridge: "https://bridge.walletconnect.org",
       rpc: {
-        137: "https://matic-mainnet.chainstacklabs.com"
+        137: "https://polygon-rpc.com",
+        80001: "https://polygon-rpc.com",//fix tp wallet bug
       },
       chainId: 137,
       network: 'matic'
@@ -75,8 +77,9 @@ async function createWalletConnectionProvider(){
     });
 
 // Subscribe to session disconnection
-    provider.on("disconnect", ( number, reason) => {
+    provider.on("disconnect", ( number, reason)  => {
       console.log("chainChanged by walletconnect :"+number+reason);
+      provider.disconnect();
       updateAddress(null);
     });
 
@@ -89,9 +92,12 @@ async function createWalletConnectionProvider(){
 
 
 
-
+let provider = null;
 export async function initConnection(type) {
-  let provider = null;
+
+  if(provider != null){
+    await provider.disconnect();
+  }
   if(type=="meta_mask"){
      provider =await createMetaMaskProvider();
      }
@@ -99,6 +105,11 @@ export async function initConnection(type) {
     provider = await  createWalletConnectionProvider();
   }
   store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
+
+  if(provider == null){
+    console.error("provider = error.......");
+    return null;
+  }
 
   web3 = new Web3(provider);
 
