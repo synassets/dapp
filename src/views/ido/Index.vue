@@ -20,7 +20,6 @@
           </div>
         </div>
       </div>
-
       <div style="width: 100%;display: flex;">
         <div style="width: 249px;height: 100px;"></div>
         <div style="flex: 1;z-index: 999;">
@@ -1053,8 +1052,6 @@
 
 <script>
 import { mapState } from "vuex";
-
-// import { utils } from "web3";
 import { pc_ido_img1, pc_ido_img2 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
 
