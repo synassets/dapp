@@ -10,7 +10,7 @@
 #### 
 
 ```
-npm i install
+npm  i install
 ```
 
 #### 
