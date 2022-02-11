@@ -131,6 +131,7 @@ export async function initConnection(type) {
   } catch (e) {
     console.error("initConnection ended "+e.message);
   }
+  return null;
 }
 
 

@@ -14,7 +14,7 @@
 
         <div
           v-show="!is_connected"
-          @click="PreInitial"
+          @click="OnConnectWalletBtn"
           class="div-header-connect-btn"
         >Connect Wallet</div>
 
@@ -71,7 +71,7 @@
       style="width: 100%;height: 85px;background: #161616;position: fixed;top: 0px;z-index: 9999;"
     >
       <div style="width: 100%;height: 85px;background: #161616;position: relative;">
-        <div v-show="!is_connected" @click="PreInitial" class="pc-div-btn1">Connect Wallet</div>
+        <div v-show="!is_connected" @click="OnConnectWalletBtn" class="pc-div-btn1">Connect Wallet</div>
 
         <div
           v-show="is_connected"
@@ -102,7 +102,7 @@
 
     <my-dialog
       :is-show="showSelectWalletDialog"
-      @isClose="showSelectWalletDialog = false"
+      @isClose="OnOnCloseSelectWalletDialog()"
       :width="isMobile ? '8.27rem' : '700px'"
     >
       <div>
@@ -111,13 +111,13 @@
             <img
               :src="close"
               style="width: 17px;height: 17px;left: 45px;top: 20px;position: absolute;z-index: 999;"
-              @click="showSelectWalletDialog = false"
+              @click="OnOnCloseSelectWalletDialog()"
             />
             <div
               style="position: absolute;text-align: center;left: 0px;top: 20px;font-size: 18px;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 700px;"
             >Connect Wallet</div>
 
-            <div class="div-select-wallet" @click="clickMetaMusk">
+            <div class="div-select-wallet" @click="clickMetaMusk()">
               MetaMusk
               <img
                 :src="icon_fox"
@@ -139,7 +139,7 @@
             <img
               :src="close"
               style="width: 0.3rem;height: 0.3rem;left: 0.36rem;top: 0.36rem;position: absolute;z-index: 999;"
-              @click="showSelectWalletDialog=false"
+              @click="OnOnCloseSelectWalletDialog()"
             />
           </div>
           <div
@@ -149,7 +149,7 @@
           <div
             style="width: 6.8rem; height:0.8rem; background: #FFFFFF;border-radius: 0.13rem;margin: 0.6rem auto 0rem auto;position: relative;
                 line-height: 0.8rem;padding-left:0.3rem;font-size: 0.19rem;font-family: Selawik;font-weight: 600;color: #000000;"
-            @click="clickMetaMusk"
+            @click="clickMetaMusk()"
           >
             MetaMusk
             <img
@@ -161,7 +161,7 @@
           <div
             style="width: 6.8rem; height:0.8rem; background: #FFFFFF;border-radius: 0.13rem;margin: 0.6rem auto 0rem auto;position: relative;
                 line-height: 0.8rem;padding-left:0.3rem;font-size: 0.19rem;font-family: Selawik;font-weight: 600;color: #000000;"
-            @click="clickWalletConnect"
+            @click="clickWalletConnect()"
           >
             WalletConnect
             <img
@@ -192,7 +192,7 @@ import Cookies from "js-cookie";
 import {
   addSATCoin,
   getConfigData,
-  getDATA,
+  getDATA, initConnection,
 } from "../../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 
@@ -247,7 +247,7 @@ export default {
   created() {
     this.data = getDATA();
     this.configData = getConfigData();
-    this.PreInitial();
+
     this.StartWatch();
   },
 
@@ -255,15 +255,35 @@ export default {
     addSatCoin() {
       addSATCoin();
     },
-    async PreInitial() {
-      this.showSelectWalletDialog = true;
-      //   await init();
+    async OnConnectWalletBtn() {
+     this.showSelectWalletDialog = true;
+
     },
+    async OnOnCloseSelectWalletDialog() {
+      this.showSelectWalletDialog = false;
+    },
+
     onShowMenu() {
       this.$bus.$emit("formBus", true);
     },
-    clickMetaMusk() {},
-    clickWalletConnect() {},
+    async clickMetaMusk() {
+      let ret = await initConnection("meta_mask");
+      if(!ret){
+        this.$message.error("connect meta mask failed !");
+      }
+      await this.OnOnCloseSelectWalletDialog();
+    },
+
+
+    async clickWalletConnect() {
+      let ret = await initConnection("wallet_connect");
+      if(!ret){
+        this.$message.error("connect meta mask failed !");
+      }
+      await this.OnOnCloseSelectWalletDialog();
+    },
+
+
     changeLang() {
       let code = Cookies.get("lang");
       if (this.isZh) {
