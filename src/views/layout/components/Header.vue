@@ -17,7 +17,6 @@
           @click="OnConnectWalletBtn"
           class="div-header-connect-btn"
         >Connect Wallet</div>
-
         <div
           @click="isShowAddWallet=true"
           v-show="is_connected"
