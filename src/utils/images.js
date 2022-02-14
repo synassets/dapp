@@ -53,3 +53,9 @@ export const sat_icon = require("@/assets/img/sat_icon.png");
 export const gif = require("@/assets/img/gif.gif");
 export const icon_fox = require("@/assets/img/icon_fox.png");
 export const icon_wifi = require("@/assets/img/icon_wifi.png");
+export const icon_down_arrow = require("@/assets/img/icon_down_arrow.png");
+
+export const icon_uni = require("@/assets/img/icon_uni.png");
+export const icon_bnb = require("@/assets/img/icon_bnb.png");
+export const icon_dot = require("@/assets/img/icon_dot.png");
+export const icon_matic = require("@/assets/img/icon_matic.png");

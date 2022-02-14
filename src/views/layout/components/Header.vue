@@ -94,6 +94,7 @@
             </div>
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
+            <div class="whitelist-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
           </div>
         </div>
       </div>
@@ -173,6 +174,105 @@
         </div>
       </div>
     </my-dialog>
+
+    <my-dialog
+        :is-show="showWhitelistTransferDialog"
+        @isClose="OnOnCloseSelectWalletDialog()"
+        :width="isMobile ? '8.27rem' : '834px'"
+    >
+      <div>
+        <div v-show="!isMobile">
+          <div style="padding-top: 20px;position: relative;">
+            <img
+                :src="close"
+                style="width: 17px;height: 17px;left: 45px;top: 20px;position: absolute;z-index: 999;"
+                @click="OnOnCloseSelectWalletDialog()"
+            />
+          <div class="popu">
+            <div class="pc-dialog-div-popu" @click="showDownArrow">
+              <img
+                  :src="icon_down_arrow"
+                  style="width: 34px;height: 21px;float: right;z-index: 999;margin-top: 15px;margin-right: 25px;"
+              />
+
+            </div>
+            <div class="pc-dialog-div-popu-content">
+
+              <div style=" width: 770px;height: 50px; background: #7ECEF4;display: flex">
+                <img
+                    :src="icon_uni"
+                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
+                />
+                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sUni spot</div>
+
+              </div>
+              <div style=" width: 770px;height: 1px; background: #7ECEF4;"></div>
+              <div style=" width: 770px;height: 50px; background: #FFFFFF;display: flex">
+                <img
+                    :src="icon_dot"
+                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
+                />
+                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sDot spot</div>
+
+              </div>
+              <div style=" width: 770px;height: 1px; background: #7ECEF4;"></div>
+              <div style=" width: 770px;height: 50px; background: #FFFFFF;display: flex">
+                <img
+                    :src="icon_bnb"
+                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
+                />
+                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sBNB spot</div>
+              </div>
+              <div style=" width: 770px;height: 1px; background: #7ECEF4;"></div>
+              <div style=" width: 770px;height: 50px; background: #FFFFFF;display: flex">
+                <img
+                  :src="icon_matic"
+                  style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
+              />
+                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sMatic spot</div></div>
+
+            </div>
+          </div>
+
+
+            <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">Your Balance: 2</div>
+
+
+
+            <div  class="pc-dialog-div-tip1">
+              <div style="width: 540px;position: relative;">
+
+
+
+                <div class='pc-dialog-div-input'>
+                  <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Recipient address"
+                   class='pc-dialog-div-input1'
+                          />
+
+                </div>
+
+              </div>
+              <div class="pc-dialog-div-btn" >
+                Send
+              </div>
+              <div class="pc-dialog-div-gif" style="">
+                <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+              </div>
+
+
+            </div>
+            <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the early market and you cannot reback your spot after sending.</div>
+
+
+            <div  @click="goLink('https://doc.synassets.finance/')" style="cursor: pointer; width: 770px;margin: 100px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #0792E3;text-decoration: underline;text-align: center;">doc</div>
+
+
+            <div style="width:54px;height: 30px;"></div>
+          </div>
+        </div>
+
+      </div>
+    </my-dialog>
   </div>
 </template>
 
@@ -184,7 +284,13 @@ import {
   metamask,
   sat_icon,
   icon_fox,
-  icon_wifi
+  icon_wifi,
+  icon_down_arrow,
+  icon_uni,
+  icon_bnb ,
+  icon_dot,
+  icon_matic,
+  gif
 } from "@/utils/images";
 
 import Cookies from "js-cookie";
@@ -205,11 +311,17 @@ export default {
   data() {
     return {
       close,
+      gif,
       sat_icon,
+      icon_down_arrow,
       h5_menu,
       metamask,
       icon_fox,
       icon_wifi,
+      icon_uni,
+      icon_bnb ,
+      icon_dot,
+      icon_matic,
       loops: "",
       firstRun: true,
       loading: "",
@@ -225,6 +337,8 @@ export default {
       staValve: 0,
       isShowAddWallet: false,
       showSelectWalletDialog: false,
+      showWhitelistTransferDialog:false,
+      whitelistInputAddress:'',
       configData: {
         chainId: 0
       },
@@ -254,12 +368,23 @@ export default {
     addSatCoin() {
       addSATCoin();
     },
+    inputChange(){},
+    goLink(url) {
+        window.open(url);
+    },
+    showDownArrow(){
+
+    },
+    showWhitelistClick(){
+      this.showWhitelistTransferDialog = true
+    },
     async OnConnectWalletBtn() {
      this.showSelectWalletDialog = true;
 
     },
     async OnOnCloseSelectWalletDialog() {
       this.showSelectWalletDialog = false;
+      this.showWhitelistTransferDialog = false;
     },
 
     onShowMenu() {
@@ -386,6 +511,23 @@ export default {
 .add-wallet-btn:hover {
   background: linear-gradient(-45deg, #25434a 0%, #4a3e48 100%);
 }
+.whitelist-wallet-btn{
+  margin: 20px auto 0px auto;
+  font-size: 14px;
+  font-family: Selawik;
+  font-weight: 400;
+  color: #D9D9D9;
+  cursor: pointer;
+  width: 260px;
+  height: 40px;
+  background: #0792E3;
+  text-align: center;
+  line-height: 40px;
+  //border: 2px solid #313131;
+}
+.whitelist-wallet-btn:hover {
+  background: #4ebaf8;
+}
 .div-header-menu-btn {
   cursor: pointer;
   width: 1.07rem;
@@ -481,7 +623,7 @@ export default {
   right: 0px;
   top: 42px;
   width: 300px;
-  height: 180px;
+  height:240px;
   background: #242424;
   border-radius: 10px;
 }
@@ -560,6 +702,47 @@ pc-div-btn2-item:hover {
 .pc-div-btn2-item:hover {
   display: inline-block;
 }
+.pc-dialog-div-tip1{
+  margin:25px auto 0px auto; width: 750px;display: flex;position: relative;
+}
+.pc-dialog-div-tip2{
+  width: 500px;height: 50px;position: absolute;top: 0; font-size: 14px;font-family: Selawik;font-weight: 400; color: #808080;text-align: center
+}
+.pc-dialog-div-input{
+  width: 500px;height: 50px;background: #FFFFFF;border: 1px solid #FFFFFF;position: absolute;top: 0;border-radius: 5px;
+}
+.pc-dialog-div-input1{
+  height:40px;width: 450px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 20px;
+}
+.pc-dialog-div-input-max{
+  font-size: 20px;font-family: Fredoka One;font-weight: 400; color: #F94F01;position: absolute;right: 30px;top: 12px;cursor: pointer;
+}
+.pc-dialog-div-btn{
+  position: absolute;right: 10px;top: 0px;cursor: pointer; width: 210px;height: 50px;background: #0792E3; border-radius: 5px;z-index: 999;text-align: center;line-height: 50px;color: #FFFFFF;font-size: 20px;font-family: Selawik; font-weight: 600;
+}
+.pc-dialog-div-gif{
+  position: absolute;right: 10px;top: 0px;width: 210px;height: 50px;background: #414346; border-radius: 5px;z-index: 999;line-height: 50px;
+}
+.popu{
+
+
+}
+.pc-dialog-div-popu-content{
+  width: 770px;background: #FFFFFF; border-radius: 5px;margin: 0px auto 0px auto;display: none;  z-index: 999;
+}
+.pc-dialog-div-popu{
+  width: 770px;min-height: 50px;background: #FFFFFF; border-radius: 5px;margin: 80px auto 0px auto;
+
+}
+.popu:hover   .pc-dialog-div-popu-content {
+
+  display: block;
+  z-index: 999;
+}
+.pc-dialog-div-popu-content:hover {
+  display: block;
+}
+
 
 .el-dialog__wrapper {
   position: fixed;

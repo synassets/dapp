@@ -94,6 +94,29 @@ export default {
   padding-top: 0.2rem;
 }
 
-
-
+  ::v-deep  .el-dialog__wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.7);
+  }
+  ::v-deep   .el-dialog__header {
+    padding: 0px 0px 0px;
+  }
+  ::v-deep  .el-dialog__headerbtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+    background: 0 0;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    font-size: 16px;
+    visibility: hidden;
+  }
 </style>

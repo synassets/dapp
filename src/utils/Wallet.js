@@ -260,7 +260,7 @@ export function getContractByAddress(address) {
 }
 
 
-async function getAddress() {
+export async function getAddress() {
   try {
     let address = await web3.eth.getAccounts();
     if (address && address.length > 0) {
