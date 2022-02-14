@@ -5,14 +5,47 @@
 
 
       <div style="display: flex;width: 1078px;margin: 0px auto 0px auto;padding-top: 150px;">
-        <div style="width: 400px;background: #242424;height: 470px;"></div>
+        <div style="width: 400px;background: #242424;height: 470px;">
+          <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 25px;">My Power
+            <img
+                :src="icon_share"
+                style="width: 19px;height: 19px;float: right;margin-right: 40px;cursor: pointer;"
+
+            />
+          </div>
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">357.66
+          </div>
+          <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 15px;">My PowerRate
+          </div>
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">2.66 sMatic/s
+          </div>
+          <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 15px;">My Rewards
+          </div>
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">154.12 sMatic
+
+            <span style="float: right;margin-right: 40px; background: #00A0E9; border-radius: 5px; font-size: 14px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-left: 15px;padding-right: 15px;cursor: pointer;">Harvest</span>
+
+          </div>
+
+          <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 20px;">My node
+          </div>
+          <div style="padding-left: 30px;display: flex;margin-top: 10px">
+            <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">0x135....8492</div>
+            <div style=" font-size: 12px;font-family: Selawik; font-weight: 400;color: #00A0E9;margin-left: 17px">.............................................................</div>
+            <div style=" width: 8px;height: 8px;border: 1px solid #00A0E9;border-radius: 50%;margin-left: 20px;margin-top: 5px"></div>
+            <div style=" font-size: 12px;font-family: Selawik;font-weight: 400; color: #00A0E9; margin-left: 20px;">live</div>
+          </div>
+
+
+
+        </div>
         <div style="width: 658px;background: #242424;height: 470px;margin-left: 20px;"></div>
       </div>
 
       <img
           :src="pc_ido_img1"
           style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
-          alt="zh"
+
       />
 
   </div>
@@ -26,7 +59,8 @@ import { mapState } from "vuex";
 import {
   close,
   gif,
-  pc_ido_img1
+  pc_ido_img1,
+  icon_share
 } from "@/utils/images";
 
 
@@ -49,6 +83,7 @@ export default {
       close,
       gif,
       pc_ido_img1,
+      icon_share,
       address:'',
 
 
