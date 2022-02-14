@@ -188,77 +188,40 @@
                 style="width: 17px;height: 17px;left: 45px;top: 20px;position: absolute;z-index: 999;"
                 @click="OnOnCloseSelectWalletDialog()"
             />
-          <div class="popu" >
-            <div class="pc-dialog-div-popu" @click="showDownArrow"  style="display: flex">
+         <div style="width: 770px;margin: 0px auto;">
+            <el-select v-model="value" placeholder="" class="pc-dialog-div-spanner">
+              <el-option
+                  v-for="item in spanners"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                <div style=" width: 730px;height: 30px; display: flex;z-index: 999;" >
+                  <img
+                      :src="icon_uni"
+                      v-show="item.label=='sUni spot'"
+                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
+                  />
+                  <img
+                      :src="icon_dot"
+                      v-show="item.label=='sDot spot'"
+                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
+                  />
+                  <img
+                      :src="icon_bnb"
+                      v-show="item.label=='sBNB spot'"
+                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
+                  />
+                  <img
+                      :src="icon_matic"
+                      v-show="item.label=='sMatic spot'"
+                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
+                  />
+                  <div style="margin-left: 25px;line-height: 30px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
+                </div>
+              </el-option>
+            </el-select>
+         </div>
 
-                <img
-                    :src="icon_uni"
-                    v-show="spinnerPosition==1"
-                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-                />
-
-              <img
-                  :src="icon_dot"
-                  v-show="spinnerPosition==2"
-                  style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-              />
-              <img
-                  :src="icon_bnb"
-                  v-show="spinnerPosition==3"
-                  style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-              />
-              <img
-                  :src="icon_matic"
-                  v-show="spinnerPosition==4"
-                  style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-              />
-              <div v-show="spinnerPosition==1" style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;flex: 1">sUni spot</div>
-              <div v-show="spinnerPosition==2" style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;flex: 1">sDot spot</div>
-              <div v-show="spinnerPosition==3" style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;flex: 1">sBNB spot</div>
-              <div v-show="spinnerPosition==4" style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;flex: 1">sMatic spot</div>
-              <img
-                  :src="icon_down_arrow"
-                  style="width: 34px;height: 21px;z-index: 999;margin-top: 15px;margin-right: 25px;"
-              />
-
-            </div>
-            <div class="pc-dialog-div-popu-content" style="z-index: 999;">
-
-              <div :class="spinnerPosition==1?'spanner-item-p':'spanner-item-n'" @click="spannerItemClick(1)">
-                <img
-                    :src="icon_uni"
-                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-                />
-                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;z-index: 999;">sUni spot</div>
-
-              </div>
-              <div style=" width: 770px;height: 1px; background: #7ECEF4;"></div>
-              <div :class="spinnerPosition==2?'spanner-item-p':'spanner-item-n'" @click="spannerItemClick(2)">
-                <img
-                    :src="icon_dot"
-                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-                />
-                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sDot spot</div>
-
-              </div>
-              <div style=" width: 770px;height: 1px; background: #7ECEF4;"></div>
-              <div :class="spinnerPosition==3?'spanner-item-p':'spanner-item-n'" @click="spannerItemClick(3)">
-                <img
-                    :src="icon_bnb"
-                    style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-                />
-                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sBNB spot</div>
-              </div>
-              <div style=" width: 770px;height: 1px; background: #7ECEF4;"></div>
-              <div  :class="spinnerPosition==4?'spanner-item-p':'spanner-item-n'"  @click="spannerItemClick(4)">
-                <img
-                  :src="icon_matic"
-                  style="width: 34px;height: 34px;z-index: 999;margin-top: 8px;margin-left: 25px;"
-              />
-                <div style="margin-left: 25px;line-height: 50px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">sMatic spot</div></div>
-
-            </div>
-          </div>
 
 
             <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your Balance: 2</div>
@@ -365,9 +328,22 @@ export default {
       showSelectWalletDialog: false,
       showWhitelistTransferDialog:false,
       whitelistInputAddress:'',
-      spinnerPosition:1,//
 
 
+      spanners: [{
+        value: 'sUni spot',
+        label: 'sUni spot'
+      }, {
+        value: 'sDot spot',
+        label: 'sDot spot'
+      }, {
+        value: 'sBNB spot',
+        label: 'sBNB spot'
+      }, {
+        value: 'sMatic spot',
+        label: 'sMatic spot'
+      }],
+      value: 'sUni spot',
 
       configData: {
         chainId: 0
@@ -407,9 +383,6 @@ export default {
     },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
-    },
-    spannerItemClick(position){
-      this.spinnerPosition = position;
     },
     async OnConnectWalletBtn() {
      this.showSelectWalletDialog = true;
@@ -771,6 +744,11 @@ pc-div-btn2-item:hover {
 }
 .pc-dialog-div-popu{
   width: 770px;min-height: 50px;background: #FFFFFF; border-radius: 5px;margin: 80px auto 0px auto;
+
+}
+
+.pc-dialog-div-spanner{
+  width: 770px;background: #FFFFFF; border-radius: 5px;margin: 80px auto 0px auto;
 
 }
 .popu:hover   .pc-dialog-div-popu-content {
