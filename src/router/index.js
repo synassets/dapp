@@ -34,12 +34,6 @@ const constantRouter = [
         meta: { title: "ido" },
       },
       {
-        path: "/dashboard",
-        name: "dashboard",
-        component: () => import("@/views/dashboard/Index"),
-        meta: { title: "dashboard" },
-      },
-      {
         path: "/bond",
         name: "bond",
         component: () => import("@/views/bond/Index"),
