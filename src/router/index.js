@@ -33,6 +33,30 @@ const constantRouter = [
         component: () => import("@/views/ido/Index"),
         meta: { title: "ido" },
       },
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("@/views/dashboard/Index"),
+        meta: { title: "dashboard" },
+      },
+      {
+        path: "/bond",
+        name: "bond",
+        component: () => import("@/views/bond/Index"),
+        meta: { title: "bond" },
+      },
+      {
+        path: "/stake",
+        name: "stake",
+        component: () => import("@/views/stake/Index"),
+        meta: { title: "stake" },
+      },
+      {
+        path: "/network",
+        name: "network",
+        component: () => import("@/views/network/Index"),
+        meta: { title: "network" },
+      },
 
     ],
   },
