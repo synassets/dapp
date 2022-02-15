@@ -14,8 +14,11 @@ import "@/assets/css/public.scss";
 
 import Antd from "ant-design-vue";
 import { message } from "ant-design-vue";
-import echarts from 'echarts'
+
 import VueClipboard from 'vue-clipboard2'
+
+import * as echarts from 'echarts'
+import "echarts-liquidfill/src/liquidFill.js";
 
 import ElementUI1 from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
