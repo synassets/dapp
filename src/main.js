@@ -17,8 +17,9 @@ import { message } from "ant-design-vue";
 import echarts from 'echarts'
 import VueClipboard from 'vue-clipboard2'
 
-
-
+import ElementUI1 from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI1);
 
 Vue.use(VueClipboard)
 Vue.prototype.$echarts = echarts;
@@ -44,6 +45,7 @@ Vue.use(ElementUI, {
 
 
 new Vue({
+  el: '#app',
   router,
   store,
   i18n,
