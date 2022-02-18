@@ -191,11 +191,12 @@
          <div style="width: 770px;margin: 0px auto;">
             <el-select v-model="value" placeholder="" class="pc-dialog-div-spanner">
               <el-option
+
                   v-for="item in spanners"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
-                <div style=" width: 730px;height: 30px; display: flex;z-index: 999;" >
+                <div style=" width: 730px;height: 30px; display: flex;z-index: 999;"    @click="onClickOptionItem(item.value)">
                   <img
                       :src="icon_uni"
                       v-show="item.label=='sUni spot'"
@@ -241,10 +242,10 @@
                 </div>
 
               </div>
-              <div class="pc-dialog-div-btn" >
+              <div class="pc-dialog-div-btn" @click="onClickSend"  >
                 Send
               </div>
-              <div class="pc-dialog-div-gif" style="">
+              <div class="pc-dialog-div-gif" v-show="isShowProgress">
                 <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
               </div>
 
@@ -329,7 +330,7 @@ export default {
       showWhitelistTransferDialog:false,
       whitelistInputAddress:'',
 
-
+      isShowProgress:false,
       spanners: [{
         value: 'sUni spot',
         label: 'sUni spot'
@@ -380,6 +381,17 @@ export default {
     },
     showDownArrow(){
 
+    },
+    onClickSend(){
+      alert(this.value + '  address = '+this.whitelistInputAddress)
+
+          this.isShowProgress = true;
+          setTimeout(() => {
+            this.isShowProgress = false;
+          },3000)
+    },
+    onClickOptionItem(value){
+      alert(value)
     },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
