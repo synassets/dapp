@@ -225,7 +225,7 @@
 
 
 
-            <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your Balance: 2</div>
+            <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your Balance: {{this.whitelist_counter}}}</div>
 
 
 
@@ -287,7 +287,7 @@ import Cookies from "js-cookie";
 import {
   addSATCoin,
   getConfigData,
-  getDATA, initConnection,
+  getDATA, initConnection, transfer_white_list,
 } from "../../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 
@@ -357,7 +357,8 @@ export default {
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
-      satBalance: state => state.wallet.sat_balance
+      satBalance: state => state.wallet.sat_balance,
+      whitelist_counter:state => state.wallet.whitelist_counter,
     }),
     ...mapGetters({
       is_connected: "is_connected"
@@ -382,16 +383,20 @@ export default {
     showDownArrow(){
 
     },
-    onClickSend(){
-      alert(this.value + '  address = '+this.whitelistInputAddress)
-
-          this.isShowProgress = true;
-          setTimeout(() => {
-            this.isShowProgress = false;
-          },3000)
+    async onClickSend(){
+      if(!'/^(0x)?[0-9a-fA-F]{40}$/'.test(this.whitelistInputAddress))
+      {
+        this.$message("address err");
+      }
+       this.isShowProgress = true;
+     let ret =  await transfer_white_list(this.whitelistInputAddress);
+       if(ret){
+         return "";
+       }
     },
     onClickOptionItem(value){
-      alert(value)
+
+       this.$message("coming soon " + value);
     },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
@@ -467,6 +472,11 @@ export default {
             target: this.data.IDO.OG.address,
             call: ["balanceOf(address)(uint256)", this.address],
             returns: [["balanceOfSat"]]
+          },
+          {
+            target: this.data.IDO.NOG.contractAddress,
+            call: ["whitelist(address)(uint256)", this.address],
+            returns: [["whitelist_counter"]]
           }
         ],
         {
@@ -482,6 +492,11 @@ export default {
             let temp = update.value / this.data.IDO.OG.symbolScala;
             temp = temp.toFixed(2);
             this.$store.commit("SET_SAT_BALANCE", temp);
+          }
+        } else if (update.type == "whitelist_counter") {
+          if (update.value > 0) {
+            let temp = update.value ;
+            this.$store.commit("SET_WHITE_LIST_COUNTER", temp);
           }
         }
       });

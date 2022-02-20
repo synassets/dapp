@@ -31,34 +31,29 @@
     "IDO": {
       "OG": {
         "enableWhiteList": false,
-        "address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
+        "address": "0x31FB2706d6638E4b2addb3ed2e7BBFebB95bE17E",
         "symbol": "TestSAT",
         "symbolScala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "1000000000",
         "minAmount1PerWallet": "1000000000",
         "scala": "1000000",
-        "openAtOld": 1642136400,
-        "openAt": 1642140600,
-        "closeAt": 1642141800,
         "current": "TestUSDC",
-        "currentAddress": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "contractAddress": "0xB1601bF2D7FE00d24ccb4037F5D87b7664b19c7e"
+        "currentAddress": "0xAE131b14060ed3F4e1daE4c1a8cF3082bb450A1B",
+        "contractAddress": "0x1AC6613CbBeA720dc69a80A7abdd5Bd744a43179"
       },
       "NOG": {
         "enableWhiteList": false,
-        "address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
+        "address": "0x31FB2706d6638E4b2addb3ed2e7BBFebB95bE17E",
         "symbol": "TestSAT",
         "symbolScala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "10000000000",
         "minAmount1PerWallet": "500000000",
         "scala": "1000000",
-        "openAt": 1642140600,
-        "closeAt": 1642141800,
         "current": "TestUSDC",
-        "currentAddress": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "contractAddress": "0xdCde2c8CC76f9C40f439e294843D9c7DaB7a2A5e"
+        "currentAddress": "0xAE131b14060ed3F4e1daE4c1a8cF3082bb450A1B",
+        "contractAddress": "0xc08bC55b4001524B2282288e9a30eb25DDd3f7d4"
       }
     }
   }

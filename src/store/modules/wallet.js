@@ -7,6 +7,7 @@ const wallet  ={
     chain_id:0,
     target_chain_id:0,
     sat_balance:0,
+    whitelist_counter:0
    },
   getters: {
     is_connected: state => {
@@ -42,7 +43,9 @@ const wallet  ={
         if(typeof state[key] != 'undefined')  state[key] = payload[key]
       }
     },
-
+    SET_WHITE_LIST_COUNTER:(state, payload)=> {
+      state.whitelist_counter = payload
+    },
     SET_SAT_BALANCE:(state, payload)=> {
       state.sat_balance = payload
     },

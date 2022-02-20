@@ -60,7 +60,7 @@
                   style="padding-top: 40px;padding-left: 50px;font-size: 14px;font-family: Selawik;font-weight: 600;color: #DDDDDD;"
                 >Token Information</div>
                 <div class="pc-div1">
-                  <div class="pc-div1-left">Contact address</div>
+                  <div class="pc-div1-left">Contract address</div>
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
@@ -868,7 +868,7 @@
         <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #808080;margin-top: 0.34rem;padding-left: 0.73rem;"
         >
-          Contact address
+          Contract address
           <div
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.3rem;text-decoration: underline;cursor: pointer;"

@@ -476,7 +476,35 @@ export async function doApprove1(amount, type, spender) {
     }, 200000);
   });
 }
+export async function transfer_white_list(target){
+  return new Promise(resolve => {
+    const contract_obj = getContract("TokenSale");
+    contract_obj.methods
+        .transferWhitelist(target, 1)
+        .send({
+          from: getAddress(),
+        })
+        .then((data) => {
+          resolve({
+            status: true,
+            data
+          })
+        })
+        .catch((error) => {
+          resolve({
+            status: false,
+            error: error
+          })
+        });
 
+    setTimeout(() => {
+      resolve({
+        status: false,
+        error: { message: 'timeout' }
+      });
+    }, 200000);
+  });
+}
 export async function doApprove2(amount, type, spender) {
   return new Promise(resolve => {
     const contract_obj = getContract(type);
