@@ -293,7 +293,8 @@
         "stateMutability": "nonpayable",
         "type": "function"
       }
-    ]
+    ],
+    "address": "0xAE131b14060ed3F4e1daE4c1a8cF3082bb450A1B"
   },
   "TokenSale": {
     "abi": [
@@ -1093,6 +1094,7 @@
         "stateMutability": "payable",
         "type": "receive"
       }
-    ]
+    ],
+    "address": "0x1AC6613CbBeA720dc69a80A7abdd5Bd744a43179"
   }
 }

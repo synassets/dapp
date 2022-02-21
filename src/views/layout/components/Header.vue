@@ -291,6 +291,7 @@ import {
   getDATA, initConnection, transfer_white_list,
 } from "../../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
+import {isAddress} from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
 
@@ -406,13 +407,14 @@ export default {
 
     },
     async onClickSend(){
-      if(!new RegExp('/^(0x)?[0-9a-fA-F]{40}$/').test(this.whitelistInputAddress))
+      if(!isAddress(this.whitelistInputAddress))
       {
-        this.isShowProgress = true;
+        return ;
       }
-      this.isShowProgress = true;
-     let ret =  await transfer_white_list(this.whitelistInputAddress);
-       if(ret){
+
+     let ret =  await transfer_white_list(this.whitelistInputAddress,getDATA().IDO.OG.contractAddress);
+      console.log("transfer_white_list :" + ret);
+      if(ret){
          return "";
        }
     },

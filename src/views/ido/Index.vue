@@ -1059,12 +1059,11 @@ let Base64 = require("js-base64").Base64;
 
 import moment from "moment";
 import {
-  toWei,
   getDATA,
   doApprove2New,
   saleSwap,
   getConfigData,
-  isAddress
+  isAddress, toWei
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
@@ -1549,11 +1548,7 @@ export default {
       }
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-          this.$message.error("Error,please use invitation link!");
-          return;
-        }
-        if (this.refAddress.length < 10) {
-          this.$message.error("Error,please use invitation link! ");
+          this.$message.error("Error,please use invitation link!"); ``
           return;
         }
         if (this.refAddress == this.address) {
@@ -1561,13 +1556,14 @@ export default {
           return;
         }
       } else {
-        this.refAddress = this.address;
+        this.$store.commit("SET_REF_ADDRESS", this.address);
       }
-
+      console.log("2");
       if (!this.ogWhitelist) {
         this.$message.error("Error,please use whitelist! ");
         return;
       }
+      console.log("1");
       if (this.isShowTimestamp2) {
         this.$message.error("Coming soon....");
         return;
@@ -1575,15 +1571,16 @@ export default {
       this.isShowProgress = true;
 
       try {
+        console.log("4");
         await doApprove2New(
-          toWei(99999999999),
+            toWei(99999999999),
           "coin",
           this.data.IDO.OG.currentAddress,
           this.data.IDO.OG.contractAddress
         );
         await this.Mult_watcher.poll();
       } catch (e) {
-        console.error("OgApprove failed");
+        console.error("OgApprove failed"+e.toString());
       }
       this.isShowProgress = false;
     },
@@ -1600,7 +1597,7 @@ export default {
 
       try {
         await doApprove2New(
-          toWei(99999999999),
+            toWei(99999999999),
           "coin",
           this.data.IDO.NOG.currentAddress,
           this.data.IDO.NOG.contractAddress

@@ -6,6 +6,7 @@ import {
 } from "../config/wallet";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
+
 export let web3 = null;
 const contractData =  require('../config/data.json')
 export function getDATA() {
@@ -19,9 +20,10 @@ export function getConfigData() {
 
 export async function getGasPrice() {
   return new Promise((resolve, reject) => {
-  return   new web3.eth.getGasPrice()
+
+  return  web3.eth.getGasPrice()
         .then((data) => {
-          console.log('=================data'+JSON.stringify(data))
+
           resolve(
             data
           );
@@ -240,8 +242,9 @@ export function getContract(contract) {
 }
 
 export function getContractNew(contract,address) {
+
   const contract_info = CONTRACT_DATA[contract];
-  return new web3.eth.Contract(contract_info.abi, address);
+    return new web3.eth.Contract(contract_info.abi, address);
 }
 
 export function getContractAddress(contract) {
@@ -267,8 +270,8 @@ export async function getAddress() {
   try {
     let address = await web3.eth.getAccounts();
     if (address && address.length > 0) {
-
-      return address;
+      console.log("address :" + address[0]);
+      return address[0];
     }
   } catch (e) {
     console.log("getAddress failed");
@@ -278,8 +281,8 @@ export async function getAddress() {
 
 export async function updateAddress(_address) {
   let m_address = _address;
-  if(m_address && m_address.length && m_address.length > 0){
-    store.commit("SET_ADDRESS", m_address[0]);
+  if(m_address){
+    store.commit("SET_ADDRESS", m_address);
   }
   else {
     store.commit("SET_ADDRESS", "0");
@@ -288,6 +291,11 @@ export async function updateAddress(_address) {
 
 export function isAddress(address) {
   return web3.utils.isAddress(address);
+}
+
+export function toWei(val) {
+  let temp =  web3.utils.toWei(val+"",'ether');
+  return temp;
 }
 
 
@@ -347,7 +355,7 @@ export async function approve(amount, type, approveAddress) {
     contract_obj.methods
       .approve(approveAddress, (amount * 1000*10**18))
       .send({
-        from: getAddress(),
+        from: getWalletAddressSync(),
       })
       .then((data) => {
         resolve(data);
@@ -365,7 +373,7 @@ export async function approve(amount, type, approveAddress) {
 
 
 export async function getStakeInfo(pool) {
-  let address = getAddress();
+  let address = getWalletAddressSync()();
   if (address === '')
     address = '0x0000000000000000000000000000000000000000'
   return new Promise((resolve) => {
@@ -393,7 +401,7 @@ export async function withdraw(amount, pool) {
     const contract_obj = getContract(pool)
     contract_obj.methods
         .withdraw(amount)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -414,7 +422,7 @@ export async function getReward(pool) {
     const contract_obj = getContract(pool)
     contract_obj.methods
         .getReward()
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -434,7 +442,7 @@ export async function balanceOf(token) {
   return new Promise(resolve => {
     const contract_obj = getContract(token)
     contract_obj.methods
-        .balanceOf(getAddress())
+        .balanceOf(getWalletAddressSync())
         .call()
         .then((data) => {
           resolve({
@@ -456,7 +464,7 @@ export async function doApprove1(amount, type, spender) {
     contract_obj.methods
         .approve(getContractAddress(spender), amount   )
         .send({
-          from: getAddress(),
+          from: getWalletAddressSync(),
         })
         .then((data) => {
           resolve({
@@ -479,13 +487,13 @@ export async function doApprove1(amount, type, spender) {
     }, 200000);
   });
 }
-export async function transfer_white_list(target){
+export async function transfer_white_list(target,contract_address){
   return new Promise(resolve => {
-    const contract_obj = getContract("TokenSale");
+    const contract_obj = getContractNew("TokenSale",contract_address);
     contract_obj.methods
         .transferWhitelist(target, 1)
         .send({
-          from: getAddress(),
+          from: getWalletAddressSync(),
         })
         .then((data) => {
           resolve({
@@ -541,7 +549,7 @@ export function getAllowance( type, spender) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContract(type);
     contract_obj.methods
-        .allowance(getAddress(),spender)
+        .allowance(getWalletAddressSync(),spender)
         .call()
         .then((data) => {
           resolve({
@@ -557,8 +565,8 @@ export async function stake(amount, pool) {
   return new Promise((resolve) => {
     const contract_obj = getContract(pool)
     contract_obj.methods
-        .stake(amount,getAddress())
-        .send({from: getAddress()})
+        .stake(amount,getWalletAddressSync())
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -578,7 +586,7 @@ export async function unstake(amount, pool) {
     const contract_obj = getContract(pool)
     contract_obj.methods
         .unstake(amount,false)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -597,7 +605,7 @@ export async function depositBoundDai(amount,maxPrice, depositor) {
     const contract_obj = getContract("BondDepositoryDai")
     contract_obj.methods
         .deposit(amount,maxPrice,depositor)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -616,7 +624,7 @@ export async function depositBoundLp(amount,maxPrice, depositor) {
     const contract_obj = getContract("BondDepositoryLp")
     contract_obj.methods
         .deposit(amount,maxPrice,depositor)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -636,7 +644,7 @@ export async function redeemBoundDai(recipient,isStake) {
     const contract_obj = getContract("BondDepositoryDai")
     contract_obj.methods
         .redeem(recipient,isStake)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -654,7 +662,7 @@ export async function redeemBoundLp(recipient,isStake) {
     const contract_obj = getContract("BondDepositoryLp")
     contract_obj.methods
         .redeem(recipient,isStake)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -673,7 +681,7 @@ export async function presalesOffer(amount, pool) {
     const contract_obj = getContract(pool)
     contract_obj.methods
         .offer(amount)
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -691,7 +699,7 @@ export async function presalesClaim(pool) {
     const contract_obj = getContract(pool)
     contract_obj.methods
         .claim()
-        .send({from: getAddress()})
+        .send({from: getWalletAddressSync()})
         .then((data) => {
           resolve({
             status: true,
@@ -720,21 +728,23 @@ export function getBalanceForGons( amount) {
         .catch((e) => reject(e));
   });
 }
-
+function getWalletAddressSync(){
+  return store.getters.wallet.address;
+}
 
 ///////////////////////////////new ////////////////////////
 export async function doApprove2New(amount, pool, contractAddress, spender) {
-
 
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
 
   return new Promise(resolve => {
+
     const contract_obj = getContractNew(pool,contractAddress);
 
     contract_obj.methods
         .approve(spender, amount)
-        .send({from: getAddress(),
+        .send({from: getWalletAddressSync(),
           gasPrice: price})
         .then((data) => {
           resolve({
@@ -766,7 +776,7 @@ export async function saleSwap(amount, pool,contractAddress,inviteAddress) {
     const contract_obj = getContractNew(pool,contractAddress)
     contract_obj.methods
         .swap(amount,inviteAddress)
-        .send({from: getAddress(),
+        .send({from: getWalletAddressSync(),
           gasPrice: price})
         .then((data) => {
           resolve({
@@ -787,7 +797,7 @@ export function getAllowanceNew( type, contractAddress,spender) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContractNew(type,contractAddress);
     contract_obj.methods
-        .allowance(getAddress(),spender)
+        .allowance(getWalletAddressSync(),spender)
         .call()
         .then((data) => {
           resolve({
