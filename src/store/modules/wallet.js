@@ -43,8 +43,8 @@ const wallet  ={
         if(typeof state[key] != 'undefined')  state[key] = payload[key]
       }
     },
-    SET_WHITE_LIST_COUNTER:(state, payload)=> {
-      state.whitelist_counter = payload
+    SET_OG_WHITE_LIST_COUNTER:(state, payload)=> {
+      state.whitelist_og_counter = payload
     },
     SET_SAT_BALANCE:(state, payload)=> {
       state.sat_balance = payload

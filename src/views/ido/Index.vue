@@ -1190,6 +1190,20 @@ export default {
     setInterval(this.timeDeal, 1000);
   },
 
+
+  watch: {
+    // 如果 `question` 发生改变，这个函数就会运行
+    immediate: true,
+    address: function (newQuestion, oldQuestion) {
+      console.log(newQuestion + "ido :" + oldQuestion);
+      if(this.Mult_watcher != null){
+        this.Mult_watcher.stop();
+        this.Mult_watcher = null;
+      }
+      this.getStartWatch();
+    }
+  },
+
   methods: {
     onCopy(e) {
       console.log("" + e);
@@ -1490,7 +1504,7 @@ export default {
           this.currentAddressBalanceOf5_format = this.formatAmount(
             this.currentAddressBalanceOf5
           );
-        } else if (update.type == "whitelist") {
+        } else if (update.type == "OGwhitelist") {
           this.ogWhitelist = update.value;
         } else if (update.type == "OG_ambassador") {
           this.is_og_ambassador = update.value;
