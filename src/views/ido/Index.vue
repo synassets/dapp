@@ -153,16 +153,16 @@
                     class="pc-div1-left"
                     style="font-size: 14px;font-family: Selawik;font-weight: 600;color: #DDDDDD;"
                   >IDO Progress</div>
-                  <!--                           <div v-show="isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.amountTotal12 +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current  }} </div>
-                  <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current  }}</div>-->
+                  <!--                           <div v-show="isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current  }} </div>
+                  <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current  }}</div>-->
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.amountTotal12 +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) +' '+ this.data.IDO.OG.current }}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) +' '+ this.data.IDO.OG.current }}</div>
                 </div>
                 <div
                   style="width: 380px;height: 16px;background: #5F5F5F;border-radius:  8px;margin: 20px auto 0px auto;position: relative;"
@@ -840,11 +840,11 @@
           <div
             v-show="isOgMarket"
             style="position: absolute;right: 0.5rem;"
-          >{{ this.amountTotal12 +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
+          >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
           <div
             v-show="!isOgMarket"
             style="position: absolute;right: 0.5rem;"
-          >{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current }}</div>
+          >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current }}</div>
         </div>
         <div
           style="width: 6.8rem; height: 0.21rem;background: #5F5F5F;border-radius: 0.13rem;margin: 0.31rem auto 0rem auto;position: relative;"
@@ -1104,8 +1104,8 @@ export default {
       calcT15: "",
       calcT12PricePerToken: 0,
       calcT15PricePerToken: 0,
-      amountTotal12: "",
-      amountTotal15: "",
+      og_amount_total: "",
+      nog_amount_total: "",
       amountTotal02: "",
       amountTotal05: "",
 
@@ -1364,12 +1364,12 @@ export default {
           {
             target: this.data.IDO.OG.contractAddress,
             call: ["amountTotal1()(uint256)"],
-            returns: [["amountTotal12"]]
+            returns: [["og_amount_total"]]
           },
           {
             target: this.data.IDO.NOG.contractAddress,
             call: ["amountTotal1()(uint256)"],
-            returns: [["amountTotal15"]]
+            returns: [["nog_amount_total"]]
           },
 
           {
@@ -1463,19 +1463,19 @@ export default {
           this.my_Allocation_NOG_Amount_format = this.formatAmount(
             this.myAllocationAmount5
           );
-        } else if (update.type == "amountTotal12") {
-          this.amountTotal12 = update.value / this.data.IDO.OG.scala;
-          this.amountTotal12_format = this.formatAmount(this.amountTotal12);
-          if (this.amountTotal12 > 0) {
+        } else if (update.type == "og_amount_total") {
+          this.og_amount_total = update.value / this.data.IDO.OG.scala;
+          this.amountTotal12_format = this.formatAmount(this.og_amount_total);
+          if (this.og_amount_total > 0) {
             this.pc_OG_Progress =
               (update.value * 380) / this.data.IDO.OG.maxAmount1;
             this.h5_OG_Progress =
               (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
           }
-        } else if (update.type == "amountTotal15") {
-          this.amountTotal15 = update.value / this.data.IDO.NOG.scala;
-          this.amountTotal15_format = this.formatAmount(this.amountTotal15);
-          if (this.amountTotal15 > 0) {
+        } else if (update.type == "nog_amount_total") {
+          this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
+          this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
+          if (this.nog_amount_total > 0) {
             this.pc_NOG_Progress =
               (update.value * 380) / this.data.IDO.NOG.maxAmount1;
             this.h5_NOG_Progress =
