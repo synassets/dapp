@@ -60,3 +60,8 @@ export const icon_bnb = require("@/assets/img/icon_bnb.png");
 export const icon_dot = require("@/assets/img/icon_dot.png");
 export const icon_matic = require("@/assets/img/icon_matic.png");
 export const icon_share = require("@/assets/img/icon_share.png");
+
+export const tip_error = require("@/assets/img/tip_error.png");
+export const tip_ok = require("@/assets/img/tip_ok.png");
+export const tip_warn = require("@/assets/img/tip_warn.png");
+
