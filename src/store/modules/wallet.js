@@ -7,7 +7,8 @@ const wallet  ={
     chain_id:0,
     target_chain_id:0,
     sat_balance:0,
-    whitelist_counter:0
+    whitelist_og_counter:0,
+    my_amount_og_swapped:0
    },
   getters: {
     is_connected: state => {
@@ -15,7 +16,6 @@ const wallet  ={
       return teo;
     },
     chain_id: state => {
-
       return state.chain_id
     },
     sat_balance: state => {
@@ -23,7 +23,6 @@ const wallet  ={
       return state.sat_balance
     },
     address: state => {
-      this.is_connected();
       return state.address
     },
     invite_address: state => {
@@ -43,7 +42,13 @@ const wallet  ={
         if(typeof state[key] != 'undefined')  state[key] = payload[key]
       }
     },
+
+
+    SET_AMOUNT_OG_SWAPPED:(state, payload)=> {
+      state.my_amount_og_swapped = payload
+    },
     SET_OG_WHITE_LIST_COUNTER:(state, payload)=> {
+
       state.whitelist_og_counter = payload
     },
     SET_SAT_BALANCE:(state, payload)=> {

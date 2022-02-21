@@ -408,7 +408,7 @@ export default {
     async onClickSend(){
       if(!new RegExp('/^(0x)?[0-9a-fA-F]{40}$/').test(this.whitelistInputAddress))
       {
-
+        this.isShowProgress = true;
       }
       this.isShowProgress = true;
      let ret =  await transfer_white_list(this.whitelistInputAddress);
@@ -495,11 +495,11 @@ export default {
             call: ["balanceOf(address)(uint256)", this.address],
             returns: [["balanceOfSat"]]
           },
-          {
-            target: this.data.IDO.OG.contractAddress,
-            call: ["whitelist(address)(uint256)", this.address],
-            returns: [["whitelist_og_counter"]]
-          }
+          // {
+          //   target: this.data.IDO.OG.contractAddress,
+          //   call: ["whitelist(address)(uint256)", this.address],
+          //   returns: [["whitelist_og_counter"]]
+          // }
         ],
         {
           rpcUrl: this.configData.rpcUrl,
@@ -508,7 +508,7 @@ export default {
         }
       );
       this.contract_watch.subscribe(update => {
-        console.log(`Update: ${update.type} = ${update.value}`);
+        console.log(`Update:head ----------- ${update.type} = ${update.value}`);
         if (update.type == "balanceOfSat") {
           if (update.value > 0) {
             let temp = update.value / this.data.IDO.OG.symbolScala;

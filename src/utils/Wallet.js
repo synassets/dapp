@@ -95,6 +95,8 @@ async function createWalletConnectionProvider(){
 let provider = null;
 export async function initConnection(type) {
 
+
+
   if(provider != null){
     await provider.disconnect();
   }
@@ -227,6 +229,7 @@ export async function init() {
      await InitRef();
      await initConnection("");
   } catch (e) {
+
     console.error("init failed ");
   }
 }

@@ -1114,7 +1114,7 @@ export default {
       amountTotal02_format: "",
       amountTotal05_format: "",
 
-      my_amount_OG_Swapped: 0,
+
       amountSwapped15: 0,
 
       myAllocationAmount2: 0,
@@ -1149,7 +1149,6 @@ export default {
       showTimestamp5: "",
       stakeAmount: "",
       isOgMarket: true,
-      ogWhitelist: false,
       is_og_ambassador: false,
 
       isShowProgress: false,
@@ -1168,7 +1167,9 @@ export default {
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
-
+      ogWhitelist:state => {
+        return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
+      },
       isPublicSaleApproved: state => {
         return state.NOG_allowance > 999999;
       },
@@ -1404,7 +1405,7 @@ export default {
           },
           {
             target: this.data.IDO.OG.contractAddress,
-            call: ["whitelist(address)(bool)", this.address],
+            call: ["whitelist(address)(uint256)", this.address],
             returns: [["OGwhitelist"]]
           },
           {
@@ -1431,6 +1432,11 @@ export default {
             target: this.data.IDO.NOG.contractAddress,
             call: ["closeAt()(uint256)"],
             returns: [["closeAtNOG"]]
+          },
+          {
+            target: this.data.IDO.OG.address,
+            call: ["balanceOf(address)(uint256)", this.address],
+            returns: [["balanceOfSat"]]
           }
         ],
         {
@@ -1447,11 +1453,12 @@ export default {
         } else if (update.type == "NOG_allowance") {
           this.NOG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
         } else if (update.type == "my_amount_OG_Swapped") {
-          this.my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
+          let my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
+          this.$store.commit("SET_AMOUNT_OG_SWAPPED", my_amount_OG_Swapped);
           let maxAmount1PerWallet =
             this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
           this.myAllocationAmount2 =
-            maxAmount1PerWallet - this.my_amount_OG_Swapped;
+            maxAmount1PerWallet - my_amount_OG_Swapped;
           this.my_Allocation_OG_Amount_format = this.formatAmount(
             this.myAllocationAmount2
           );
@@ -1505,7 +1512,10 @@ export default {
             this.currentAddressBalanceOf5
           );
         } else if (update.type == "OGwhitelist") {
-          this.ogWhitelist = update.value;
+
+            let temp = Number(update.value);
+            this.$store.commit("SET_OG_WHITE_LIST_COUNTER",temp);
+
         } else if (update.type == "OG_ambassador") {
           this.is_og_ambassador = update.value;
         } else if (update.type == "openAtOG") {
@@ -1522,6 +1532,10 @@ export default {
           this.openAtNOG = update.value;
           this.timePurchased5 = this.openAtNOG;
           this.time5 = this.format(this.timePurchased5);
+        } else if("balanceOfSat" == update.type){
+          let temp = update.value / this.data.IDO.OG.symbolScala;
+          temp = temp.toFixed(2);
+          this.$store.commit("SET_SAT_BALANCE", temp);
         }
       });
 
