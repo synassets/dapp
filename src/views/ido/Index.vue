@@ -1592,13 +1592,18 @@ export default {
       this.isShowProgress = true;
 
       try {
-        await doApprove2New(
+       let data =   await doApprove2New(
           toWei(99999999999),
           "coin",
           this.data.IDO.OG.currentAddress,
           this.data.IDO.OG.contractAddress
         );
-        await this.Mult_watcher.poll();
+       if(data.status == true){
+         await this.Mult_watcher.poll();
+       }
+       else {
+         this.$refs.messageTipErrorDialog.showClick('Approve failed ! ');
+       }
       } catch (e) {
         console.error("OgApprove failed");
       }
