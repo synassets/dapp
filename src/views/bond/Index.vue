@@ -82,99 +82,104 @@
 
 
 
-      <!----showBondDialog-->
+
+
+  </div>
+    <!--h5-->
+    <div  v-show="!isMobile"  ></div>
+    <!----showBondDialog-->
     <my-dialog
-          :is-show="showBondDialog"
-          @isClose="showBondDialog = false"
-          :width="isMobile ? '9.33rem' : '834px'"
-        >
+        :is-show="showBondDialog"
+        @isClose="showBondDialog = false"
+        :width="isMobile ? '9.33rem' : '834px'"
+    >
       <div v-show="!isMobile">
-      <div class="pc-dialog-div-close">
-        <img :src="close" class="pc-dialog-div-close-img" @click="showBondDialog = false" />
-      </div>
-
-      <div class="pc-dialog-div-header">
-        <div style="display: flex">
-          <div class="pc-dialog-div-header-up">Treasury Balance</div>
-          <div class="pc-dialog-div-header-up">CTD Price</div>
+        <div class="pc-dialog-div-close">
+          <img :src="close" class="pc-dialog-div-close-img" @click="showBondDialog = false" />
         </div>
-        <div style="display: flex">
-          <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
 
-          <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+        <div class="pc-dialog-div-header">
+          <div style="display: flex">
+            <div class="pc-dialog-div-header-up">Treasury Balance</div>
+            <div class="pc-dialog-div-header-up">CTD Price</div>
+          </div>
+          <div style="display: flex">
+            <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+
+            <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+          </div>
         </div>
-      </div>
 
 
-      <div class="pc-bond-tab">
-        <div @click="clickTabBond(true)" v-show="isBondMenu" class="pc-bond-tab-left-p">Bond</div>
-        <div @click="clickTabBond(true)"  v-show="!isBondMenu" class="pc-bond-tab-left-n">Bond</div>
+        <div class="pc-bond-tab">
+          <div @click="clickTabBond(true)" v-show="isBondMenu" class="pc-bond-tab-left-p">Bond</div>
+          <div @click="clickTabBond(true)"  v-show="!isBondMenu" class="pc-bond-tab-left-n">Bond</div>
 
-        <div  @click="clickTabBond(false)"  v-show="!isBondMenu" class="pc-bond-tab-right-p">Redeem</div>
-        <div @click="clickTabBond(false)"  v-show="isBondMenu" class="pc-bond-tab-right-n" >Redeem</div>
-      </div>
+          <div  @click="clickTabBond(false)"  v-show="!isBondMenu" class="pc-bond-tab-right-p">Redeem</div>
+          <div @click="clickTabBond(false)"  v-show="isBondMenu" class="pc-bond-tab-right-n" >Redeem</div>
+        </div>
 
-      <div v-show="isBondMenu" class="pc-bond-div-tip1">
-        <div style="width: 540px;position: relative;">
-          <div  class="pc-bond-div-tip2">
-            <div>First time bond CTD?</div>
-            <div>Please approve Crypto Dao to use your CTD for bond.</div>
+        <div v-show="isBondMenu" class="pc-bond-div-tip1">
+          <div style="width: 540px;position: relative;">
+            <div  class="pc-bond-div-tip2">
+              <div>First time bond CTD?</div>
+              <div>Please approve Crypto Dao to use your CTD for bond.</div>
+            </div>
+
+
+            <!--<div class='pc-bond-div-input'>
+              <input v-model="bondInputAmount" type="text"  @input="inputChange()"
+               class='pc-bond-div-input1'
+                      />
+              <div  @click="maxValueClick()"  class='pc-bond-div-input-max' >MAX</div>
+            </div>-->
+
+
+
+
+
+
+          </div>
+          <div class="pc-bond-div-btn" >
+            Approve
+          </div>
+          <div class="pc-bond-div-gif" style="">
+            <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+          </div>
+          <div class="pc-bond-div-btn" >
+            Bond
           </div>
 
-
-          <!--<div class='pc-bond-div-input'>
-            <input v-model="bondInputAmount" type="text"  @input="inputChange()"
-             class='pc-bond-div-input1'
-                    />
-            <div  @click="maxValueClick()"  class='pc-bond-div-input-max' >MAX</div>
-          </div>-->
-
-
-
-
-
-
-        </div>
-        <div class="pc-bond-div-btn" >
-          Approve
-        </div>
-        <div class="pc-bond-div-gif" style="">
-          <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
-        </div>
-        <div class="pc-bond-div-btn" >
-          Bond
         </div>
 
-      </div>
 
 
-
-      <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
-        <div style="display: flex;">
-          <div class="pc-bond-div-detail-left">Your Balance</div>
-          <div class="pc-bond-div-detail-right"> {{ '--'}}</div>
+        <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
+          <div style="display: flex;">
+            <div class="pc-bond-div-detail-left">Your Balance</div>
+            <div class="pc-bond-div-detail-right"> {{ '--'}}</div>
+          </div>
+          <div class="pc-bond-div-detail">
+            <div  class="pc-bond-div-detail-left">You Will Get</div>
+            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+          </div>
+          <div class="pc-bond-div-detail">
+            <div  class="pc-bond-div-detail-left">Max You Can Buy</div>
+            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+          </div>
+          <div class="pc-bond-div-detail">
+            <div  class="pc-bond-div-detail-left">ROI</div>
+            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+          </div>
+          <div class="pc-bond-div-detail">
+            <div  class="pc-bond-div-detail-left">Vesting Term</div>
+            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+          </div>
+          <div class="pc-bond-div-detail">
+            <div  class="pc-bond-div-detail-left">Minimum purchase</div>
+            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+          </div>
         </div>
-        <div class="pc-bond-div-detail">
-          <div  class="pc-bond-div-detail-left">You Will Get</div>
-          <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-        </div>
-        <div class="pc-bond-div-detail">
-          <div  class="pc-bond-div-detail-left">Max You Can Buy</div>
-          <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-        </div>
-        <div class="pc-bond-div-detail">
-          <div  class="pc-bond-div-detail-left">ROI</div>
-          <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-        </div>
-        <div class="pc-bond-div-detail">
-          <div  class="pc-bond-div-detail-left">Vesting Term</div>
-          <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-        </div>
-        <div class="pc-bond-div-detail">
-          <div  class="pc-bond-div-detail-left">Minimum purchase</div>
-          <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-        </div>
-      </div>
 
         <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim</div>
 
@@ -211,10 +216,6 @@
       <!------h5----->
 
     </my-dialog>
-
-  </div>
-
-
 
   </div>
 </template>
