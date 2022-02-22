@@ -150,14 +150,16 @@ export async function initConnection(type) {
 }
 
 
-async function InitRef(){
+export async function InitRef(){
   let Base64 = require('js-base64').Base64
   const url_params = new URLSearchParams(window.location.search);
   let ref = url_params.get("ref");
   if (ref != null) {
     ref = Base64.decode(ref);
-    if (isAddress(ref)) {
+   if (ref.length>15) {
+
       store.commit("SET_REF_ADDRESS",ref);
+
     }
     else {
       store.commit("SET_REF_ADDRESS",null);
