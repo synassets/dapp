@@ -59,6 +59,7 @@ export const icon_uni = require("@/assets/img/icon_uni.png");
 export const icon_bnb = require("@/assets/img/icon_bnb.png");
 export const icon_dot = require("@/assets/img/icon_dot.png");
 export const icon_matic = require("@/assets/img/icon_matic.png");
+export const icon_sat = require("@/assets/img/icon_sat.png");
 export const icon_share = require("@/assets/img/icon_share.png");
 
 export const tip_error = require("@/assets/img/tip_error.png");
