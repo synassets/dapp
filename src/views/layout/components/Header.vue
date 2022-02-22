@@ -271,9 +271,7 @@ export default {
     }
   },
 
-
   watch: {
-    // ��� `question` �����ı䣬��������ͻ�����
     immediate: true,
     address: function (newQuestion, oldQuestion) {
       console.log(newQuestion + "oldQuestion :" + oldQuestion);
