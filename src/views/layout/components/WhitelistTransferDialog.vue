@@ -18,23 +18,23 @@
                   :value="item.value">
                 <div style=" width: 730px;height: 30px; display: flex;z-index: 999;"     @click="onClickOptionItem(item.value)">
                   <img
-                      :src="icon_uni"
-                      v-show="item.label=='sUni spot'"
+                      :src="icon_sat"
+                      v-show="item.label=='SAT WL spot'"
                       style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                   />
                   <img
                       :src="icon_dot"
-                      v-show="item.label=='sDot spot'"
+                      v-show="item.label=='sDOT WL spot'"
                       style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                   />
                   <img
                       :src="icon_bnb"
-                      v-show="item.label=='sBNB spot'"
+                      v-show="item.label=='sBNB WL spot'"
                       style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                   />
                   <img
                       :src="icon_matic"
-                      v-show="item.label=='sMatic spot'"
+                      v-show="item.label=='sMatic WL spot'"
                       style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                   />
                   <div style="margin-left: 25px;line-height: 30px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
@@ -99,23 +99,23 @@
                 :value="item.value">
               <div style=" width: 6rem;height: 0.93rem; display: flex;z-index: 999;"    @click="onClickOptionItem(item.value)">
                 <img
-                    :src="icon_uni"
-                    v-show="item.label=='sUni spot'"
+                    :src="icon_sat"
+                    v-show="item.label=='SAT WL spot'"
                     style="width: 0.45rem;height:0.45rem;z-index: 999;margin-top: 0.2rem;margin-left: 0.32rem"
                 />
                 <img
                     :src="icon_dot"
-                    v-show="item.label=='sDot spot'"
+                    v-show="item.label=='sDOT WL spot'"
                     style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                 />
                 <img
                     :src="icon_bnb"
-                    v-show="item.label=='sBNB spot'"
+                    v-show="item.label=='sBNB WL spot'"
                     style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                 />
                 <img
                     :src="icon_matic"
-                    v-show="item.label=='sMatic spot'"
+                    v-show="item.label=='sMatic WL spot'"
                     style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                 />
                 <div style="margin-left: 0.4rem;line-height: 0.93rem; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
@@ -150,7 +150,7 @@
 <script>
 import myDialog from "@/views/components/myDialog";
 
-import { close ,gif,icon_uni,
+import { close ,gif,icon_sat,
   icon_bnb ,
   icon_dot,
   icon_matic, } from "@/utils/images";
@@ -164,24 +164,26 @@ export default {
     return {
       close,
       gif,
-      icon_uni,
+      icon_sat,
       icon_bnb ,
       icon_dot,
       icon_matic,
-      spanners: [{
-        value: 'sUni spot',
-        label: 'sUni spot'
-      }, {
-        value: 'sDot spot',
-        label: 'sDot spot'
-      }, {
-        value: 'sBNB spot',
-        label: 'sBNB spot'
-      }, {
-        value: 'sMatic spot',
-        label: 'sMatic spot'
-      }],
-      value: 'sUni spot',
+      spanners: [
+        {
+          value: 'sMatic WL spot',
+          label: 'sMatic WL spot'
+        }, {
+          value: 'sBNB WL spot',
+          label: 'sBNB WL spot'
+        },
+        {
+          value: 'SAT WL spot',
+          label: 'SAT WL spot'
+        }, {
+          value: 'sDOT WL spot',
+          label: 'sDOT WL spot'
+        }],
+      value: 'SAT WL spot',
       whitelistInputAddress:"",
       isShowProgress:false,
     }
