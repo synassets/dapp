@@ -2117,7 +2117,7 @@ export default {
 }
 
 .h5-ido-btn1 {
-  font-size: 0.21rem;
+  font-size: 0.35rem;
   font-family: Selawik;
   font-weight: 400;
   color: #ffffff;
@@ -2134,7 +2134,7 @@ export default {
 }
 
 .h5-ido-btn2 {
-  font-size: 0.21rem;
+  font-size: 0.35rem;
   font-family: Selawik;
   font-weight: 400;
   color: #ffffff;
