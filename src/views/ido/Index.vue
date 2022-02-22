@@ -1046,6 +1046,10 @@
         <div style="width: 1rem;height: 1rem;"></div>
       </div>
     </my-dialog>
+    <MessageTipOkDialog    ref="messageTipOkDialog" />
+    <MessageTipWarnDialog   ref="messageTipWarnDialog" />
+    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
+
   </div>
 </template>
 
@@ -1054,7 +1058,9 @@
 import { mapState } from "vuex";
 import { pc_ido_img1, pc_ido_img2 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
-
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 let Base64 = require("js-base64").Base64;
 
 import moment from "moment";
@@ -1071,7 +1077,10 @@ import { share, close, gif } from "../../utils/images";
 export default {
   name: "Index",
   components: {
-    MyDialog
+    MyDialog,
+    MessageTipOkDialog,
+    MessageTipWarnDialog,
+    MessageTipErrorDialog
   },
   data() {
     return {
@@ -1193,17 +1202,19 @@ export default {
   methods: {
     onCopy(e) {
       console.log("" + e);
-      this.$message.success("success ");
+      // this.$message.success("success ");
+      this.$refs.messageTipOkDialog.showClick();
       this.showInviteDialog = false;
     },
 
     onError(e) {
       console.log("" + e);
-      this.$message.error("copy error ");
+      // this.$message.error("copy error ");
+      this.$refs.messageTipErrorDialog.showClick('copy error ');
     },
     showInviteClick() {
       if (this.address.length < 10) {
-        this.$message.info("address error ");
+        this.$refs.messageTipWarnDialog.showClick('address error ');
         return;
       }
       this.showInviteDialog = true;
@@ -1516,20 +1527,24 @@ export default {
 
     async OgApprove() {
       if (this.isShowProgress) {
-        this.$message.info("Waiting ");
+        // this.$message.info("Waiting ");
+        this.$refs.messageTipWarnDialog.showClick('Waiting ');
         return;
       }
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-          this.$message.error("Error,please use invitation link!");
+          // this.$message.error("Error,please use invitation link!");
+          this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
           return;
         }
         if (this.refAddress.length < 10) {
-          this.$message.error("Error,please use invitation link! ");
+          // this.$message.error("Error,please use invitation link! ");
+          this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$message.error("Error,invalid invitation! ");
+          // this.$message.error("Error,invalid invitation! ");
+          this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation! ');
           return;
         }
       } else {
@@ -1537,11 +1552,13 @@ export default {
       }
 
       if (!this.ogWhitelist) {
-        this.$message.error("Error,please use whitelist! ");
+        // this.$message.error("Error,please use whitelist! ");
+        this.$refs.messageTipErrorDialog.showClick('Error,please use whitelist! ');
         return;
       }
       if (this.isShowTimestamp2) {
-        this.$message.error("Coming soon....");
+        // this.$message.error("Coming soon....");
+        this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
         return;
       }
       this.isShowProgress = true;
@@ -1561,11 +1578,13 @@ export default {
     },
     async PublicApprove() {
       if (this.isShowProgress) {
-        this.$message.info("Waiting.....");
+        // this.$message.info("Waiting.....");
+        this.$refs.messageTipWarnDialog.showClick('Waiting ');
         return;
       }
       if (this.isShowTimestamp5) {
-        this.$message.error("Coming soon");
+        // this.$message.error("Coming soon");
+        this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
         return;
       }
       this.isShowProgress = true;
@@ -1586,57 +1605,67 @@ export default {
     },
     async OgSale() {
       if (this.isShowProgress) {
-        this.$message.info("Waiting ");
+        // this.$message.info("Waiting ");
+        this.$refs.messageTipWarnDialog.showClick('Waiting ');
         return;
       }
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-          this.$message.error("Error,please use invitation link!");
+          // this.$message.error("Error,please use invitation link!");
+          this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$message.error("Error,invalid invitation! ");
+          // this.$message.error("Error,invalid invitation! ");
+          this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation!  ');
           return;
         }
       } else {
         this.refAddress = this.address;
       }
       if (!this.ogWhitelist) {
-        this.$message.error("Error,please use whitelist! ");
+        // this.$message.error("Error,please use whitelist! ");
+        this.$refs.messageTipErrorDialog.showClick('Error,please use whitelist!  ');
         return;
       }
       if (this.isShowTimestamp2) {
-        this.$message.error("Coming soon");
+        // this.$message.error("Coming soon");
+        this.$refs.messageTipErrorDialog.showClick('Coming soon  ');
         return;
       }
 
       try {
         if (isNaN(this.stakeAmount)) {
-          this.$message.error("Error,please enter the correct amount!"); //this.$t("mining.AmountNAN")
+          // this.$message.error("Error,please enter the correct amount!"); //this.$t("mining.AmountNAN")
+          this.$refs.messageTipErrorDialog.showClick('Error,please enter the correct amount! ');
           return;
         }
         let xxx = this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala;
         let max = this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
         if (this.stakeAmount < xxx || this.stakeAmount > max) {
-          this.$message.error("Error,please enter the correct amount!");
+          // this.$message.error("Error,please enter the correct amount!");
+          this.$refs.messageTipErrorDialog.showClick('Error,please enter the correct amount! ');
           return;
         }
 
         if (this.stakeAmount > this.myAllocationAmount2) {
-          this.$message.error("Error,please enter the correct amount!");
+          // this.$message.error("Error,please enter the correct amount!");
+          this.$refs.messageTipErrorDialog.showClick('Error,please enter the correct amount! ');
           return;
         }
 
         if (this.OG_allowance < this.stakeAmount) {
-          this.$message.error(
+      /*    this.$message.error(
             "Error,please try again and confirm the transaction!"
-          );
+          );*/
+          this.$refs.messageTipErrorDialog.showClick('Error,please try again and confirm the transaction! ');
           this.isOGApproved = false;
           return;
         }
 
         if (this.currentAddressBalanceOf2 < this.stakeAmount) {
-          this.$message.error("Insufficient Balance !");
+          // this.$message.error("Insufficient Balance !");
+          this.$refs.messageTipErrorDialog.showClick('Insufficient Balance ! ');
           return;
         }
         this.isShowProgress = true;
@@ -1648,9 +1677,11 @@ export default {
         );
         if (res.status) {
           this.stakeAmount = "";
-          this.$message.success("Success");
+          // this.$message.success("Success");
+          this.$refs.messageTipOkDialog.showClick();
         } else {
-          this.$message.error(res.error.message);
+          // this.$message.error(res.error.message);
+          this.$refs.messageTipErrorDialog.showClick(res.error.message);
         }
         await this.Mult_watcher.poll();
         this.isShowProgress = false;
@@ -1659,32 +1690,38 @@ export default {
       }
     },
     waiting() {
-      this.$message.info("please wait.....");
+      // this.$message.info("please wait.....");
+      this.$refs.messageTipWarnDialog.showClick('Waiting ');
     },
     async publicSale() {
       if (this.isShowProgress) {
-        this.$message.info("Waiting ");
+        // this.$message.info("Waiting ");
+        this.$refs.messageTipWarnDialog.showClick('Waiting ');
         return;
       }
 
       if (!isAddress(this.refAddress)) {
-        this.$message.error("Error,please use invitation link!");
+        // this.$message.error("Error,please use invitation link!");
+        this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link!');
         return;
       }
 
       if (this.refAddress == this.address) {
-        this.$message.error("Error,invalid invitation !");
+        // this.$message.error("Error,invalid invitation !");
+        this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation !');
         return;
       }
 
       if (this.isShowTimestamp5) {
-        this.$message.error("Coming soon");
+        // this.$message.error("Coming soon");
+        this.$refs.messageTipErrorDialog.showClick('Coming soon');
         return;
       }
       // this.showMask = true;
       try {
         if (isNaN(this.stakeAmount)) {
-          this.$message.error("Error,please enter the correct amount!"); //this.$t("mining.AmountNAN")
+          // this.$message.error("Error,please enter the correct amount!"); //this.$t("mining.AmountNAN")
+          this.$refs.messageTipErrorDialog.showClick('Error,please enter the correct amount!');
           return;
         }
         let xxx =
@@ -1692,23 +1729,27 @@ export default {
         let max =
           this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
         if (this.stakeAmount < xxx || this.stakeAmount > max) {
-          this.$message.error("Error,please enter the correct amount!");
+          // this.$message.error("Error,please enter the correct amount!");
+          this.$refs.messageTipErrorDialog.showClick('Error,please enter the correct amount!');
           return;
         }
 
         if (this.NOG_allowance < this.stakeAmount) {
-          this.$message.error(
+         /* this.$message.error(
             "Error,please try again and confirm the transaction!"
-          );
+          );*/
+          this.$refs.messageTipErrorDialog.showClick('Error,please try again and confirm the transaction!');
           this.isPublicSaleApproved = false;
           return;
         }
         if (this.stakeAmount > this.myAllocationAmount5) {
-          this.$message.error("Error,please enter the correct amount!");
+          // this.$message.error("Error,please enter the correct amount!");
+          this.$refs.messageTipErrorDialog.showClick('Error,please enter the correct amount!');
           return;
         }
         if (this.currentAddressBalanceOf5 < this.stakeAmount) {
-          this.$message.error("Insufficient Balance !");
+          // this.$message.error("Insufficient Balance !");
+          this.$refs.messageTipErrorDialog.showClick("Insufficient Balance !");
           return;
         }
         this.isShowProgress = true;
@@ -1721,9 +1762,11 @@ export default {
         await this.Mult_watcher.poll();
         if (res.status) {
           this.stakeAmount = "";
-          this.$message.success("Success");
+          // this.$message.success("Success");
+          this.$refs.messageTipOkDialog.showClick();
         } else {
-          this.$message.error(res.error.message);
+          // this.$message.error(res.error.message);
+          this.$refs.messageTipErrorDialog.showClick(res.error.message);;
         }
 
         this.isShowProgress = false;
