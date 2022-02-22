@@ -1210,13 +1210,18 @@ export default {
       this.getStartWatch();
     }
   },
-
+  beforeDestroy(){
+    if(this.Mult_watcher != null){
+      this.Mult_watcher.stop();
+      this.Mult_watcher = null;
+    }
+  },
 
   created() {
     this.data = getDATA();
 
     this.configData = getConfigData();
-    this.getStartWatch();
+
 
      setInterval(this.timeDeal, 1000);
 
@@ -1224,6 +1229,7 @@ export default {
   },
   mounted() {
     console.log("wallet_address"+this.wallet_address);
+    this.getStartWatch();
   },
 
 
@@ -1358,6 +1364,7 @@ export default {
         console.error("this.Mult_watcher Is Created");
         return;
       }
+      console.log(`this.address-----: ${this.address}`);
       this.Mult_watcher = createWatcher(
         [
           {
@@ -1472,7 +1479,7 @@ export default {
         }
       );
       this.Mult_watcher.subscribe(update => {
-        console.log(`Update: ${update.type} = ${update.value}`);
+        console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
 
         if (update.type == "OG_allowance") {
           this.OG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
@@ -1568,24 +1575,6 @@ export default {
       this.Mult_watcher.start();
     },
 
-    beforeDestroy(){
-      if(this.Mult_watcher != null){
-        this.Mult_watcher.stop();
-        this.Mult_watcher = null;
-      }
-    },
-
-    watch: {
-      immediate: true,
-      address(newQuestion, oldQuestion) {
-        console.log(newQuestion + "oldQuestion :" + oldQuestion);
-        if(this.Mult_watcher != null){
-          this.Mult_watcher.stop();
-          this.Mult_watcher = null;
-        }
-        this.getStartWatch();
-      }
-    },
 
 
     async OgApprove() {
