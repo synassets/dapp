@@ -1,4 +1,5 @@
 <template>
+  <div>
   <my-dialog :is-show="isShow" @isClose="closeDialog"  :width="isMobile ? '8.27rem' : '834px'" :pubVue="pubVue">
     <div>
       <div v-show="!isMobile">
@@ -145,6 +146,8 @@
       </div>
     </div>
   </my-dialog>
+  <MessageTipErrorDialog   ref="messageTipErrorDialog" />
+  </div>
 </template>
 
 <script>
@@ -157,11 +160,11 @@ import { close ,gif,icon_sat,
 import {mapState} from "vuex";
 // eslint-disable-next-line no-unused-vars
 import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
-
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 
 export default {
   name: "WhitelistTransferDialog",
-  components:{ myDialog },
+  components:{ myDialog ,MessageTipErrorDialog},
   data(){
     return {
       close,
