@@ -228,9 +228,6 @@ import {
 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
 
-
-
-import BigNumber from "bignumber.js";
 import {
   getConfigData,
   getDATA,
