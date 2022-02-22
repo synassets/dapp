@@ -1070,7 +1070,8 @@ import {
   doApprove2New,
   saleSwap,
   getConfigData,
-  isAddress
+  isAddress,
+  InitRef
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
@@ -1198,6 +1199,7 @@ export default {
     this.getStartWatch();
 
     setInterval(this.timeDeal, 1000);
+     this.getRefAddress();
   },
 
 
@@ -1221,7 +1223,9 @@ export default {
       this.$refs.messageTipOkDialog.showClick();
       this.showInviteDialog = false;
     },
-
+    async getRefAddress(){
+    await InitRef()
+   },
     onError(e) {
       console.log("" + e);
       // this.$message.error("copy error ");
