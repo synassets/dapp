@@ -1181,6 +1181,9 @@ export default {
     isOGApproved:  function () {
       return this.OG_allowance > 1000*10**6;
     },
+    wallet_address:function () {
+      return this.$store.getters.wallet.address
+    },
 
     ...mapState({
       isMobile: state => state.sys.isMobile,
@@ -1196,6 +1199,19 @@ export default {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
     }
   },
+
+  watch: {
+    wallet_address(newQuestion, oldQuestion) {
+      console.log(newQuestion + " old: :" + oldQuestion);
+      if(this.Mult_watcher != null){
+        this.Mult_watcher.stop();
+        this.Mult_watcher = null;
+      }
+      this.getStartWatch();
+    }
+  },
+
+
   created() {
     this.data = getDATA();
 
@@ -1206,19 +1222,10 @@ export default {
 
      this.getRefAddress();
   },
-
-
-  watch: {
-    immediate: true,
-    address: function (newQuestion, oldQuestion) {
-      console.log(newQuestion + "ido :" + oldQuestion);
-      if(this.Mult_watcher != null){
-        this.Mult_watcher.stop();
-        this.Mult_watcher = null;
-      }
-      this.getStartWatch();
-    }
+  mounted() {
+    console.log("wallet_address"+this.wallet_address);
   },
+
 
   methods: {
     onCopy(e) {
@@ -1560,6 +1567,26 @@ export default {
 
       this.Mult_watcher.start();
     },
+
+    beforeDestroy(){
+      if(this.Mult_watcher != null){
+        this.Mult_watcher.stop();
+        this.Mult_watcher = null;
+      }
+    },
+
+    watch: {
+      immediate: true,
+      address(newQuestion, oldQuestion) {
+        console.log(newQuestion + "oldQuestion :" + oldQuestion);
+        if(this.Mult_watcher != null){
+          this.Mult_watcher.stop();
+          this.Mult_watcher = null;
+        }
+        this.getStartWatch();
+      }
+    },
+
 
     async OgApprove() {
       try {

@@ -176,7 +176,9 @@
       </div>
     </my-dialog>
     <WhitelistTransferDialog :is-show="showWhitelistTransferDialog"    @clickCloseDialog="clickCloseDialog"/>
-
+    <MessageTipOkDialog    ref="messageTipOkDialog" />
+    <MessageTipWarnDialog   ref="messageTipWarnDialog" />
+    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
   </div>
 </template>
 
@@ -200,15 +202,20 @@ import {
   getConfigData,
   getDATA, initConnection, transfer_white_list,
 } from "../../../utils/Wallet";
-import { createWatcher } from "@makerdao/multicall";
 
 import MyDialog from "@/views/components/myDialog";
 import WhitelistTransferDialog from "@/views/layout/components/WhitelistTransferDialog";
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 export default {
   name: "Header",
   components: {
     MyDialog,
-    WhitelistTransferDialog
+    WhitelistTransferDialog,
+    MessageTipOkDialog,
+    MessageTipWarnDialog,
+    MessageTipErrorDialog
   },
   data() {
     return {
@@ -262,27 +269,10 @@ export default {
     this.data = getDATA();
     this.configData = getConfigData();
 
-    this.StartWatch();
   },
-  beforeDestroy(){
-    if(this.contract_watch != null){
-      this.contract_watch.stop();
-      this.contract_watch = null;
-    }
+  mounted() {
+    this.clickMetaMusk();
   },
-
-  watch: {
-    immediate: true,
-    address: function (newQuestion, oldQuestion) {
-      console.log(newQuestion + "oldQuestion :" + oldQuestion);
-      if(this.contract_watch != null){
-        this.contract_watch.stop();
-        this.contract_watch = null;
-      }
-      this.StartWatch();
-    }
-  },
-
 
   methods: {
     addSatCoin() {
@@ -295,9 +285,11 @@ export default {
     clickCloseDialog(){
       this.showWhitelistTransferDialog = false
     },
+
     async onClickSend(){
       if(!isAddress(this.whitelistInputAddress))
       {
+        this.$refs.messageTipErrorDialog.showClick("address is invalid !")
         return ;
       }
 
@@ -308,8 +300,7 @@ export default {
        }
     },
     onClickOptionItem(value){
-
-       this.$message("coming soon " + value);
+       this.$refs.messageTipWarnDialog("coming soon " + value);
     },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
@@ -330,7 +321,7 @@ export default {
     async clickMetaMusk() {
       let ret = await initConnection("meta_mask");
       if(!ret){
-        this.$message.error("connect meta mask failed !");
+        this.$refs.messageTipErrorDialog.show("connect meta mask failed !");
       }
       await this.OnOnCloseSelectWalletDialog();
     },
@@ -339,7 +330,7 @@ export default {
     async clickWalletConnect() {
       let ret = await initConnection("wallet_connect");
       if(!ret){
-        this.$message.error("connect meta mask failed !");
+        this.$refs.messageTipErrorDialog("wallet connect failed !");
       }
       await this.OnOnCloseSelectWalletDialog();
     },
@@ -374,41 +365,6 @@ export default {
       this.isShowMenu = !this.isShowMenu;
     },
 
-    StartWatch() {
-
-      if(this.contract_watch != null){
-        return;
-      }
-
-      this.contract_watch = createWatcher(
-        [
-          {
-            target: this.data.IDO.OG.address,
-            call: ["balanceOf(address)(uint256)", this.address],
-            returns: [["balanceOfSat"]]
-          }
-        ],
-        {
-          rpcUrl: this.configData.rpcUrl,
-          multicallAddress: this.configData.multicallAddress,
-          interval: 15000
-        }
-      );
-      this.contract_watch.subscribe(update => {
-        console.log(`Update: ${update.type} = ${update.value}`);
-        if (update.type == "balanceOfSat") {
-          if (update.value > 0) {
-            let temp = update.value / this.data.IDO.OG.symbolScala;
-            temp = temp.toFixed(2);
-            this.$store.commit("SET_SAT_BALANCE", temp);
-          }
-        }
-      });
-      this.contract_watch.onNewBlock(blockNumber => {
-        this.blockNumber = blockNumber;
-      });
-      this.contract_watch.start();
-    }
   }
 };
 </script>

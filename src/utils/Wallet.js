@@ -46,6 +46,9 @@ async function createMetaMaskProvider(){
   }
   const provider = window.ethereum || window.web3.currentProvider;
   await window.ethereum.enable();
+  await window.ethereum.on('accountsChanged', function (accounts) {
+    updateAddress(accounts[0]);
+  })
   return  provider;
 }
 
@@ -69,7 +72,7 @@ async function createWalletConnectionProvider(){
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
        console.log("accountsChanged by walletconnect :" + JSON.stringify(accounts));
-       updateAddress(accounts);
+       updateAddress(accounts[0]);
     });
 
 // Subscribe to chainId change
@@ -97,8 +100,6 @@ async function createWalletConnectionProvider(){
 let provider = null;
 export async function initConnection(type) {
 
-
-
   if(provider != null){
     await provider.disconnect();
   }
@@ -115,11 +116,8 @@ export async function initConnection(type) {
     return null;
   }
 
-  web3 = new Web3(provider);
-
   try {
-
-    try {
+       web3 = new Web3(provider);
       let chainId = await web3.eth.getChainId();
       store.commit("SET_CHAIN_ID", chainId);
       if (chainId != getConfigData().chainId) {  // polygon test 80001  polygon main 137
@@ -127,26 +125,16 @@ export async function initConnection(type) {
            await switchChain();
          }
       }
-
       chainId = await web3.eth.getChainId();
       store.commit("SET_CHAIN_ID", chainId);
-
+       await updateAddress(await getAddress());
     } catch (e) {
-      console.error("initConnection err 3")
+      web3 = null;
+      return null;
     }
 
-    try {
-      await updateAddress(await getAddress());
-    } catch (e) {
-      console.error("initConnection err 4")
-    }
-    console.log("initConnection end");
     return web3;
 
-  } catch (e) {
-    console.error("initConnection ended "+e.message);
-  }
-  return null;
 }
 
 
@@ -230,7 +218,7 @@ export async function   addSATCoin(){
 
 export async function init() {
   try {
-     await InitRef();
+
      await initConnection("");
   } catch (e) {
 
