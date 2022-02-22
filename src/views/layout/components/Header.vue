@@ -63,6 +63,7 @@
       </div>
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
+      <div class="h5-whitelist-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
     </div>
 
     <div
@@ -174,96 +175,8 @@
         </div>
       </div>
     </my-dialog>
+    <WhitelistTransferDialog :is-show="showWhitelistTransferDialog" />
 
-    <my-dialog
-        :is-show="showWhitelistTransferDialog"
-        @isClose="OnOnCloseSelectWalletDialog()"
-        :width="isMobile ? '8.27rem' : '834px'"
-    >
-      <div>
-        <div v-show="!isMobile">
-          <div style="padding-top: 20px;position: relative;">
-            <img
-                :src="close"
-                style="width: 17px;height: 17px;left: 45px;top: 20px;position: absolute;z-index: 999;"
-                @click="OnOnCloseSelectWalletDialog()"
-            />
-         <div style="width: 770px;margin: 0px auto;">
-            <el-select v-model="value" placeholder="" class="pc-dialog-div-spanner">
-              <el-option
-
-                  v-for="item in spanners"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                <div style=" width: 730px;height: 30px; display: flex;z-index: 999;"    @click="onClickOptionItem(item.value)">
-                  <img
-                      :src="icon_uni"
-                      v-show="item.label=='sUni spot'"
-                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
-                  />
-                  <img
-                      :src="icon_dot"
-                      v-show="item.label=='sDot spot'"
-                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
-                  />
-                  <img
-                      :src="icon_bnb"
-                      v-show="item.label=='sBNB spot'"
-                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
-                  />
-                  <img
-                      :src="icon_matic"
-                      v-show="item.label=='sMatic spot'"
-                      style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
-                  />
-                  <div style="margin-left: 25px;line-height: 30px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
-                </div>
-              </el-option>
-            </el-select>
-         </div>
-
-
-
-            <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your
-              Balance: {{ this.whitelist_og_counter }}</div>
-
-
-
-            <div  class="pc-dialog-div-tip1">
-              <div style="width: 540px;position: relative;">
-
-
-
-                <div class='pc-dialog-div-input'>
-                  <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Recipient address"
-                   class='pc-dialog-div-input1'
-                          />
-
-                </div>
-
-              </div>
-              <div class="pc-dialog-div-btn" @click="onClickSend"  >
-                Send
-              </div>
-              <div class="pc-dialog-div-gif" v-show="isShowProgress">
-                <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
-              </div>
-
-
-            </div>
-            <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the early market and you cannot reback your spot after sending.</div>
-
-
-            <div  @click="goLink('https://doc.synassets.finance/')" style="cursor: pointer; width: 770px;margin: 100px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #0792E3;text-decoration: underline;text-align: center;">doc</div>
-
-
-            <div style="width:54px;height: 30px;"></div>
-          </div>
-        </div>
-
-      </div>
-    </my-dialog>
   </div>
 </template>
 
@@ -277,10 +190,6 @@ import {
   icon_fox,
   icon_wifi,
   icon_down_arrow,
-  icon_uni,
-  icon_bnb ,
-  icon_dot,
-  icon_matic,
   gif
 } from "@/utils/images";
 
@@ -288,17 +197,17 @@ import Cookies from "js-cookie";
 import {
   addSATCoin,
   getConfigData,
-  getDATA, initConnection, transfer_white_list,
+  getDATA, initConnection,
 } from "../../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
-import {isAddress} from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
-
+import WhitelistTransferDialog from "@/views/layout/components/WhitelistTransferDialog";
 export default {
   name: "Header",
   components: {
-    MyDialog
+    MyDialog,
+    WhitelistTransferDialog
   },
   data() {
     return {
@@ -310,10 +219,7 @@ export default {
       metamask,
       icon_fox,
       icon_wifi,
-      icon_uni,
-      icon_bnb ,
-      icon_dot,
-      icon_matic,
+
       loops: "",
       firstRun: true,
       loading: "",
@@ -329,24 +235,8 @@ export default {
       staValve: 0,
       isShowAddWallet: false,
       showSelectWalletDialog: false,
-      showWhitelistTransferDialog:false,
-      whitelistInputAddress:'',
 
-      isShowProgress:false,
-      spanners: [{
-        value: 'sUni spot',
-        label: 'sUni spot'
-      }, {
-        value: 'sDot spot',
-        label: 'sDot spot'
-      }, {
-        value: 'sBNB spot',
-        label: 'sBNB spot'
-      }, {
-        value: 'sMatic spot',
-        label: 'sMatic spot'
-      }],
-      value: 'sUni spot',
+      showWhitelistTransferDialog:false,
 
       configData: {
         chainId: 0
@@ -359,8 +249,7 @@ export default {
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
-      satBalance: state => state.wallet.sat_balance,
-      whitelist_og_counter: state => state.wallet.whitelist_og_counter,
+      satBalance: state => state.wallet.sat_balance
     }),
     ...mapGetters({
       is_connected: "is_connected"
@@ -373,57 +262,22 @@ export default {
 
     this.StartWatch();
   },
-  beforeDestroy(){
-    if(this.contract_watch != null){
-      this.contract_watch.stop();
-      this.contract_watch = null;
-    }
-  },
-
-
-  watch: {
-    // 如果 `question` 发生改变，这个函数就会运行
-    immediate: true,
-    address: function (newQuestion, oldQuestion) {
-      console.log(newQuestion + "oldQuestion :" + oldQuestion);
-      if(this.contract_watch != null){
-        this.contract_watch.stop();
-        this.contract_watch = null;
-      }
-      this.StartWatch();
-    }
-  },
-
 
   methods: {
     addSatCoin() {
       addSATCoin();
     },
-    inputChange(){},
+
     goLink(url) {
         window.open(url);
     },
     showDownArrow(){
 
     },
-    async onClickSend(){
-      if(!isAddress(this.whitelistInputAddress))
-      {
-        return ;
-      }
 
-     let ret =  await transfer_white_list(this.whitelistInputAddress,getDATA().IDO.OG.contractAddress);
-      console.log("transfer_white_list :" + ret);
-      if(ret){
-         return "";
-       }
-    },
-    onClickOptionItem(value){
-
-       this.$message("coming soon " + value);
-    },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
+      this.isShowAddWallet = false;
     },
     async OnConnectWalletBtn() {
      this.showSelectWalletDialog = true;
@@ -431,7 +285,6 @@ export default {
     },
     async OnOnCloseSelectWalletDialog() {
       this.showSelectWalletDialog = false;
-      this.showWhitelistTransferDialog = false;
     },
 
     onShowMenu() {
@@ -496,12 +349,7 @@ export default {
             target: this.data.IDO.OG.address,
             call: ["balanceOf(address)(uint256)", this.address],
             returns: [["balanceOfSat"]]
-          },
-          // {
-          //   target: this.data.IDO.OG.contractAddress,
-          //   call: ["whitelist(address)(uint256)", this.address],
-          //   returns: [["whitelist_og_counter"]]
-          // }
+          }
         ],
         {
           rpcUrl: this.configData.rpcUrl,
@@ -510,17 +358,12 @@ export default {
         }
       );
       this.contract_watch.subscribe(update => {
-        console.log(`Update:head ----------- ${update.type} = ${update.value}`);
+        console.log(`Update: ${update.type} = ${update.value}`);
         if (update.type == "balanceOfSat") {
           if (update.value > 0) {
             let temp = update.value / this.data.IDO.OG.symbolScala;
             temp = temp.toFixed(2);
             this.$store.commit("SET_SAT_BALANCE", temp);
-          }
-        } else if (update.type == "whitelist_og_counter") {
-          if (update.value > 0) {
-            let temp = update.value ;
-            this.$store.commit("SET_OG_WHITE_LIST_COUNTER", temp);
           }
         }
       });
@@ -589,6 +432,25 @@ export default {
   //border: 2px solid #313131;
 }
 .whitelist-wallet-btn:hover {
+  background: #4ebaf8;
+}
+
+.h5-whitelist-wallet-btn {
+  cursor: pointer;
+  font-size: 0.32rem;
+  font-family: Selawik;
+  font-weight: 400;
+  color: #D9D9D9;
+  width: 7.87rem;
+  height: 1.07rem;
+  margin: 0.8rem auto 0rem auto;
+  border: 1px solid #0792E3;
+  position: relative;
+  text-align: center;
+  line-height: 1.07rem;
+  background: #0792E3;
+}
+.h5-whitelist-wallet-btn:hover {
   background: #4ebaf8;
 }
 .div-header-menu-btn {
@@ -765,27 +627,7 @@ pc-div-btn2-item:hover {
 .pc-div-btn2-item:hover {
   display: inline-block;
 }
-.pc-dialog-div-tip1{
-  margin:25px auto 0px auto; width: 750px;display: flex;position: relative;
-}
-.pc-dialog-div-tip2{
-  width: 500px;height: 50px;position: absolute;top: 0; font-size: 14px;font-family: Selawik;font-weight: 400; color: #808080;text-align: center
-}
-.pc-dialog-div-input{
-  width: 500px;height: 50px;background: #FFFFFF;border: 1px solid #FFFFFF;position: absolute;top: 0;border-radius: 5px;
-}
-.pc-dialog-div-input1{
-  height:40px;width: 450px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 20px;
-}
-.pc-dialog-div-input-max{
-  font-size: 20px;font-family: Fredoka One;font-weight: 400; color: #F94F01;position: absolute;right: 30px;top: 12px;cursor: pointer;
-}
-.pc-dialog-div-btn{
-  position: absolute;right: 10px;top: 0px;cursor: pointer; width: 210px;height: 50px;background: #0792E3; border-radius: 5px;z-index: 999;text-align: center;line-height: 50px;color: #FFFFFF;font-size: 20px;font-family: Selawik; font-weight: 600;
-}
-.pc-dialog-div-gif{
-  position: absolute;right: 10px;top: 0px;width: 210px;height: 50px;background: #414346; border-radius: 5px;z-index: 999;line-height: 50px;
-}
+
 .popu{
 
 
@@ -798,10 +640,7 @@ pc-div-btn2-item:hover {
 
 }
 
-.pc-dialog-div-spanner{
-  width: 770px;background: #FFFFFF; border-radius: 5px;margin: 80px auto 0px auto;
 
-}
 .popu:hover   .pc-dialog-div-popu-content {
 
   display: block;
