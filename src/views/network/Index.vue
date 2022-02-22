@@ -121,10 +121,6 @@ import {
   icon_share
 } from "@/utils/images";
 
-
-
-
-import BigNumber from "bignumber.js";
 import {
   getConfigData,
   getDATA,

@@ -190,10 +190,6 @@ import {
   icon_fox,
   icon_wifi,
   icon_down_arrow,
-  icon_uni,
-  icon_bnb ,
-  icon_dot,
-  icon_matic,
   gif
 } from "@/utils/images";
 

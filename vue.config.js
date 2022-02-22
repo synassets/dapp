@@ -42,7 +42,7 @@ module.exports = {
   devServer: {
     open: true,
     port: 8886,
-    https: true,
+    https: false,
     proxy: { // 
       '/api': {
         target: `http://192.168.8.253:8080`,
