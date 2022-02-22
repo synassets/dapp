@@ -175,7 +175,7 @@
         </div>
       </div>
     </my-dialog>
-    <WhitelistTransferDialog :is-show="showWhitelistTransferDialog" />
+    <WhitelistTransferDialog :is-show="showWhitelistTransferDialog"    @clickCloseDialog="clickCloseDialog"/>
 
   </div>
 </template>
@@ -292,8 +292,8 @@ export default {
     goLink(url) {
         window.open(url);
     },
-    showDownArrow(){
-
+    clickCloseDialog(){
+      this.showWhitelistTransferDialog = false
     },
     async onClickSend(){
       if(!isAddress(this.whitelistInputAddress))

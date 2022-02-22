@@ -6,7 +6,7 @@
           <img
               :src="close"
               style="width: 17px;height: 17px;left: 45px;top: 20px;position: absolute;z-index: 999;"
-              @click="closeDialog()"
+              @click="closeDialog"
           />
           <div style="width: 770px;margin: 0px auto;">
             <el-select v-model="value" placeholder="" class="pc-dialog-div-spanner">
@@ -50,7 +50,7 @@
 
 
           <div  class="pc-dialog-div-tip1">
-            <div style="width: 540px;position: relative;">
+            <div style="width: 550px;position: relative;">
 
 
 
@@ -86,7 +86,7 @@
           <img
               :src="close"
               style="width: 0.3rem;height: 0.3rem;left: 0.36rem;top: 0.36rem;position: absolute;z-index: 999;"
-              @click="closeDialog()"
+              @click="closeDialog"
           />
         </div>
         <div style="width: 6.79rem;margin: 0rem auto;">
@@ -127,7 +127,7 @@
 
         <div style=" width:  6.79rem;margin: 0.4rem auto 0px auto;">
           <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Recipient address"
-                style="height:0.93rem;width: 6.79rem;line-height: 0.93rem;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
+                style="height:0.93rem;width: 6.59rem;line-height: 0.93rem;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
 
           />
         </div>
@@ -187,10 +187,10 @@ export default {
     }
   },
   props: {
-    isShow: Boolean,
-    showClose: {
+    // isShow: false,
+    isShow: {
       type: Boolean,
-      default: true
+      default: false
     },
     pubVue: {
       type: Object
@@ -206,8 +206,9 @@ export default {
       window.open(url);
     },
     closeDialog(){
-      this.$emit('isClose', {});
-      this.isShow = false;
+      // this.isShow = false;
+      this.$emit('clickCloseDialog', {});
+
     },
     onClickOptionItem(value){
       alert(value)
@@ -230,16 +231,16 @@ export default {
   width: 770px;background: #FFFFFF; border-radius: 5px;margin: 80px auto 0px auto;
 }
 .pc-dialog-div-tip1{
-  margin:25px auto 0px auto; width: 750px;display: flex;position: relative;
+  margin:25px auto 0px auto; width: 770px;display: flex;position: relative;
 }
 .pc-dialog-div-tip2{
   width: 500px;height: 50px;position: absolute;top: 0; font-size: 14px;font-family: Selawik;font-weight: 400; color: #808080;text-align: center
 }
 .pc-dialog-div-input{
-  width: 500px;height: 50px;background: #FFFFFF;border: 1px solid #FFFFFF;position: absolute;top: 0;border-radius: 5px;
+  width: 520px;height: 50px;background: #FFFFFF;border: 1px solid #FFFFFF;position: absolute;top: 0;border-radius: 5px;
 }
 .pc-dialog-div-input1{
-  height:40px;width: 450px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 20px;
+  height:40px;width: 460px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 20px;
 }
 .pc-dialog-div-input-max{
   font-size: 20px;font-family: Fredoka One;font-weight: 400; color: #F94F01;position: absolute;right: 30px;top: 12px;cursor: pointer;
