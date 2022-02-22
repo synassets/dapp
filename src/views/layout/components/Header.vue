@@ -319,6 +319,7 @@ export default {
     },
     async OnConnectWalletBtn() {
      this.showSelectWalletDialog = true;
+      this.showWhitelistTransferDialog = false;
 
     },
     async OnOnCloseSelectWalletDialog() {
