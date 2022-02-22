@@ -147,6 +147,7 @@
     </div>
   </my-dialog>
   <MessageTipErrorDialog   ref="messageTipErrorDialog" />
+    <MessageTipOkDialog   ref="MessageTipOkDialog" />
   </div>
 </template>
 
@@ -161,10 +162,11 @@ import {mapState} from "vuex";
 // eslint-disable-next-line no-unused-vars
 import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 
 export default {
   name: "WhitelistTransferDialog",
-  components:{ myDialog ,MessageTipErrorDialog},
+  components:{ myDialog ,MessageTipErrorDialog,MessageTipOkDialog},
   data(){
     return {
       close,
@@ -173,7 +175,12 @@ export default {
       icon_bnb ,
       icon_dot,
       icon_matic,
+      current_label:"SAT WL spot",
       spanners: [
+        {
+          value: 'SAT WL spot',
+          label: 'SAT WL spot'
+        },
         {
           value: 'sMatic WL spot',
           label: 'sMatic WL spot'
@@ -182,9 +189,6 @@ export default {
           label: 'sBNB WL spot'
         },
         {
-          value: 'SAT WL spot',
-          label: 'SAT WL spot'
-        }, {
           value: 'sDOT WL spot',
           label: 'sDOT WL spot'
         }],
@@ -218,29 +222,37 @@ export default {
       window.open(url);
     },
     closeDialog(){
-      // this.isShow = false;
       this.$emit('clickCloseDialog', {});
 
     },
     onClickOptionItem(value){
-      this.$refs.messageTipErrorDialog.showClick('Address is worry! ' +value);
+      this.current_label = value
     },
      inputChange(){},
 
     async onClickSend(){
-      alert(1111)
-      try {
-        this.isShowProgress = true;
-        if (isAddress(this.whitelistInputAddress)) {
-          this.$refs.messageTipErrorDialog.showClick('Address is worry! ');
-        }
-     // await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
-
-
-      } catch (e) {
-        console.log(e);
+      if (!isAddress(this.whitelistInputAddress)) {
+        this.$refs.messageTipErrorDialog.showClick('Address is worry! ');
+        return;
       }
-      this.isShowProgress = false;
+      if("SAT WL spot" == this.current_label){
+        this.$refs.messageTipErrorDialog.showClick('sorry the '+ this.current_label+ " not support now!");
+        return;
+      }
+      this.isShowProgress = true;
+      try {
+          let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
+          if(data.status == true){
+            this.$refs.MessageTipOkDialog.show();
+          }
+          else {
+            this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
+          }
+      }
+      finally {
+        this.isShowProgress = false;
+      }
+
     },
   }
 }
