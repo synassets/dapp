@@ -195,9 +195,10 @@ import {
 
 import Cookies from "js-cookie";
 import {
+  isAddress,
   addSATCoin,
   getConfigData,
-  getDATA, initConnection,
+  getDATA, initConnection, transfer_white_list,
 } from "../../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 
@@ -249,7 +250,8 @@ export default {
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
-      satBalance: state => state.wallet.sat_balance
+      satBalance: state => state.wallet.sat_balance,
+      whitelist_og_counter: state => state.wallet.whitelist_og_counter,
     }),
     ...mapGetters({
       is_connected: "is_connected"
@@ -262,6 +264,27 @@ export default {
 
     this.StartWatch();
   },
+  beforeDestroy(){
+    if(this.contract_watch != null){
+      this.contract_watch.stop();
+      this.contract_watch = null;
+    }
+  },
+
+
+  watch: {
+    // ��� `question` �����ı䣬��������ͻ�����
+    immediate: true,
+    address: function (newQuestion, oldQuestion) {
+      console.log(newQuestion + "oldQuestion :" + oldQuestion);
+      if(this.contract_watch != null){
+        this.contract_watch.stop();
+        this.contract_watch = null;
+      }
+      this.StartWatch();
+    }
+  },
+
 
   methods: {
     addSatCoin() {
@@ -274,7 +297,22 @@ export default {
     showDownArrow(){
 
     },
+    async onClickSend(){
+      if(!isAddress(this.whitelistInputAddress))
+      {
+        return ;
+      }
 
+     let ret =  await transfer_white_list(this.whitelistInputAddress,getDATA().IDO.OG.contractAddress);
+      console.log("transfer_white_list :" + ret);
+      if(ret){
+         return "";
+       }
+    },
+    onClickOptionItem(value){
+
+       this.$message("coming soon " + value);
+    },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
       this.isShowAddWallet = false;

@@ -60,7 +60,7 @@
                   style="padding-top: 40px;padding-left: 50px;font-size: 14px;font-family: Selawik;font-weight: 600;color: #DDDDDD;"
                 >Token Information</div>
                 <div class="pc-div1">
-                  <div class="pc-div1-left">Contact address</div>
+                  <div class="pc-div1-left">Contract address</div>
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
@@ -153,16 +153,16 @@
                     class="pc-div1-left"
                     style="font-size: 14px;font-family: Selawik;font-weight: 600;color: #DDDDDD;"
                   >IDO Progress</div>
-                  <!--                           <div v-show="isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.amountTotal12 +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current  }} </div>
-                  <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current  }}</div>-->
+                  <!--                           <div v-show="isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current  }} </div>
+                  <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current  }}</div>-->
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.amountTotal12 +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) +' '+ this.data.IDO.OG.current }}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) +' '+ this.data.IDO.OG.current }}</div>
                 </div>
                 <div
                   style="width: 380px;height: 16px;background: #5F5F5F;border-radius:  8px;margin: 20px auto 0px auto;position: relative;"
@@ -840,11 +840,11 @@
           <div
             v-show="isOgMarket"
             style="position: absolute;right: 0.5rem;"
-          >{{ this.amountTotal12 +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
+          >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
           <div
             v-show="!isOgMarket"
             style="position: absolute;right: 0.5rem;"
-          >{{ this.amountTotal15 +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current }}</div>
+          >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current }}</div>
         </div>
         <div
           style="width: 6.8rem; height: 0.21rem;background: #5F5F5F;border-radius: 0.13rem;margin: 0.31rem auto 0rem auto;position: relative;"
@@ -868,7 +868,7 @@
         <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #808080;margin-top: 0.34rem;padding-left: 0.73rem;"
         >
-          Contact address
+          Contract address
           <div
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.3rem;text-decoration: underline;cursor: pointer;"
@@ -1113,8 +1113,8 @@ export default {
       calcT15: "",
       calcT12PricePerToken: 0,
       calcT15PricePerToken: 0,
-      amountTotal12: "",
-      amountTotal15: "",
+      og_amount_total: "",
+      nog_amount_total: "",
       amountTotal02: "",
       amountTotal05: "",
 
@@ -1123,7 +1123,7 @@ export default {
       amountTotal02_format: "",
       amountTotal05_format: "",
 
-      my_amount_OG_Swapped: 0,
+
       amountSwapped15: 0,
 
       myAllocationAmount2: 0,
@@ -1158,7 +1158,6 @@ export default {
       showTimestamp5: "",
       stakeAmount: "",
       isOgMarket: true,
-      ogWhitelist: false,
       is_og_ambassador: false,
 
       isShowProgress: false,
@@ -1177,7 +1176,9 @@ export default {
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
-
+      ogWhitelist:state => {
+        return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
+      },
       isPublicSaleApproved: state => {
         return state.NOG_allowance > 999999;
       },
@@ -1197,6 +1198,20 @@ export default {
     this.getStartWatch();
 
     setInterval(this.timeDeal, 1000);
+  },
+
+
+  watch: {
+    // ��� `question` �����ı䣬��������ͻ�����
+    immediate: true,
+    address: function (newQuestion, oldQuestion) {
+      console.log(newQuestion + "ido :" + oldQuestion);
+      if(this.Mult_watcher != null){
+        this.Mult_watcher.stop();
+        this.Mult_watcher = null;
+      }
+      this.getStartWatch();
+    }
   },
 
   methods: {
@@ -1361,12 +1376,12 @@ export default {
           {
             target: this.data.IDO.OG.contractAddress,
             call: ["amountTotal1()(uint256)"],
-            returns: [["amountTotal12"]]
+            returns: [["og_amount_total"]]
           },
           {
             target: this.data.IDO.NOG.contractAddress,
             call: ["amountTotal1()(uint256)"],
-            returns: [["amountTotal15"]]
+            returns: [["nog_amount_total"]]
           },
 
           {
@@ -1401,7 +1416,7 @@ export default {
           },
           {
             target: this.data.IDO.OG.contractAddress,
-            call: ["whitelist(address)(bool)", this.address],
+            call: ["whitelist(address)(uint256)", this.address],
             returns: [["OGwhitelist"]]
           },
           {
@@ -1428,6 +1443,11 @@ export default {
             target: this.data.IDO.NOG.contractAddress,
             call: ["closeAt()(uint256)"],
             returns: [["closeAtNOG"]]
+          },
+          {
+            target: this.data.IDO.OG.address,
+            call: ["balanceOf(address)(uint256)", this.address],
+            returns: [["balanceOfSat"]]
           }
         ],
         {
@@ -1444,11 +1464,12 @@ export default {
         } else if (update.type == "NOG_allowance") {
           this.NOG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
         } else if (update.type == "my_amount_OG_Swapped") {
-          this.my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
+          let my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
+          this.$store.commit("SET_AMOUNT_OG_SWAPPED", my_amount_OG_Swapped);
           let maxAmount1PerWallet =
             this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
           this.myAllocationAmount2 =
-            maxAmount1PerWallet - this.my_amount_OG_Swapped;
+            maxAmount1PerWallet - my_amount_OG_Swapped;
           this.my_Allocation_OG_Amount_format = this.formatAmount(
             this.myAllocationAmount2
           );
@@ -1460,19 +1481,19 @@ export default {
           this.my_Allocation_NOG_Amount_format = this.formatAmount(
             this.myAllocationAmount5
           );
-        } else if (update.type == "amountTotal12") {
-          this.amountTotal12 = update.value / this.data.IDO.OG.scala;
-          this.amountTotal12_format = this.formatAmount(this.amountTotal12);
-          if (this.amountTotal12 > 0) {
+        } else if (update.type == "og_amount_total") {
+          this.og_amount_total = update.value / this.data.IDO.OG.scala;
+          this.amountTotal12_format = this.formatAmount(this.og_amount_total);
+          if (this.og_amount_total > 0) {
             this.pc_OG_Progress =
               (update.value * 380) / this.data.IDO.OG.maxAmount1;
             this.h5_OG_Progress =
               (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
           }
-        } else if (update.type == "amountTotal15") {
-          this.amountTotal15 = update.value / this.data.IDO.NOG.scala;
-          this.amountTotal15_format = this.formatAmount(this.amountTotal15);
-          if (this.amountTotal15 > 0) {
+        } else if (update.type == "nog_amount_total") {
+          this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
+          this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
+          if (this.nog_amount_total > 0) {
             this.pc_NOG_Progress =
               (update.value * 380) / this.data.IDO.NOG.maxAmount1;
             this.h5_NOG_Progress =
@@ -1501,8 +1522,11 @@ export default {
           this.currentAddressBalanceOf5_format = this.formatAmount(
             this.currentAddressBalanceOf5
           );
-        } else if (update.type == "whitelist") {
-          this.ogWhitelist = update.value;
+        } else if (update.type == "OGwhitelist") {
+
+            let temp = Number(update.value);
+            this.$store.commit("SET_OG_WHITE_LIST_COUNTER",temp);
+
         } else if (update.type == "OG_ambassador") {
           this.is_og_ambassador = update.value;
         } else if (update.type == "openAtOG") {
@@ -1519,6 +1543,10 @@ export default {
           this.openAtNOG = update.value;
           this.timePurchased5 = this.openAtNOG;
           this.time5 = this.format(this.timePurchased5);
+        } else if("balanceOfSat" == update.type){
+          let temp = update.value / this.data.IDO.OG.symbolScala;
+          temp = temp.toFixed(2);
+          this.$store.commit("SET_SAT_BALANCE", temp);
         }
       });
 
@@ -1548,7 +1576,7 @@ export default {
           return;
         }
       } else {
-        this.refAddress = this.address;
+        this.$store.commit("SET_REF_ADDRESS", this.address);
       }
 
       if (!this.ogWhitelist) {
@@ -1766,7 +1794,7 @@ export default {
           this.$refs.messageTipOkDialog.showClick();
         } else {
           // this.$message.error(res.error.message);
-          this.$refs.messageTipErrorDialog.showClick(res.error.message);;
+          this.$refs.messageTipErrorDialog.showClick(res.error.message);
         }
 
         this.isShowProgress = false;
