@@ -53,14 +53,11 @@ export default {
     return {
       tip_error,
       tipMessgae:'',
+      isShow:false,
     }
   },
   props: {
-    isShow: Boolean,
-    showClose: {
-      type: Boolean,
-      default: true
-    },
+
     pubVue: {
       type: Object
     }

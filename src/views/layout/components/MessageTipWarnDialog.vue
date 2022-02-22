@@ -52,14 +52,11 @@ export default {
   data(){
     return {tip_warn,
       tipMessgae:'',
+      isShow:false,
     }
   },
   props: {
-    isShow: Boolean,
-    showClose: {
-      type: Boolean,
-      default: true
-    },
+
     pubVue: {
       type: Object
     }
