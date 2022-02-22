@@ -45,7 +45,7 @@
 
 
 
-          <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your Balance: 2</div>
+          <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your WL counter : {{whitelist_og_counter}}</div>
 
 
 
@@ -155,6 +155,8 @@ import { close ,gif,icon_uni,
   icon_dot,
   icon_matic, } from "@/utils/images";
 import {mapState} from "vuex";
+// eslint-disable-next-line no-unused-vars
+import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
 
 
 export default {
@@ -168,6 +170,7 @@ export default {
       icon_bnb ,
       icon_dot,
       icon_matic,
+      data:{},
       spanners: [{
         value: 'sUni spot',
         label: 'sUni spot'
@@ -198,8 +201,13 @@ export default {
   },
   computed:{
     ...mapState({
-      isMobile: state => state.sys.isMobile
+      isMobile: state => state.sys.isMobile,
+      whitelist_og_counter:state => state.wallet.whitelist_og_counter
     })
+  },
+
+  created() {
+    this.data = getDATA();
   },
   methods:{
     goLink(url) {
@@ -211,16 +219,24 @@ export default {
 
     },
     onClickOptionItem(value){
-      alert(value)
+      this.$refs.messageTipErrorDialog.showClick('Address is worry! ' +value);
     },
-    inputChange(){},
-    onClickSend(){
-      alert(this.value + '  address = '+this.whitelistInputAddress)
+     inputChange(){},
 
-      this.isShowProgress = true;
-      setTimeout(() => {
-        this.isShowProgress = false;
-      },3000)
+    async onClickSend(){
+      alert(1111)
+      try {
+        this.isShowProgress = true;
+        if (isAddress(this.whitelistInputAddress)) {
+          this.$refs.messageTipErrorDialog.showClick('Address is worry! ');
+        }
+     // await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
+
+
+      } catch (e) {
+        console.log(e);
+      }
+      this.isShowProgress = false;
     },
   }
 }

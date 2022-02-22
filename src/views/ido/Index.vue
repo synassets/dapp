@@ -1075,6 +1075,7 @@ import {
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
+import store from "@/store";
 export default {
   name: "Index",
   components: {
@@ -1173,19 +1174,22 @@ export default {
     };
   },
   computed: {
+
+    isPublicSaleApproved : function ()  {
+      return this.NOG_allowance > 999999;
+    },
+    isOGApproved:  function () {
+      return this.OG_allowance > 999999;
+    },
+
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
       ogWhitelist:state => {
         return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
-      },
-      isPublicSaleApproved: state => {
-        return state.NOG_allowance > 999999;
-      },
-      isOGApproved: state => {
-        return state.OG_allowance > 999999;
       }
+
     }),
 
     inviteLink() {
@@ -1198,7 +1202,8 @@ export default {
     this.configData = getConfigData();
     this.getStartWatch();
 
-    setInterval(this.timeDeal, 1000);
+     setInterval(this.timeDeal, 1000);
+
      this.getRefAddress();
   },
 
@@ -1658,7 +1663,7 @@ export default {
           return;
         }
       } else {
-        this.refAddress = this.address;
+        store.commit("SET_REF_ADDRESS",this.address);
       }
       if (!this.ogWhitelist) {
         // this.$message.error("Error,please use whitelist! ");

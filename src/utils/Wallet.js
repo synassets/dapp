@@ -490,12 +490,16 @@ export async function doApprove1(amount, type, spender) {
   });
 }
 export async function transfer_white_list(target,contract_address){
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
+
   return new Promise(resolve => {
     const contract_obj = getContractNew("TokenSale",contract_address);
     contract_obj.methods
         .transferWhitelist(target, 1)
         .send({
           from: getWalletAddressSync(),
+          gasPrice:price
         })
         .then((data) => {
           resolve({
