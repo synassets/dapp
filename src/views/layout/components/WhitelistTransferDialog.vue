@@ -137,7 +137,7 @@
           market and you cannot reback your spot after sending.
         </div>
 
-        <div style="text-align: center;line-height:  0.93rem; width:  6.79rem; height: 0.93rem; background: #0792E3;border-radius: 0.07rem;margin: 0.4rem auto 0px auto;font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">
+        <div @click="onClickSend" style="text-align: center;line-height:  0.93rem; width:  6.79rem; height: 0.93rem; background: #0792E3;border-radius: 0.07rem;margin: 0.4rem auto 0px auto;font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">
           Send
         </div>
 
