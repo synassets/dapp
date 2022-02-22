@@ -11,12 +11,12 @@
           <div style="width: 770px;margin: 0px auto;">
             <el-select v-model="value" placeholder="" class="pc-dialog-div-spanner">
               <el-option
-
+                   :style="value==item.value ? 'background: #00A0E9;':'background: #FFFFFF;' "
                   v-for="item in spanners"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
-                <div style=" width: 730px;height: 30px; display: flex;z-index: 999;"    @click="onClickOptionItem(item.value)">
+                <div style=" width: 730px;height: 30px; display: flex;z-index: 999;"     @click="onClickOptionItem(item.value)">
                   <img
                       :src="icon_uni"
                       v-show="item.label=='sUni spot'"
@@ -92,7 +92,7 @@
         <div style="width: 6.79rem;margin: 0rem auto;">
           <el-select v-model="value" placeholder="" class="h5-dialog-div-spanner">
             <el-option
-
+                :style="value==item.value ? 'background: #00A0E9;':'background: #FFFFFF;' "
                 v-for="item in spanners"
                 :key="item.value"
                 :label="item.label"
@@ -254,6 +254,24 @@ export default {
 .h5-dialog-div-spanner{
   width: 6.79rem;background: #FFFFFF; border-radius: 0.07rem;margin: 1.1rem auto 0rem auto;
 }
+::v-deep .el-input__inner {
+  -webkit-appearance: none;
+  background-color: #FFF;
+  background-image: none;
+  //border-radius:10px;
+  border: 1px solid #DCDFE6;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: inherit;
+  height: 50px;
+  line-height:50px;
+  outline: 0;
+  padding:10px;
+  -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+  transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+  width: 100%;
+}
 @media screen and (max-width: 750px){
 
 
@@ -290,7 +308,7 @@ export default {
     width: 100%;
   }*/
 
- .el-input__inner {
+  ::v-deep .el-input__inner {
     -webkit-appearance: none;
     background-color: #FFF;
     background-image: none;
