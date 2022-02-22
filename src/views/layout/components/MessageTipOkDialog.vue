@@ -48,15 +48,12 @@ export default {
   components:{ myDialog },
   data(){
     return {
-    tip_ok
+    tip_ok,
+      isShow:false,
     }
   },
   props: {
-    isShow: Boolean,
-    showClose: {
-      type: Boolean,
-      default: true
-    },
+
     pubVue: {
       type: Object
     }
