@@ -51,7 +51,13 @@ async function createMetaMaskProvider(){
   })
   return  provider;
 }
-
+export async function walletDisConnect(){
+  if(store.getters.wallet.wallet_type=="wallet_connect"){
+    await wallet_provider!= null ? wallet_provider.disconnect() :0;
+  }
+  wallet_provider = null;
+  await store.commit("SET_ADDRESS", "0");
+}
 
 async function createWalletConnectionProvider(){
   try {
@@ -97,36 +103,43 @@ async function createWalletConnectionProvider(){
 
 
 
-let provider = null;
+let wallet_provider = null;
 export async function initConnection(type) {
 
-  if(provider != null){
-    await provider.disconnect();
+  if(wallet_provider != null){
+    await wallet_provider.disconnect();
   }
   if(type=="meta_mask"){
-     provider =await createMetaMaskProvider();
+     wallet_provider =await createMetaMaskProvider();
+     if(wallet_provider != null){
+      await store.commit("SET_WALLET_TYPE", "meta_mask");
+     }
      }
   else {
-    provider = await  createWalletConnectionProvider();
+    wallet_provider = await  createWalletConnectionProvider();
+    if(wallet_provider != null){
+      await  store.commit("SET_WALLET_TYPE", "wallet_connect");
+    }
   }
-  store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
 
-  if(provider == null){
-    console.error("provider = error.......");
+  await store.commit("SET_TARGET_CHAIN_ID", getConfigData().chainId);
+
+  if(wallet_provider == null){
+    console.error("wallet_provider = error.......");
     return null;
   }
 
   try {
-       web3 = new Web3(provider);
+       web3 = new Web3(wallet_provider);
       let chainId = await web3.eth.getChainId();
-      store.commit("SET_CHAIN_ID", chainId);
+    await store.commit("SET_CHAIN_ID", chainId);
       if (chainId != getConfigData().chainId) {  // polygon test 80001  polygon main 137
          if(type=="meta_mask" && (!!window.ethereum || !!window.web3)) {
            await switchChain();
          }
       }
       chainId = await web3.eth.getChainId();
-      store.commit("SET_CHAIN_ID", chainId);
+    await store.commit("SET_CHAIN_ID", chainId);
        await updateAddress(await getAddress());
     } catch (e) {
       web3 = null;
@@ -145,9 +158,7 @@ export async function InitRef(){
   if (ref != null) {
     ref = Base64.decode(ref);
    if (ref.length>15) {
-
       store.commit("SET_REF_ADDRESS",ref);
-
     }
     else {
       store.commit("SET_REF_ADDRESS",null);
