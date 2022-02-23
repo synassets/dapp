@@ -1055,7 +1055,7 @@
 
 
 <script>
-import { mapState } from "vuex";
+import {mapGetters, mapState} from "vuex";
 import { pc_ido_img1, pc_ido_img2 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
@@ -1191,7 +1191,10 @@ export default {
       refAddress: state => state.wallet.invite_address,
       ogWhitelist:state => {
         return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
-      }
+      },
+      ...mapGetters({
+        is_connected: "is_connected"
+      })
 
     }),
 
@@ -1208,7 +1211,14 @@ export default {
         this.Mult_watcher = null;
       }
       this.getStartWatch();
+    },
+    is_connected(newQuestion, oldQuestion){
+      console.log(oldQuestion  +" is_connected: -----:" + newQuestion);
+      if(newQuestion ==false){
+        this.isShowProgress = false;
+      }
     }
+
   },
   beforeDestroy(){
     if(this.Mult_watcher != null){
