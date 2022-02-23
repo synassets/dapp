@@ -72,7 +72,7 @@
 
 
           </div>
-          <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the early market and you cannot reback your spot after sending.</div>
+          <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the OG market and you cannot reback your spot after sending.</div>
 
 
           <div  @click="goLink('https://doc.synassets.finance/')" style="cursor: pointer; width: 770px;margin: 100px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #0792E3;text-decoration: underline;text-align: center;">doc</div>
@@ -238,11 +238,11 @@ export default {
 
     async onClickSend(){
       if (!isAddress(this.whitelistInputAddress)) {
-        this.$refs.messageTipErrorDialog.showClick('Address is worry! ');
+        this.$refs.messageTipErrorDialog.showClick('Address is error! ');
         return;
       }
       if("SAT WL spot" != this.current_label){
-        this.$refs.messageTipErrorDialog.showClick('sorry the '+ this.current_label+ " not support now!");
+        this.$refs.messageTipErrorDialog.showClick('Sorry the '+ this.current_label+ "  will be coming soon!");
         return;
       }
       this.isShowProgress = true;

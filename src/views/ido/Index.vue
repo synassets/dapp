@@ -1076,6 +1076,7 @@ import {
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
 import store from "@/store";
+import {Base64} from "js-base64";
 export default {
   name: "Index",
   components: {
@@ -1259,8 +1260,6 @@ export default {
       this.$refs.messageTipErrorDialog.showClick('copy error ');
     },
     showInviteClick() {
-      // console.log("showInviteClick1111111111" );
-      // this.Mult_watcher.poll();
 
       if (this.address.length < 10) {
         this.$refs.messageTipWarnDialog.showClick('address error ');
