@@ -86,136 +86,63 @@
 
   </div>
     <!--h5-->
-    <div  v-show="!isMobile"  ></div>
-    <!----showBondDialog-->
-    <my-dialog
-        :is-show="showBondDialog"
-        @isClose="showBondDialog = false"
-        :width="isMobile ? '9.33rem' : '834px'"
-    >
-      <div v-show="!isMobile">
-        <div class="pc-dialog-div-close">
-          <img :src="close" class="pc-dialog-div-close-img" @click="showBondDialog = false" />
+    <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
+
+    <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Dashboard</div>
+
+      <div style="width: 100%;height: 0.93rem; background: #FFFFFF;margin-top: 0.7rem;position: relative">
+        <div style="width: 0.36rem; height: 0.36rem;border: 0.05rem solid #00A0E9;border-radius: 50%;position: absolute;top: 0.28rem;left: 0.8rem;">
+          <div style="  width: 0.16rem; height: 0.16rem;background: #00A0E9;border: 0.1rem solid #ffffff;border-radius: 50%;"></div>
         </div>
 
-        <div class="pc-dialog-div-header">
-          <div style="display: flex">
-            <div class="pc-dialog-div-header-up">Treasury Balance</div>
-            <div class="pc-dialog-div-header-up">CTD Price</div>
-          </div>
-          <div style="display: flex">
-            <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
-
-            <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
-          </div>
-        </div>
+        <input v-model="searchText" type="text"  @input="inputChange()" placeholder="Search"
+               style="height:0.8rem;width: 6rem;line-height: 0.8rem;padding-left: 0.2rem; background: #FFFFFF; position: absolute;left: 1.7rem;top: 0.1rem;"
+        />
+      </div>
 
 
-        <div class="pc-bond-tab">
-          <div @click="clickTabBond(true)" v-show="isBondMenu" class="pc-bond-tab-left-p">Bond</div>
-          <div @click="clickTabBond(true)"  v-show="!isBondMenu" class="pc-bond-tab-left-n">Bond</div>
-
-          <div  @click="clickTabBond(false)"  v-show="!isBondMenu" class="pc-bond-tab-right-p">Redeem</div>
-          <div @click="clickTabBond(false)"  v-show="isBondMenu" class="pc-bond-tab-right-n" >Redeem</div>
-        </div>
-
-        <div v-show="isBondMenu" class="pc-bond-div-tip1">
-          <div style="width: 540px;position: relative;">
-            <div  class="pc-bond-div-tip2">
-              <div>First time bond CTD?</div>
-              <div>Please approve Crypto Dao to use your CTD for bond.</div>
-            </div>
-
-
-            <!--<div class='pc-bond-div-input'>
-              <input v-model="bondInputAmount" type="text"  @input="inputChange()"
-               class='pc-bond-div-input1'
-                      />
-              <div  @click="maxValueClick()"  class='pc-bond-div-input-max' >MAX</div>
-            </div>-->
-
-
-
-
-
-
-          </div>
-          <div class="pc-bond-div-btn" >
-            Approve
-          </div>
-          <div class="pc-bond-div-gif" style="">
-            <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
-          </div>
-          <div class="pc-bond-div-btn" >
-            Bond
-          </div>
-
-        </div>
-
-
-
-        <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
-          <div style="display: flex;">
-            <div class="pc-bond-div-detail-left">Your Balance</div>
-            <div class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div class="pc-bond-div-detail">
-            <div  class="pc-bond-div-detail-left">You Will Get</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div class="pc-bond-div-detail">
-            <div  class="pc-bond-div-detail-left">Max You Can Buy</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div class="pc-bond-div-detail">
-            <div  class="pc-bond-div-detail-left">ROI</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div class="pc-bond-div-detail">
-            <div  class="pc-bond-div-detail-left">Vesting Term</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div class="pc-bond-div-detail">
-            <div  class="pc-bond-div-detail-left">Minimum purchase</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-        </div>
-
-        <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim</div>
-
-        <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim and Autostake</div>
-
-        <div v-show="!isBondMenu"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
-          <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
-        </div>
-
-        <div  v-show="!isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 30px">
-          <div style="display: flex;">
-            <div  class="pc-bond-div-detail-left">Pending Rewards</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div style="display: flex;padding-top: 6px;">
-            <div  class="pc-bond-div-detail-left">Claimable Rewards</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div style="display: flex;padding-top: 6px;">
-            <div  class="pc-bond-div-detail-left">Time until fully vested</div>
-            <div  class="pc-bond-div-detail-right"> {{ ''}}</div>
-          </div>
-          <div style="display: flex;padding-top: 6px;">
-            <div  class="pc-bond-div-detail-left">ROI</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-          <div style="display: flex;padding-top: 6px;">
-            <div  class="pc-bond-div-detail-left">Vesting Term</div>
-            <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-          </div>
-        </div>
+      <div style="display: flex;margin-top: 0.5rem;">
+        <div  style="padding-left: 0.8rem; font-size: 0.3rem;font-family: Selawik;font-weight: 600;color: #646464;">sAssets</div>
 
       </div>
-      <!------h5----->
 
-    </my-dialog>
+      <div style="margin-top: 0.4rem;width: 100%; height: 5.33rem;background: #242424;padding-top: 0.5rem;">
+        <div style="text-align: center;width: 100%;position: relative;font-size: 0.35rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;line-height: 0.8rem;">
+          <img
+              :src="icon_matic"
+              style="width: 0.8rem;height: 0.8rem;left: 0.8rem;top:0rem ;position: absolute;"
+          />
+          sMatic
+        </div>
+
+        <div style="display: flex;padding-top:0.5rem;width: 8.4rem;margin: 0rem auto;">
+          <div  class="h5-bond-div-detail-left">Token</div>
+          <div  class="h5-bond-div-detail-right"> {{ 'MTD'}}</div>
+        </div>
+
+        <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
+          <div  class="h5-bond-div-detail-left">TVL</div>
+          <div  class="h5-bond-div-detail-right"> {{ '$38,294,098.84'}}</div>
+        </div>
+
+        <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
+          <div  class="h5-bond-div-detail-left">APY</div>
+          <div  class="h5-bond-div-detail-right"> {{ '4,928.77%'}}</div>
+        </div>
+        <div class="h5-bond-btn">Join DAO</div>
+
+      </div>
+
+
+
+
+
+
+
+
+    </div>
+    <!----showBondDialog-->
+    <BondDialog :is-show="showBondDialog"    @clickCloseDialog="clickCloseDialog"/>
 
   </div>
 </template>
@@ -224,10 +151,11 @@ import { mapState } from "vuex";
 import {
   close,
   gif,
-  pc_ido_img1
+  pc_ido_img1,
+  icon_matic
 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
-
+import BondDialog from "@/views/layout/components/BondDialog";
 import {
   getConfigData,
   getDATA,
@@ -237,21 +165,24 @@ import {
 export default {
   name: "Index",
   components: {
-    MyDialog
+    MyDialog,
+    BondDialog
   },
   data() {
     return {
       close,
       gif,
       pc_ido_img1,
+      icon_matic,
       address:'',
 
-      showBondDialog:true,
+      showBondDialog:false,
       showBoundPosition:1,
       isBondMenu:true,
       bondInputAmount:'',
       data:{},
       configData:{},
+      searchText:'',
     };
   },
   computed: {
@@ -274,6 +205,9 @@ export default {
   methods: {
     clickTabBond(val){
       this.isBondMenu = val;
+    },
+    clickCloseDialog(){
+      this.showBondDialog = false
     },
     inputChange(){},
     maxValueClick(){},
@@ -343,72 +277,19 @@ padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
 .class_bound:hover{
   background: #a6a6a6;
 }
-.pc-dialog-div-close{
-  padding-top: 20px;position: relative;
+
+
+.h5-bond-div-detail-left{
+  font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #808080;flex: 1;
 }
-.pc-dialog-div-close-img{
-  width: 17px;height: 17px;margin-left: 15px;
+.h5-bond-div-detail-right{
+  font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #ffffff;flex: 1;text-align: right;
 }
-.pc-dialog-div-header{
-  width: 750px;margin: 50px auto 0px auto;
+.h5-bond-btn{
+  margin: 0.5rem auto 0rem auto; width: 8.4rem; height: 0.93rem;line-height:0.93rem;  background: #00A0E9;  border-radius: 0.13rem;text-align: center;font-size: 0.35rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;
 }
-.pc-dialog-div-header-up{
-  flex: 1;text-align: center;font-size: 18px;font-family: Lato;font-weight: bold;color: #808080;padding-top: 15px;
-}
-.pc-dialog-div-header-down{
-  flex: 1;text-align: center;font-size: 20px;font-family: Fredoka One;font-weight: bold;color: #FFFFFF;padding-top: 12px;
-}
-.pc-bond-tab{
-  display: flex; width: 280px;margin: 48px auto 0px auto;
-}
-.pc-bond-tab-left-p{
-  width: 130px;height: 35px;border-radius: 10px; background: linear-gradient(-45deg, #5ED1E1 0%, #BFC2FE 50%, #E8BDDB 100%);
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;line-height: 35px;text-align: center;
-}
-.pc-bond-tab-left-n{
-  width: 130px;height: 35px;border-radius: 10px; background: rgba(115, 115, 115, 0.3);
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;line-height: 35px;text-align: center;
-}
-.pc-bond-tab-right-p{
-  margin-left:20px;width: 130px;height: 35px;border-radius: 10px; background: linear-gradient(-45deg, #5ED1E1 0%, #BFC2FE 50%, #E8BDDB 100%);
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;line-height: 35px;text-align: center;
-}
-.pc-bond-tab-right-n{
-  margin-left:20px;width: 130px;height: 35px;border-radius: 10px; background: rgba(115, 115, 115, 0.3);
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;line-height: 35px;text-align: center;
-}
-.pc-bond-div-tip1{
-  margin:25px auto 0px auto; width: 750px;display: flex;position: relative;
-}
-.pc-bond-div-tip2{
-  width: 500px;height: 50px;position: absolute;top: 0; font-size: 14px;font-family: Selawik;font-weight: 400; color: #808080;text-align: center
-}
-.pc-bond-div-input{
-  width: 500px;height: 50px;background: #FFFFFF;border: 1px solid #FFFFFF;position: absolute;top: 0;border-radius: 5px;
-}
-.pc-bond-div-input1{
-  height:40px;width: 450px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 20px;
-}
-.pc-bond-div-input-max{
-  font-size: 20px;font-family: Fredoka One;font-weight: 400; color: #F94F01;position: absolute;right: 30px;top: 12px;cursor: pointer;
-}
-.pc-bond-div-btn{
-  position: absolute;right: 10px;top: 0px;cursor: pointer; width: 210px;height: 50px;background: #0792E3; border-radius: 5px;z-index: 999;text-align: center;line-height: 50px;color: #FFFFFF;font-size: 20px;font-family: Selawik; font-weight: 600;
-}
-.pc-bond-div-gif{
-  position: absolute;right: 10px;top: 0px;width: 210px;height: 50px;background: #414346; border-radius: 5px;z-index: 999;line-height: 50px;
-}
-.pc-bond-div-detail{
-  display: flex;padding-top: 6px;
-}
-.pc-bond-div-detail-left{
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;line-height: 24px;flex: 1;
-}
-.pc-bond-div-detail-right{
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;line-height: 24px;flex: 1;text-align: right;
-}
-.pc-bond-div-btn1{
-  margin: 25px auto 0px auto; width: 540px;height: 50px; background: #0792E3; border-radius: 5px;text-align: center;line-height: 50px;font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;
+.h5-bond-btn:hover{
+  background: #0792E3;
 }
 /*.claim_btn{
 cursor: pointer;margin: 25px auto 0px auto;width: 750px;line-height: 56px;height: 56px;background: #C3C6CF;border-radius: 12px;text-align: center;font-size: 20px;font-family: Lato;font-weight: bold;color: #101529;
