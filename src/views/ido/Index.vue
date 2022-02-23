@@ -1129,8 +1129,8 @@ export default {
 
       amountSwapped15: 0,
 
-      myAllocationAmount2: 0,
-      myAllocationAmount5: 0,
+      left_for_og_amount: 0,
+      left_for_nog_Amount: 0,
 
       my_Allocation_OG_Amount_format: 0,
       my_Allocation_NOG_Amount_format: 0,
@@ -1176,10 +1176,10 @@ export default {
   computed: {
 
     isPublicSaleApproved : function ()  {
-      return this.NOG_allowance > 10000*10**6;
+      return this.NOG_allowance > this.data.IDO.NOG.maxAmount1PerWallet/this.data.IDO.NOG.scala;
     },
     isOGApproved:  function () {
-      return this.OG_allowance > 1000*10**6;
+      return this.OG_allowance > this.data.IDO.OG.maxAmount1PerWallet/this.data.IDO.OG.scala;
     },
     wallet_address:function () {
       return this.$store.getters.wallet.address
@@ -1276,16 +1276,16 @@ export default {
 
     clickMaxValue() {
       if (this.isOgMarket) {
-        if (this.myAllocationAmount2 > this.BalanceOf_usdc) {
+        if (this.left_for_og_amount > this.BalanceOf_usdc) {
           this.stakeAmount = this.BalanceOf_usdc;
         } else {
-          this.stakeAmount = this.myAllocationAmount2;
+          this.stakeAmount = this.left_for_og_amount;
         }
       } else {
-        if (this.myAllocationAmount5 > this.BalanceOf_usdc) {
+        if (this.left_for_nog_Amount > this.BalanceOf_usdc) {
           this.stakeAmount = this.BalanceOf_usdc;
         } else {
-          this.stakeAmount = this.myAllocationAmount5;
+          this.stakeAmount = this.left_for_nog_Amount;
         }
       }
       if (this.stakeAmount <= 0) {
@@ -1496,18 +1496,18 @@ export default {
           this.$store.commit("SET_AMOUNT_OG_SWAPPED", my_amount_OG_Swapped);
           let maxAmount1PerWallet =
             this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
-          this.myAllocationAmount2 =
+          this.left_for_og_amount =
             maxAmount1PerWallet - my_amount_OG_Swapped;
           this.my_Allocation_OG_Amount_format = this.formatAmount(
-            this.myAllocationAmount2
+            this.left_for_og_amount
           );
         } else if (update.type == "my_amount_NOG_Swapped") {
           this.amountSwapped15 = update.value / this.data.IDO.NOG.scala;
           let maxAmount1PerWallet =
             this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
-          this.myAllocationAmount5 = maxAmount1PerWallet - this.amountSwapped15;
+          this.left_for_nog_Amount = maxAmount1PerWallet - this.amountSwapped15;
           this.my_Allocation_NOG_Amount_format = this.formatAmount(
-            this.myAllocationAmount5
+            this.left_for_nog_Amount
           );
         } else if (update.type == "og_amount_total") {
           this.og_amount_total = update.value / this.data.IDO.OG.scala;
@@ -1712,19 +1712,15 @@ export default {
           return;
         }
         let xxx = this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala;
-        let max = this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
-        if (this.stakeAmount < xxx || this.stakeAmount > max) {
-          this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
+
+        if (this.stakeAmount < xxx || this.stakeAmount >  this.left_for_og_amount) {
+          this.$refs.messageTipErrorDialog.showClick('please input '+xxx.toFixed(2) +"~" + this.left_for_nog_Amount.toFixed(2));
           return;
         }
 
-        if (this.stakeAmount > this.myAllocationAmount2) {
-          this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
-          return;
-        }
 
         if (this.OG_allowance < this.stakeAmount) {
-          this.$refs.messageTipErrorDialog.showClick('please try again and confirm the transaction! ');
+          this.$refs.messageTipErrorDialog.showClick('please try approve a again! ');
           return;
         }
 
@@ -1784,22 +1780,16 @@ export default {
 
       let xxx =
           this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala;
-      let max =
-          this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
-      if (this.stakeAmount < xxx || this.stakeAmount > max) {
-        this.$refs.messageTipErrorDialog.showClick('please enter the correct amount!');
+
+      if (this.stakeAmount < xxx || this.stakeAmount > this.left_for_nog_Amount) {
+        this.$refs.messageTipErrorDialog.showClick('please input '+xxx.toFixed(2) +"~" + this.left_for_nog_Amount.fixed(2));
         return;
       }
       if (this.NOG_allowance < this.stakeAmount) {
-        this.$refs.messageTipErrorDialog.showClick('please try again !');
-        this.isPublicSaleApproved = false;
+        this.$refs.messageTipErrorDialog.showClick('please approve try again !');
         return;
       }
-      if (this.stakeAmount > this.myAllocationAmount5) {
 
-        this.$refs.messageTipErrorDialog.showClick('please enter the correct amount!');
-        return;
-      }
       if (this.BalanceOf_usdc < this.stakeAmount) {
         this.$refs.messageTipErrorDialog.showClick("Insufficient Balance !");
         return;
