@@ -146,8 +146,9 @@
       </div>
     </div>
   </my-dialog>
-  <MessageTipErrorDialog   ref="messageTipErrorDialog" />
-    <MessageTipOkDialog   ref="MessageTipOkDialog" />
+    <MessageTipOkDialog    ref="messageTipOkDialog" />
+    <MessageTipWarnDialog   ref="messageTipWarnDialog" />
+    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
   </div>
 </template>
 
@@ -163,10 +164,15 @@ import {mapState} from "vuex";
 import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 
 export default {
   name: "WhitelistTransferDialog",
-  components:{ myDialog ,MessageTipErrorDialog,MessageTipOkDialog},
+  components:{ myDialog ,
+    MessageTipOkDialog,
+    MessageTipWarnDialog,
+    MessageTipErrorDialog
+  },
   data(){
     return {
       close,
@@ -235,7 +241,7 @@ export default {
         this.$refs.messageTipErrorDialog.showClick('Address is worry! ');
         return;
       }
-      if("SAT WL spot" == this.current_label){
+      if("SAT WL spot" != this.current_label){
         this.$refs.messageTipErrorDialog.showClick('sorry the '+ this.current_label+ " not support now!");
         return;
       }

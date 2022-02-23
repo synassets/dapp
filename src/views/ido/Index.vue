@@ -1061,7 +1061,7 @@ import MyDialog from "@/views/components/myDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
-let Base64 = require("js-base64").Base64;
+
 
 import moment from "moment";
 import {
@@ -1176,7 +1176,7 @@ export default {
   computed: {
 
     isPublicSaleApproved : function ()  {
-      return this.NOG_allowance > 1000*10**6;
+      return this.NOG_allowance > 10000*10**6;
     },
     isOGApproved:  function () {
       return this.OG_allowance > 1000*10**6;
@@ -1259,6 +1259,9 @@ export default {
       this.$refs.messageTipErrorDialog.showClick('copy error ');
     },
     showInviteClick() {
+      // console.log("showInviteClick1111111111" );
+      // this.Mult_watcher.poll();
+
       if (this.address.length < 10) {
         this.$refs.messageTipWarnDialog.showClick('address error ');
         return;
@@ -1374,7 +1377,7 @@ export default {
         console.error("this.Mult_watcher Is Created");
         return;
       }
-      console.log(`this.address-----: ${this.address}`);
+
       this.Mult_watcher = createWatcher(
         [
           {
@@ -1492,9 +1495,9 @@ export default {
         console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
 
         if (update.type == "OG_allowance") {
-          this.OG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
+          this.OG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
         } else if (update.type == "NOG_allowance") {
-          this.NOG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
+          this.NOG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
         } else if (update.type == "my_amount_OG_Swapped") {
           let my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
           this.$store.commit("SET_AMOUNT_OG_SWAPPED", my_amount_OG_Swapped);
@@ -1667,7 +1670,7 @@ export default {
       try {
         try {
           let data = await doApprove2New(
-              toWei(10000),
+              toWei(999999999),
               "coin",
               this.data.IDO.NOG.currentAddress,
               this.data.IDO.NOG.contractAddress
@@ -1767,10 +1770,10 @@ export default {
         return;
       }
 
-      if (!isAddress(this.refAddress)) {
-        this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
-        return;
-      }
+      // if (!isAddress(this.refAddress)) {
+      //   this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
+      //   return;
+      // }
 
       if (this.refAddress == this.address) {
         this.$refs.messageTipErrorDialog.showClick('invalid invitation !');

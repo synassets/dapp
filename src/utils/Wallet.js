@@ -58,8 +58,8 @@ export async function walletDisConnect(){
   wallet_provider = null;
   await store.commit("SET_ADDRESS", "0");
 }
-
 async function createWalletConnectionProvider(){
+
   try {
 
     const provider = new WalletConnectProvider({
