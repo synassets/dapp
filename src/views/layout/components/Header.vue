@@ -18,10 +18,10 @@
           class="div-header-connect-btn"
         >Connect Wallet</div>
         <div
-          @click="isShowAddWallet=true"
+          @click="OnDisConnectWalletBtn"
           v-show="is_connected"
           class="div-header-connect-btn"
-        >{{this.address != null && this.address.length >8 ? this.address.substr(0,4) +"****"+ this.address.substr(this.address.length-4,this.address.length-1) : 0 }}</div>
+        >{{is_connected ? this.address.substr(0,4) +"****"+ this.address.substr(this.address.length-4,this.address.length-1) : 0 }}</div>
       </div>
     </div>
 
@@ -76,7 +76,8 @@
         <div
           v-show="is_connected"
           class="pc-div-btn1"
-        >{{this.address != null && this.address.length >8 ? this.address.substr(0,4) +"****"+ this.address.substr(this.address.length-4,this.address.length-1) : 0 }}</div>
+          @click="OnDisConnectWalletBtn"
+        >{{is_connected ? this.address.substr(0,4) +"****"+ this.address.substr(this.address.length-4,this.address.length-1) : 0 }}</div>
 
         <div class="pc-div-btn2">
           <img
@@ -200,7 +201,7 @@ import {
   isAddress,
   addSATCoin,
   getConfigData,
-  getDATA, initConnection, transfer_white_list,
+  getDATA, initConnection, transfer_white_list,walletDisConnect,
 } from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
@@ -306,9 +307,15 @@ export default {
       this.showWhitelistTransferDialog = true
       this.isShowAddWallet = false;
     },
-    async OnConnectWalletBtn() {
+     OnDisConnectWalletBtn(){
+       if(this.is_connected){
+         walletDisConnect();
+      }
+      // this.isShowAddWallet=true ;
+    },
+     OnConnectWalletBtn() {
      this.showSelectWalletDialog = true;
-      this.showWhitelistTransferDialog = false;
+     this.showWhitelistTransferDialog = false;
 
     },
     async OnOnCloseSelectWalletDialog() {

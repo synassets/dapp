@@ -6,6 +6,7 @@ const wallet  ={
     balance: 0,
     chain_id:0,
     target_chain_id:0,
+    wallet_type:"meta_mask",
     sat_balance:0,
     whitelist_og_counter:0,
     my_amount_og_swapped:0
@@ -42,7 +43,9 @@ const wallet  ={
         if(typeof state[key] != 'undefined')  state[key] = payload[key]
       }
     },
-
+    SET_WALLET_TYPE:(state, payload)=> {
+      state.wallet_type = payload
+    },
 
     SET_AMOUNT_OG_SWAPPED:(state, payload)=> {
       state.my_amount_og_swapped = payload
