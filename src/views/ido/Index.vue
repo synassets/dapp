@@ -1584,15 +1584,25 @@ export default {
 
       this.Mult_watcher.start();
     },
-
+   PreCondition()
+   {
+     if (!this.is_connected) {
+       this.$refs.messageTipErrorDialog.showClick('please connected wallet');
+       return false;
+     }
+     if (this.isShowProgress) {
+       this.$refs.messageTipWarnDialog.showClick('Waiting ');
+       return false;
+     }
+     return true;
+   },
 
 
     async OgApprove() {
       try {
-        if (this.isShowProgress) {
-          this.$refs.messageTipWarnDialog.showClick('Waiting ');
-          return;
-        }
+          if( this.PreCondition() ==false){
+            return;
+          }
         if (!this.is_og_ambassador) {
           if (!isAddress(this.refAddress)) {
             this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
@@ -1645,8 +1655,7 @@ export default {
 
     },
     async PublicApprove() {
-      if (this.isShowProgress) {
-        this.$refs.messageTipWarnDialog.showClick('Waiting ');
+      if( this.PreCondition() ==false){
         return;
       }
       if (this.isShowTimestamp5) {
@@ -1679,8 +1688,7 @@ export default {
 
     },
     async OgSale() {
-      if (this.isShowProgress) {
-        this.$refs.messageTipWarnDialog.showClick('Waiting ');
+      if( this.PreCondition() ==false){
         return;
       }
       if (!this.is_og_ambassador) {
@@ -1755,8 +1763,7 @@ export default {
       this.$refs.messageTipWarnDialog.showClick('Waiting ');
     },
     async publicSale() {
-      if (this.isShowProgress) {
-        this.$refs.messageTipWarnDialog.showClick('Waiting ');
+      if( this.PreCondition() ==false){
         return;
       }
 
