@@ -63,7 +63,9 @@
       </div>
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
-      <div class="h5-whitelist-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
+      <div class="h5-add-wallet-btn"  style="margin-top: 0.77rem" @click="showWhitelistClick">Whitelist transfer</div>
+
+      <div class="h5-disconnect-wallet-btn" @click="disconnectWallet">Disconnect</div>
     </div>
 
     <div
@@ -308,10 +310,21 @@ export default {
       this.isShowAddWallet = false;
     },
      OnDisConnectWalletBtn(){
-       if(this.is_connected){
-         walletDisConnect();
+      if(this.isMobile){
+        this.isShowAddWallet=true ;
+      }else{
+        if(this.is_connected){
+          walletDisConnect();
+        }
       }
-      // this.isShowAddWallet=true ;
+
+
+    },
+    disconnectWallet(){
+      if(this.is_connected){
+        walletDisConnect();
+        this.isShowAddWallet=false ;
+      }
     },
      OnConnectWalletBtn() {
      this.showSelectWalletDialog = true;
@@ -392,6 +405,27 @@ export default {
   line-height: 1.07rem;
 }
 .h5-add-wallet-btn:hover {
+  background: linear-gradient(-45deg, #25434a 0%, #4a3e48 100%);
+}
+.h5-disconnect-wallet-btn{
+  cursor: pointer;
+  font-size: 0.4rem;
+  font-family: Selawik;
+  font-weight: 600;
+  color: #ffffff;
+  width: 5.4rem;
+  height: 1.07rem;
+  margin: 6rem auto 0rem auto;
+  border: 1px solid #808080;
+  position: relative;
+  text-align: center;
+  line-height: 1.07rem;
+  position: fixed;
+  bottom: 1rem;
+  left: 2.3rem;
+  border-radius: 0.13rem;
+}
+.h5-disconnect-wallet-btn:hover {
   background: linear-gradient(-45deg, #25434a 0%, #4a3e48 100%);
 }
 .spanner-item-p{
