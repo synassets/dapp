@@ -274,7 +274,7 @@
                 <div
                   v-show="step==2"
                   style="max-width: 400px;margin:20px auto 0px auto;font-size: 12px; font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right;"
-                >{{'Balance '+this.currentAddressBalanceOf2_format+' '+ this.data.IDO.OG.current}}</div>
+                >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
                 <div
                   v-show="step==2"
                   style="width:  400px;height:  40px;background: #FFFFFF;margin: 15px auto 0px auto;position: relative"
@@ -705,11 +705,11 @@
         <div
           v-show="isOgMarket"
           style="width: 6.8rem;margin: 0.3rem auto 0rem auto; font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right"
-        >{{'Balance '+this.currentAddressBalanceOf2_format+' '+ this.data.IDO.OG.current}}</div>
+        >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
         <div
           v-show="!isOgMarket"
           style="width: 6.8rem;margin: 0.3rem auto 0rem auto; font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right"
-        >{{'Balance '+this.currentAddressBalanceOf5_format+' '+ this.data.IDO.NOG.current}}</div>
+        >{{'Balance '+this.BalanceOf_usdc_format+' '+ this.data.IDO.NOG.current}}</div>
 
         <div
           style="width: 6.8rem;height: 0.7rem;background: #FFFFFF;margin: 0.1rem auto 0 auto;position: relative"
@@ -1150,10 +1150,9 @@ export default {
 
       step: 1, // 1 no open  2 open  3 close
 
-      currentAddressBalanceOf2: 0,
-      currentAddressBalanceOf5: 0,
-      currentAddressBalanceOf2_format: 0,
-      currentAddressBalanceOf5_format: 0,
+      BalanceOf_usdc: 0,
+      BalanceOf_usdc_format: 0,
+
 
       isShowTimestamp2: false,
       isShowTimestamp5: false,
@@ -1277,14 +1276,14 @@ export default {
 
     clickMaxValue() {
       if (this.isOgMarket) {
-        if (this.myAllocationAmount2 > this.currentAddressBalanceOf2) {
-          this.stakeAmount = this.currentAddressBalanceOf2;
+        if (this.myAllocationAmount2 > this.BalanceOf_usdc) {
+          this.stakeAmount = this.BalanceOf_usdc;
         } else {
           this.stakeAmount = this.myAllocationAmount2;
         }
       } else {
-        if (this.myAllocationAmount5 > this.currentAddressBalanceOf5) {
-          this.stakeAmount = this.currentAddressBalanceOf5;
+        if (this.myAllocationAmount5 > this.BalanceOf_usdc) {
+          this.stakeAmount = this.BalanceOf_usdc;
         } else {
           this.stakeAmount = this.myAllocationAmount5;
         }
@@ -1441,12 +1440,7 @@ export default {
           {
             target: this.data.IDO.OG.currentAddress,
             call: ["balanceOf(address)(uint256)", this.address],
-            returns: [["currentAddressBalanceOf2"]]
-          },
-          {
-            target: this.data.IDO.NOG.currentAddress,
-            call: ["balanceOf(address)(uint256)", this.address],
-            returns: [["currentAddressBalanceOf5"]]
+            returns: [["BalanceOf_usdc"]]
           },
           {
             target: this.data.IDO.OG.contractAddress,
@@ -1545,17 +1539,14 @@ export default {
         } else if (update.type == "calcT15") {
           this.calcT15 = update.value / 1000000000000000000;
           this.calcT15PricePerToken = (1 / this.calcT15).toFixed(5);
-        } else if (update.type == "currentAddressBalanceOf2") {
-          this.currentAddressBalanceOf2 = update.value / this.data.IDO.OG.scala;
-          this.currentAddressBalanceOf2_format = this.formatAmount(
-            this.currentAddressBalanceOf2
+        } else if (update.type == "BalanceOf_usdc") {
+
+          this.BalanceOf_usdc = update.value / this.data.IDO.OG.scala;
+          console.log("this.BalanceOf_usdc ::"  +this.BalanceOf_usdc);
+          this.BalanceOf_usdc_format = this.formatAmount(
+            this.BalanceOf_usdc
           );
-        } else if (update.type == "currentAddressBalanceOf5") {
-          this.currentAddressBalanceOf5 =
-            update.value / this.data.IDO.NOG.scala;
-          this.currentAddressBalanceOf5_format = this.formatAmount(
-            this.currentAddressBalanceOf5
-          );
+          console.log("this.BalanceOf_usdc_format ::"  +this.BalanceOf_usdc_format);
         } else if (update.type == "OGwhitelist") {
 
             let temp = Number(update.value);
@@ -1695,11 +1686,11 @@ export default {
       }
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-             this.$refs.messageTipErrorDialog.showClick('Error,please use the invitation link! ');
+             this.$refs.messageTipErrorDialog.showClick('please use the invitation link! ');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation!  ');
+          this.$refs.messageTipErrorDialog.showClick('invalid invitation!  ');
           return;
         }
       } else {
@@ -1737,7 +1728,7 @@ export default {
           return;
         }
 
-        if (this.currentAddressBalanceOf2 < this.stakeAmount) {
+        if (this.BalanceOf_usdc < this.stakeAmount) {
           this.$refs.messageTipErrorDialog.showClick('Insufficient Balance ! ');
           return;
         }
@@ -1769,14 +1760,17 @@ export default {
         return;
       }
 
-      // if (!isAddress(this.refAddress)) {
-      //   this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
-      //   return;
-      // }
-
-      if (this.refAddress == this.address) {
-        this.$refs.messageTipErrorDialog.showClick('invalid invitation !');
-        return;
+      if (!this.is_og_ambassador) {
+        if (!isAddress(this.refAddress)) {
+          this.$refs.messageTipErrorDialog.showClick('please use the invitation link! ');
+          return;
+        }
+        if (this.refAddress == this.address) {
+          this.$refs.messageTipErrorDialog.showClick('invalid invitation!  ');
+          return;
+        }
+      } else {
+        store.commit("SET_REF_ADDRESS",this.address);
       }
 
       if (this.isShowTimestamp5) {
@@ -1806,7 +1800,7 @@ export default {
         this.$refs.messageTipErrorDialog.showClick('please enter the correct amount!');
         return;
       }
-      if (this.currentAddressBalanceOf5 < this.stakeAmount) {
+      if (this.BalanceOf_usdc < this.stakeAmount) {
         this.$refs.messageTipErrorDialog.showClick("Insufficient Balance !");
         return;
       }
