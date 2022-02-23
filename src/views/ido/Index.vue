@@ -242,11 +242,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
+                  >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
+                  >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
                 </div>
                 <div
                   v-show="step!=3"
@@ -498,11 +498,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
+          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
+          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -682,11 +682,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.2rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + '(Max)' }}</div>
+          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + '(Max)' }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.2rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + '(Max)' }}</div>
+          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + '(Max)' }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -1126,14 +1126,14 @@ export default {
       amountTotal02_format: "",
       amountTotal05_format: "",
 
-
-      amountSwapped15: 0,
+      my_amount_NOG_swapped:0,
+      my_amount_OG_swapped:0,
 
       left_for_og_amount: 0,
       left_for_nog_Amount: 0,
 
-      my_Allocation_OG_Amount_format: 0,
-      my_Allocation_NOG_Amount_format: 0,
+      left_for_og_amount_format: 0,
+      left_for_nog_Amount_format: 0,
 
       pc_OG_Progress: 0,
       pc_NOG_Progress: 0,
@@ -1176,15 +1176,45 @@ export default {
   computed: {
 
     isPublicSaleApproved : function ()  {
-      return this.NOG_allowance > this.data.IDO.NOG.maxAmount1PerWallet/this.data.IDO.NOG.scala;
+      return this.NOG_allowance > this.max_nog_swap;
     },
     isOGApproved:  function () {
-      return this.OG_allowance > this.data.IDO.OG.maxAmount1PerWallet/this.data.IDO.OG.scala;
+      return this.OG_allowance > this.max_og_swap;
     },
     wallet_address:function () {
       return this.$store.getters.wallet.address
     },
-
+    min_og_swap:function (){
+      if(this.my_amount_OG_swapped > 0){
+        return 0 ;
+      }
+      let left_amount =   (this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
+    min_nog_swap:function (){
+      if(this.my_amount_NOG_swapped > 0){
+        return 0 ;
+      }
+      let left_amount =  (this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
+    max_og_swap:function (){
+      let left_amount = 0;
+      if(this.my_amount_OG_swapped > 0){
+        left_amount =this.left_for_og_amount;
+      }
+      left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
+    max_nog_swap:function (){
+      let left_amount = 0;
+      if(this.my_amount_NOG_swapped > 0){
+        left_amount = this.left_for_nog_amount;
+      }
+      else
+        left_amount = (this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
@@ -1276,20 +1306,9 @@ export default {
 
     clickMaxValue() {
       if (this.isOgMarket) {
-        if (this.left_for_og_amount > this.BalanceOf_usdc) {
-          this.stakeAmount = this.BalanceOf_usdc;
-        } else {
-          this.stakeAmount = this.left_for_og_amount;
-        }
+          this.stakeAmount = this.max_og_swap;
       } else {
-        if (this.left_for_nog_Amount > this.BalanceOf_usdc) {
-          this.stakeAmount = this.BalanceOf_usdc;
-        } else {
-          this.stakeAmount = this.left_for_nog_Amount;
-        }
-      }
-      if (this.stakeAmount <= 0) {
-        this.stakeAmount = 0;
+        this.stakeAmount = this.max_nog_swap;
       }
     },
     clickOgMarket(val) {
@@ -1487,91 +1506,96 @@ export default {
       this.Mult_watcher.subscribe(update => {
         console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
 
-        if (update.type == "OG_allowance") {
-          this.OG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
-        } else if (update.type == "NOG_allowance") {
-          this.NOG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
-        } else if (update.type == "my_amount_OG_Swapped") {
-          let my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
-          this.$store.commit("SET_AMOUNT_OG_SWAPPED", my_amount_OG_Swapped);
-          let maxAmount1PerWallet =
-            this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
-          this.left_for_og_amount =
-            maxAmount1PerWallet - my_amount_OG_Swapped;
-          this.my_Allocation_OG_Amount_format = this.formatAmount(
-            this.left_for_og_amount
-          );
-        } else if (update.type == "my_amount_NOG_Swapped") {
-          this.amountSwapped15 = update.value / this.data.IDO.NOG.scala;
-          let maxAmount1PerWallet =
-            this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
-          this.left_for_nog_Amount = maxAmount1PerWallet - this.amountSwapped15;
-          this.my_Allocation_NOG_Amount_format = this.formatAmount(
-            this.left_for_nog_Amount
-          );
-        } else if (update.type == "og_amount_total") {
-          this.og_amount_total = update.value / this.data.IDO.OG.scala;
-          this.amountTotal12_format = this.formatAmount(this.og_amount_total);
-          if (this.og_amount_total > 0) {
-            this.pc_OG_Progress =
-              (update.value * 380) / this.data.IDO.OG.maxAmount1;
-            this.h5_OG_Progress =
-              (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
+        try {
+          if (update.type == "OG_allowance") {
+            this.OG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+          } else if (update.type == "NOG_allowance") {
+            this.NOG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+          } else if (update.type == "my_amount_OG_Swapped") {
+            this.my_amount_OG_swapped = update.value / this.data.IDO.OG.scala;
+            this.$store.commit("SET_AMOUNT_OG_SWAPPED", this.my_amount_OG_swapped);
+            let maxAmount1PerWallet =
+                this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
+            this.left_for_og_amount =
+                maxAmount1PerWallet - this.my_amount_OG_swapped;
+            this.left_for_og_amount_format = this.formatAmount(
+                this.left_for_og_amount
+            );
+          } else if (update.type == "my_amount_NOG_Swapped") {
+            this.my_amount_NOG_swapped = update.value / this.data.IDO.NOG.scala;
+            this.$store.commit("SET_AMOUNT_NOG_SWAPPED", this.my_amount_NOG_swapped);
+            let maxAmount1PerWallet =
+                this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
+            this.left_for_nog_Amount = maxAmount1PerWallet - this.my_amount_NOG_swapped;
+            this.left_for_nog_Amount_format = this.formatAmount(
+                this.left_for_nog_Amount
+            );
+          } else if (update.type == "og_amount_total") {
+            this.og_amount_total = update.value / this.data.IDO.OG.scala;
+            this.amountTotal12_format = this.formatAmount(this.og_amount_total);
+            if (this.og_amount_total > 0) {
+              this.pc_OG_Progress =
+                  (update.value * 380) / this.data.IDO.OG.maxAmount1;
+              this.h5_OG_Progress =
+                  (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
+            }
+          } else if (update.type == "nog_amount_total") {
+            this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
+            this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
+            if (this.nog_amount_total > 0) {
+              this.pc_NOG_Progress =
+                  (update.value * 380) / this.data.IDO.NOG.maxAmount1;
+              this.h5_NOG_Progress =
+                  (update.value * 6.8) / this.data.IDO.NOG.maxAmount1;
+            }
+          } else if (update.type == "amountTotal02") {
+            this.amountTotal02 = update.value / this.data.IDO.OG.scala;
+            this.amountTotal02_format = this.formatAmount(this.amountTotal02);
+          } else if (update.type == "amountTotal05") {
+            this.amountTotal05 = update.value / this.data.IDO.NOG.scala;
+            this.amountTotal05_format = this.formatAmount(this.amountTotal05);
+          } else if (update.type == "calcT12") {
+            this.calcT12 = update.value / 1000000000000000000;
+            this.calcT12PricePerToken = (1 / this.calcT12).toFixed(5);
+          } else if (update.type == "calcT15") {
+            this.calcT15 = update.value / 1000000000000000000;
+            this.calcT15PricePerToken = (1 / this.calcT15).toFixed(5);
+          } else if (update.type == "BalanceOf_usdc") {
+
+            this.BalanceOf_usdc = update.value / this.data.IDO.OG.scala;
+            console.log("this.BalanceOf_usdc ::" + this.BalanceOf_usdc);
+            this.BalanceOf_usdc_format = this.formatAmount(
+                this.BalanceOf_usdc
+            );
+            console.log("this.BalanceOf_usdc_format ::" + this.BalanceOf_usdc_format);
+          } else if (update.type == "OGwhitelist") {
+
+              let temp = Number(update.value);
+              this.$store.commit("SET_OG_WHITE_LIST_COUNTER", temp);
+
+          } else if (update.type == "OG_ambassador") {
+            this.is_og_ambassador = update.value;
+          } else if (update.type == "openAtOG") {
+            this.openAtOG = update.value;
+            this.timePurchased2 = this.openAtOG;
+            this.time2 = this.format(this.timePurchased2);
+          } else if (update.type == "closeAtOG") {
+            this.closeAtOG = update.value;
+            this.timeEnd2 = this.format(this.closeAtOG);
+          } else if (update.type == "closeAtNOG") {
+            this.closeAtNOG = update.value;
+            this.timeEnd5 = this.format(this.closeAtNOG);
+          } else if (update.type == "openAtNOG") {
+            this.openAtNOG = update.value;
+            this.timePurchased5 = this.openAtNOG;
+            this.time5 = this.format(this.timePurchased5);
+          } else if ("balanceOfSat" == update.type) {
+            let temp = update.value / this.data.IDO.OG.symbolScala;
+            temp = temp.toFixed(2);
+            this.$store.commit("SET_SAT_BALANCE", temp);
           }
-        } else if (update.type == "nog_amount_total") {
-          this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
-          this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
-          if (this.nog_amount_total > 0) {
-            this.pc_NOG_Progress =
-              (update.value * 380) / this.data.IDO.NOG.maxAmount1;
-            this.h5_NOG_Progress =
-              (update.value * 6.8) / this.data.IDO.NOG.maxAmount1;
-          }
-        } else if (update.type == "amountTotal02") {
-          this.amountTotal02 = update.value / this.data.IDO.OG.scala;
-          this.amountTotal02_format = this.formatAmount(this.amountTotal02);
-        } else if (update.type == "amountTotal05") {
-          this.amountTotal05 = update.value / this.data.IDO.NOG.scala;
-          this.amountTotal05_format = this.formatAmount(this.amountTotal05);
-        } else if (update.type == "calcT12") {
-          this.calcT12 = update.value / 1000000000000000000;
-          this.calcT12PricePerToken = (1 / this.calcT12).toFixed(5);
-        } else if (update.type == "calcT15") {
-          this.calcT15 = update.value / 1000000000000000000;
-          this.calcT15PricePerToken = (1 / this.calcT15).toFixed(5);
-        } else if (update.type == "BalanceOf_usdc") {
-
-          this.BalanceOf_usdc = update.value / this.data.IDO.OG.scala;
-          console.log("this.BalanceOf_usdc ::"  +this.BalanceOf_usdc);
-          this.BalanceOf_usdc_format = this.formatAmount(
-            this.BalanceOf_usdc
-          );
-          console.log("this.BalanceOf_usdc_format ::"  +this.BalanceOf_usdc_format);
-        } else if (update.type == "OGwhitelist") {
-
-            let temp = Number(update.value);
-            this.$store.commit("SET_OG_WHITE_LIST_COUNTER",temp);
-
-        } else if (update.type == "OG_ambassador") {
-          this.is_og_ambassador = update.value;
-        } else if (update.type == "openAtOG") {
-          this.openAtOG = update.value;
-          this.timePurchased2 = this.openAtOG;
-          this.time2 = this.format(this.timePurchased2);
-        } else if (update.type == "closeAtOG") {
-          this.closeAtOG = update.value;
-          this.timeEnd2 = this.format(this.closeAtOG);
-        } else if (update.type == "closeAtNOG") {
-          this.closeAtNOG = update.value;
-          this.timeEnd5 = this.format(this.closeAtNOG);
-        } else if (update.type == "openAtNOG") {
-          this.openAtNOG = update.value;
-          this.timePurchased5 = this.openAtNOG;
-          this.time5 = this.format(this.timePurchased5);
-        } else if("balanceOfSat" == update.type){
-          let temp = update.value / this.data.IDO.OG.symbolScala;
-          temp = temp.toFixed(2);
-          this.$store.commit("SET_SAT_BALANCE", temp);
+        } catch (e) {
+          console.error("error "+e.toString());
         }
       });
 
@@ -1711,10 +1735,8 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
           return;
         }
-        let xxx = this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala;
-
-        if (this.stakeAmount < xxx || this.stakeAmount >  this.left_for_og_amount) {
-          this.$refs.messageTipErrorDialog.showClick('please input '+xxx.toFixed(2) +"~" + this.left_for_nog_Amount.toFixed(2));
+        if (this.stakeAmount < this.min_og_swap || this.stakeAmount > this.max_og_swap) {
+          this.$refs.messageTipErrorDialog.showClick('please input '+Number(this.min_og_swap).toFixed(2) +"~" + Number(this.max_og_swap).fixed(2));
           return;
         }
 
@@ -1778,11 +1800,9 @@ export default {
         return;
       }
 
-      let xxx =
-          this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala;
 
-      if (this.stakeAmount < xxx || this.stakeAmount > this.left_for_nog_Amount) {
-        this.$refs.messageTipErrorDialog.showClick('please input '+xxx.toFixed(2) +"~" + this.left_for_nog_Amount.fixed(2));
+      if (this.stakeAmount < this.min_nog_swap || this.stakeAmount > this.max_nog_swap) {
+        this.$refs.messageTipErrorDialog.showClick('please input '+Number(this.min_nog_swap).toFixed(2) +"~" + Number(this.max_nog_swap).fixed(2));
         return;
       }
       if (this.NOG_allowance < this.stakeAmount) {
