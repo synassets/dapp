@@ -717,13 +717,13 @@
           <input
             v-model="stakeAmount"
             type="text"
-            style="height:0.6rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
+            style="height:0.6rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.07rem;left: 0.1rem"
           />
 
           <div
             @click="clickMaxValue()"
             style="cursor: pointer;border-radius: 0.5rem;padding: 0.05rem 0.2rem;font-size: 0.3rem; font-family: Selawik;background: #1f1f1f; color: #FFFFFF;position: absolute;right: 0.2rem;
-          top: 0.1rem;"
+          top: 0.13rem;"
           >{{'MAX'}}</div>
           <!--<div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;
           height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
