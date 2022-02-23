@@ -311,7 +311,7 @@
                   v-show="step==2&&isPublicSaleApproved&&!isOgMarket&&!isShowProgress"
                 >Enable</div>
 
-                <div v-show="isShowProgress&&ogWhitelist" class="pc-ido-btn3x" @click="waiting">
+                <div v-show="isShowProgress" class="pc-ido-btn3x" @click="waiting">
                   <img :src="gif" style="width: 20px;height: 20px;margin-top: 15px;" alt="zh" />
                 </div>
                 <div
