@@ -252,7 +252,6 @@ export default {
       configData: {
         chainId: 0
       },
-      contract_watch:null,
       data: {}
     };
   },
@@ -326,11 +325,17 @@ export default {
       this.$bus.$emit("formBus", true);
     },
     async clickMetaMusk() {
-      let ret = await initConnection("meta_mask");
-      if(!ret){
-        this.$refs.messageTipErrorDialog.show("connect meta mask failed !");
+      try {
+        let ret = await initConnection("meta_mask");
+        if (!ret) {
+          this.$refs.messageTipErrorDialog.showClick("connect meta mask failed !");
+        }
+      } catch (e) {
+        this.$refs.messageTipErrorDialog.showClick(e.message);
+      } finally {
+        await this.OnOnCloseSelectWalletDialog();
       }
-      await this.OnOnCloseSelectWalletDialog();
+
     },
 
 
