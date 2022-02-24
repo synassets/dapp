@@ -108,7 +108,149 @@
 
   </div>
 
+    <!--h5--->
+    <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
 
+      <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #808080;">Consensus Network</div>
+
+     <div style=" width: 100%;height: 10.4rem; background: #242424;margin-top: 0.8rem;padding-top: 0.5rem;">
+        <div style="display: flex">
+          <div style="flex: 1; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
+            My Power
+          </div>
+          <div style="flex: 1;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;">
+            My PowerRate
+          </div>
+          <img
+              :src="icon_share"
+              style="width: 0.29rem;height: 0.29rem;margin-right: 0.8rem;cursor: pointer;margin-top: 0.04rem;"
+          />
+        </div>
+
+       <div style="display: flex;padding-top: 0.2rem;">
+         <div style="flex: 1; font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;padding-left: 0.8rem;">
+           357.66
+         </div>
+         <div style="flex: 1;font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;">
+           2.66 sMatic/s
+         </div>
+         <div
+             style="width: 0.29rem;height: 0.29rem;margin-right: 0.8rem;"
+         />
+       </div>
+
+       <div style="padding-top: 0.5rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
+         My Rewards
+       </div>
+
+       <div style="display: flex;padding-top: 0.4rem; font-size: 0.64rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 100%;position: relative;">
+       <div style="padding-left: 0.8rem;">154.12 sMatic</div>
+
+         <div style=" cursor: pointer;position: absolute;right: 0.8rem;width: 2.13rem; height: 0.67rem; line-height: 0.67rem; background: #00A0E9; border-radius: 0.07rem;text-align: center;  font-size: 0.32rem; font-family: Selawik; font-weight: bold; color: #FFFFFF;">
+           Harvest</div>
+
+       </div>
+       <div style="padding-top: 0.5rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
+         My Node
+       </div>
+
+       <div style="display: flex;padding-top: 0.5rem;">
+         <div class="h5-div-item1">0x135....8492</div>
+         <div class="h5-div-item2">..............................................................</div>
+         <div class="h5-div-item3"></div>
+         <div class="h5-div-item4">live</div>
+       </div>
+       <div style="display: flex;padding-top: 0.3rem;">
+         <div class="h5-div-item1">0x1r3....N2Oy</div>
+         <div class="h5-div-item2">..............................................................</div>
+         <div class="h5-div-item3"></div>
+         <div class="h5-div-item4">live</div>
+       </div>
+       <div style="display: flex;padding-top: 0.3rem;">
+         <div class="h5-div-item1">0x0Ag....3gs7</div>
+         <div class="h5-div-item2">..............................................................</div>
+         <div class="h5-div-item3"></div>
+         <div class="h5-div-item4">live</div>
+       </div>
+       <div style="display: flex;padding-top: 0.3rem;">
+         <div class="h5-div-item1">0x0Ag....3gs7</div>
+         <div class="h5-div-item2">..............................................................</div>
+         <div class="h5-div-item3"></div>
+         <div class="h5-div-item4">live</div>
+       </div>
+       <div style="display: flex;padding-top: 0.3rem;">
+         <div class="h5-div-item1">0x2yt....Qw3r</div>
+         <div class="h5-div-item2">..............................................................</div>
+         <div class="h5-div-item3"></div>
+         <div class="h5-div-item4">live</div>
+       </div>
+
+     </div>
+
+      <!----2--->
+      <div style=" width: 100%;height: 10.4rem; background: #242424;margin-top: 0.8rem;padding-top: 0.5rem;margin-top: 0.5rem;">
+        <div style="padding-top: 0.5rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
+          Network Power
+        </div>
+
+        <div style="display: flex;padding-top: 0.2rem;">
+          <div style=" font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;padding-left: 0.8rem;">
+            12,634,357.66
+          </div>
+          <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600;color: #22AC38;margin-left: 0.3rem;padding-top: 0.2rem;">
+            +15%
+          </div>
+
+        </div>
+
+        <div style="padding-top: 0.5rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
+          Network PowerRate
+        </div>
+
+        <div style="display: flex;padding-top: 0.4rem; font-size: 0.64rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 100%;position: relative;">
+          <div style="padding-left: 0.8rem;">25,682.66 sMatic/s</div>
+        </div>
+        <div style="padding-top: 0.5rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
+          My Node
+        </div>
+
+        <div style="display: flex;padding-top: 0.5rem;">
+          <div class="h5-div-item1">0x135....8492</div>
+          <div class="h5-div-item2">..............................................................</div>
+          <div class="h5-div-item3"></div>
+          <div class="h5-div-item4">live</div>
+        </div>
+        <div style="display: flex;padding-top: 0.3rem;">
+          <div class="h5-div-item1">0x1r3....N2Oy</div>
+          <div class="h5-div-item2">..............................................................</div>
+          <div class="h5-div-item3"></div>
+          <div class="h5-div-item4">live</div>
+        </div>
+        <div style="display: flex;padding-top: 0.3rem;">
+          <div class="h5-div-item1">0x0Ag....3gs7</div>
+          <div class="h5-div-item2">..............................................................</div>
+          <div class="h5-div-item3"></div>
+          <div class="h5-div-item4">live</div>
+        </div>
+        <div style="display: flex;padding-top: 0.3rem;">
+          <div class="h5-div-item1">0x0Ag....3gs7</div>
+          <div class="h5-div-item2">..............................................................</div>
+          <div class="h5-div-item3"></div>
+          <div class="h5-div-item4">live</div>
+        </div>
+        <div style="display: flex;padding-top: 0.3rem;">
+          <div class="h5-div-item1">0x2yt....Qw3r</div>
+          <div class="h5-div-item2">..............................................................</div>
+          <div class="h5-div-item3"></div>
+          <div class="h5-div-item4">live</div>
+        </div>
+
+      </div>
+
+      <!--3--->
+
+
+    </div>
 
   </div>
 </template>
@@ -231,5 +373,16 @@ export default {
 .pc-div-parent{
 padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
 }
-
+.h5-div-item1{
+  padding-left: 0.8rem;font-size: 0.32rem;font-family: Selawik; font-weight: 400; color: #FFFFFF;
+}
+.h5-div-item2{
+  padding-left: 0.4rem;font-size: 0.32rem;font-family: Selawik; font-weight: 400; color: #0792E3;line-height: 0.7
+}
+.h5-div-item3{
+  margin-left: 0.2rem; width: 0.21rem;height: 0.21rem;border: 0.03rem solid #0792E3;border-radius: 50%;margin-top: 0.03rem
+}
+.h5-div-item4{
+  margin-left: 0.2rem;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #0792E3;
+}
 </style>
