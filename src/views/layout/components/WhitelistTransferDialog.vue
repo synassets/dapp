@@ -237,7 +237,7 @@ export default {
      inputChange(){},
 
     async onClickSend(){
-      this.$refs.MessageTipOkDialog.show();
+      this.$refs.messageTipOkDialog.showClick();
       return ;
       // if (!isAddress(this.whitelistInputAddress)) {
       //   this.$refs.messageTipErrorDialog.showClick('Address is error! ');
