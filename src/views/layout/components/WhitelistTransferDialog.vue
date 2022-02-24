@@ -237,29 +237,28 @@ export default {
      inputChange(){},
 
     async onClickSend(){
-      this.$refs.messageTipOkDialog.showClick();
-      return ;
-      // if (!isAddress(this.whitelistInputAddress)) {
-      //   this.$refs.messageTipErrorDialog.showClick('Address is error! ');
-      //   return;
-      // }
-      // if("SAT WL spot" != this.current_label){
-      //   this.$refs.messageTipErrorDialog.showClick('Sorry the '+ this.current_label+ "  will be coming soon!");
-      //   return;
-      // }
-      // this.isShowProgress = true;
-      // try {
-      //     let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
-      //     if(data.status == true){
-      //       this.$refs.MessageTipOkDialog.show();
-      //     }
-      //     else {
-      //       this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
-      //     }
-      // }
-      // finally {
-      //   this.isShowProgress = false;
-      // }
+
+      if (!isAddress(this.whitelistInputAddress)) {
+        this.$refs.messageTipErrorDialog.showClick('Address is error! ');
+        return;
+      }
+      if("SAT WL spot" != this.current_label){
+        this.$refs.messageTipErrorDialog.showClick('Sorry the '+ this.current_label+ "  will be coming soon!");
+        return;
+      }
+      this.isShowProgress = true;
+      try {
+          let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
+          if(data.status == true){
+            this.$refs.MessageTipOkDialog.showClick();
+          }
+          else {
+            this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
+          }
+      }
+      finally {
+        this.isShowProgress = false;
+      }
 
     },
   }

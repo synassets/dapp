@@ -200,10 +200,10 @@ import {
 
 import Cookies from "js-cookie";
 import {
-  isAddress,
+
   addSATCoin,
   getConfigData,
-  getDATA, initConnection, transfer_white_list,walletDisConnect,
+  getDATA, initConnection, walletDisConnect,
 } from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
@@ -252,7 +252,6 @@ export default {
       configData: {
         chainId: 0
       },
-      contract_watch:null,
       data: {}
     };
   },
@@ -289,20 +288,6 @@ export default {
       this.showWhitelistTransferDialog = false
     },
 
-    async onClickSend(){
-      if(!isAddress(this.whitelistInputAddress))
-      {
-        this.$refs.messageTipErrorDialog.showClick("address is invalid !")
-        return ;
-      }
-
-     let ret =  await transfer_white_list(this.whitelistInputAddress,getDATA().IDO.OG.contractAddress);
-      console.log("transfer_white_list :" + ret);
-      if(ret){
-         return "";
-       }
-
-    },
     onClickOptionItem(value){
        this.$refs.messageTipWarnDialog("coming soon " + value);
     },
@@ -340,11 +325,17 @@ export default {
       this.$bus.$emit("formBus", true);
     },
     async clickMetaMusk() {
-      let ret = await initConnection("meta_mask");
-      if(!ret){
-        this.$refs.messageTipErrorDialog.show("connect meta mask failed !");
+      try {
+        let ret = await initConnection("meta_mask");
+        if (!ret) {
+          this.$refs.messageTipErrorDialog.showClick("connect meta mask failed !");
+        }
+      } catch (e) {
+        this.$refs.messageTipErrorDialog.showClick(e.message);
+      } finally {
+        await this.OnOnCloseSelectWalletDialog();
       }
-      await this.OnOnCloseSelectWalletDialog();
+
     },
 
 
