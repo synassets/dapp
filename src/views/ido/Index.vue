@@ -1162,6 +1162,9 @@ export default {
       isOgMarket: true,
       is_og_ambassador: false,
       is_nog_ambassador: false,
+      is_ref_og_ambassador: false,
+      is_ref_nog_ambassador: false,
+
       isShowProgress: false,
       showInviteDialog: false,
       shareLinkUrl: "",
@@ -1482,6 +1485,16 @@ export default {
             target: this.data.IDO.NOG.contractAddress,
             call: ["inviteable(address)(bool)", this.address],
             returns: [["NOG_ambassador"]]
+          }          ,
+          {
+            target: this.data.IDO.OG.contractAddress,
+            call: ["inviteable(address)(bool)", this.refAddress],
+            returns: [["ref_NOG_ambassador"]]
+          },
+          {
+            target: this.data.IDO.NOG.contractAddress,
+            call: ["inviteable(address)(bool)", this.refAddress],
+            returns: [["ref_OG_ambassador"]]
           },
           {
             target: this.data.IDO.OG.contractAddress,
@@ -1581,7 +1594,6 @@ export default {
             );
             console.log("this.BalanceOf_usdc_format ::" + this.BalanceOf_usdc_format);
           } else if (update.type == "OGwhitelist") {
-
               let temp = Number(update.value);
               this.$store.commit("SET_OG_WHITE_LIST_COUNTER", temp);
 
@@ -1589,7 +1601,13 @@ export default {
             this.is_og_ambassador = update.value;
           } else if (update.type == "NOG_ambassador") {
             this.is_nog_ambassador = update.value;
-          } else if (update.type == "openAtOG") {
+          } else if (update.type == "ref_NOG_ambassador") {
+            this.is_ref_nog_ambassador = update.value;
+          } else if (update.type == "ref_OG_ambassador") {
+            this.is_ref_og_ambassador = update.value;
+          }
+
+          else if (update.type == "openAtOG") {
             this.openAtOG = update.value;
             this.timePurchased2 = this.openAtOG;
             this.time2 = this.format(this.timePurchased2);
@@ -1737,12 +1755,19 @@ export default {
           return;
         }
       } else {
-        store.commit("SET_REF_ADDRESS",this.address);
+       await store.commit("SET_REF_ADDRESS",this.address);
       }
+
       if (!this.ogWhitelist) {
         this.$refs.messageTipErrorDialog.showClick('your address is not in the WL!');
         return;
       }
+
+      if (!this.is_ref_nog_ambassador) {
+        this.$refs.messageTipErrorDialog.showClick('your invitation link err');
+        return;
+      }
+
       if (this.isShowTimestamp2) {
         // this.$message.error("Coming soon");
         this.$refs.messageTipErrorDialog.showClick('Coming soon  ');
@@ -1754,7 +1779,7 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
           return;
         }
-        if (this.stakeAmount < this.min_og_swap || this.stakeAmount > this.max_og_swap) {
+        if (this.stakeAmount-0.01 < this.min_og_swap || this.stakeAmount-0.01 > this.max_og_swap) {
           this.$refs.messageTipErrorDialog.showClick('please input '+this.min_og_swap +"~" +this.max_og_swap);
           return;
         }
@@ -1812,8 +1837,13 @@ export default {
           return;
         }
       } else {
-        store.commit("SET_REF_ADDRESS",this.address);
+       await store.commit("SET_REF_ADDRESS",this.address);
       }
+      if (!this.is_ref_nog_ambassador) {
+        this.$refs.messageTipErrorDialog.showClick('your invitation link err');
+        return;
+      }
+
 
       if (this.isShowTimestamp5) {
         this.$refs.messageTipErrorDialog.showClick('Coming soon .....');
@@ -1825,8 +1855,8 @@ export default {
       }
 
 
-      if (this.stakeAmount < this.min_nog_swap || this.stakeAmount > this.max_nog_swap) {
-        this.$refs.messageTipErrorDialog.showClick('please input '+Number(this.min_nog_swap).toFixed(2) +"~" + Number(this.max_nog_swap).fixed(2));
+      if (this.stakeAmount-0.01 < this.min_nog_swap || this.stakeAmount-0.01 > this.max_nog_swap) {
+        this.$refs.messageTipErrorDialog.showClick('please input '+this.min_nog_swap +"~" + this.max_nog_swap);
         return;
       }
       if (this.NOG_allowance < this.stakeAmount) {

@@ -200,10 +200,10 @@ import {
 
 import Cookies from "js-cookie";
 import {
-  isAddress,
+
   addSATCoin,
   getConfigData,
-  getDATA, initConnection, transfer_white_list,walletDisConnect,
+  getDATA, initConnection, walletDisConnect,
 } from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
@@ -289,20 +289,6 @@ export default {
       this.showWhitelistTransferDialog = false
     },
 
-    async onClickSend(){
-      if(!isAddress(this.whitelistInputAddress))
-      {
-        this.$refs.messageTipErrorDialog.showClick("address is invalid !")
-        return ;
-      }
-
-     let ret =  await transfer_white_list(this.whitelistInputAddress,getDATA().IDO.OG.contractAddress);
-      console.log("transfer_white_list :" + ret);
-      if(ret){
-         return "";
-       }
-
-    },
     onClickOptionItem(value){
        this.$refs.messageTipWarnDialog("coming soon " + value);
     },
