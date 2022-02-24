@@ -9,7 +9,8 @@ const wallet  ={
     wallet_type:"meta_mask",
     sat_balance:0,
     whitelist_og_counter:0,
-    my_amount_og_swapped:0
+    my_amount_og_swapped:0,
+    my_amount_nog_swapped:0
    },
   getters: {
     is_connected: state => {
@@ -50,6 +51,11 @@ const wallet  ={
     SET_AMOUNT_OG_SWAPPED:(state, payload)=> {
       state.my_amount_og_swapped = payload
     },
+    SET_AMOUNT_NOG_SWAPPED:(state, payload)=> {
+      state.my_amount_nog_swapped = payload
+    },
+
+
     SET_OG_WHITE_LIST_COUNTER:(state, payload)=> {
 
       state.whitelist_og_counter = payload

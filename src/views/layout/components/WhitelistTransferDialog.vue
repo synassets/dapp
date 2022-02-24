@@ -72,7 +72,7 @@
 
 
           </div>
-          <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the early market and you cannot reback your spot after sending.</div>
+          <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the OG market and you cannot reback your spot after sending.</div>
 
 
           <div  @click="goLink('https://doc.synassets.finance/')" style="cursor: pointer; width: 770px;margin: 100px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #0792E3;text-decoration: underline;text-align: center;">doc</div>
@@ -146,8 +146,9 @@
       </div>
     </div>
   </my-dialog>
-  <MessageTipErrorDialog   ref="messageTipErrorDialog" />
-    <MessageTipOkDialog   ref="MessageTipOkDialog" />
+    <MessageTipOkDialog    ref="messageTipOkDialog" />
+    <MessageTipWarnDialog   ref="messageTipWarnDialog" />
+    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
   </div>
 </template>
 
@@ -163,10 +164,15 @@ import {mapState} from "vuex";
 import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 
 export default {
   name: "WhitelistTransferDialog",
-  components:{ myDialog ,MessageTipErrorDialog,MessageTipOkDialog},
+  components:{ myDialog ,
+    MessageTipOkDialog,
+    MessageTipWarnDialog,
+    MessageTipErrorDialog
+  },
   data(){
     return {
       close,
@@ -231,27 +237,29 @@ export default {
      inputChange(){},
 
     async onClickSend(){
-      if (!isAddress(this.whitelistInputAddress)) {
-        this.$refs.messageTipErrorDialog.showClick('Address is worry! ');
-        return;
-      }
-      if("SAT WL spot" == this.current_label){
-        this.$refs.messageTipErrorDialog.showClick('sorry the '+ this.current_label+ " not support now!");
-        return;
-      }
-      this.isShowProgress = true;
-      try {
-          let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
-          if(data.status == true){
-            this.$refs.MessageTipOkDialog.show();
-          }
-          else {
-            this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
-          }
-      }
-      finally {
-        this.isShowProgress = false;
-      }
+      this.$refs.MessageTipOkDialog.show();
+      return ;
+      // if (!isAddress(this.whitelistInputAddress)) {
+      //   this.$refs.messageTipErrorDialog.showClick('Address is error! ');
+      //   return;
+      // }
+      // if("SAT WL spot" != this.current_label){
+      //   this.$refs.messageTipErrorDialog.showClick('Sorry the '+ this.current_label+ "  will be coming soon!");
+      //   return;
+      // }
+      // this.isShowProgress = true;
+      // try {
+      //     let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
+      //     if(data.status == true){
+      //       this.$refs.MessageTipOkDialog.show();
+      //     }
+      //     else {
+      //       this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
+      //     }
+      // }
+      // finally {
+      //   this.isShowProgress = false;
+      // }
 
     },
   }

@@ -242,11 +242,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
+                  >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
+                  >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
                 </div>
                 <div
                   v-show="step!=3"
@@ -274,7 +274,7 @@
                 <div
                   v-show="step==2"
                   style="max-width: 400px;margin:20px auto 0px auto;font-size: 12px; font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right;"
-                >{{'Balance '+this.currentAddressBalanceOf2_format+' '+ this.data.IDO.OG.current}}</div>
+                >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
                 <div
                   v-show="step==2"
                   style="width:  400px;height:  40px;background: #FFFFFF;margin: 15px auto 0px auto;position: relative"
@@ -311,7 +311,7 @@
                   v-show="step==2&&isPublicSaleApproved&&!isOgMarket&&!isShowProgress"
                 >Enable</div>
 
-                <div v-show="isShowProgress&&ogWhitelist" class="pc-ido-btn3x" @click="waiting">
+                <div v-show="isShowProgress" class="pc-ido-btn3x" @click="waiting">
                   <img :src="gif" style="width: 20px;height: 20px;margin-top: 15px;" alt="zh" />
                 </div>
                 <div
@@ -498,11 +498,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
+          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
+          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -682,11 +682,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.2rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_OG_Amount_format + ' ' + this.data.IDO.OG.current + '(Max)' }}</div>
+          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + '(Max)' }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.2rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.my_Allocation_NOG_Amount_format + ' ' + this.data.IDO.NOG.current + '(Max)' }}</div>
+          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + '(Max)' }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -705,11 +705,11 @@
         <div
           v-show="isOgMarket"
           style="width: 6.8rem;margin: 0.3rem auto 0rem auto; font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right"
-        >{{'Balance '+this.currentAddressBalanceOf2_format+' '+ this.data.IDO.OG.current}}</div>
+        >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
         <div
           v-show="!isOgMarket"
           style="width: 6.8rem;margin: 0.3rem auto 0rem auto; font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right"
-        >{{'Balance '+this.currentAddressBalanceOf5_format+' '+ this.data.IDO.NOG.current}}</div>
+        >{{'Balance '+this.BalanceOf_usdc_format+' '+ this.data.IDO.NOG.current}}</div>
 
         <div
           style="width: 6.8rem;height: 0.7rem;background: #FFFFFF;margin: 0.1rem auto 0 auto;position: relative"
@@ -1055,13 +1055,13 @@
 
 
 <script>
-import { mapState } from "vuex";
+import {mapGetters, mapState} from "vuex";
 import { pc_ido_img1, pc_ido_img2 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
-let Base64 = require("js-base64").Base64;
+
 
 import moment from "moment";
 import {
@@ -1076,6 +1076,7 @@ import {
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
 import store from "@/store";
+import {Base64} from "js-base64";
 export default {
   name: "Index",
   components: {
@@ -1125,14 +1126,14 @@ export default {
       amountTotal02_format: "",
       amountTotal05_format: "",
 
+      my_amount_NOG_swapped:0,
+      my_amount_OG_swapped:0,
 
-      amountSwapped15: 0,
+      left_for_og_amount: 0,
+      left_for_nog_amount: 0,
 
-      myAllocationAmount2: 0,
-      myAllocationAmount5: 0,
-
-      my_Allocation_OG_Amount_format: 0,
-      my_Allocation_NOG_Amount_format: 0,
+      left_for_og_amount_format: 0,
+      left_for_nog_Amount_format: 0,
 
       pc_OG_Progress: 0,
       pc_NOG_Progress: 0,
@@ -1149,10 +1150,9 @@ export default {
 
       step: 1, // 1 no open  2 open  3 close
 
-      currentAddressBalanceOf2: 0,
-      currentAddressBalanceOf5: 0,
-      currentAddressBalanceOf2_format: 0,
-      currentAddressBalanceOf5_format: 0,
+      BalanceOf_usdc: 0,
+      BalanceOf_usdc_format: 0,
+
 
       isShowTimestamp2: false,
       isShowTimestamp5: false,
@@ -1161,7 +1161,7 @@ export default {
       stakeAmount: "",
       isOgMarket: true,
       is_og_ambassador: false,
-
+      is_nog_ambassador: false,
       isShowProgress: false,
       showInviteDialog: false,
       shareLinkUrl: "",
@@ -1170,28 +1170,63 @@ export default {
       openAtNOG: 0,
       closeAtNOG: 0,
       gasPrice: 0,
-      Mult_watcher: 0
+      Mult_watcher: null
     };
   },
   computed: {
 
     isPublicSaleApproved : function ()  {
-      return this.NOG_allowance > 1000*10**6;
+      return this.NOG_allowance > this.max_nog_swap;
     },
     isOGApproved:  function () {
-      return this.OG_allowance > 1000*10**6;
+      return this.OG_allowance > this.max_og_swap;
     },
     wallet_address:function () {
       return this.$store.getters.wallet.address
     },
-
+    min_og_swap:function (){
+      if(this.my_amount_OG_swapped > 0){
+        return 0 ;
+      }
+      let left_amount =   (this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
+    min_nog_swap:function (){
+      if(this.my_amount_NOG_swapped > 0){
+        return 0 ;
+      }
+      let left_amount =  (this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
+    max_og_swap:function (){
+      let left_amount = 0;
+      if(this.my_amount_OG_swapped > 0){
+        left_amount =this.left_for_og_amount;
+      }
+      else {
+        left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      }
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
+    max_nog_swap:function (){
+      let left_amount = 0;
+      if(this.my_amount_NOG_swapped > 0){
+        left_amount = this.left_for_nog_amount;
+      }
+      else
+        left_amount = (this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+    },
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
       ogWhitelist:state => {
         return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
-      }
+      },
+      ...mapGetters({
+        is_connected: "is_connected"
+      })
 
     }),
 
@@ -1203,12 +1238,15 @@ export default {
   watch: {
     wallet_address(newQuestion, oldQuestion) {
       console.log(newQuestion + " old: :" + oldQuestion);
-      if(this.Mult_watcher != null){
-        this.Mult_watcher.stop();
-        this.Mult_watcher = null;
+      this.restartWatch()
+    },
+    is_connected(newQuestion, oldQuestion){
+      console.log(oldQuestion  +" is_connected: -----:" + newQuestion);
+      if(newQuestion ==false){
+        this.isShowProgress = false;
       }
-      this.getStartWatch();
     }
+
   },
   beforeDestroy(){
     if(this.Mult_watcher != null){
@@ -1228,7 +1266,7 @@ export default {
      this.getRefAddress();
   },
   mounted() {
-    console.log("wallet_address"+this.wallet_address);
+    console.log("wallet_address: "+this.wallet_address);
     this.getStartWatch();
   },
 
@@ -1249,6 +1287,7 @@ export default {
       this.$refs.messageTipErrorDialog.showClick('copy error ');
     },
     showInviteClick() {
+
       if (this.address.length < 10) {
         this.$refs.messageTipWarnDialog.showClick('address error ');
         return;
@@ -1265,20 +1304,9 @@ export default {
 
     clickMaxValue() {
       if (this.isOgMarket) {
-        if (this.myAllocationAmount2 > this.currentAddressBalanceOf2) {
-          this.stakeAmount = this.currentAddressBalanceOf2;
-        } else {
-          this.stakeAmount = this.myAllocationAmount2;
-        }
+          this.stakeAmount = this.max_og_swap;
       } else {
-        if (this.myAllocationAmount5 > this.currentAddressBalanceOf5) {
-          this.stakeAmount = this.currentAddressBalanceOf5;
-        } else {
-          this.stakeAmount = this.myAllocationAmount5;
-        }
-      }
-      if (this.stakeAmount <= 0) {
-        this.stakeAmount = 0;
+        this.stakeAmount = this.max_nog_swap;
       }
     },
     clickOgMarket(val) {
@@ -1359,12 +1387,21 @@ export default {
       // return m + ' '+d+'th'+' @ '+h+' UTC'
       return h + " , " + d + "th" + " ,  " + m + " UTC";
     },
+    restartWatch()
+    {
+      console.log("restartWatch------------");
+      if(this.Mult_watcher != null){
+        this.Mult_watcher.stop();
+        this.Mult_watcher = null;
+      }
+      this.getStartWatch();
+    },
     getStartWatch() {
       if (this.Mult_watcher) {
         console.error("this.Mult_watcher Is Created");
         return;
       }
-      console.log(`this.address-----: ${this.address}`);
+
       this.Mult_watcher = createWatcher(
         [
           {
@@ -1429,12 +1466,7 @@ export default {
           {
             target: this.data.IDO.OG.currentAddress,
             call: ["balanceOf(address)(uint256)", this.address],
-            returns: [["currentAddressBalanceOf2"]]
-          },
-          {
-            target: this.data.IDO.NOG.currentAddress,
-            call: ["balanceOf(address)(uint256)", this.address],
-            returns: [["currentAddressBalanceOf5"]]
+            returns: [["BalanceOf_usdc"]]
           },
           {
             target: this.data.IDO.OG.contractAddress,
@@ -1445,6 +1477,11 @@ export default {
             target: this.data.IDO.OG.contractAddress,
             call: ["inviteable(address)(bool)", this.address],
             returns: [["OG_ambassador"]]
+          },
+          {
+            target: this.data.IDO.NOG.contractAddress,
+            call: ["inviteable(address)(bool)", this.address],
+            returns: [["NOG_ambassador"]]
           },
           {
             target: this.data.IDO.OG.contractAddress,
@@ -1475,114 +1512,128 @@ export default {
         {
           rpcUrl: this.configData.rpcUrl,
           multicallAddress: this.configData.multicallAddress,
-          interval: 15000
+          interval: 10000
         }
       );
       this.Mult_watcher.subscribe(update => {
         console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
 
-        if (update.type == "OG_allowance") {
-          this.OG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
-        } else if (update.type == "NOG_allowance") {
-          this.NOG_allowance = (Number(update.value) / 10 ** 18).toFixed(0);
-        } else if (update.type == "my_amount_OG_Swapped") {
-          let my_amount_OG_Swapped = update.value / this.data.IDO.OG.scala;
-          this.$store.commit("SET_AMOUNT_OG_SWAPPED", my_amount_OG_Swapped);
-          let maxAmount1PerWallet =
-            this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
-          this.myAllocationAmount2 =
-            maxAmount1PerWallet - my_amount_OG_Swapped;
-          this.my_Allocation_OG_Amount_format = this.formatAmount(
-            this.myAllocationAmount2
-          );
-        } else if (update.type == "my_amount_NOG_Swapped") {
-          this.amountSwapped15 = update.value / this.data.IDO.NOG.scala;
-          let maxAmount1PerWallet =
-            this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
-          this.myAllocationAmount5 = maxAmount1PerWallet - this.amountSwapped15;
-          this.my_Allocation_NOG_Amount_format = this.formatAmount(
-            this.myAllocationAmount5
-          );
-        } else if (update.type == "og_amount_total") {
-          this.og_amount_total = update.value / this.data.IDO.OG.scala;
-          this.amountTotal12_format = this.formatAmount(this.og_amount_total);
-          if (this.og_amount_total > 0) {
-            this.pc_OG_Progress =
-              (update.value * 380) / this.data.IDO.OG.maxAmount1;
-            this.h5_OG_Progress =
-              (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
-          }
-        } else if (update.type == "nog_amount_total") {
-          this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
-          this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
-          if (this.nog_amount_total > 0) {
-            this.pc_NOG_Progress =
-              (update.value * 380) / this.data.IDO.NOG.maxAmount1;
-            this.h5_NOG_Progress =
-              (update.value * 6.8) / this.data.IDO.NOG.maxAmount1;
-          }
-        } else if (update.type == "amountTotal02") {
-          this.amountTotal02 = update.value / this.data.IDO.OG.scala;
-          this.amountTotal02_format = this.formatAmount(this.amountTotal02);
-        } else if (update.type == "amountTotal05") {
-          this.amountTotal05 = update.value / this.data.IDO.NOG.scala;
-          this.amountTotal05_format = this.formatAmount(this.amountTotal05);
-        } else if (update.type == "calcT12") {
-          this.calcT12 = update.value / 1000000000000000000;
-          this.calcT12PricePerToken = (1 / this.calcT12).toFixed(5);
-        } else if (update.type == "calcT15") {
-          this.calcT15 = update.value / 1000000000000000000;
-          this.calcT15PricePerToken = (1 / this.calcT15).toFixed(5);
-        } else if (update.type == "currentAddressBalanceOf2") {
-          this.currentAddressBalanceOf2 = update.value / this.data.IDO.OG.scala;
-          this.currentAddressBalanceOf2_format = this.formatAmount(
-            this.currentAddressBalanceOf2
-          );
-        } else if (update.type == "currentAddressBalanceOf5") {
-          this.currentAddressBalanceOf5 =
-            update.value / this.data.IDO.NOG.scala;
-          this.currentAddressBalanceOf5_format = this.formatAmount(
-            this.currentAddressBalanceOf5
-          );
-        } else if (update.type == "OGwhitelist") {
+        try {
+          if (update.type == "OG_allowance") {
+            this.OG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+          } else if (update.type == "NOG_allowance") {
+            this.NOG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+          } else if (update.type == "my_amount_OG_Swapped") {
+            this.my_amount_OG_swapped = update.value / this.data.IDO.OG.scala;
+            this.$store.commit("SET_AMOUNT_OG_SWAPPED", this.my_amount_OG_swapped);
+            let maxAmount1PerWallet =
+                this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
+            this.left_for_og_amount =
+                maxAmount1PerWallet - this.my_amount_OG_swapped;
+            this.left_for_og_amount_format = this.formatAmount(
+                this.left_for_og_amount
+            );
+          } else if (update.type == "my_amount_NOG_Swapped") {
+            this.my_amount_NOG_swapped = update.value / this.data.IDO.NOG.scala;
+            this.$store.commit("SET_AMOUNT_NOG_SWAPPED", this.my_amount_NOG_swapped);
+            let maxAmount1PerWallet =
+                this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
+            this.left_for_nog_amount = maxAmount1PerWallet - this.my_amount_NOG_swapped;
+            this.left_for_nog_Amount_format = this.formatAmount(
+                this.left_for_nog_amount
+            );
+          } else if (update.type == "og_amount_total") {
+            this.og_amount_total = update.value / this.data.IDO.OG.scala;
+            this.amountTotal12_format = this.formatAmount(this.og_amount_total);
+            if (this.og_amount_total > 0) {
+              this.pc_OG_Progress =
+                  (update.value * 380) / this.data.IDO.OG.maxAmount1;
+              this.h5_OG_Progress =
+                  (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
+            }
+          } else if (update.type == "nog_amount_total") {
+            this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
+            this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
+            if (this.nog_amount_total > 0) {
+              this.pc_NOG_Progress =
+                  (update.value * 380) / this.data.IDO.NOG.maxAmount1;
+              this.h5_NOG_Progress =
+                  (update.value * 6.8) / this.data.IDO.NOG.maxAmount1;
+            }
+          } else if (update.type == "amountTotal02") {
+            this.amountTotal02 = update.value / this.data.IDO.OG.scala;
+            this.amountTotal02_format = this.formatAmount(this.amountTotal02);
+          } else if (update.type == "amountTotal05") {
+            this.amountTotal05 = update.value / this.data.IDO.NOG.scala;
+            this.amountTotal05_format = this.formatAmount(this.amountTotal05);
+          } else if (update.type == "calcT12") {
+            this.calcT12 = update.value / 1000000000000000000;
+            this.calcT12PricePerToken = (1 / this.calcT12).toFixed(5);
+          } else if (update.type == "calcT15") {
+            this.calcT15 = update.value / 1000000000000000000;
+            this.calcT15PricePerToken = (1 / this.calcT15).toFixed(5);
+          } else if (update.type == "BalanceOf_usdc") {
 
-            let temp = Number(update.value);
-            this.$store.commit("SET_OG_WHITE_LIST_COUNTER",temp);
+            this.BalanceOf_usdc = update.value / this.data.IDO.OG.scala;
+            console.log("this.BalanceOf_usdc ::" + this.BalanceOf_usdc);
+            this.BalanceOf_usdc_format = this.formatAmount(
+                this.BalanceOf_usdc
+            );
+            console.log("this.BalanceOf_usdc_format ::" + this.BalanceOf_usdc_format);
+          } else if (update.type == "OGwhitelist") {
 
-        } else if (update.type == "OG_ambassador") {
-          this.is_og_ambassador = update.value;
-        } else if (update.type == "openAtOG") {
-          this.openAtOG = update.value;
-          this.timePurchased2 = this.openAtOG;
-          this.time2 = this.format(this.timePurchased2);
-        } else if (update.type == "closeAtOG") {
-          this.closeAtOG = update.value;
-          this.timeEnd2 = this.format(this.closeAtOG);
-        } else if (update.type == "closeAtNOG") {
-          this.closeAtNOG = update.value;
-          this.timeEnd5 = this.format(this.closeAtNOG);
-        } else if (update.type == "openAtNOG") {
-          this.openAtNOG = update.value;
-          this.timePurchased5 = this.openAtNOG;
-          this.time5 = this.format(this.timePurchased5);
-        } else if("balanceOfSat" == update.type){
-          let temp = update.value / this.data.IDO.OG.symbolScala;
-          temp = temp.toFixed(2);
-          this.$store.commit("SET_SAT_BALANCE", temp);
+              let temp = Number(update.value);
+              this.$store.commit("SET_OG_WHITE_LIST_COUNTER", temp);
+
+          } else if (update.type == "OG_ambassador") {
+            this.is_og_ambassador = update.value;
+          } else if (update.type == "NOG_ambassador") {
+            this.is_nog_ambassador = update.value;
+          } else if (update.type == "openAtOG") {
+            this.openAtOG = update.value;
+            this.timePurchased2 = this.openAtOG;
+            this.time2 = this.format(this.timePurchased2);
+          } else if (update.type == "closeAtOG") {
+            this.closeAtOG = update.value;
+            this.timeEnd2 = this.format(this.closeAtOG);
+          } else if (update.type == "closeAtNOG") {
+            this.closeAtNOG = update.value;
+            this.timeEnd5 = this.format(this.closeAtNOG);
+          } else if (update.type == "openAtNOG") {
+            this.openAtNOG = update.value;
+            this.timePurchased5 = this.openAtNOG;
+            this.time5 = this.format(this.timePurchased5);
+          } else if ("balanceOfSat" == update.type) {
+            let temp = update.value / this.data.IDO.OG.symbolScala;
+            temp = temp.toFixed(2);
+            this.$store.commit("SET_SAT_BALANCE", temp);
+          }
+        } catch (e) {
+          console.error("error "+e.toString());
         }
       });
 
       this.Mult_watcher.start();
     },
-
+   PreCondition()
+   {
+     if (!this.is_connected) {
+       this.$refs.messageTipErrorDialog.showClick('please connected wallet');
+       return false;
+     }
+     if (this.isShowProgress) {
+       this.$refs.messageTipWarnDialog.showClick('Waiting ');
+       return false;
+     }
+     return true;
+   },
 
 
     async OgApprove() {
       try {
-        if (this.isShowProgress) {
-          this.$refs.messageTipWarnDialog.showClick('Waiting ');
-          return;
-        }
+          if( this.PreCondition() ==false){
+            return;
+          }
         if (!this.is_og_ambassador) {
           if (!isAddress(this.refAddress)) {
             this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
@@ -1635,8 +1686,7 @@ export default {
 
     },
     async PublicApprove() {
-      if (this.isShowProgress) {
-        this.$refs.messageTipWarnDialog.showClick('Waiting ');
+      if( this.PreCondition() ==false){
         return;
       }
       if (this.isShowTimestamp5) {
@@ -1648,7 +1698,7 @@ export default {
       try {
         try {
           let data = await doApprove2New(
-              toWei(10000),
+              toWei(999999999),
               "coin",
               this.data.IDO.NOG.currentAddress,
               this.data.IDO.NOG.contractAddress
@@ -1669,24 +1719,28 @@ export default {
 
     },
     async OgSale() {
-      if (this.isShowProgress) {
-        this.$refs.messageTipWarnDialog.showClick('Waiting ');
+      if( this.PreCondition() ==false){
         return;
       }
+      if(this.max_og_swap < 0.10){
+        this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        return;
+      }
+
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-             this.$refs.messageTipErrorDialog.showClick('Error,please use the invitation link! ');
+             this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation!  ');
+          this.$refs.messageTipErrorDialog.showClick('you are not an ambassador,can not invite your self');
           return;
         }
       } else {
         store.commit("SET_REF_ADDRESS",this.address);
       }
       if (!this.ogWhitelist) {
-        this.$refs.messageTipErrorDialog.showClick('Error,please use the whitelist!  ');
+        this.$refs.messageTipErrorDialog.showClick('your address is not in the WL!');
         return;
       }
       if (this.isShowTimestamp2) {
@@ -1700,28 +1754,23 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
           return;
         }
-        let xxx = this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala;
-        let max = this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
-        if (this.stakeAmount < xxx || this.stakeAmount > max) {
-          this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
+        if (this.stakeAmount < this.min_og_swap || this.stakeAmount > this.max_og_swap) {
+          this.$refs.messageTipErrorDialog.showClick('please input '+this.min_og_swap +"~" +this.max_og_swap);
           return;
         }
 
-        if (this.stakeAmount > this.myAllocationAmount2) {
-          this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
-          return;
-        }
 
         if (this.OG_allowance < this.stakeAmount) {
-          this.$refs.messageTipErrorDialog.showClick('please try again and confirm the transaction! ');
+          this.$refs.messageTipErrorDialog.showClick('please try approve a again! ');
           return;
         }
 
-        if (this.currentAddressBalanceOf2 < this.stakeAmount) {
+        if (this.BalanceOf_usdc < this.stakeAmount) {
           this.$refs.messageTipErrorDialog.showClick('Insufficient Balance ! ');
           return;
         }
         this.isShowProgress = true;
+        console.log("this.OGSale()" + "this.stakeAmount * this.data.IDO.og.scala :" +this.stakeAmount * this.data.IDO.OG.scala +"this.refAddress :" +this.refAddress);
         let res = await saleSwap(
           this.stakeAmount * this.data.IDO.NOG.scala,
           "TokenSale",
@@ -1745,19 +1794,25 @@ export default {
       this.$refs.messageTipWarnDialog.showClick('Waiting ');
     },
     async publicSale() {
-      if (this.isShowProgress) {
-        this.$refs.messageTipWarnDialog.showClick('Waiting ');
+      if( this.PreCondition() ==false){
+        return;
+      }
+      if(this.max_nog_swap < 0.10){
+        this.$refs.messageTipErrorDialog.showClick('insufficient quota');
         return;
       }
 
-      if (!isAddress(this.refAddress)) {
-        this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
-        return;
-      }
-
-      if (this.refAddress == this.address) {
-        this.$refs.messageTipErrorDialog.showClick('invalid invitation !');
-        return;
+      if (!this.is_nog_ambassador) {
+        if (!isAddress(this.refAddress)) {
+          this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
+          return;
+        }
+        if (this.refAddress == this.address) {
+          this.$refs.messageTipErrorDialog.showClick('you are not an ambassador,can not invite your self ');
+          return;
+        }
+      } else {
+        store.commit("SET_REF_ADDRESS",this.address);
       }
 
       if (this.isShowTimestamp5) {
@@ -1769,31 +1824,24 @@ export default {
         return;
       }
 
-      let xxx =
-          this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala;
-      let max =
-          this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
-      if (this.stakeAmount < xxx || this.stakeAmount > max) {
-        this.$refs.messageTipErrorDialog.showClick('please enter the correct amount!');
+
+      if (this.stakeAmount < this.min_nog_swap || this.stakeAmount > this.max_nog_swap) {
+        this.$refs.messageTipErrorDialog.showClick('please input '+Number(this.min_nog_swap).toFixed(2) +"~" + Number(this.max_nog_swap).fixed(2));
         return;
       }
       if (this.NOG_allowance < this.stakeAmount) {
-        this.$refs.messageTipErrorDialog.showClick('please try again !');
-        this.isPublicSaleApproved = false;
+        this.$refs.messageTipErrorDialog.showClick('please approve try again !');
         return;
       }
-      if (this.stakeAmount > this.myAllocationAmount5) {
 
-        this.$refs.messageTipErrorDialog.showClick('please enter the correct amount!');
-        return;
-      }
-      if (this.currentAddressBalanceOf5 < this.stakeAmount) {
+      if (this.BalanceOf_usdc < this.stakeAmount) {
         this.$refs.messageTipErrorDialog.showClick("Insufficient Balance !");
         return;
       }
 
       try {
         this.isShowProgress = true;
+        console.log("this.publicSale()" + "this.stakeAmount * this.data.IDO.NOG.scala :" +this.stakeAmount * this.data.IDO.NOG.scala +"this.refAddress :" +this.refAddress);
         let res = await saleSwap(
           this.stakeAmount * this.data.IDO.NOG.scala,
           "TokenSale",
