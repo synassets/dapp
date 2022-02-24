@@ -1485,17 +1485,17 @@ export default {
             target: this.data.IDO.NOG.contractAddress,
             call: ["inviteable(address)(bool)", this.address],
             returns: [["NOG_ambassador"]]
-          }          ,
-          {
-            target: this.data.IDO.OG.contractAddress,
-            call: ["inviteable(address)(bool)", this.refAddress],
-            returns: [["ref_NOG_ambassador"]]
           },
-          {
-            target: this.data.IDO.NOG.contractAddress,
-            call: ["inviteable(address)(bool)", this.refAddress],
-            returns: [["ref_OG_ambassador"]]
-          },
+          // {
+          //   target: this.data.IDO.OG.contractAddress,
+          //   call: ["inviteable(address)(bool)", this.refAddress],
+          //   returns: [["ref_NOG_ambassador"]]
+          // },
+          // {
+          //   target: this.data.IDO.NOG.contractAddress,
+          //   call: ["inviteable(address)(bool)", this.refAddress],
+          //   returns: [["ref_OG_ambassador"]]
+          // },
           {
             target: this.data.IDO.OG.contractAddress,
             call: ["openAt()(uint256)"],
@@ -1763,10 +1763,10 @@ export default {
         return;
       }
 
-      if (!this.is_ref_nog_ambassador) {
-        this.$refs.messageTipErrorDialog.showClick('your invitation link err');
-        return;
-      }
+      // if (!this.is_ref_nog_ambassador) {
+      //   this.$refs.messageTipErrorDialog.showClick('your invitation link err');
+      //   return;
+      // }
 
       if (this.isShowTimestamp2) {
         // this.$message.error("Coming soon");
@@ -1839,10 +1839,10 @@ export default {
       } else {
        await store.commit("SET_REF_ADDRESS",this.address);
       }
-      if (!this.is_ref_nog_ambassador) {
-        this.$refs.messageTipErrorDialog.showClick('your invitation link err');
-        return;
-      }
+      // if (!this.is_ref_nog_ambassador) {
+      //   this.$refs.messageTipErrorDialog.showClick('your invitation link err');
+      //   return;
+      // }
 
 
       if (this.isShowTimestamp5) {
