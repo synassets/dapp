@@ -299,6 +299,8 @@
 
 
      </div>
+    <MessageTipWarnDialog   ref="messageTipWarnDialog" />
+    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
   </div>
 </template>
 
@@ -335,9 +337,16 @@ import {pc_logo,h5_left_img1,
   pc_tel,
   pc_discord_png,} from "../../../utils/images";
 import {getConfigData} from "../../../utils/Wallet";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
+
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 
 export default {
   name: "leftMenu",
+  components: {
+    MessageTipWarnDialog
+  },
   data() {
     return {
       pc_logo,
@@ -483,17 +492,20 @@ export default {
       this.isShowMenu = false;
     },
     onCopy() {
-      this.$message.success("Done！");
+      // this.$message.success("Done！");
+      this.$refs.messageTipWarnDialog.showClick('Done！ ');
     },
     onError() {
-      this.$message.error("Copy failed!");
+      // this.$message.error("Copy failed!");
+      this.$refs.messageTipErrorDialog.showClick('Copy failed! ');
     },
    async onClickMenu(index) {
       this.isShowMenu = false;
  /*    this.tabPcIndex = 1;
      this.tabIndex = 1;*/
       if(index == 1){
-        this.$message.success("Coming Soon!")
+        // this.$message.success("Coming Soon!")
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
        /* this.tabPcIndex = 0;
         this.tabIndex = 0;
         this.currency = this.currencyNo;
@@ -506,19 +518,23 @@ export default {
         Cookies.set("CHAIN_TYPE", this.currencyNo, { expires: 31 });
         this.$router.push("/ido");
       }else if(index == 3){
-        this.$message.success("Coming Soon!")
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$message.success("Coming Soon!")
       /*  Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
         this.currency = "POLYGON";*/
       }else if(index == 4){
-        this.$message.success("Coming Soon!")
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$message.success("Coming Soon!")
       /*  Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
         this.currency = "ETH";*/
       }else if(index == 5){
-        this.$message.success("Coming Soon!")
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$message.success("Coming Soon!")
         /*Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
         this.currency = "UNI";*/
       }else if(index == 6){
-        this.$message.success("Coming Soon!")
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$message.success("Coming Soon!")
        /* Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
         this.currency = "DOT";*/
       }
