@@ -210,40 +210,56 @@
         <div style="display: flex;padding-top: 0.4rem; font-size: 0.64rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 100%;position: relative;">
           <div style="padding-left: 0.8rem;">25,682.66 sMatic/s</div>
         </div>
-        <div style="padding-top: 0.5rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;padding-left: 0.8rem;">
-          My Node
+        <div style="padding-top: 0.5rem;display: flex;">
+          <div class="h5-div-item1" style="font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;">Network Rank</div>
+          <div class="h5-div-item2" style="margin-left: 0.8rem;">..............................................................</div>
         </div>
 
-        <div style="display: flex;padding-top: 0.5rem;">
-          <div class="h5-div-item1">0x135....8492</div>
-          <div class="h5-div-item2">..............................................................</div>
-          <div class="h5-div-item3"></div>
-          <div class="h5-div-item4">live</div>
+       <div
+           style="width: 8.4rem;display: flex;font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #808080;margin: 0.5rem auto 0rem auto;"
+       >
+       <div style="flex: 1;">Address</div>
+         <div style="flex: 1;text-align: center">Node</div>
+         <div style="flex: 1;text-align: right">Power</div>
+
+       </div>
+
+
+        <div
+            class="h5-network-div-item"
+        >
+          <div style="flex: 1;">0x135....8492</div>
+          <div style="flex: 1;text-align: center">3,457</div>
+          <div style="flex: 1;text-align: right;color: #0792E3" >546,257.72</div>
         </div>
-        <div style="display: flex;padding-top: 0.3rem;">
-          <div class="h5-div-item1">0x1r3....N2Oy</div>
-          <div class="h5-div-item2">..............................................................</div>
-          <div class="h5-div-item3"></div>
-          <div class="h5-div-item4">live</div>
+        <div
+            class="h5-network-div-item"
+        >
+          <div style="flex: 1;">0x1r3....N2Oy</div>
+          <div style="flex: 1;text-align: center">3,457</div>
+          <div style="flex: 1;text-align: right;color: #0792E3" >546,257.72</div>
         </div>
-        <div style="display: flex;padding-top: 0.3rem;">
-          <div class="h5-div-item1">0x0Ag....3gs7</div>
-          <div class="h5-div-item2">..............................................................</div>
-          <div class="h5-div-item3"></div>
-          <div class="h5-div-item4">live</div>
+        <div
+            class="h5-network-div-item"
+        >
+          <div style="flex: 1;">0x0Ag....3gs7</div>
+          <div style="flex: 1;text-align: center">3,457</div>
+          <div style="flex: 1;text-align: right;color: #0792E3" >546,257.72</div>
         </div>
-        <div style="display: flex;padding-top: 0.3rem;">
-          <div class="h5-div-item1">0x0Ag....3gs7</div>
-          <div class="h5-div-item2">..............................................................</div>
-          <div class="h5-div-item3"></div>
-          <div class="h5-div-item4">live</div>
+        <div
+            class="h5-network-div-item"
+        >
+          <div style="flex: 1;">0x2yt....Qw3r</div>
+          <div style="flex: 1;text-align: center">3,457</div>
+          <div style="flex: 1;text-align: right;color: #0792E3" >546,257.72</div>
         </div>
-        <div style="display: flex;padding-top: 0.3rem;">
-          <div class="h5-div-item1">0x2yt....Qw3r</div>
-          <div class="h5-div-item2">..............................................................</div>
-          <div class="h5-div-item3"></div>
-          <div class="h5-div-item4">live</div>
-        </div>
+
+
+
+
+
+
+
 
       </div>
 
@@ -385,4 +401,6 @@ padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
 .h5-div-item4{
   margin-left: 0.2rem;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #0792E3;
 }
+.h5-network-div-item{
+  width: 8.4rem;display: flex;font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #ffffff;margin: 0.3rem auto 0rem auto;}
 </style>

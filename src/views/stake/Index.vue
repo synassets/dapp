@@ -97,14 +97,6 @@
               <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
             </div>
           </div>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <img
@@ -112,16 +104,92 @@
           style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
           alt="zh"
       />
-
-
-
-
-
-
   </div>
 
 
+    <!--h5--->
+    <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
 
+      <div style="padding-top: 1.8rem;padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Single Stake (S, S)</div>
+      <div style="padding-top: 0.15rem;padding-left: 0.8rem;  font-size: 0.32rem; font-family: Selawik;font-weight: 400; color: #808080;">3 hrs, 47 mins to nexst rebase</div>
+
+      <div style="margin-top: 0.8rem;margin-left: 0.8rem;display: flex;">
+        <div  @click="clickTabStake(true)"  :class="isStakeMenu?'h5-stake-div-tab-p':'h5-stake-div-tab-n'">Stake</div>
+        <div  @click="clickTabStake(false)"  :class="!isStakeMenu?'h5-stake-div-tab-p':'h5-stake-div-tab-n'">Unstake</div>
+
+      </div>
+      <div style="width: 100%; height: 14.91rem;background: #242424;padding-top: 0.5rem;">
+        <div style="display: flex;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">
+          <div style="padding-left: 0.8rem;flex: 1;">APY</div>
+          <div style="flex: 1;">Current Index</div>
+        </div>
+
+        <div style="display: flex;font-size: 0.48rem;font-family: Selawik;font-weight: 600; color: #ffffff;padding-top: 0.3rem;">
+          <div style="padding-left: 0.8rem;flex: 1;">6,217.20%</div>
+          <div style="flex: 1;">46.4 sMaic</div>
+        </div>
+        <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Total Value Deposited</div>
+        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">$2,288,357.96</div>
+
+
+        <div style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
+          <input
+              v-model="bondInputAmount"   placeholder="Amount"
+              type="text"
+              style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
+          />
+        </div>
+
+       <div class="h5-stake-div-btn">Stake</div>
+
+       <div class="h5-stake-div-item" style="margin-top: 0.8rem;">
+         <div style="flex: 2;">Your Balance</div>
+         <div style="flex: 3;text-align: right;">0 sMatic</div>
+       </div>
+        <div class="h5-stake-div-item" >
+          <div style="flex: 1;">Your Staked Balance</div>
+          <div style="flex: 1;text-align: right;">0 sMatic</div>
+        </div>
+        <div class="h5-stake-div-item" >
+          <div style="flex: 2;color: #808080">Wrapped Balance</div>
+          <div style="flex: 3;text-align: right;">0 sMatic</div>
+        </div>
+        <div class="h5-stake-div-item" >
+          <div style="flex: 2;color: #808080">Exchange rate</div>
+          <div style="flex: 3;text-align: right;color: #808080">1 wMatic = 25.9088 sMatic
+          </div>
+        </div>
+        <div class="h5-stake-div-item" >
+          <div style="flex: 1;">Next Reward Amount</div>
+          <div style="flex: 1;text-align: right;color: #808080">0 sMatic</div>
+        </div>
+        <div class="h5-stake-div-item" >
+          <div style="flex: 1;">Next Reward Yield</div>
+          <div style="flex: 1;text-align: right;">0.6229%</div>
+        </div>
+        <div class="h5-stake-div-item" >
+          <div style="flex: 1;">ROI (5-Day Rate)</div>
+          <div style="flex: 1;text-align: right;">9.7629%</div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
   </div>
 </template>
 <script>
@@ -318,5 +386,20 @@ font-size: 14px;font-family: Selawik; font-weight: 400;color: #FFFFFF;padding-le
 .pc-stake-div-btn1{
   margin: 25px auto 0px auto; width: 540px;height: 50px; background: #0792E3; border-radius: 5px;text-align: center;line-height: 50px;font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;
 }
-
+.h5-stake-div-tab-p{
+  width: 2rem;height: 0.67rem;background: #0792E3; font-size: 0.35rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;text-align: center;line-height: 0.67rem;
+}
+.h5-stake-div-tab-n{
+  width: 2rem;height: 0.67rem;background: #242424; font-size: 0.35rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;text-align: center;line-height: 0.67rem;
+}
+.h5-stake-div-btn{
+  width: 8.4rem;height: 0.93rem;background: #0792E3;border-radius: 0.13rem;text-align: center;line-height: 0.93rem;
+  font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;
+  margin: 0.5rem auto 0rem auto;
+}
+.h5-stake-div-btn :hover{
+  background: #00A0E9;
+}
+.h5-stake-div-item{
+  display: flex;width: 8.4rem;margin: 0.3rem auto 0rem auto; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #FFFFFF;}
 </style>
