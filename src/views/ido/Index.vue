@@ -1130,7 +1130,7 @@ export default {
       my_amount_OG_swapped:0,
 
       left_for_og_amount: 0,
-      left_for_nog_Amount: 0,
+      left_for_nog_amount: 0,
 
       left_for_og_amount_format: 0,
       left_for_nog_Amount_format: 0,
@@ -1161,7 +1161,7 @@ export default {
       stakeAmount: "",
       isOgMarket: true,
       is_og_ambassador: false,
-
+      is_nog_ambassador: false,
       isShowProgress: false,
       showInviteDialog: false,
       shareLinkUrl: "",
@@ -1170,7 +1170,7 @@ export default {
       openAtNOG: 0,
       closeAtNOG: 0,
       gasPrice: 0,
-      Mult_watcher: 0
+      Mult_watcher: null
     };
   },
   computed: {
@@ -1203,7 +1203,9 @@ export default {
       if(this.my_amount_OG_swapped > 0){
         left_amount =this.left_for_og_amount;
       }
-      left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      else {
+        left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+      }
       return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
     },
     max_nog_swap:function (){
@@ -1236,11 +1238,7 @@ export default {
   watch: {
     wallet_address(newQuestion, oldQuestion) {
       console.log(newQuestion + " old: :" + oldQuestion);
-      if(this.Mult_watcher != null){
-        this.Mult_watcher.stop();
-        this.Mult_watcher = null;
-      }
-      this.getStartWatch();
+      this.restartWatch()
     },
     is_connected(newQuestion, oldQuestion){
       console.log(oldQuestion  +" is_connected: -----:" + newQuestion);
@@ -1268,7 +1266,7 @@ export default {
      this.getRefAddress();
   },
   mounted() {
-    console.log("wallet_address"+this.wallet_address);
+    console.log("wallet_address: "+this.wallet_address);
     this.getStartWatch();
   },
 
@@ -1389,6 +1387,15 @@ export default {
       // return m + ' '+d+'th'+' @ '+h+' UTC'
       return h + " , " + d + "th" + " ,  " + m + " UTC";
     },
+    restartWatch()
+    {
+      console.log("restartWatch------------");
+      if(this.Mult_watcher != null){
+        this.Mult_watcher.stop();
+        this.Mult_watcher = null;
+      }
+      this.getStartWatch();
+    },
     getStartWatch() {
       if (this.Mult_watcher) {
         console.error("this.Mult_watcher Is Created");
@@ -1472,6 +1479,11 @@ export default {
             returns: [["OG_ambassador"]]
           },
           {
+            target: this.data.IDO.NOG.contractAddress,
+            call: ["inviteable(address)(bool)", this.address],
+            returns: [["NOG_ambassador"]]
+          },
+          {
             target: this.data.IDO.OG.contractAddress,
             call: ["openAt()(uint256)"],
             returns: [["openAtOG"]]
@@ -1500,7 +1512,7 @@ export default {
         {
           rpcUrl: this.configData.rpcUrl,
           multicallAddress: this.configData.multicallAddress,
-          interval: 15000
+          interval: 10000
         }
       );
       this.Mult_watcher.subscribe(update => {
@@ -1526,9 +1538,9 @@ export default {
             this.$store.commit("SET_AMOUNT_NOG_SWAPPED", this.my_amount_NOG_swapped);
             let maxAmount1PerWallet =
                 this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
-            this.left_for_nog_Amount = maxAmount1PerWallet - this.my_amount_NOG_swapped;
+            this.left_for_nog_amount = maxAmount1PerWallet - this.my_amount_NOG_swapped;
             this.left_for_nog_Amount_format = this.formatAmount(
-                this.left_for_nog_Amount
+                this.left_for_nog_amount
             );
           } else if (update.type == "og_amount_total") {
             this.og_amount_total = update.value / this.data.IDO.OG.scala;
@@ -1575,6 +1587,8 @@ export default {
 
           } else if (update.type == "OG_ambassador") {
             this.is_og_ambassador = update.value;
+          } else if (update.type == "NOG_ambassador") {
+            this.is_nog_ambassador = update.value;
           } else if (update.type == "openAtOG") {
             this.openAtOG = update.value;
             this.timePurchased2 = this.openAtOG;
@@ -1708,20 +1722,25 @@ export default {
       if( this.PreCondition() ==false){
         return;
       }
+      if(this.max_og_swap < 0.10){
+        this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        return;
+      }
+
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-             this.$refs.messageTipErrorDialog.showClick('please use the invitation link! ');
+             this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$refs.messageTipErrorDialog.showClick('invalid invitation!  ');
+          this.$refs.messageTipErrorDialog.showClick('you are not an ambassador,can not invite your self');
           return;
         }
       } else {
         store.commit("SET_REF_ADDRESS",this.address);
       }
       if (!this.ogWhitelist) {
-        this.$refs.messageTipErrorDialog.showClick('Error,please use the whitelist!  ');
+        this.$refs.messageTipErrorDialog.showClick('your address is not in the WL!');
         return;
       }
       if (this.isShowTimestamp2) {
@@ -1736,7 +1755,7 @@ export default {
           return;
         }
         if (this.stakeAmount < this.min_og_swap || this.stakeAmount > this.max_og_swap) {
-          this.$refs.messageTipErrorDialog.showClick('please input '+Number(this.min_og_swap).toFixed(2) +"~" + Number(this.max_og_swap).fixed(2));
+          this.$refs.messageTipErrorDialog.showClick('please input '+this.min_og_swap +"~" +this.max_og_swap);
           return;
         }
 
@@ -1751,6 +1770,7 @@ export default {
           return;
         }
         this.isShowProgress = true;
+        console.log("this.OGSale()" + "this.stakeAmount * this.data.IDO.og.scala :" +this.stakeAmount * this.data.IDO.OG.scala +"this.refAddress :" +this.refAddress);
         let res = await saleSwap(
           this.stakeAmount * this.data.IDO.NOG.scala,
           "TokenSale",
@@ -1777,14 +1797,18 @@ export default {
       if( this.PreCondition() ==false){
         return;
       }
+      if(this.max_nog_swap < 0.10){
+        this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        return;
+      }
 
-      if (!this.is_og_ambassador) {
+      if (!this.is_nog_ambassador) {
         if (!isAddress(this.refAddress)) {
-          this.$refs.messageTipErrorDialog.showClick('please use the invitation link! ');
+          this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$refs.messageTipErrorDialog.showClick('invalid invitation!  ');
+          this.$refs.messageTipErrorDialog.showClick('you are not an ambassador,can not invite your self ');
           return;
         }
       } else {
@@ -1817,6 +1841,7 @@ export default {
 
       try {
         this.isShowProgress = true;
+        console.log("this.publicSale()" + "this.stakeAmount * this.data.IDO.NOG.scala :" +this.stakeAmount * this.data.IDO.NOG.scala +"this.refAddress :" +this.refAddress);
         let res = await saleSwap(
           this.stakeAmount * this.data.IDO.NOG.scala,
           "TokenSale",
