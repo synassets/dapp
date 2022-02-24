@@ -345,7 +345,8 @@ import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDial
 export default {
   name: "leftMenu",
   components: {
-    MessageTipWarnDialog
+    MessageTipWarnDialog,
+    MessageTipErrorDialog
   },
   data() {
     return {

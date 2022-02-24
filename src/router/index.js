@@ -51,7 +51,12 @@ const constantRouter = [
         component: () => import("@/views/network/Index"),
         meta: { title: "network" },
       },
-
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("@/views/dashboard/Index"),
+        meta: { title: "dashboard" },
+      }
     ],
   },
   {
