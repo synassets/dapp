@@ -1779,7 +1779,7 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
           return;
         }
-        if (this.stakeAmount-0.01 < this.min_og_swap || this.stakeAmount-0.01 > this.max_og_swap) {
+        if (this.stakeAmount < this.min_og_swap-0.001 || this.stakeAmount-0.001 > this.max_og_swap ) {
           this.$refs.messageTipErrorDialog.showClick('please input '+this.min_og_swap +"~" +this.max_og_swap);
           return;
         }
@@ -1855,7 +1855,7 @@ export default {
       }
 
 
-      if (this.stakeAmount-0.01 < this.min_nog_swap || this.stakeAmount-0.01 > this.max_nog_swap) {
+      if (this.stakeAmount < this.min_nog_swap -0.001 || this.stakeAmount-0.01 > this.max_nog_swap) {
         this.$refs.messageTipErrorDialog.showClick('please input '+this.min_nog_swap +"~" + this.max_nog_swap);
         return;
       }
