@@ -238,6 +238,7 @@ export default {
 
     async onClickSend(){
 
+
       if (!isAddress(this.whitelistInputAddress)) {
         this.$refs.messageTipErrorDialog.showClick('Address is error! ');
         return;
@@ -250,7 +251,7 @@ export default {
       try {
           let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
           if(data.status == true){
-            this.$refs.MessageTipOkDialog.showClick();
+            this.$refs.messageTipOkDialog.showClick();
           }
           else {
             this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
