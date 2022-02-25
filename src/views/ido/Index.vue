@@ -1296,7 +1296,7 @@ export default {
       this.showInviteDialog = true;
       let myAddress = Base64.encode(this.address);
       this.shareLinkUrl =
-        "http://" + window.location.host + "?ref=" + myAddress;
+        "https://" + window.location.host + "?ref=" + myAddress;
     },
 
     closedClickSetDialog() {
@@ -1531,9 +1531,9 @@ export default {
 
         try {
           if (update.type == "OG_allowance") {
-            this.OG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+            this.OG_allowance = Number((Number(update.value) / this.data.IDO.OG.scala).toFixed(0));
           } else if (update.type == "NOG_allowance") {
-            this.NOG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+            this.NOG_allowance = Number((Number(update.value) / this.data.IDO.OG.scala).toFixed(0));
           } else if (update.type == "my_amount_OG_Swapped") {
             this.my_amount_OG_swapped = update.value / this.data.IDO.OG.scala;
             this.$store.commit("SET_AMOUNT_OG_SWAPPED", this.my_amount_OG_swapped);
