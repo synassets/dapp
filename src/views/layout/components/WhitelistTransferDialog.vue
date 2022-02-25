@@ -234,9 +234,14 @@ export default {
       this.$emit('clickCloseDialog', {});
 
     },
-    onClickOptionItem(){
+    onClickOptionItem(value){
+      if(value != 'SAT WL spot'){
+        this.$refs.messageTipErrorDialog.showClick(value +' is coming soon! ');
+      }
 
-
+      setTimeout(() => {
+        this.value = 'SAT WL spot';
+      },100)
     },
      inputChange(){},
 
