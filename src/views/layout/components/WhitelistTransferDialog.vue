@@ -131,7 +131,7 @@
 
         <div style=" width:  6.79rem;margin: 0.4rem auto 0px auto;">
           <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Input the address of receiver"
-                style="height:0.93rem;width: 6.59rem;font-size: 14px;line-height: 0.93rem;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
+                style="height:0.93rem;width: 6.59rem;font-size: inherit;line-height: 0.93rem;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
 
           />
         </div>
