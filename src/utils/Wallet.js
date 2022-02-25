@@ -109,7 +109,12 @@ let wallet_provider = null;
 export async function initConnection(type) {
 
   if(wallet_provider != null){
-    await wallet_provider.disconnect();
+    try {
+      await wallet_provider.disconnect();
+    } catch (e) {
+      console.log(e);
+    }
+    wallet_provider = null;
   }
   if(type=="meta_mask"){
      wallet_provider =await createMetaMaskProvider();
@@ -227,17 +232,6 @@ export async function   addSATCoin(){
   }
 }
 
-
-
-export async function init() {
-  try {
-
-     await initConnection("");
-  } catch (e) {
-
-    console.error("init failed ");
-  }
-}
 
 export function getContract(contract) {
   const contract_info = CONTRACT_DATA[contract];
