@@ -123,38 +123,85 @@
 
         </div>
         <!------h5----->
-      <!--  <div v-show="!isMobile">
-          <div style="padding-top: 20px;position: relative;">
-            <img
-                :src="close"
-                style="width: 17px;height: 17px;left: 45px;top: 20px;position: absolute;z-index: 999;"
-                @click="closeDialog"
-            />
 
-
-
-
-
-
-            <div style="width:54px;height: 30px;"></div>
-          </div>
-        </div>
 
         <div v-show="isMobile">
-          <div style="width: 8.27rem;position: relative; ">
+          <div style="width: 8.27rem;position: relative;display: flex ">
             <img
                 :src="close"
                 style="width: 0.3rem;height: 0.3rem;left: 0.36rem;top: 0.36rem;position: absolute;z-index: 999;"
                 @click="closeDialog"
             />
+
+            <div style="width: 1.8rem;display: flex;margin: 0.34rem auto 0rem auto;">
+              <img :src="icon_matic" style="width: 0.4rem;height: 0.4rem;"  />
+              <div style=" font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;margin-left: 0.4rem;">Matic</div>
+            </div>
+
+          </div>
+
+        <div style="width: 8.27rem;text-align: center;margin: 0.4rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Fixed Term</div>
+
+          <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">2 days</div>
+
+
+          <div style="display: flex; font-size: 0.32rem; font-family: Selawik;font-weight: 400;color: #808080;padding-top: 0.5rem;text-align: center;">
+            <div style="flex: 1">Bond Price</div>
+            <div style="flex: 1">Market Price</div>
           </div>
 
 
+          <div style="display: flex; font-size: 0.48rem; font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-top: 0.2rem;text-align: center;">
+            <div style="flex: 1">$67.98</div>
+            <div style="flex: 1">$69.46</div>
+          </div>
+        <!--  <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
+          <div style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
+          <div style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">your Matic for bonding.</div>
+
+         <div class="h5-bond-dialog-btn">Approve</div>
+         -->
+
+          <div style="width: 7rem;margin: 0.5rem auto 0rem auto;display: flex;">
+               <div  @click="clickTabBond(true)"  :class="isBondMenu? 'h5-bond-tab-p':'h5-bond-tab-n'">Bond</div>
+               <div  @click="clickTabBond(false)"  :class="isBondMenu? 'h5-bond-tab-n':'h5-bond-tab-p'">Redeem</div>
+          </div>
+
+          <div style="  width: 7rem; height: 0.93rem;background: #FFFFFF;border-radius: 0rem 0.07rem 0.07rem 0.07rem;margin: 0 auto;">
+            <input v-model="bondInputAmount" type="text"  @input="inputChange()" placeholder="Amount"
+                   style="height:0.93rem;width: 6.59rem;line-height: 0.93rem;font-size: inherit;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
+
+            />
+          </div>
 
 
+          <div class="h5-bond-dialog-btn" v-show="isBondMenu">Bond</div>
+          <div class="h5-bond-dialog-btn"  v-show="!isBondMenu">Claim</div>
+          <div class="h5-bond-dialog-btn"  v-show="!isBondMenu">Claim and Autostake</div>
 
+          <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;">
+            <div style="flex: 1;">Your Balance</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+          </div>
 
-        </div>-->
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">You Will Get</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Max You Can Buy</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">ROI</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">6.84%</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Minimum purchase</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">2712.5145</div>
+          </div>
+         <div style="height: 0.5rem; width: 2rem;"></div>
+        </div>
       </div>
     </my-dialog>
     <MessageTipErrorDialog   ref="messageTipErrorDialog" />
@@ -165,7 +212,7 @@
 <script>
 import myDialog from "@/views/components/myDialog";
 
-import {close, gif} from "@/utils/images";
+import {close, gif,icon_matic,icon_matic_sat_lp} from "@/utils/images";
 import {mapState} from "vuex";
 // eslint-disable-next-line no-unused-vars
 import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
@@ -179,6 +226,8 @@ export default {
     return {
       close,
       gif,
+      icon_matic,
+      icon_matic_sat_lp,
 
       showBondDialog:true,
       showBoundPosition:1,
@@ -290,6 +339,29 @@ export default {
 }
 .pc-bond-div-btn1{
   margin: 25px auto 0px auto; width: 540px;height: 50px; background: #0792E3; border-radius: 5px;text-align: center;line-height: 50px;font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;
+}
+.h5-bond-dialog-btn{
+  line-height: 0.93rem;text-align: center;margin: 0.8rem auto 0rem auto;
+  width: 7rem;
+  height: 0.93rem;
+  background: #0792E3;
+  border-radius: 0.07rem;
+  font-size: 0.32rem;
+  font-family: Selawik;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+.h5-bond-dialog-btn:hover{
+  background: #00A0E9;
+}
+.h5-bond-dialog-item{
+  width: 7rem;margin: 0.3rem auto 0rem auto; font-size: 0.35rem; font-family: Selawik; font-weight: 400; color: #FFFFFF;display: flex;
+}
+.h5-bond-tab-p{
+  width: 2rem; height: 0.67rem; background: #0792E3;font-size: 0.32rem; font-family: Selawik;font-weight: 600; color: #FFFFFF;text-align: center;line-height:0.67rem;
+}
+.h5-bond-tab-n{
+  width: 2rem; height: 0.67rem; background: #737373;font-size: 0.32rem; font-family: Selawik;font-weight: 600; color: #FFFFFF;text-align: center;line-height:0.67rem;
 }
 ::v-deep .el-input__inner {
   -webkit-appearance: none;

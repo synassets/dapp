@@ -65,4 +65,9 @@ export const icon_share = require("@/assets/img/icon_share.png");
 export const tip_error = require("@/assets/img/tip_error.png");
 export const tip_ok = require("@/assets/img/tip_ok.png");
 export const tip_warn = require("@/assets/img/tip_warn.png");
+export const icon_matic_sat_lp = require("@/assets/img/icon_matic_sat_lp.png");
+export const icon_contact = require("@/assets/img/icon_contact.png");
+
+
+
 
