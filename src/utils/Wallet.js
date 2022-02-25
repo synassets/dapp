@@ -100,7 +100,9 @@ async function createWalletConnectionProvider(){
   }
   return  null;
 }
-
+export async function refresh_data() {
+  await store.commit("UPDATE_REFRESH_FLAG", 1);
+}
 
 
 let wallet_provider = null;
@@ -518,38 +520,10 @@ export async function transfer_white_list(target,contract_address){
         status: false,
         error: { message: 'timeout' }
       });
-    }, 200000);
+    }, 250000);
   });
 }
-export async function doApprove2(amount, type, spender) {
-  return new Promise(resolve => {
-    const contract_obj = getContract(type);
-    contract_obj.methods
-        .approve(spender, amount   )
-        .send({
-          from: getAddress(),
-        })
-        .then((data) => {
-          resolve({
-            status: true,
-            data
-          })
-        })
-        .catch((error) => {
-          resolve({
-            status: false,
-            error: error
-          })
-        });
 
-    setTimeout(() => {
-      resolve({
-        status: false,
-        error: { message: 'timeout' }
-      });
-    }, 200000);
-  });
-}
 export function getAllowance( type, spender) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContract(type);
@@ -769,7 +743,7 @@ export async function doApprove2New(amount, pool, contractAddress, spender) {
         status: false,
         error: { message: 'timeout' }
       });
-    }, 200000);
+    }, 250000);
   });
 }
 

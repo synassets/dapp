@@ -10,7 +10,8 @@ const wallet  ={
     sat_balance:0,
     whitelist_og_counter:0,
     my_amount_og_swapped:0,
-    my_amount_nog_swapped:0
+    my_amount_nog_swapped:0,
+    refresh_flag: 0,
    },
   getters: {
     is_connected: state => {
@@ -21,7 +22,6 @@ const wallet  ={
       return state.chain_id
     },
     sat_balance: state => {
-
       return state.sat_balance
     },
     address: state => {
@@ -43,6 +43,9 @@ const wallet  ={
       for(const key in payload){
         if(typeof state[key] != 'undefined')  state[key] = payload[key]
       }
+    },
+    UPDATE_REFRESH_FLAG:(state, payload)=> {
+      state.refresh_flag = state.refresh_flag +1 +payload;
     },
     SET_WALLET_TYPE:(state, payload)=> {
       state.wallet_type = payload

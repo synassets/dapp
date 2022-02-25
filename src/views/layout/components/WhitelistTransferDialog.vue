@@ -161,7 +161,7 @@ import { close ,gif,icon_sat,
   icon_matic, } from "@/utils/images";
 import {mapState} from "vuex";
 // eslint-disable-next-line no-unused-vars
-import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
+import {getDATA, isAddress, refresh_data, transfer_white_list} from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
@@ -256,6 +256,7 @@ export default {
           else {
             this.$refs.messageTipErrorDialog.showClick('transfer WL failed! ');
           }
+       await refresh_data()
       }
       finally {
         this.isShowProgress = false;
