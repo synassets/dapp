@@ -21,8 +21,41 @@
 
     <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #808080;">Dashboard</div>
 
+    <div class="h5-div-item" style="margin-top: 0.8rem;">
+      <div class="h5-div-item-up" >MTD Price</div>
+      <div class="h5-div-item-down" >$1,720,913.67</div>
+    </div>
 
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >TVL</div>
+        <div class="h5-div-item-down" >$1,720,913.67</div>
+      </div>
 
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >APY</div>
+        <div class="h5-div-item-down" >73,828.30%</div>
+      </div>
+
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >Treasury Balance</div>
+        <div class="h5-div-item-down" >$4,771,525,254.43</div>
+      </div>
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >Market Cap</div>
+        <div class="h5-div-item-down" >$2,477,593,041.56</div>
+      </div>
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >Current Index</div>
+        <div class="h5-div-item-down" >5.15 MTD</div>
+      </div>
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >Back Per MTD</div>
+        <div class="h5-div-item-down" >$264.99</div>
+      </div>
+      <div class="h5-div-item" >
+        <div class="h5-div-item-up" >Runaway</div>
+        <div class="h5-div-item-down" >455.2 d</div>
+      </div>
     </div>
 
 
@@ -31,16 +64,15 @@
 <script>
 import { mapState } from "vuex";
 import {
-  close,
-  gif,
+
   pc_ido_img1,
-  icon_matic
+
 } from "@/utils/images";
 
 import {
   getConfigData,
   getDATA,
-  getAddress,
+
 
 } from "../../utils/Wallet";
 export default {
@@ -50,19 +82,12 @@ export default {
   },
   data() {
     return {
-      close,
-      gif,
-      pc_ido_img1,
-      icon_matic,
-      address:'',
 
-      showBondDialog:false,
-      showBoundPosition:1,
-      isBondMenu:true,
-      bondInputAmount:'',
+      pc_ido_img1,
+
       data:{},
       configData:{},
-      searchText:'',
+
     };
   },
   computed: {
@@ -79,19 +104,11 @@ export default {
   mounted() {
     this.data =  getDATA();
     this.configData = getConfigData()
-    this.address = getAddress();
+
   },
 
   methods: {
-    clickTabBond(val){
-      this.isBondMenu = val;
-    },
-    clickCloseDialog(){
-      this.showBondDialog = false
-    },
-    inputChange(){},
-    maxValueClick(){},
-    goLink(){}
+
   }
 };
 </script>
@@ -101,76 +118,20 @@ export default {
 .pc-div-parent{
 padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
 }
-.pc-div-content{
-  width: 834px;margin: 0px auto 0px auto;padding-top: 150px;
-}
-.pc-dev-header{
-  width: 834px;padding-bottom: 30px;background: #242424;border-radius: 10px;
-}
-.pc-dev-title{
-  font-size: 24px;font-family: Fredoka One;font-weight: 600; color: #FFFFFF;padding-left: 33px;padding-top: 25px;
-}
-.pc-dev-content-up{
-  width: 750px;height: 90px;background: #242424;border-radius: 10px;margin: 25px auto 0px auto;
-}
-.pc-dev-content-up-item{
-  flex: 1;text-align: center;font-size: 18px;font-family: Lato;font-weight: bold;color: #808080;padding-top: 15px;
-}
-.pc-dev-content-down-item{
-  flex: 1;text-align: center;font-size: 24px;font-family: Fredoka One;font-weight: bold;color: #FFFFFF;padding-top: 12px;
-}
-.pc-dev-table{
-  width: 750px;margin: 32px auto 0px auto;
-}
-.pc-dev-table-title{
-  font-size: 16px;font-family: Lato;font-weight: bold;color: #808080;flex: 1
-}
-.pc-div-table-item1{
-  flex: 1;font-size: 16px;font-family: Lato;font-weight: bold;color: #F65166;
-}
-.pc-div-table-item21{
-  font-size: 16px;font-family: Lato;font-weight: 400;color: #ffffff;
-}
-.pc-div-table-item22{
-  font-size: 12px;font-family: Lato;font-weight: 400;color: #808080;text-decoration: underline;cursor: pointer;
-}
-.pc-div-table-item3{
-  line-height: 2.5;font-size: 16px;font-family: Lato; font-weight: 400;color: #FFFFFF;flex: 1;
-}
-.pc-div-table-item4{
-  line-height: 2.5;font-size: 16px;font-family: Lato; font-weight: 400;color: #101529;flex: 1
-}
-.class_bound{
-  width: 160px;
-  height: 35px;
-  border: 1px solid #FFFFFF;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  font-size: 16px;
-  font-family: Lato;
-  font-weight: bold;
-  color: #FFFFFF;
-  line-height: 35px;
-
-}
-.class_bound:hover{
-  background: #a6a6a6;
+.h5-div-item{
+cursor: pointer; width: 8.4rem; height: 1.45rem; background: #242424; border-radius: 0.13rem;margin: 0.5rem auto 0rem auto;
 }
 
+.h5-div-item:hover{
+  background: linear-gradient(-45deg, #4A3E48 0%, #25434A 100%);
+}
+.h5-div-item-up{
+  font-size: 0.27rem;font-family: Selawik;font-weight: 600; color: #808080;text-align: center;width:  8.4rem;padding-top: 0.25rem;
+}
+.h5-div-item-down{
+  font-size: 0.48rem;font-family: Selawik;font-weight: bold; color: #FFFFFF;text-align: center;width:  8.4rem;padding-top: 0.02rem;
+}
 
-.h5-bond-div-detail-left{
-  font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #808080;flex: 1;
-}
-.h5-bond-div-detail-right{
-  font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #ffffff;flex: 1;text-align: right;
-}
-.h5-bond-btn{
-  margin: 0.5rem auto 0rem auto; width: 8.4rem; height: 0.93rem;line-height:0.93rem;  background: #00A0E9;  border-radius: 0.13rem;text-align: center;font-size: 0.35rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;
-}
-.h5-bond-btn:hover{
-  background: #0792E3;
-}
 /*.claim_btn{
 cursor: pointer;margin: 25px auto 0px auto;width: 750px;line-height: 56px;height: 56px;background: #C3C6CF;border-radius: 12px;text-align: center;font-size: 20px;font-family: Lato;font-weight: bold;color: #101529;
 }

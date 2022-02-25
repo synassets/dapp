@@ -38,7 +38,8 @@
                       v-show="item.label=='sMatic WL spot'"
                       style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                   />
-                  <div style="margin-left: 25px;line-height: 30px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
+                  <div v-show="item.label=='SAT WL spot'" style="margin-left: 25px;line-height: 30px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
+                  <div v-show="item.label!='SAT WL spot'" style="margin-left: 25px;line-height: 30px; font-size: 16px;font-family: Selawik;font-weight: 400; color: #aaaaaa;">{{ item.label }}</div>
                 </div>
               </el-option>
             </el-select>
@@ -119,7 +120,9 @@
                     v-show="item.label=='sMatic WL spot'"
                     style="width: 20px;height:20px;z-index: 999;margin-top: 5px;margin-left: 10px;"
                 />
-                <div style="margin-left: 0.4rem;line-height: 0.93rem; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
+                <div  v-show="item.label=='SAT WL spot'" style="margin-left: 0.4rem;line-height: 0.93rem; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #000000;">{{ item.label }}</div>
+                <div  v-show="item.label!='SAT WL spot'" style="margin-left: 0.4rem;line-height: 0.93rem; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #aaaaaa;">{{ item.label }}</div>
+
               </div>
             </el-option>
           </el-select>
@@ -232,7 +235,12 @@ export default {
 
     },
     onClickOptionItem(value){
-      this.current_label = value
+      // this.current_label = value
+      this.current_label = 'SAT WL spot'
+      setTimeout(() => {
+        this.value = 'SAT WL spot';
+      },100)
+
     },
      inputChange(){},
 
