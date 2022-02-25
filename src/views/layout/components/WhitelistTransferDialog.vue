@@ -234,12 +234,8 @@ export default {
       this.$emit('clickCloseDialog', {});
 
     },
-    onClickOptionItem(value){
-      // this.current_label = value
-      this.current_label = 'SAT WL spot'
-      setTimeout(() => {
-        this.value = 'SAT WL spot';
-      },100)
+    onClickOptionItem(){
+
 
     },
      inputChange(){},

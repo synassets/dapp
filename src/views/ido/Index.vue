@@ -1179,19 +1179,19 @@ export default {
   computed: {
 
     isPublicSaleApproved : function ()  {
-      return this.NOG_allowance > this.max_nog_swap;
+      return Number(this.NOG_allowance) > this.max_nog_swap;
     },
     isOGApproved:  function () {
-      return this.OG_allowance > this.max_og_swap;
+      return Number(this.OG_allowance) > this.max_og_swap;
     },
     wallet_address:function () {
       return this.$store.getters.wallet.address
     },
     min_og_swap:function (){
-       return (this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+       return Number((this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0));
     },
     min_nog_swap:function (){
-        return  (this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0);
+        return  Number((this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0));
     },
     max_og_swap:function (){
       let left_amount = 0;
@@ -1201,7 +1201,7 @@ export default {
       else {
         left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
       }
-      return   left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+      return   Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
 
     },
     max_nog_swap:function (){
@@ -1211,7 +1211,7 @@ export default {
       }
       else
         left_amount = (this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
-      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+      return Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
     },
     ...mapState({
       isMobile: state => state.sys.isMobile,
@@ -1832,6 +1832,7 @@ export default {
         this.$refs.messageTipErrorDialog.showClick('insufficient quota');
         return;
       }
+      // console.log(this.max_nog_swap + "werwerewr" +this.min_nog_swap +" cpm result:" + (Number(this.max_nog_swap) < Number(this.min_nog_swap)));
       if(this.max_nog_swap < this.min_nog_swap){
         this.$refs.messageTipErrorDialog.showClick('you can not swap !');
         return;
