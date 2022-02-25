@@ -1071,7 +1071,7 @@ import {
   saleSwap,
   getConfigData,
   isAddress,
-  InitRef
+  InitRef, refresh_data
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
@@ -1179,27 +1179,19 @@ export default {
   computed: {
 
     isPublicSaleApproved : function ()  {
-      return this.NOG_allowance > this.max_nog_swap;
+      return Number(this.NOG_allowance) > this.max_nog_swap;
     },
     isOGApproved:  function () {
-      return this.OG_allowance > this.max_og_swap;
+      return Number(this.OG_allowance) > this.max_og_swap;
     },
     wallet_address:function () {
       return this.$store.getters.wallet.address
     },
     min_og_swap:function (){
-      if(this.my_amount_OG_swapped > 0){
-        return 0 ;
-      }
-      let left_amount =   (this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
-      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+       return Number((this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0));
     },
     min_nog_swap:function (){
-      if(this.my_amount_NOG_swapped > 0){
-        return 0 ;
-      }
-      let left_amount =  (this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0);
-      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+        return  Number((this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0));
     },
     max_og_swap:function (){
       let left_amount = 0;
@@ -1209,7 +1201,8 @@ export default {
       else {
         left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
       }
-      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+      return   Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
+
     },
     max_nog_swap:function (){
       let left_amount = 0;
@@ -1218,12 +1211,13 @@ export default {
       }
       else
         left_amount = (this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
-      return left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount;
+      return Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
     },
     ...mapState({
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
+      refresh_flag:state => state.wallet.refresh_flag,
       ogWhitelist:state => {
         return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
       },
@@ -1240,6 +1234,10 @@ export default {
 
   watch: {
     wallet_address(newQuestion, oldQuestion) {
+      console.log(newQuestion + " old: :" + oldQuestion);
+      this.restartWatch()
+    },
+    refresh_flag(newQuestion, oldQuestion) {
       console.log(newQuestion + " old: :" + oldQuestion);
       this.restartWatch()
     },
@@ -1269,7 +1267,7 @@ export default {
      this.getRefAddress();
   },
   mounted() {
-    console.log("wallet_address: "+this.wallet_address);
+
     this.getStartWatch();
   },
 
@@ -1390,16 +1388,16 @@ export default {
       // return m + ' '+d+'th'+' @ '+h+' UTC'
       return h + " , " + d + "th" + " ,  " + m + " UTC";
     },
-    restartWatch()
+   async restartWatch()
     {
       console.log("restartWatch------------");
       if(this.Mult_watcher != null){
         this.Mult_watcher.stop();
         this.Mult_watcher = null;
       }
-      this.getStartWatch();
+      await this.getStartWatch();
     },
-    getStartWatch() {
+    async getStartWatch() {
       if (this.Mult_watcher) {
         console.error("this.Mult_watcher Is Created");
         return;
@@ -1630,8 +1628,11 @@ export default {
           console.error("error "+e.toString());
         }
       });
-
-      this.Mult_watcher.start();
+      console.time("label_1_start");
+      console.log("label_1_start----------------")
+      await this.Mult_watcher.start();
+      console.timeEnd("label_1_start");
+      console.log("label_1_start----------------end")
     },
    PreCondition()
    {
@@ -1643,6 +1644,7 @@ export default {
        this.$refs.messageTipWarnDialog.showClick('Waiting ');
        return false;
      }
+
      return true;
    },
 
@@ -1690,10 +1692,10 @@ export default {
           );
           if (data.status == true) {
             this.$refs.messageTipOkDialog.showClick();
-            await this.Mult_watcher.poll();
           } else {
             this.$refs.messageTipErrorDialog.showClick('Approve failed ! ');
           }
+          await refresh_data()
         } catch (e) {
           console.error("OgApprove failed");
         }
@@ -1730,6 +1732,7 @@ export default {
         } catch (e) {
           console.error("PublicApprove failed");
         }
+        await refresh_data() ;
       } finally {
         this.isShowProgress = false;
       }
@@ -1742,6 +1745,10 @@ export default {
       }
       if(this.max_og_swap < 0.10){
         this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        return;
+      }
+      if(this.max_og_swap < this.min_og_swap){
+        this.$refs.messageTipErrorDialog.showClick('you can not swap !');
         return;
       }
 
@@ -1808,8 +1815,7 @@ export default {
         } else {
           this.$refs.messageTipErrorDialog.showClick(res.error.message);
         }
-        await this.Mult_watcher.poll();
-
+        await refresh_data() ;
       } finally {
         console.error("ok");
         this.isShowProgress = false;
@@ -1824,6 +1830,11 @@ export default {
       }
       if(this.max_nog_swap < 0.10){
         this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        return;
+      }
+      // console.log(this.max_nog_swap + "werwerewr" +this.min_nog_swap +" cpm result:" + (Number(this.max_nog_swap) < Number(this.min_nog_swap)));
+      if(this.max_nog_swap < this.min_nog_swap){
+        this.$refs.messageTipErrorDialog.showClick('you can not swap !');
         return;
       }
 
@@ -1882,11 +1893,10 @@ export default {
         if (res.status) {
           this.stakeAmount = "";
           this.$refs.messageTipOkDialog.showClick();
-          await this.Mult_watcher.poll();
         } else {
           this.$refs.messageTipErrorDialog.showClick(res.error.message);
         }
-
+        await refresh_data() ;
       } finally {
         this.isShowProgress = false;
       }

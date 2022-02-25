@@ -98,7 +98,8 @@ export default {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
     },
     myAddress() {
-      return getAddress();
+     return 1;
+      //return getAddress();
     }
   },
   mounted() {

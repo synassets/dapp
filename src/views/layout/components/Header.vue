@@ -288,8 +288,8 @@ export default {
       this.showWhitelistTransferDialog = false
     },
 
-    onClickOptionItem(value){
-       this.$refs.messageTipWarnDialog("coming soon " + value);
+    onClickOptionItem(){
+       // this.$refs.messageTipWarnDialog("coming soon " + value);
     },
     showWhitelistClick(){
       this.showWhitelistTransferDialog = true
