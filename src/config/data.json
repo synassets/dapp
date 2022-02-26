@@ -41,7 +41,7 @@
         "scala": "1000000",
         "current": "USDC",
         "currentAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-        "contractAddress": "0x5e1C8903578f6551AA7d2D11a7152B3dbD829E87"
+        "contractAddress": "0x73fCFd308a33BEDa4aD6dBB37f663Ea2d26FbA2c"
       },
       "NOG": {
         "enableWhiteList": false,
@@ -54,7 +54,7 @@
         "scala": "1000000",
         "current": "USDC",
         "currentAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-        "contractAddress": "0x595fFf2FcBf2872A13747C5cec1d8cd643A324D0"
+        "contractAddress": "0x491f473BdAB297Cc86bae6BF3C92C2Dc732B0E62"
       }
     }
   }
