@@ -1174,10 +1174,10 @@ export default {
     };
   },
   computed: {
-    isOgStart:function (){
+    isOgNotStart:function (){
       return moment(this.openAtOG * 1000).diff(moment(), "seconds") >= 0
     },
-    isNogStart:function (){
+    isNogNotStart:function (){
       return  moment(this.openAtNOG * 1000).diff(moment(), "seconds") >= 0
     },
 
@@ -1680,7 +1680,7 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('Error,you are not in WL! ');
           return;
         }
-        if (this.isOgStart) {
+        if (this.isOgNotStart) {
           this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
           return;
         }
@@ -1713,7 +1713,7 @@ export default {
       if( this.PreCondition() ==false){
         return;
       }
-      if (this.isNogStart) {
+      if (this.isNogNotStart) {
         this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
         return;
       }
@@ -1779,7 +1779,7 @@ export default {
       //   return;
       // }
 
-      if (this.isOgStart) {
+      if (this.isOgNotStart) {
         // this.$message.error("Coming soon");
         this.$refs.messageTipErrorDialog.showClick('Coming soon  ');
         return;
@@ -1860,7 +1860,7 @@ export default {
       // }
 
 
-      if (this.isNogStart) {
+      if (this.isNogNotStart) {
         this.$refs.messageTipErrorDialog.showClick('Coming soon .....');
         return;
       }
