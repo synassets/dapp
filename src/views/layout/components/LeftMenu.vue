@@ -547,6 +547,8 @@ export default {
         this.$router.push("/stake");
       }else if(index == 11){
         this.$router.push("/bond");
+      }else if(index == 12){
+        this.$router.push("/calculate");
       }else if(index == 13){
         this.$router.push("/network");
       }

@@ -62,7 +62,15 @@ const constantRouter = [
         name: "dboard",
         component: () => import("@/views/dboard/Index"),
         meta: { title: "dboard" },
+      },
+      {
+        path: "/calculate",
+        name: "calculate",
+        component: () => import("@/views/calculate/Index"),
+        meta: { title: "calculate" },
       }
+
+
     ],
   },
   {
