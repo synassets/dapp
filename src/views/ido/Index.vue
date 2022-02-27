@@ -528,62 +528,62 @@
           style="font-size: 0.3rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;width: 8.27rem;text-align: center;padding-top: 0.32rem;"
         >IDO will be live in</div>
 
-        <div style="width: 3.7rem;margin: 0.5rem auto 0 auto;display: flex;">
+        <div style="width: 5rem;margin: 0.5rem auto 0 auto;display: flex;">
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mDay >=10 ? this.mDay:'0'+this.mDay}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
+          <div style="padding-top: 0.08rem;">
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mH0+''+this.mH1}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
+          <div style="padding-top: 0.08rem;">
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mM0+''+this.mM1}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
+          <div style="padding-top: 0.08rem;">
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mS0+''+this.mS1}}</div>
         </div>
-        <div style="width: 4.5rem;margin: 0.3rem auto 0 auto;display: flex;">
+        <div style="width: 5rem;margin: 0.3rem auto 0 auto;display: flex;">
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;margin-left: 0.1rem;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Days'}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;"></div>
+
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Hours'}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;"></div>
+
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Minutes'}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;"></div>
+
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Seconds'}}</div>
         </div>
       </div>
@@ -768,62 +768,62 @@
           style="font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;width: 8.27rem;text-align: center;padding-top: 0.32rem;"
         >IDO will be finished in</div>
 
-        <div style="width: 3.7rem;margin: 0.5rem auto 0 auto;display: flex;">
+        <div style="width: 5rem;margin: 0.5rem auto 0 auto;display: flex;">
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mDay >=10 ? this.mDay:'0'+this.mDay}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
+          <div style="padding-top: 0.08rem;">
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mH0+''+this.mH1}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
+          <div style="padding-top: 0.08rem;">
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mM0+''+this.mM1}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;">
+          <div style="padding-top: 0.08rem;">
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #25434A 0%, #4A3E48  100%); border-radius: 50%;margin-top: 0.05rem;"
+                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;margin-left: 0.3rem;"
+              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mS0+''+this.mS1}}</div>
         </div>
-        <div style="width: 4.5rem;margin: 0.3rem auto 0 auto;display: flex;">
+        <div style="width: 5rem;margin: 0.3rem auto 0 auto;display: flex;">
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;margin-left: 0.1rem;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Days'}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;"></div>
+
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Hours'}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;"></div>
+
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Minutes'}}</div>
-          <div style="margin-left: 0.3rem;padding-top: 0.11rem;"></div>
+
           <div
-            style="font-size: 0.1rem;font-family: Selawik;  color: #FFFFFF;width: 0.9rem"
+              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Seconds'}}</div>
         </div>
       </div>

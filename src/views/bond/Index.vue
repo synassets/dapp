@@ -29,10 +29,10 @@
   <!---1---->
             <div style="display: flex;margin-top: 24px;">
               <div class="pc-div-table-item1">
-<!--                <img :src=""  style="width: 63px;height: 38px;margin-left: 5px;" alt />-->
+                <img :src="icon_matic_sat_lp"  style="width: 63px;height: 38px;margin-left: 5px;" alt />
               </div>
               <div style="flex: 1">
-                <div class="pc-div-table-item21">MDO-CTD LP</div>
+                <div class="pc-div-table-item21">Matic - SAT LP</div>
                 <div @click="goLink('')"  class="pc-div-table-item22">view contract</div>
               </div>
 
@@ -53,9 +53,9 @@
  <!---3----->
             <div style="display: flex;margin-top: 20px;">
               <div class="pc-div-table-item1">
-<!--                <img :src=""  style="width: 38px;height: 38px;margin-left: 24px;" alt />-->
+                <img :src="icon_matic"  style="width: 38px;height: 38px;margin-left: 24px;" alt />
               </div>
-              <div  class="pc-div-table-item3">CDT</div>
+              <div  class="pc-div-table-item3">Matic</div>
 
               <div  class="pc-div-table-item3">{{'$ --'}} </div>
               <div  class="pc-div-table-item3"> {{ '-- %'}}</div>
@@ -79,68 +79,93 @@
           alt="zh"
       />
 
-
-
-
-
-
   </div>
     <!--h5-->
+
     <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
 
-    <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Dashboard</div>
+      <div style="padding-top: 1.8rem;padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Bond (5, 5)</div>
 
-      <div style="width: 100%;height: 0.93rem; background: #FFFFFF;margin-top: 0.7rem;position: relative">
-        <div style="width: 0.36rem; height: 0.36rem;border: 0.05rem solid #00A0E9;border-radius: 50%;position: absolute;top: 0.28rem;left: 0.8rem;">
-          <div style="  width: 0.16rem; height: 0.16rem;background: #00A0E9;border: 0.1rem solid #ffffff;border-radius: 50%;"></div>
+
+      <div style=" width: 100%;height: 4.53rem;background: #242424;margin-top: 0.7rem;">
+        <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">sMatic Price</div>
+        <div style="padding-top: 0.3rem;display: flex">
+          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">$1.8</div>
+          <div style="padding-left: 0.3rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #22AC38;padding-top: 0.2rem;">+15%</div>
         </div>
-
-        <input v-model="searchText" type="text"  @input="inputChange()" placeholder="Search"
-               style="height:0.8rem;width: 6rem;line-height: 0.8rem;padding-left: 0.2rem; background: #FFFFFF; position: absolute;left: 1.7rem;top: 0.1rem;"
-        />
+        <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Treasury Balance</div>
+        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">$638,403,207</div>
       </div>
 
 
-      <div style="display: flex;margin-top: 0.5rem;">
-        <div  style="padding-left: 0.8rem; font-size: 0.3rem;font-family: Selawik;font-weight: 600;color: #646464;">sAssets</div>
+      <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
+         <div style="position: relative;">
+           <img :src="icon_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
+           <div style="position: absolute;left: 2rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">Matic</div>
+           <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
+           <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 4.3rem;top: 0.6rem;" alt />
+         </div>
 
+        <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Price</div>
+          <div class="h5-bond-item-right">2 days</div>
+        </div>
+
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">ROI</div>
+          <div class="h5-bond-item-right" style="color: #0792E3">$2</div>
+        </div>
+
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Duration</div>
+          <div class="h5-bond-item-right" >863</div>
+        </div>
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Purchased</div>
+          <div class="h5-bond-item-right" >975.89</div>
+        </div>
+
+        <div class="h5-bond-btn"  @click="showBound(3)">Bond Matic</div>
       </div>
 
-      <div style="margin-top: 0.4rem;width: 100%; height: 5.33rem;background: #242424;padding-top: 0.5rem;">
-        <div style="text-align: center;width: 100%;position: relative;font-size: 0.35rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;line-height: 0.8rem;">
-          <img
-              :src="icon_matic"
-              style="width: 0.8rem;height: 0.8rem;left: 0.8rem;top:0rem ;position: absolute;"
-          />
-          sMatic
+
+      <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
+        <div style="position: relative;">
+          <img :src="icon_matic_sat_lp"  style="width: 1.36rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
+          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">Matic - SAT LP</div>
+          <div style="position: absolute;left: 2.6rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
+          <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 5rem;top: 0.6rem;" alt />
         </div>
 
-        <div style="display: flex;padding-top:0.5rem;width: 8.4rem;margin: 0rem auto;">
-          <div  class="h5-bond-div-detail-left">Token</div>
-          <div  class="h5-bond-div-detail-right"> {{ 'MTD'}}</div>
+        <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Price</div>
+          <div class="h5-bond-item-right">2 days</div>
         </div>
 
-        <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
-          <div  class="h5-bond-div-detail-left">TVL</div>
-          <div  class="h5-bond-div-detail-right"> {{ '$38,294,098.84'}}</div>
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">ROI</div>
+          <div class="h5-bond-item-right" style="color: #E5004F">$2</div>
         </div>
 
-        <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
-          <div  class="h5-bond-div-detail-left">APY</div>
-          <div  class="h5-bond-div-detail-right"> {{ '4,928.77%'}}</div>
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Duration</div>
+          <div class="h5-bond-item-right" >863</div>
         </div>
-        <div class="h5-bond-btn">Join DAO</div>
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Purchased</div>
+          <div class="h5-bond-item-right" >975.89</div>
+        </div>
 
+        <div class="h5-bond-btn"  @click="showBound(1)">Bond Matic</div>
       </div>
 
 
+  <!--
 
-
-
-
-
+      -->
 
     </div>
+
     <!----showBondDialog-->
     <BondDialog :is-show="showBondDialog"    @clickCloseDialog="clickCloseDialog"/>
 
@@ -152,7 +177,10 @@ import {
   close,
   gif,
   pc_ido_img1,
-  icon_matic
+  icon_matic,
+  icon_matic_sat_lp,
+  icon_contact
+
 } from "@/utils/images";
 import MyDialog from "@/views/components/myDialog";
 import BondDialog from "@/views/layout/components/BondDialog";
@@ -174,6 +202,9 @@ export default {
       gif,
       pc_ido_img1,
       icon_matic,
+      icon_matic_sat_lp,
+      icon_contact,
+
       address:'',
 
       showBondDialog:false,
@@ -205,6 +236,9 @@ export default {
   methods: {
     clickTabBond(val){
       this.isBondMenu = val;
+    },
+    showBound(index){
+      this.showBondDialog = true;
     },
     clickCloseDialog(){
       this.showBondDialog = false
@@ -278,18 +312,19 @@ padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
   background: #a6a6a6;
 }
 
-
-.h5-bond-div-detail-left{
-  font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #808080;flex: 1;
+.h5-bond-item-left{
+  flex: 1;font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #808080;
 }
-.h5-bond-div-detail-right{
-  font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #ffffff;flex: 1;text-align: right;
+.h5-bond-item-right{
+  flex: 1;font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;text-align: right;
 }
 .h5-bond-btn{
-  margin: 0.5rem auto 0rem auto; width: 8.4rem; height: 0.93rem;line-height:0.93rem;  background: #00A0E9;  border-radius: 0.13rem;text-align: center;font-size: 0.35rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;
+  width: 8.4rem;height: 1.07rem; background: #242424;border: 0.03rem solid #0792E3;border-radius: 0.13rem;margin:0.8rem auto 0rem auto;text-align: center;line-height: 1.07rem;
+  font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #0792E3;
 }
 .h5-bond-btn:hover{
   background: #0792E3;
+  color: #FFFFFF;
 }
 /*.claim_btn{
 cursor: pointer;margin: 25px auto 0px auto;width: 750px;line-height: 56px;height: 56px;background: #C3C6CF;border-radius: 12px;text-align: center;font-size: 20px;font-family: Lato;font-weight: bold;color: #101529;
