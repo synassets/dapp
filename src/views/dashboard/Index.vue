@@ -1,21 +1,197 @@
 <template>
   <div style="width: 100%;">
     <!--pc-->
-    <div v-show="!isMobile"  class="pc-div-parent">
+    <div v-show="!isMobile"  style="padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616">
 
 
-      <img
-          :src="pc_ido_img1"
-          style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
-          alt="zh"
-      />
+      <div style="width: 100%;display: flex;padding-top:150px;">
+        <div style="width: 249px;height: 100px;"></div>
+        <div style=" width:1080px;margin: 0px auto; padding-bottom: 30px;z-index: 999;">
+          <div style="display: flex">
+            <div style="width: 640px;height: 303px;background: #242424;border-radius: 10px;">
+              <!---1-->
+
+                <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">TVL</div>
+
+                <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top:8px;">$321,720,913,496</div>
+
+
+              <!---2-->
+
+                <div id="canvas"  style="width: 563px;height:240px;margin-top: 10px;margin-left: 33px;"></div>
+
+            </div>
+            <!--right-->
+            <div style="width: 420px; height: 303px;background: #242424;border-radius: 10px;margin-left: 20px;">
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">My PowerRate</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 8px;">--</div>
+
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 12px;">Available/Total</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 8px;">--</div>
+
+              <div style="display: flex;margin-left: 33px;margin-top: 12px;">
+                <div style=" width: 11px;height: 11px; background: #0792E3;"></div>
+                <div style=" width: 11px;height: 11px;background: #F29C9F;"></div>
+              </div>
+
+
+              <div style="margin-left: 33px;margin-top: 20px;width: 360px;height: 16px;border-radius: 8px;background:#5F5F5F;position: relative;">
+                <div style="width: 300px;height: 16px;border-radius: 8px;background:#F29C9F;position: absolute;left: 0;"></div>
+                <div style="width: 280px;height: 16px;border-radius: 8px;background:#0792E3;position: absolute;left: 0;"></div>
+                <div style="width: 250px;height: 16px;border-radius: 8px;background:#5F52A0;position: absolute;left: 0;"></div>
+              </div>
+
+              <div style="margin-left: 33px;margin-top: 10px;width: 360px;position: relative;">
+                <div style="position: absolute;right: 0;font-family: Selawik; font-weight: 400;color: #808080;font-size: 12px;">--/--</div>
+              </div>
+              <div class="pc-dashboard-btn1">Harvest</div>
+            </div>
+
+
+          </div>
+
+
+          <div style="width: 1080px;height: 80px; background: #242424; border-radius: 10px;margin-top: 20px; display: flex;">
+            <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Market Cap</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">--</div>
+            </div>
+
+            <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per SAT</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">--</div>
+            </div>
+
+            <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Runaway (d)</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">--</div>
+            </div>
+
+
+          </div>
+
+          <div style="display: flex;margin-top: 20px;">
+            <div style="width: 530px;height: 303px;background: #242424;border-radius: 10px;">
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">APY (%)</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 10px;">--</div>
+
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Total Value Deposited</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Current Index</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+
+              <div class="pc-dashboard-btn">Start Stake</div>
+
+
+            </div>
+            <div style="width: 530px; height: 303px;background: #242424;border-radius: 10px;margin-left: 20px;">
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">Treasury Balance</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">SAT Price</div>
+
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+
+              <div style="display: flex;padding-top: 20px;padding-left: 33px;">
+                <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;">
+                  <img :src="icon_matic_sat_lp"  style="width: 45px;height: 30px;position: absolute;top:4px ;left: 10px;"    />
+                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 72px;top: 5px;">--</div>
+
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;">View contract</div>
+                </div>
+                <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;margin-left: 15px;">
+                  <img :src="icon_sat"  style="width: 30px;height: 30px;position: absolute;top:4px ;left: 10px;"   />
+                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 60px;top: 5px;">--</div>
+
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left:60px;bottom: 5px;">View contract</div>
+                </div>
+
+              </div>
+              <div class="pc-dashboard-end-btn">Start Bond</div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <img
+            :src="pc_ido_img1"
+            style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
+        />
+
+      </div>
+
+      <!--    <div style="width: 100%;min-height: 1594px;position: relative;">
+
+
+            <div style="width: 1680px;margin: 0px auto 0px auto;height: 400px;padding-top:50px;">
+
+
+              <div style="display: flex;z-index: 999">
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;z-index: 999;">
+                   <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">VSD Price</div>
+                   <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{'$ '+item11}}</div>
+                </div>
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;margin-left: 18px;z-index: 999">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">Backing per VSD</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{'$ '+item12}}</div>
+                </div>
+                <div style="flex: 1;height: 100px;background: rgba(255 ,255,255,1);border-radius: 10px;margin-left: 18px;z-index: 999">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">Current Index</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{item13+' sVSD'}}</div>
+                </div>
+              </div>
+
+              <div style="display: flex;margin-top: 20px;">
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">Market Value of Treasury Assets</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{'$ '+item21}}</div>
+                </div>
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;margin-left: 18px;z-index: 999">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">Circulating Supply (total)</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{item22}}</div>
+                </div>
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;margin-left: 18px;z-index: 999">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">Market Cap</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{'$ '+item23}}</div>
+                </div>
+              </div>
+
+
+              <div style="display: flex;margin-top: 20px;z-index: 999">
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">APY</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{item31+' %'}}</div>
+                </div>
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;margin-left: 18px;">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">VSD Staked Ratio</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{item32}}</div>
+                </div>
+                <div style="flex: 1;height: 100px;background: #FFFFFF;border-radius: 10px;margin-left: 18px;">
+                  <div style="font-size: 14px;font-family: Lato;font-weight: bold;color: #FDAC80;line-height: 24px;padding-left: 30px;padding-top: 26px;">VSD Staked TVL</div>
+                  <div style="font-size: 18px;font-family: Lato;font-weight: 900;color: #101529;line-height: 24px;padding-left: 30px;padding-top: 6px;">{{'$ '+item33}}</div>
+                </div>
+              </div>
 
 
 
 
 
 
-  </div>
+
+
+            </div>
+          </div>-->
+    </div>
     <!--h5-->
     <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
 
@@ -64,6 +240,8 @@
 <script>
 import { mapState } from "vuex";
 import {
+  icon_matic_sat_lp,
+  icon_sat,
 
   pc_ido_img1,
 
@@ -82,7 +260,7 @@ export default {
   },
   data() {
     return {
-
+      icon_sat,icon_matic_sat_lp,
       pc_ido_img1,
 
       data:{},
@@ -102,14 +280,62 @@ export default {
       //return getAddress();
     }
   },
+  created() {
+    this.$nextTick(function () {
+      this.initCharts('canvas')
+    })
+  },
   mounted() {
     this.data =  getDATA();
     this.configData = getConfigData()
 
+
+
+
+
   },
 
   methods: {
+    initCharts() {
+      let charts = this.$echarts.init(document.getElementById('canvas'));
+      var option = {
+        color: ['#0792E3'],
+        xAxis: {
+          type: 'category',
+          show: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          axisLine:{
+            lineStyle:{
+              color:'#0792E3',
+              width:0,//这里是为了突出显示加上的
+            }
 
+          },
+          splitLine: {
+            show: false,
+            lineStyle:{
+              color: ['#315070'],
+              width: 0,
+              type: 'solid'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar',
+            showBackground: true,
+            backgroundStyle: {
+              color: 'rgba(180, 180, 180, 0.2)'
+            }
+          }
+        ]
+      };
+      charts.setOption(option);
+    }
   }
 };
 </script>
@@ -118,6 +344,35 @@ export default {
 <style lang="scss" scoped>
 .pc-div-parent{
 padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
+}
+.pc-dashboard-btn{
+  cursor: pointer;
+  margin: 20px auto 0rem auto;
+  width: 470px;height: 50px;background: #0792E3; border-radius: 10px;text-align: center;line-height: 50px;
+  font-size: 16px;font-family: Selawik; font-weight: 600;color: #FFFFFF;
+}
+.pc-dashboard-btn:hover{
+  background: #2a9ee2;
+}
+
+.pc-dashboard-btn1{
+  cursor: pointer;
+  margin: 40px auto 0rem auto;
+  width: 360px;height: 50px;background: linear-gradient(-45deg, #353738 0%, #414346 100%); border-radius: 10px;text-align: center;line-height: 50px;
+  font-size: 16px;font-family: Selawik; font-weight: 600;color: #FFFFFF;
+}
+.pc-dashboard-btn1:hover{
+  background: linear-gradient(-45deg, #414346  0%, #353738 100%);
+}
+
+.pc-dashboard-end-btn{
+  cursor: pointer;
+  margin: 22px auto 0rem auto;
+  width: 470px;height: 50px;background:linear-gradient(-45deg, #353738 0%, #414346 100%); border-radius: 10px;text-align: center;line-height: 50px;
+  font-size: 16px;font-family: Selawik; font-weight: 600;color: #FFFFFF;
+}
+.pc-dashboard-end-btn:hover{
+  background: linear-gradient(-45deg, #414346  0%, #353738 100%);
 }
 .h5-div-item{
 cursor: pointer; width: 8.4rem; height: 1.45rem; background: #242424; border-radius: 0.13rem;margin: 0.5rem auto 0rem auto;

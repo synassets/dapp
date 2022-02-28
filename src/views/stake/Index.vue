@@ -27,7 +27,7 @@
             <div  @click="clickTabStake(false)"  v-show="!isStakeMenu" class="pc-stake-tab-right-p">Unstake</div>
             <div @click="clickTabStake(false)"  v-show="isStakeMenu" class="pc-stake-tab-right-n" >Unstake</div>
           </div>
-          <div v-show="isStakeMenu" class="pc-stake-div-tip1">
+          <div  class="pc-stake-div-tip1">
             <div style="width: 540px;position: relative;">
              <div  class="pc-stake-div-tip2">
                 <div>First time unstaking sCTD?</div>
@@ -45,11 +45,14 @@
             <div class="pc-stake-div-btn" >
               Approve
             </div>
-            <div class="pc-stake-div-gif" style="">
+            <div class="pc-stake-div-gif" >
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
-            <div class="pc-stake-div-btn" >
+            <div class="pc-stake-div-btn" v-show="isStakeMenu">
               Stake
+            </div>
+            <div class="pc-stake-div-btn" v-show="!isStakeMenu">
+              Unstake
             </div>
 
           </div>
@@ -140,14 +143,23 @@
           />
         </div>
 
-       <div class="h5-stake-div-btn">Stake</div>
+       <div class="h5-stake-div-btn" v-show="isStakeMenu">Stake</div>
+        <div class="h5-stake-div-btn" v-show="!isStakeMenu">Unstake</div>
 
-       <div class="h5-stake-div-item" style="margin-top: 0.8rem;">
+       <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
          <div style="flex: 3;text-align: right;">0 sMatic</div>
        </div>
-        <div class="h5-stake-div-item" >
+        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="!isStakeMenu">
+          <div style="flex: 2;">Unstaked Balance</div>
+          <div style="flex: 3;text-align: right;">0 sMatic</div>
+        </div>
+        <div class="h5-stake-div-item"  v-show="isStakeMenu">
           <div style="flex: 1;">Your Staked Balance</div>
+          <div style="flex: 1;text-align: right;">0 sMatic</div>
+        </div>
+        <div class="h5-stake-div-item"  v-show="!isStakeMenu" >
+          <div style="flex: 1;">Staked Balance</div>
           <div style="flex: 1;text-align: right;">0 sMatic</div>
         </div>
         <div class="h5-stake-div-item" >
