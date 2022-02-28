@@ -1251,7 +1251,6 @@ export default {
         this.isShowProgress = false;
       }
     }
-
   },
   beforeDestroy(){
     if(this.Mult_watcher != null){
@@ -1488,16 +1487,6 @@ export default {
             call: ["inviteable(address)(bool)", this.address],
             returns: [["NOG_ambassador"]]
           },
-          // {
-          //   target: this.data.IDO.OG.contractAddress,
-          //   call: ["inviteable(address)(bool)", this.refAddress],
-          //   returns: [["ref_NOG_ambassador"]]
-          // },
-          // {
-          //   target: this.data.IDO.NOG.contractAddress,
-          //   call: ["inviteable(address)(bool)", this.refAddress],
-          //   returns: [["ref_OG_ambassador"]]
-          // },
           {
             target: this.data.IDO.OG.contractAddress,
             call: ["openAt()(uint256)"],
@@ -1921,7 +1910,6 @@ export default {
 
   var leave3 = leave2 % (60 * 1000);
   var seconds = Math.round(leave3 / 1000);
-  console.log(days + " day " + hours + " hour " +minutes+ " min "+seconds+" sec")
 
   return {days:days,hours:hours,minutes:minutes,seconds:seconds}
 },

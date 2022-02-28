@@ -10,7 +10,21 @@
     "discord": "https://discord.gg/BzVUJJszaU",
     "doc": "https://doc.synassets.finance/",
     "whiteListURL": "https://medium.com/@SynAssets/synassets-tokenomics-ido-whitelists-details-569626623e46"
-
+  },
+  "sMatic": {
+    "DAI": "0xd9ebC0B70DD5fcCEd48F3Dd47024fded68b05eCe",
+    "OHM": "0x37df5ed44a0459f5f9c937f3c878a29ac48838ab",
+    "Treasury": "0x41e317B68b7276e94847620f00744E994622f2fE",
+    "Calc": "0x34164Ff7CcdE7B59936473Ad2575aFDf765048e1",
+    "Distributor":"0x88e10dF28260adC1D18b9376478946dD8927Ac19",
+    "sOHM": "0x502799a84dBa973a642c9b6DA15ee07504518D80",
+    "Staking": "0x2620153b423Ca6E3013f3239b543f0CD532172A4",
+    "Staking_Warmup":"0xDCf9058Fd6E78376C874d8CdCC8608870DBAE18f",
+    "Staking_Helper":"0xE5B055A6819A8f1bBC93E9A01780b8A42D462c95",
+    "DAI_Bond": "0x19D08AE2D782C3D5188d70db69822a7D9c51afa7",
+    "ConsensusPool": "0xF3C25390D63cAc3Afdb4FB97a67Ff5B46e88158C",
+    "OG": "0x2c6E5F6fA8AE79ddc93A16908B5a467f90C4Af51",
+    "PUB": "0x342E24d1bE1c336697a4476005612fa10Bc7DE61"
   },
   "SAT": {
     "Address": {
