@@ -47,7 +47,7 @@
 
 
 
-          <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Your WL counter : {{whitelist_og_counter}}</div>
+          <div style=" width: 770px;margin: 5px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;z-index: 0;">Number of WL spots:{{whitelist_og_counter}}</div>
 
 
 
@@ -57,7 +57,7 @@
 
 
               <div class='pc-dialog-div-input'>
-                <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Recipient address"
+                <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Input the address of receiver"
                        class='pc-dialog-div-input1'
                 />
 
@@ -65,7 +65,7 @@
 
             </div>
             <div class="pc-dialog-div-btn" @click="onClickSend"  >
-              Send
+              Confirm
             </div>
             <div class="pc-dialog-div-gif" v-show="isShowProgress">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
@@ -73,7 +73,7 @@
 
 
           </div>
-          <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Each address only need one spot to join the OG market and you cannot reback your spot after sending.</div>
+          <div style=" width: 770px;margin: 60px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">*Note:only WL holder can participant in OG Market.</div>
 
 
           <div  @click="goLink('https://doc.synassets.finance/')" style="cursor: pointer; width: 770px;margin: 100px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 400;color: #0792E3;text-decoration: underline;text-align: center;">doc</div>
@@ -127,21 +127,20 @@
             </el-option>
           </el-select>
         </div>
-        <div style=" width:  6.79rem;margin: 0.1rem auto 0px auto;font-size: 0.27rem;font-family: Selawik;font-weight: 400;color: #737373;">Your Balance: 2</div>
+        <div style=" width:  6.79rem;margin: 0.1rem auto 0px auto;font-size: 0.27rem;font-family: Selawik;font-weight: 400;color: #737373;">Number of WL spots :{{whitelist_og_counter}}</div>
 
         <div style=" width:  6.79rem;margin: 0.4rem auto 0px auto;">
-          <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Recipient address"
-                style="height:0.93rem;width: 6.59rem;line-height: 0.93rem;font-size: inherit;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
+          <input v-model="whitelistInputAddress" type="text"  @input="inputChange()" placeholder="Input the address of receiver"
+                style="height:0.93rem;width: 6.59rem;font-size: inherit;line-height: 0.93rem;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
 
           />
         </div>
         <div style=" width:  6.79rem;margin: 0.1rem auto 0px auto;font-size: 0.27rem;font-family: Selawik;font-weight: 400;color: #737373;">
-          *Each address only need one spot to join the early
-          market and you cannot reback your spot after sending.
+          *Note:only WL holder can participant in OG Market.
         </div>
 
         <div @click="onClickSend" style="text-align: center;line-height:  0.93rem; width:  6.79rem; height: 0.93rem; background: #0792E3;border-radius: 0.07rem;margin: 0.4rem auto 0px auto;font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">
-          Send
+          Confirm
         </div>
 
         <div  @click="goLink('https://doc.synassets.finance/')"  style="margin: 1rem auto 0px auto;width:  6.79rem;padding-bottom: 0.4rem;font-size: 0.32rem; font-family: Selawik; font-weight: 400; text-decoration: underline; color: #0792E3;text-align: center">doc</div>
@@ -234,9 +233,14 @@ export default {
       this.$emit('clickCloseDialog', {});
 
     },
-    onClickOptionItem(){
+    onClickOptionItem(value){
+      if(value != 'SAT WL spot'){
+        this.$refs.messageTipErrorDialog.showClick(value +' is coming soon! ');
+      }
 
-
+      setTimeout(() => {
+        this.value = 'SAT WL spot';
+      },100)
     },
      inputChange(){},
 
@@ -285,7 +289,7 @@ export default {
   width: 520px;height: 50px;background: #FFFFFF;border: 1px solid #FFFFFF;position: absolute;top: 0;border-radius: 5px;
 }
 .pc-dialog-div-input1{
-  height:40px;width: 460px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 20px;
+  height:40px;width: 460px;line-height: 40px;padding-left: 10px;position: absolute;top: 5px;font-size: 16px;
 }
 .pc-dialog-div-input-max{
   font-size: 20px;font-family: Fredoka One;font-weight: 400; color: #F94F01;position: absolute;right: 30px;top: 12px;cursor: pointer;

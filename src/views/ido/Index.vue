@@ -530,60 +530,60 @@
 
         <div style="width: 5rem;margin: 0.5rem auto 0 auto;display: flex;">
           <div
-              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mDay >=10 ? this.mDay:'0'+this.mDay}}</div>
           <div style="padding-top: 0.08rem;">
             <div
-                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
+              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
+              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mH0+''+this.mH1}}</div>
           <div style="padding-top: 0.08rem;">
             <div
-                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
+              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
+              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mM0+''+this.mM1}}</div>
           <div style="padding-top: 0.08rem;">
             <div
-                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
+              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #FED6E3 0%, #A8EDEA 100%); border-radius: 50%;"
             ></div>
 
             <div
-                style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
+              style="width: 0.1rem; height: 0.1rem;background: linear-gradient(-45deg, #A8EDEA 0%, #FED6E3 100%); border-radius: 50%;margin-top: 0.05rem;"
             ></div>
           </div>
           <div
-              style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.32rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
           >{{ this.mS0+''+this.mS1}}</div>
         </div>
         <div style="width: 5rem;margin: 0.3rem auto 0 auto;display: flex;">
           <div
-              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Days'}}</div>
 
           <div
-              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Hours'}}</div>
 
           <div
-              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Minutes'}}</div>
 
           <div
-              style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Seconds'}}</div>
         </div>
       </div>
@@ -1153,9 +1153,6 @@ export default {
       BalanceOf_usdc: 0,
       BalanceOf_usdc_format: 0,
 
-
-      isShowTimestamp2: false,
-      isShowTimestamp5: false,
       showTimestamp2: "",
       showTimestamp5: "",
       stakeAmount: "",
@@ -1177,6 +1174,13 @@ export default {
     };
   },
   computed: {
+    isOgNotStart:function (){
+      return moment(this.openAtOG * 1000).diff(moment(), "seconds") >= 0
+    },
+    isNogNotStart:function (){
+      return  moment(this.openAtNOG * 1000).diff(moment(), "seconds") >= 0
+    },
+
 
     isPublicSaleApproved : function ()  {
       return Number(this.NOG_allowance) > this.max_nog_swap;
@@ -1296,7 +1300,7 @@ export default {
       this.showInviteDialog = true;
       let myAddress = Base64.encode(this.address);
       this.shareLinkUrl =
-        "http://" + window.location.host + "?ref=" + myAddress;
+        "https://" + window.location.host + "?ref=" + myAddress;
     },
 
     closedClickSetDialog() {
@@ -1531,9 +1535,9 @@ export default {
 
         try {
           if (update.type == "OG_allowance") {
-            this.OG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+            this.OG_allowance = Number((Number(update.value) / this.data.IDO.OG.scala).toFixed(0));
           } else if (update.type == "NOG_allowance") {
-            this.NOG_allowance = (Number(update.value) / this.data.IDO.OG.scala).toFixed(0);
+            this.NOG_allowance = Number((Number(update.value) / this.data.IDO.OG.scala).toFixed(0));
           } else if (update.type == "my_amount_OG_Swapped") {
             this.my_amount_OG_swapped = update.value / this.data.IDO.OG.scala;
             this.$store.commit("SET_AMOUNT_OG_SWAPPED", this.my_amount_OG_swapped);
@@ -1676,7 +1680,7 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('Error,you are not in WL! ');
           return;
         }
-        if (this.isShowTimestamp2) {
+        if (this.isOgNotStart) {
           this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
           return;
         }
@@ -1709,7 +1713,7 @@ export default {
       if( this.PreCondition() ==false){
         return;
       }
-      if (this.isShowTimestamp5) {
+      if (this.isNogNotStart) {
         this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
         return;
       }
@@ -1775,7 +1779,7 @@ export default {
       //   return;
       // }
 
-      if (this.isShowTimestamp2) {
+      if (this.isOgNotStart) {
         // this.$message.error("Coming soon");
         this.$refs.messageTipErrorDialog.showClick('Coming soon  ');
         return;
@@ -1856,7 +1860,7 @@ export default {
       // }
 
 
-      if (this.isShowTimestamp5) {
+      if (this.isNogNotStart) {
         this.$refs.messageTipErrorDialog.showClick('Coming soon .....');
         return;
       }
@@ -1901,6 +1905,28 @@ export default {
         this.isShowProgress = false;
       }
     },
+
+ intervalTime(diff_time_sec) {
+
+  var date3 =  (diff_time_sec)*1000;
+
+  var days = Math.floor(date3 / (24 * 3600 * 1000));
+
+
+  var leave1 = date3 % (24 * 3600 * 1000);
+  var hours = Math.floor(leave1 / (3600 * 1000));
+
+  var leave2 = leave1 % (3600 * 1000);
+  var minutes = Math.floor(leave2 / (60 * 1000));
+
+  var leave3 = leave2 % (60 * 1000);
+  var seconds = Math.round(leave3 / 1000);
+  console.log(days + " day " + hours + " hour " +minutes+ " min "+seconds+" sec")
+
+  return {days:days,hours:hours,minutes:minutes,seconds:seconds}
+},
+
+
     timeDeal() {
       if (
         this.openAtOG == 0 ||
@@ -1941,121 +1967,17 @@ export default {
           }
         }
       }
-      var timestamp21 = moment(this.openAtOG * 1000).diff(moment(), "seconds"); //   this.timePurchased2 - timestamp;
-      var timestamp51 = moment(this.openAtNOG * 1000).diff(moment(), "seconds");
 
-      if (timestamp21 <= 0) {
-        this.isShowTimestamp2 = false;
-      } else {
-        this.showTimestamp2 = this.formatTime1(timestamp21);
-        this.isShowTimestamp2 = true;
-      }
-      if (timestamp51 <= 0) {
-        this.isShowTimestamp5 = false;
-      } else {
-        this.showTimestamp5 = this.formatTime1(timestamp51);
-        this.isShowTimestamp5 = true;
-      }
     },
-    formatTime1(difTime) {
-      var h0Time = "0";
-      var h1Time = "0";
-      var m0Time = "0";
-      var m1Time = "0";
-      var s0Time = "0";
-      var s1Time = "0";
-      var day = "";
-      if (difTime < 60) {
-        if (difTime < 10) {
-          s0Time = "0";
-          s1Time = difTime;
-        } else {
-          s1Time = parseInt(difTime % 10);
-          s0Time = parseInt((difTime % 100) / 10);
-        }
-      } else {
-        var min_total = parseInt(difTime / 60); //
-        var sec = parseInt(difTime % 60);
-        //  console.log("min_total"+min_total+"======sec="+ sec)
-        if (min_total < 60) {
-          h0Time = "0";
-          h1Time = "0";
-          if (min_total < 10) {
-            m0Time = "0";
-            m1Time = min_total;
-          } else {
-            m1Time = parseInt(min_total % 10);
-            m0Time = parseInt((min_total % 100) / 10);
-          }
-          if (sec < 10) {
-            s0Time = "0";
-            s1Time = sec;
-          } else {
-            s1Time = parseInt(sec % 10);
-            s0Time = parseInt((sec % 100) / 10);
-          }
-        } else {
-          var hour_total = parseInt(min_total / 60); //
-          // console.log("hour_total"+hour_total+"======min_total="+ min_total)
-          var min = parseInt(min_total % 60); //
-          //  console.log("hour_total"+hour_total+"min"+min+"======sec="+ sec)
-          if (hour_total < 10) {
-            h0Time = "0";
-            h1Time = hour_total;
-          } else {
-            if (hour_total > 24) {
-              day = parseInt(hour_total / 24);
-              hour_total = parseInt(hour_total % 24);
-            }
-            if (hour_total < 10) {
-              h0Time = "0";
-              h1Time = hour_total;
-            } else {
-              h1Time = parseInt(hour_total % 10);
-              h0Time = parseInt(hour_total / 10);
-            }
-          }
-          if (min < 10) {
-            m0Time = "0";
-            m1Time = min;
-          } else {
-            m1Time = parseInt(min % 10);
-            m0Time = parseInt((min % 100) / 10);
-          }
-          if (sec < 10) {
-            s0Time = "0";
-            s1Time = sec;
-          } else {
-            s1Time = parseInt(sec % 10);
-            s0Time = parseInt((sec % 100) / 10);
-          }
-        }
-      }
-      // console.log(h0Time +'======================'+ h1Time)
-      this.mDay = day;
-      this.mH0 = h0Time;
-      this.mH1 = h1Time;
-      this.mM0 = m0Time;
-      this.mM1 = m1Time;
-      this.mS0 = s0Time;
-      this.mS1 = s1Time;
-
-      return (
-        day +
-        "days" +
-        h0Time +
-        "" +
-        h1Time +
-        "hours" +
-        m0Time +
-        "" +
-        m1Time +
-        "mins" +
-        s0Time +
-        "" +
-        s1Time +
-        "secs"
-      );
+    formatTime1(diff_time_sec) {
+      let difTime = this.intervalTime(diff_time_sec);
+      this.mDay = difTime.days;
+      this.mH0 = parseInt(difTime.hours/10);
+      this.mH1 = parseInt(difTime.hours%10);
+      this.mM0 = parseInt(difTime.minutes/10);
+      this.mM1 = parseInt(difTime.minutes%10);
+      this.mS0 = parseInt(difTime.seconds/10);
+      this.mS1 = parseInt(difTime.seconds%10);
     },
     formatAmount(val) {
       var str = val.toFixed(2) + "";
