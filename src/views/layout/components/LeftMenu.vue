@@ -4,14 +4,14 @@
         <div  class="lm_wrap" v-show="tabIndex == 0" >
         <div class="div-left">
           <div style=" padding-top: 1.5rem;padding-left: 0.99rem;display: flex;">
-            <img :src="pc_logo"  style="width: 0.84rem;height:0.46rem;"   alt="zh" />
+            <img :src="pc_logo"  style="width: 0.84rem;height:0.46rem;"    />
             <span style="font-size: 0.4rem;font-family: Noto Serif; font-weight: bold; color: #FFFFFF;padding-left: 0.56rem;">SynAssets</span>
           </div>
 
           <div style="margin-top: 1.8rem;" class="h5-line" ></div>
           <div class="h5-tab" @click="onClickMenu(1)">
             <div style="width: 2rem">
-              <img :src="h5_left_img1"  style="width: 0.96rem;height: 0.51rem;margin-left: 0.9rem; margin-top: 0.4rem;"   alt="zh" />
+              <img :src="h5_left_img1"  style="width: 0.96rem;height: 0.51rem;margin-left: 0.9rem; margin-top: 0.4rem;"    />
             </div>
 
             <div style="margin-left: 0.5rem;width: 3rem;">Dashboard</div>
@@ -19,7 +19,7 @@
           <div class="h5-line"></div>
           <div class="h5-tab" @click="onClickMenu(2)" >
             <div style="width: 2rem">
-              <img :src="h5_left_img2"  style="width: 0.76rem;height: 0.48rem;margin-left: 1rem; margin-top: 0.4rem;"   alt="zh" />
+              <img :src="h5_left_img2"  style="width: 0.76rem;height: 0.48rem;margin-left: 1rem; margin-top: 0.4rem;"    />
             </div>
             <div style="margin-left: 0.5rem;width: 3rem;">IDO</div>
           </div>
@@ -27,7 +27,7 @@
 
           <div :class="currency=='POLYGON' ? 'h5-tab1':'h5-tab'" @click="onClickMenu(3)" >
             <div style="width: 2rem">
-              <img :src="h5_left_img3"  style="width: 0.64rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"   alt="zh" />
+              <img :src="h5_left_img3"  style="width: 0.64rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"    />
             </div>
             <div style="margin-left: 0.5rem;width: 3rem;">sMATIC</div>
           </div>
@@ -36,7 +36,7 @@
 
           <div  :class="currency=='ETH' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(4)" >
             <div style="width: 2rem">
-              <img :src="h5_left_img4"  style="width: 0.48rem;height: 0.78rem;margin-left: 1rem; margin-top: 0.3rem;"   alt="zh" />
+              <img :src="h5_left_img4"  style="width: 0.48rem;height: 0.78rem;margin-left: 1rem; margin-top: 0.3rem;"    />
             </div>
             <div style="margin-left: 0.5rem;width: 3rem;">sETH</div>
           </div>
@@ -44,7 +44,7 @@
 
           <div  :class="currency=='UNI' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(5)" >
             <div style="width: 2rem">
-              <img :src="h5_left_img5"  style="width: 0.68rem;height: 0.79rem;margin-left: 1rem; margin-top: 0.25rem;"   alt="zh" />
+              <img :src="h5_left_img5"  style="width: 0.68rem;height: 0.79rem;margin-left: 1rem; margin-top: 0.25rem;"    />
             </div>
             <div style="margin-left: 0.5rem;width: 3rem;">sUNI</div>
           </div>
@@ -53,7 +53,7 @@
 
           <div  :class="currency=='DOT' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(6)" >
             <div style="width: 2rem">
-              <img :src="h5_left_img6"  style="width: 0.48rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"   alt="zh" />
+              <img :src="h5_left_img6"  style="width: 0.48rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"    />
             </div>
             <div style="margin-left: 0.5rem;width: 3rem;">sDOT</div>
           </div>
@@ -62,7 +62,7 @@
 
           <div class="h5-tab"  @click="onClickMenu(7)">
             <div style="width: 2rem">
-              <img :src="h5_left_img7"  style="width: 0.59rem;height: 0.13rem;margin-left: 1rem; margin-top: 0.58rem;"   alt="zh" />
+              <img :src="h5_left_img7"  style="width: 0.59rem;height: 0.13rem;margin-left: 1rem; margin-top: 0.58rem;"    />
             </div>
             <div style="margin-left: 0.5rem;width: 3rem;">More</div>
           </div>
@@ -72,10 +72,10 @@
             Docs
             </div>
         <div style="position: fixed;bottom: 0.93rem;display: flex">
-          <img :src="h5_left_img8"  style="width: 0.59rem;height: 0.51rem;margin-left: 1rem; "  @click="goLink(1)"   alt="zh" />
-          <img :src="h5_left_img9"  style="width: 0.62rem;height: 0.59rem;margin-left:0.9rem; "  @click="goLink(2)"   alt="zh" />
-          <img :src="h5_left_img10"  style="width: 0.59rem;height: 0.59rem;margin-left: 0.9rem; "  @click="goLink(3)"  alt="zh" />
-          <img :src="h5_left_img11"  style="width: 0.54rem;height: 0.62rem;margin-left: 0.9rem; "   @click="goLink(4)"  alt="zh" />
+          <img :src="h5_left_img8"  style="width: 0.59rem;height: 0.51rem;margin-left: 1rem; "  @click="goLink(1)"    />
+          <img :src="h5_left_img9"  style="width: 0.62rem;height: 0.59rem;margin-left:0.9rem; "  @click="goLink(2)"    />
+          <img :src="h5_left_img10"  style="width: 0.59rem;height: 0.59rem;margin-left: 0.9rem; "  @click="goLink(3)"   />
+          <img :src="h5_left_img11"  style="width: 0.54rem;height: 0.62rem;margin-left: 0.9rem; "   @click="goLink(4)"   />
         </div>
         </div>
         <div class="div_right" @click="closeMenu"></div>
@@ -84,27 +84,27 @@
         <div  class="lm_wrap" v-show="tabIndex == 1" >
           <div class="div-left1" >
             <div style=" padding-top: 1.5rem;padding-left: 0.99rem;display: flex;">
-              <img :src="pc_logo"  style="width: 0.84rem;height: 0.46rem;"   alt="zh" />
+              <img :src="pc_logo"  style="width: 0.84rem;height: 0.46rem;"    />
             </div>
 
             <div style="margin-top: 1.8rem;" class="h5-line" ></div>
             <div class="h5-tab" @click="onClickMenu(1)">
               <div style="width: 2rem">
-                <img :src="h5_left_img1"  style="width: 0.96rem;height: 0.51rem;margin-left: 0.9rem; margin-top: 0.4rem;"   alt="zh" />
+                <img :src="h5_left_img1"  style="width: 0.96rem;height: 0.51rem;margin-left: 0.9rem; margin-top: 0.4rem;"    />
               </div>
 
             </div>
             <div class="h5-line"></div>
             <div class="h5-tab" @click="onClickMenu(2)" >
               <div style="width: 2rem">
-                <img :src="h5_left_img2"  style="width: 0.76rem;height: 0.48rem;margin-left: 1rem; margin-top: 0.4rem;"   alt="zh" />
+                <img :src="h5_left_img2"  style="width: 0.76rem;height: 0.48rem;margin-left: 1rem; margin-top: 0.4rem;"    />
               </div>
             </div>
             <div class="h5-line"></div>
 
             <div   :class="currency=='POLYGON' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(3)" >
               <div style="width: 2rem">
-                <img :src="h5_left_img3"  style="width: 0.64rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"   alt="zh" />
+                <img :src="h5_left_img3"  style="width: 0.64rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"    />
               </div>
             </div>
             <div class="h5-line"></div>
@@ -112,14 +112,14 @@
 
             <div   :class="currency=='ETH' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(4)" >
               <div style="width: 2rem">
-                <img :src="h5_left_img4"  style="width: 0.48rem;height: 0.78rem;margin-left: 1rem; margin-top: 0.3rem;"   alt="zh" />
+                <img :src="h5_left_img4"  style="width: 0.48rem;height: 0.78rem;margin-left: 1rem; margin-top: 0.3rem;"    />
               </div>
             </div>
             <div class="h5-line"></div>
 
             <div   :class="currency=='UNI' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(5)" >
               <div style="width: 2rem">
-                <img :src="h5_left_img5"  style="width: 0.68rem;height: 0.79rem;margin-left: 1rem; margin-top: 0.25rem;"   alt="zh" />
+                <img :src="h5_left_img5"  style="width: 0.68rem;height: 0.79rem;margin-left: 1rem; margin-top: 0.25rem;"    />
               </div>
             </div>
             <div class="h5-line"></div>
@@ -127,7 +127,7 @@
 
             <div   :class="currency=='DOT' ? 'h5-tab1':'h5-tab'"  @click="onClickMenu(6)" >
               <div style="width: 2rem">
-                <img :src="h5_left_img6"  style="width: 0.48rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"   alt="zh" />
+                <img :src="h5_left_img6"  style="width: 0.48rem;height: 0.56rem;margin-left: 1rem; margin-top: 0.4rem;"    />
               </div>
             </div>
             <div class="h5-line"></div>
@@ -135,7 +135,7 @@
 
             <div class="h5-tab"  @click="onClickMenu(7)">
               <div style="width: 2rem">
-                <img :src="h5_left_img7"  style="width: 0.59rem;height: 0.13rem;margin-left: 1rem; margin-top: 0.58rem;"   alt="zh" />
+                <img :src="h5_left_img7"  style="width: 0.59rem;height: 0.13rem;margin-left: 1rem; margin-top: 0.58rem;"    />
               </div>
             </div>
             <div class="h5-line"></div>
@@ -144,7 +144,7 @@
               Docs
             </div>
             <div style="position: fixed;bottom: 0.93rem;display: flex">
-              <img :src="h5_left_img8"  style="width: 0.59rem;height: 0.51rem;margin-left: 1rem; "   alt="zh" />
+              <img :src="h5_left_img8"  style="width: 0.59rem;height: 0.51rem;margin-left: 1rem; "    />
 
             </div>
           </div>
@@ -171,14 +171,14 @@
        <!---1---->
        <div style="width: 249px;background: #161616;height: 100%;" v-show="tabPcIndex==0">
            <div style="display: flex;padding-left: 35px;padding-top: 70px;">
-             <img :src="pc_logo1"  style="width: 42px;height: 23px;"   alt="zh" />
+             <img :src="pc_logo1"  style="width: 42px;height: 23px;"    />
              <div style=" font-size: 18px;font-family: Noto Serif;font-weight: bold; color: #FFFFFF;margin-left: 20px;">SynAssets</div>
            </div>
 
          <div class="pc-line" style="margin-top: 65px"></div>
          <div class="pc-tab" @click="onClickMenu(1)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img1"  style="width: 36px;height: 19px;margin-left: 2px; margin-top: 16px;"   alt="zh" />
+             <img :src="pc_left_img1"  style="width: 36px;height: 19px;margin-left: 2px; margin-top: 16px;"    />
            </div>
            <div style="width: 110px;text-align: left;">Dashboard</div>
          </div>
@@ -186,7 +186,7 @@
          <div class="pc-line" ></div>
          <div class="pc-tab" @click="onClickMenu(2)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img2"  style="width: 31px;height: 19px;margin-left: 4px; margin-top: 16px;"   alt="zh" />
+             <img :src="pc_left_img2"  style="width: 31px;height: 19px;margin-left: 4px; margin-top: 16px;"    />
            </div>
            <div style="width: 110px;text-align: left;">IDO</div>
          </div>
@@ -194,7 +194,7 @@
          <div class="pc-line" ></div>
          <div :class="currency=='POLYGON' ? 'pc-tab1':'pc-tab'" @click="onClickMenu(3)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img3"  style="width: 24px;height: 21px;margin-left: 8px; margin-top: 15px;"   alt="zh" />
+             <img :src="pc_left_img3"  style="width: 24px;height: 21px;margin-left: 8px; margin-top: 15px;"    />
            </div>
            <div style="width: 110px;text-align: left;">sMATIC</div>
          </div>
@@ -202,7 +202,7 @@
          <div class="pc-line" ></div>
          <div :class="currency=='ETH' ? 'pc-tab1':'pc-tab'" @click="onClickMenu(4)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img4"  style="width: 18px;height: 29px;margin-left: 13px; margin-top: 10px;"   alt="zh" />
+             <img :src="pc_left_img4"  style="width: 18px;height: 29px;margin-left: 13px; margin-top: 10px;"    />
            </div>
            <div style="width: 110px;text-align: left;">sETH</div>
          </div>
@@ -210,7 +210,7 @@
          <div class="pc-line" ></div>
          <div :class="currency=='UNI' ? 'pc-tab1':'pc-tab'" @click="onClickMenu(5)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img5"  style="width: 24px;height: 28px;margin-left: 8px; margin-top: 6px;"   alt="zh" />
+             <img :src="pc_left_img5"  style="width: 24px;height: 28px;margin-left: 8px; margin-top: 6px;"    />
            </div>
            <div style="width: 110px;text-align: left;">sUNI</div>
          </div>
@@ -218,7 +218,7 @@
          <div class="pc-line" ></div>
          <div :class="currency=='DOT' ? 'pc-tab1':'pc-tab'" @click="onClickMenu(6)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img6"  style="width: 18px;height: 21px;margin-left: 13px; margin-top: 15px;"   alt="zh" />
+             <img :src="pc_left_img6"  style="width: 18px;height: 21px;margin-left: 13px; margin-top: 15px;"    />
            </div>
            <div style="width: 110px;text-align: left;">sDOT</div>
          </div>
@@ -226,7 +226,7 @@
          <div class="pc-line" ></div>
          <div class="pc-tab" @click="onClickMenu(7)" >
            <div style="width: 73px;padding-left: 33px;">
-             <img :src="pc_left_img7"  style="width: 22px;height: 5px;margin-left: 10px; margin-top: 21px;"   alt="zh" />
+             <img :src="pc_left_img7"  style="width: 22px;height: 5px;margin-left: 10px; margin-top: 21px;"    />
            </div>
            <div style="width: 110px;text-align: left;">More</div>
          </div>
@@ -238,53 +238,53 @@
 
 
          <div style="display: flex;position: fixed;bottom: 27px;">
-           <img :src="pc_twitter_png"  style="width: 22px;height: 19px;margin-left: 30px; cursor: pointer"  @click="goLink(1)"   alt="zh" />
-           <img :src="pc_github_png"  style="width: 23px;height: 22px;margin-left: 18px; cursor: pointer "  @click="goLink(2 )"   alt="zh" />
-           <img :src="pc_medium_png"  style="width: 22px;height: 22px;margin-left: 18px;  cursor: pointer"  @click="goLink( 3 )"  alt="zh" />
-           <img :src="pc_discord_png"  style="width: 20px;height: 23px;margin-left: 18px; cursor: pointer "  @click="goLink(4 )"   alt="zh" />
+           <img :src="pc_twitter_png"  style="width: 22px;height: 19px;margin-left: 30px; cursor: pointer"  @click="goLink(1)"    />
+           <img :src="pc_github_png"  style="width: 23px;height: 22px;margin-left: 18px; cursor: pointer "  @click="goLink(2 )"    />
+           <img :src="pc_medium_png"  style="width: 22px;height: 22px;margin-left: 18px;  cursor: pointer"  @click="goLink( 3 )"   />
+           <img :src="pc_discord_png"  style="width: 20px;height: 23px;margin-left: 18px; cursor: pointer "  @click="goLink(4 )"    />
          </div>
 
        </div>
        <!----2---->
        <div style="width: 100px;background: #161616;height: 100%;" v-show="tabPcIndex==1">
          <div style="width: 100px;height: 50px;position: relative;margin-top: 70px">
-           <img :src="pc_logo1"  style="width: 42px;height: 23px; position: absolute; top: 50%;left: 50%;margin-top: -15px;  margin-left: -26px;"   alt="zh" />
+           <img :src="pc_logo1"  style="width: 42px;height: 23px; position: absolute; top: 50%;left: 50%;margin-top: -15px;  margin-left: -26px;"    />
          </div>
          <div class="pc-line100" style="margin-top: 60px;"></div>
          <div class="pc-tab100"  @click="onClickMenu(1)"  >
-           <img :src="pc_left_img1"   style="width: 36px;height: 19px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -18px;"   alt="zh" />
+           <img :src="pc_left_img1"   style="width: 36px;height: 19px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -18px;"    />
          </div>
          <div class="pc-line100" ></div>
          <div class="pc-tab100"  @click="onClickMenu(2)"   >
-           <img :src="pc_left_img2"  style="width: 31px;height: 19px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -15px;"   alt="zh" />
+           <img :src="pc_left_img2"  style="width: 31px;height: 19px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -15px;"    />
          </div>
          <div class="pc-line100" ></div>
          <div :class="currency=='POLYGON' ? 'pc-tab1001':'pc-tab100'"  @click="onClickMenu(3)"  >
-           <img :src="pc_left_img3"  style="width: 24px;height: 21px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -12px;"   alt="zh" />
+           <img :src="pc_left_img3"  style="width: 24px;height: 21px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -12px;"    />
          </div>
          <div class="pc-line100" ></div>
          <div :class="currency=='ETH' ? 'pc-tab1001':'pc-tab100'"  @click="onClickMenu(4)"  >
-           <img :src="pc_left_img4"  style="width: 18px;height: 29px; position: absolute; top: 50%;left: 50%;margin-top: -15px;  margin-left: -9px;"   alt="zh" />
+           <img :src="pc_left_img4"  style="width: 18px;height: 29px; position: absolute; top: 50%;left: 50%;margin-top: -15px;  margin-left: -9px;"    />
          </div>
 
          <div class="pc-line100" ></div>
          <div :class="currency=='UNI' ? 'pc-tab1001':'pc-tab100'"   @click="onClickMenu(5)" >
-           <img :src="pc_left_img5"  style="width: 24px;height: 28px; position: absolute; top: 50%;left: 50%;margin-top: -14px;  margin-left: -12px;"   alt="zh" />
+           <img :src="pc_left_img5"  style="width: 24px;height: 28px; position: absolute; top: 50%;left: 50%;margin-top: -14px;  margin-left: -12px;"    />
          </div>
          <div class="pc-line100" ></div>
          <div :class="currency=='DOT' ? 'pc-tab1001':'pc-tab100'"  @click="onClickMenu(6)" >
-           <img :src="pc_left_img6"  style="width: 18px;height: 21px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -9px;"   alt="zh" />
+           <img :src="pc_left_img6"  style="width: 18px;height: 21px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -9px;"    />
          </div>
          <div class="pc-line100" ></div>
          <div class="pc-tab100"   @click="onClickMenu(7)"  >
-           <img :src="pc_left_img7"  style="width: 22px;height: 5px; position: absolute; top: 50%;left: 50%;margin-top: -2px;  margin-left: -11px;"   alt="zh" />
+           <img :src="pc_left_img7"  style="width: 22px;height: 5px; position: absolute; top: 50%;left: 50%;margin-top: -2px;  margin-left: -11px;"    />
          </div>
           <div  @click="goLink(5)"   style="cursor: pointer;position: fixed;bottom: 100px;text-align: center;width: 100px; font-size: 16px;font-family: Selawik; font-weight: 600;color: #FFFFFF;text-decoration: underline;">Docs</div>
-           <img :src="pc_twitter_png"  @click="goLink(1)"  style="width: 22px;height: 19px;position: fixed;bottom: 27px;left: 38px;cursor: pointer;"   alt="zh" />
+           <img :src="pc_twitter_png"  @click="goLink(1)"  style="width: 22px;height: 19px;position: fixed;bottom: 27px;left: 38px;cursor: pointer;"    />
        </div>
        <div style="width: 280px;background: rgba(22, 22, 22, 0.7);min-height: 1000px;  border: 1px solid #808080;" v-show="tabPcIndex==1">
          <div style="display: flex;padding-left: 39px;padding-top: 70px;">
-           <img :src="h5_left_mt_logo"  style="width: 30px;height: 29px;"   alt="zh" />
+           <img :src="h5_left_mt_logo"  style="width: 30px;height: 29px;"    />
            <div style=" font-size: 20px;font-family: Selawik; font-weight: bold; color: #FFFFFF;margin-left: 15px;">-- Dao</div>
          </div>
 
@@ -543,6 +543,8 @@ export default {
         this.isShowMenu = true;
       }else if(index == 8){
         this.$router.push("/dashboard");
+      }else if(index == 9){
+        this.$router.push("/coin_ido");
       }else if(index == 10){
         this.$router.push("/stake");
       }else if(index == 11){

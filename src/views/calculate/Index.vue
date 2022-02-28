@@ -3,9 +3,10 @@
     <!--pc-->
     <div v-show="!isMobile"  style="padding-bottom:20px;width: 100%;min-height: 1500px;background: #161616;padding-top: 70px;position: relative;">
 
-      <div style="width: 100%;display: flex;padding-top: 20px;">
-        <div style="width: 249px;height: 100px;"></div>
-        <div style=" width:834px;margin: 0px auto; padding-bottom: 30px; background: #242424; border-radius: 10px;z-index: 999;">
+      <div style="width: 100%;padding-top: 40px;">
+
+        <div style=" width:834px;margin: 0px auto; padding-bottom: 30px; padding-left: 380px;">
+          <div style=" width:834px;background: #242424; border-radius: 10px;z-index: 999;">
           <div style="font-size: 24px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-top: 25px;padding-left: 30px;">Calculator</div>
           <div style=" font-size: 14px;font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;padding-left: 30px;">Estimate your returns</div>
 
@@ -92,7 +93,7 @@
             <div class="pc-cal-item-right">--</div>
           </div>
 
-
+          </div>
         </div>
 
         <img :src="pc_ido_img1"  style="width: 1135px;height: 294px;position: absolute;top:650px ;left: 110px;"   alt="zh" />
