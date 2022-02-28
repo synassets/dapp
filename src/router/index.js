@@ -68,6 +68,12 @@ const constantRouter = [
         name: "calculate",
         component: () => import("@/views/calculate/Index"),
         meta: { title: "calculate" },
+      },
+      {
+        path: "/coin_ido",
+        name: "coin_ido",
+        component: () => import("@/views/coin_ido/Index"),
+        meta: { title: "coin_ido" },
       }
 
 

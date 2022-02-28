@@ -256,7 +256,7 @@ export default {
 padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
 }
 .pc-div-content{
-  width: 834px;margin: 0px auto 0px auto;padding-top: 150px;
+  width: 834px;margin: 0px auto 0px auto;padding-top: 150px;padding-left: 380px;
 }
 .pc-dev-header{
   width: 834px;padding-bottom: 30px;background: #242424;border-radius: 10px;

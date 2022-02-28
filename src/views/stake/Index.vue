@@ -2,7 +2,6 @@
   <div style="width: 100%;">
     <!--pc-->
     <div v-show="!isMobile"  class="pc-div-parent">
-
       <div   class="pc-div-content" >
         <div class="pc-dev-header">
           <div class="pc-dev-title">Single Stake (C, C)</div>
@@ -102,6 +101,7 @@
           </div>
         </div>
       </div>
+
       <img
           :src="pc_ido_img1"
           style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
@@ -273,7 +273,7 @@ export default {
 padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
 }
 .pc-div-content{
-  width: 834px;margin: 0px auto 0px auto;padding-top: 150px;
+  width: 834px;margin: 0px auto 0px auto;padding-top: 150px;padding-left: 380px;
 }
 .pc-dev-header{
   width: 834px;padding-bottom: 30px;background: #242424;border-radius: 10px;
