@@ -154,12 +154,12 @@
               <div style=" font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;margin-left: 0.4rem;line-height: 2;">Matic-DAO</div>
             </div>
 
-            <div class="div-tab" style="margin-top: 1.9rem;">Dashboard</div>
-            <div class="div-tab" >IDO</div>
-            <div class="div-tab" >Stake</div>
-            <div class="div-tab" >Bond</div>
-            <div class="div-tab" >Calculator</div>
-            <div class="div-tab" >Consensus Network</div>
+            <div class="div-tab"  @click="onClickMenu(8)" style="margin-top: 1.9rem;">Dashboard</div>
+            <div class="div-tab"  @click="onClickMenu(9)" >IDO</div>
+            <div class="div-tab"  @click="onClickMenu(10)" >Stake</div>
+            <div class="div-tab"  @click="onClickMenu(11)" >Bond</div>
+            <div class="div-tab"  @click="onClickMenu(12)" >Calculator</div>
+            <div class="div-tab"  @click="onClickMenu(13)" >Consensus Network</div>
 
           </div>
         </div>
@@ -288,12 +288,12 @@
            <div style=" font-size: 20px;font-family: Selawik; font-weight: bold; color: #FFFFFF;margin-left: 15px;">-- Dao</div>
          </div>
 
-         <div class="pc-tab280" style="margin-top: 60px;">Dashboard</div>
-         <div class="pc-tab280" >IDO</div>
-         <div class="pc-tab280" >Stake</div>
-         <div class="pc-tab280" >Bond</div>
-         <div class="pc-tab280" >Calculator</div>
-         <div class="pc-tab280" >Consensus Network</div>
+         <div class="pc-tab280"  @click="onClickMenu(8)"  style="margin-top: 60px;">Dashboard</div>
+         <div class="pc-tab280"  @click="onClickMenu(9)"  >IDO</div>
+         <div class="pc-tab280"  @click="onClickMenu(10)" >Stake</div>
+         <div class="pc-tab280"  @click="onClickMenu(11)" >Bond</div>
+         <div class="pc-tab280"  @click="onClickMenu(12)" >Calculator</div>
+         <div class="pc-tab280"  @click="onClickMenu(13)" >Consensus Network</div>
 
        </div>
 
@@ -502,16 +502,15 @@ export default {
     },
    async onClickMenu(index) {
       this.isShowMenu = false;
- /*    this.tabPcIndex = 1;
-     this.tabIndex = 1;*/
+     this.tabPcIndex = 1;
+     this.tabIndex = 1;
       if(index == 1){
-        // this.$message.success("Coming Soon!")
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
-       /* this.tabPcIndex = 0;
+
+      this.tabPcIndex = 0;
         this.tabIndex = 0;
         this.currency = this.currencyNo;
         Cookies.set("CHAIN_TYPE", this.currencyNo, { expires: 31 });
-        this.$router.push("/summerize");*/
+        this.$router.push("/dboard");
       }else if(index == 2){
         this.tabPcIndex = 0;
         this.tabIndex = 0;
@@ -519,26 +518,42 @@ export default {
         Cookies.set("CHAIN_TYPE", this.currencyNo, { expires: 31 });
         this.$router.push("/ido");
       }else if(index == 3){
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-      /*  Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
-        this.currency = "POLYGON";*/
+       Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
+        this.currency = "POLYGON";
+        this.isShowMenu = true;
       }else if(index == 4){
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-      /*  Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
-        this.currency = "ETH";*/
+        Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
+        this.currency = "ETH";
+        this.isShowMenu = true;
       }else if(index == 5){
         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        /*Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
-        this.currency = "UNI";*/
+        Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
+        this.currency = "UNI";
+        this.isShowMenu = true;
       }else if(index == 6){
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-       /* Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
-        this.currency = "DOT";*/
+        Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
+        this.currency = "DOT";
+        this.isShowMenu = true;
+      }else if(index == 8){
+        this.$router.push("/dashboard");
+      }else if(index == 10){
+        this.$router.push("/stake");
+      }else if(index == 11){
+        this.$router.push("/bond");
+      }else if(index == 12){
+        this.$router.push("/calculate");
+      }else if(index == 13){
+        this.$router.push("/network");
       }
+
+
     },
 
     onClickInvestment() {
