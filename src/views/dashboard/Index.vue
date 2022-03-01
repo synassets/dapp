@@ -56,12 +56,12 @@
           <div style="width: 1080px;height: 80px; background: #242424; border-radius: 10px;margin-top: 20px; display: flex;">
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Market Cap</div>
-              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">--</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">{{marketCap}}</div>
             </div>
 
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per SAT</div>
-              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">--</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">{{backingPerOHM}}</div>
             </div>
 
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
@@ -76,15 +76,15 @@
             <div style="width: 530px;height: 303px;background: #242424;border-radius: 10px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">APY (%)</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 10px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 10px;">{{apy}}</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Total Value Deposited</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{OHMStakedTVL}}</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Current Index</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}}</div>
 
               <div class="pc-dashboard-btn">Start Stake</div>
 
@@ -93,11 +93,11 @@
             <div style="width: 530px; height: 303px;background: #242424;border-radius: 10px;margin-left: 20px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">Treasury Balance</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{marketValueOfTreasuryAssets}}</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">SAT Price</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{OHMPrice}}</div>
 
               <div style="display: flex;padding-top: 20px;padding-left: 33px;">
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;">
@@ -271,6 +271,7 @@ export default {
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      sAsset: state => state.sAsset,
     }),
     inviteLink() {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
@@ -278,7 +279,34 @@ export default {
     myAddress() {
      return 1;
       //return getAddress();
-    }
+    },
+    OHMPrice() {
+     return 2;
+    },
+    backingPerOHM() {
+     return 3;
+    },
+    currentIndex() {
+     return this.sAsset.currentIndex;
+    },
+    marketValueOfTreasuryAssets() {
+     return 5;
+    },
+    circulatingSupply() {
+     return 6;
+    },
+    marketCap() {
+     return 7;
+    },
+    apy() {
+     return 8;
+    },
+    OHMStakedRatio() {
+     return 9;
+    },
+    OHMStakedTVL() {
+     return 10;
+    },
   },
   created() {
     this.$nextTick(function () {
