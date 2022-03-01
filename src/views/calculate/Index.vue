@@ -434,7 +434,7 @@ padding-bottom:1rem;width: 100%;min-height: 1680px;background: #161616;
     height: 0.48rem;
     width: 0.48rem;
     z-index: 1001;
-    top: -0.5rem;
+    top: -0.6rem;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     background-color: transparent;

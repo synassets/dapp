@@ -52,7 +52,35 @@
               style="max-width: 980px;height: 3px;background: #808080;margin:15px auto 0px auto;z-index: -1;"
             ></div>
 
-            <div style="max-width:980px ;margin: 60px auto 0px auto;display: flex;">
+            <div  v-show="step==2" style=" margin:40px auto 40px auto;width: 740px; height: 120px;  background: linear-gradient(-45deg, #25434A 0%,  #4A3E48 100%);position: relative;">
+              <img
+                  :src="pc_ido_img2"
+                  style="width: 120px;height: 120px;position: absolute;top: 0px;left: 0px;"
+              />
+
+              <div
+                  v-show="step==2"
+                  style="text-align: center;width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
+              >Live</div>
+
+              <img
+                  :src="smatic"
+                  style="width: 51px;height: 51px;position: absolute;top: 33px;left: 230px;"
+              />
+
+             <div style="position: absolute;top: 30px;left: 310px; font-size: 24px;font-family: Selawik; font-weight: 600;color: #FFFFFF;">Matic-DAO</div>
+              <div style="position: absolute;top:60px;left: 310px; font-size: 14px;font-family: Selawik; font-weight: 400;color: rgba(255, 255, 255, 0.7);">Crypto Consensus Network</div>
+            </div>
+
+            <div  v-show="step==3" style="max-width: 980px;height: 40px;border: 2px solid #5F5F5F;margin:50px auto 20px auto;display: flex">
+              <div style=" width: 21px;height: 21px; background: #EB6877; border-radius: 50%;margin-left: 358px;margin-top: 9px;text-align: center;line-height: 21px; font-size: 14px; font-family: Black Ops One;font-weight: 400; color: #FFFFFF;">!</div>
+              <div style="margin-left: 30px; font-size: 14px;font-family: Selawik;font-weight: 400;color: #FFFFFF;line-height: 40px;">IDO closed. This IDO is finished, please visit Public Market IDO.</div>
+            </div>
+
+            <div  v-show="step==1" style="max-width: 980px;height: 60px;">
+                        </div>
+
+            <div style="max-width:980px ;margin: 0px auto 0px auto;display: flex;">
               <div
                 style=" max-width: 480px; height: 570px;background: #242424;border-radius: 10px;"
               >
@@ -183,25 +211,25 @@
               <div
                 style=" width: 480px; height: 570px;background: #242424;border-radius: 10px;margin-left: 20px;position: relative;"
               >
-                <img
-                  :src="pc_ido_img2"
-                  style="width: 120px;height: 120px;position: absolute;top: 0px;left: 0px;"
-                  alt="zh"
+                <img  v-show="step!=2"
+                    :src="pc_ido_img2"
+                    style="width: 120px;height: 120px;position: absolute;top: 0px;left: 0px;"
                 />
+
                 <div
-                  v-show="step==1"
-                  style="width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
+                    v-show="step==1"
+                    style="width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
                 >Coming Soon</div>
                 <div
-                  v-show="step==2"
-                  style="text-align: center;width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
-                >Live</div>
-                <div
-                  v-show="step==3"
-                  style="text-align: center;width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
-                >Closed</div>
+                    v-show="step==2"
+                    style="text-align: center;width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
+                ></div>
 
-                <img v-show="this.is_og_ambassador" :src="share" class="pc_share_img" alt />
+                <div
+                    v-show="step==3"
+                    style="text-align: center;width: 120px;height: 120px;padding-top: 25px;padding-left: 18px; font-size: 16px;font-family: Selawik;font-weight: 400;color: #242424;transform: rotate(-45deg)"
+                >Closed</div>
+                <img v-show="this.is_og_ambassador" :src="share" class="pc_share_img"  />
                 <div
                   v-show="this.is_og_ambassador"
                   class="pc_share_img"
@@ -312,7 +340,7 @@
                 >Enable</div>
 
                 <div v-show="isShowProgress" class="pc-ido-btn3x" @click="waiting">
-                  <img :src="gif" style="width: 20px;height: 20px;margin-top: 15px;" alt="zh" />
+                  <img :src="gif" style="width: 20px;height: 20px;margin-top: 15px;"  />
                 </div>
                 <div
                   class="pc-ido-btn3"
@@ -435,7 +463,7 @@
         <img
           :src="pc_ido_img1"
           style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
-          alt="zh"
+          
         />
       </div>
     </div>
@@ -444,28 +472,289 @@
       v-show="isMobile"
       style="width: 10rem;background: #070707;min-height: 20rem; padding-bottom: 3rem;padding-top: 2.11rem;"
     >
-      <div
-        style="font-size: 0.38rem;font-family: Selawik;font-weight: 600;color: #808080;padding-left: 0.87rem;"
-      >IDO: Initial DAO Offerings</div>
-      <div
-        style="margin-top: 0.1rem;font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 0.87rem;"
-      >All consensus-builder can buy token fairly.</div>
+      <div v-show="step==1"   style="padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #808080;">IDO (waiting)</div>
+      <div v-show="step==2" style="padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">IDO (live)</div>
+      <div v-show="step==3" style="padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #A40035;">IDO (end)</div>
+      <div style="padding-top: 0.15rem;padding-left: 0.8rem;  font-size: 0.32rem; font-family: Selawik;font-weight: 400; color: #808080;">Initial DAO Offerings</div>
 
-      <div style="padding-left: 0.84rem;margin-top:0.81rem;display: flex ">
+
+      <div style="padding-left: 0.8rem;margin-top:0.81rem;display: flex ">
         <div @click="clickOgMarket(true)" :class="isOgMarket ?'h5-ido-btn1':'h5-ido-btn2'">OG Market</div>
 
         <div
           @click="clickOgMarket(false)"
           :class="!isOgMarket ?'h5-ido-btn1':'h5-ido-btn2'"
-          style="margin-left: 0.27rem;"
         >Public Market</div>
+
+
+       <div class="h5-ido-btn-share" @click="showInviteClick()">Share</div>
+
       </div>
       <!----not start  --->
+
+
+    <div style=" width: 100%; padding-bottom: 0.8rem;background: #242424;">
+    <div style="width: 100%;position: relative;">
+      <div style="position: absolute;left: 0.8rem;top: 0.5rem; font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #808080;">Fundraise Goal</div>
+      <div  v-show="isOgMarket&&step!=3" style="position: absolute;left: 0.8rem;top: 1.15rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #ffffff;">
+        {{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}
+        </div>
+      <div  v-show="!isOgMarket&&step!=3" style="position: absolute;left: 0.8rem;top: 1.15rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #ffffff;">
+        {{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala)+ ' '+this.data.IDO.NOG.current }}
+      </div>
+      <div  v-show="step==3" style="position: absolute;left: 0.8rem;top: 1.15rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #E5004F;">
+        Close
+      </div>
+
+
+      <div style="position: absolute;left: 0.8rem;top: 2.2rem; font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #808080;">Price per token</div>
+      <div   v-show="isOgMarket" style="position: absolute;left: 0.8rem;top: 3rem; font-size: 0.64rem;font-family: Selawik;font-weight: 600;color: #ffffff;">
+        {{ this.calcT12PricePerToken + this.data.IDO.OG.current }}
+      </div>
+      <div   v-show="!isOgMarket" style="position: absolute;left: 0.8rem;top: 3rem; font-size: 0.64rem;font-family: Selawik;font-weight: 600;color: #ffffff;">
+        {{ this.calcT15PricePerToken + this.data.IDO.NOG.current }}
+      </div>
+
+      <div v-show="step==1" style="border:0.1rem solid #0792E3;border-radius:50%;position: absolute;right: 0.8rem;top: 0.7rem; width: 1.65rem; height: 1.65rem;line-height: 1.65rem; text-align:center;font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;">/</div>
+
+      <div  v-show="step==2"  id="pieChart" style="position: absolute;right: 0.8rem;top: 0.7rem; width: 3rem; height: 3rem; "></div>
+
+    </div>
+    <div style="padding-top: 3.3rem;">
+
+      <div  v-show="isOgMarket&&step!=3" style="width: 8.4rem;margin: 1rem auto 0.1rem auto;text-align: right; font-size: 0.27rem; font-family: Selawik;font-weight: 400; color: #FFFFFF;">
+        {{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
+      <div   v-show="!isOgMarket&&step!=3" style="width: 8.4rem;margin: 1rem auto 0.1rem auto;text-align: right; font-size: 0.27rem; font-family: Selawik;font-weight: 400; color: #FFFFFF;">
+        {{ 'Balance '+this.BalanceOf_usdc_format+' '+ this.data.IDO.NOG.current}}</div>
+
+
+      <div v-show="step==1" class="h5-ido-btn3" @click="goLink(1)">Join Discord</div>
+      <div class="h5-ido-btn3" @click="goLink(2)" v-show="isOgMarket&&step==1">How to get Whitelist ?</div>
+
+
+      <div v-show="step==2" style=" width: 8.4rem;height: 0.93rem;background: #FFFFFF;border-radius: 0.13rem;margin: 0.2rem auto;position: relative;">
+        <input
+            v-model="stakeAmount"  placeholder="Your bid amount"
+            type="text"
+            style="height:0.9rem;line-height:0.9rem;width: 4rem;margin-left: 0.1rem;position: absolute;top: 0.01rem;left: 0.1rem; font-size: 0.35rem;font-family: Selawik; font-weight: 400;"
+        />
+
+        <div
+            @click="clickMaxValue()"
+            style="cursor: pointer; width: 1.33rem; height: 0.53rem;font-size: 0.3rem; background: #00A0E9;border-radius: 0.07rem;
+            font-family: Selawik; color: #FFFFFF;position: absolute;right: 1.3rem;line-height:  0.53rem;
+            top: 0.18rem;text-align: center;"
+        >{{'MAX'}}</div>
+
+        <img  :src="smatic" style="width: 0.68rem;height: 0.68rem;position: absolute;right: 0.3rem;top: 0.12rem;"  />
+      </div>
+
+
       <div
+          @click="OgApprove()"
+          v-show="step==2&&!isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist"
+          class="h5-ido-btn3"
+      >Approve</div>
+      <div
+          @click="PublicApprove()"
+          v-show="step==2&&!isPublicSaleApproved&&!isOgMarket&&!isShowProgress"
+          class="h5-ido-btn3"
+      >Approve</div>
+
+      <div
+          @click="OgSale()"
+          v-show="step==2&&isOGApproved&&isOgMarket&&!isShowProgress&&ogWhitelist"
+          class="h5-ido-btn3"
+      >Enable</div>
+      <div
+          @click="publicSale()"
+          v-show="step==2&&isPublicSaleApproved&&!isOgMarket&&!isShowProgress"
+          class="h5-ido-btn3"
+      >Enable</div>
+
+      <div v-show="isShowProgress" class="h5-ido-btn3x" @click="waiting">
+        <img :src="gif" style="width: 0.37rem;height: 0.37rem;margin-top: 0.15rem;"  />
+      </div>
+      <div
+          v-show="isOgMarket&&!ogWhitelist&&step==2"
+          class="h5-ido-btn3"
+          @click="goLink(1)"
+      >need whitelist</div>
+
+
+
+      <div v-show="step!=3" style="width: 8.4rem;height: 0.03rem;background: #737373;margin: 0.5rem auto 0rem auto;"></div>
+      <div  v-show="step==1"
+            style="font-size: 0.32rem;font-family: Selawik; font-weight: 400;color: #808080;width: 100%;text-align: center;padding-top: 0.4rem;"
+      >IDO will start in</div>
+      <div  v-show="step==2"
+            style="font-size: 0.32rem;font-family: Selawik; font-weight: 400;color: #808080;width: 100%;text-align: center;padding-top: 0.4rem;"
+      >IDO will be finished in</div>
+
+      <div  v-show="step!=3"  style="width: 7rem;margin: 0.5rem auto 0 auto;display: flex;">
+        <div
+            style="font-size: 0.4rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ this.mDay >=10 ? this.mDay:'0'+this.mDay}}</div>
+        <div style="padding-top: 0.1rem;">
+          <div
+              style="width: 0.15rem; height: 0.15rem;background: #920783; border-radius: 50%;"
+          ></div>
+
+          <div
+              style="width: 0.15rem; height: 0.15rem;background: #00A0E9; border-radius: 50%;margin-top: 0.05rem;"
+          ></div>
+        </div>
+        <div
+            style="font-size: 0.4rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ this.mH0+''+this.mH1}}</div>
+        <div style="padding-top: 0.1rem;">
+          <div
+              style="width: 0.15rem; height: 0.15rem;background: #920783; border-radius: 50%;"
+          ></div>
+
+          <div
+              style="width: 0.15rem; height: 0.15rem;background: #00A0E9; border-radius: 50%;margin-top: 0.05rem;"
+          ></div>
+        </div>
+        <div
+            style="font-size: 0.4rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ this.mM0+''+this.mM1}}</div>
+        <div style="padding-top: 0.1rem;">
+          <div
+              style="width: 0.15rem; height: 0.15rem;background: #920783; border-radius: 50%;"
+          ></div>
+
+          <div
+              style="width: 0.15rem; height: 0.15rem;background: #00A0E9; border-radius: 50%;margin-top: 0.05rem;"
+          ></div>
+        </div>
+        <div
+            style="font-size: 0.4rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ this.mS0+''+this.mS1}}</div>
+      </div>
+      <div  v-show="step!=3"  style="width: 7rem;margin: 0.3rem auto 0 auto;display: flex;">
+        <div
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ 'Days'}}</div>
+
+        <div
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ 'Hours'}}</div>
+
+        <div
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ 'Minutes'}}</div>
+
+        <div
+            style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
+        >{{ 'Seconds'}}</div>
+      </div>
+
+      <div class="h5-coin-ido-div-item" style="padding-top: 0.8rem;"  >
+        <div style="flex: 1;color: #808080">Token Information
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">Contract address</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ? this.data.IDO.OG.address.substr(0,10)+"****"+this.data.IDO.OG.address.substr(this.data.IDO.OG.address.length-10,this.data.IDO.OG.address.length)
+             :
+            this.data.IDO.NOG.address.substr(0,10)+"****"+this.data.IDO.NOG.address.substr(this.data.IDO.NOG.address.length-10,this.data.IDO.NOG.address.length)
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">Token symbol</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ? this.data.IDO.OG.symbol :this.data.IDO.NOG.symbol
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item" style="padding-top: 0.8rem;"  >
+        <div style="flex: 1;color: #808080">IDO Information
+        </div>
+      </div>
+
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">IDO amount</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ? this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala ) : this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala )
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">IDO currency</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ?this.data.IDO.OG.current : this.data.IDO.NOG.current
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">Price per unit, $</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ?this.calcT12PricePerToken : this.calcT15PricePerToken
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">Minimum amount</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ?this.formatAmount( this.data.IDO.OG.minAmount1PerWallet/ this.data.IDO.OG.scala ) : this.formatAmount( this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala )
+          }}
+        </div>
+      </div>
+
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">Allocation per Whitelist</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ? this.formatAmount( this.data.IDO.OG.maxAmount1PerWallet/ this.data.IDO.OG.scala ): this.formatAmount( this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala )
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">IDO Start Time (UTC)</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ?this.time2 : this.time5
+          }}
+        </div>
+      </div>
+
+      <div class="h5-coin-ido-div-item"   >
+        <div style="flex: 1;">IDO End Time (UTC)</div>
+        <div   @click="goContract()" style="text-decoration: underline;cursor: pointer;flex: 1;text-align: right;">
+          {{ isOgMarket ?this.timeEnd2 : this.timeEnd5
+          }}
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+
+  <!--    <div
         v-show="step==1"
         style="width: 8.27rem;padding-bottom: 0.63rem;background: #242424;border-radius: 0.13rem;margin:0.55rem auto 0rem auto;position: relative; "
       >
-        <img v-show="this.is_og_ambassador" :src="share" class="h5_share_img" alt />
+        <img v-show="this.is_og_ambassador" :src="share" class="h5_share_img"  />
         <div v-show="this.is_og_ambassador" class="h5_share_img" @click="showInviteClick()">
           <span class="h5_share_div">
             Only ambassador have the right of invitation
@@ -586,10 +875,10 @@
             style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Seconds'}}</div>
         </div>
-      </div>
+      </div>-->
 
       <!---close-->
-      <div
+     <!-- <div
         style="width: 8.27rem;padding-bottom: 2.63rem;background: #242424;border-radius: 0.13rem;margin:0.55rem auto 0rem auto; "
         v-show="step==3"
       >
@@ -645,10 +934,10 @@
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
           >{{ this.amountTotal15_format + this.data.IDO.NOG.current }}</div>
         </div>
-      </div>
+      </div>-->
       <!-----end close-->
       <!--0   -->
-      <div
+   <!--   <div
         v-show="step==2"
         style="width: 8.27rem;padding-bottom: 0.63rem;background: #242424;border-radius: 0.13rem;margin:0.55rem auto 0rem auto;position: relative; "
       >
@@ -725,9 +1014,10 @@
             style="cursor: pointer;border-radius: 0.5rem;padding: 0.05rem 0.2rem;font-size: 0.3rem; font-family: Selawik;background: #1f1f1f; color: #FFFFFF;position: absolute;right: 0.2rem;
           top: 0.13rem;"
           >{{'MAX'}}</div>
-          <!--<div @click="clickMaxValue()" style="cursor: pointer;text-align: center;line-height:  24px;border-radius: 24px;width: 50px;
-          height: 24px;background: #1f1f1f;font-size: 12px; font-family: Selawik; font-weight: 600; color: #FFFFFF;position: absolute;right: 10px;top: 12px;" >{{'MAX'}}</div>-->
-        </div>
+
+
+
+                </div>
 
         <div
           @click="OgApprove()"
@@ -752,7 +1042,7 @@
         >Enable</div>
 
         <div v-show="isShowProgress" class="h5-ido-btn3x" @click="waiting">
-          <img :src="gif" style="width: 0.37rem;height: 0.37rem;margin-top: 0.15rem;" alt="zh" />
+          <img :src="gif" style="width: 0.37rem;height: 0.37rem;margin-top: 0.15rem;"  />
         </div>
         <div
           v-show="isOgMarket&&!ogWhitelist&&step==2"
@@ -826,11 +1116,11 @@
               style="font-size: 0.3rem;font-family: Selawik;  color: #FFFFFF;flex: 1;text-align: center;"
           >{{ 'Seconds'}}</div>
         </div>
-      </div>
+      </div>-->
 
       <!--end 0-->
       <!-----1--->
-      <div
+     <!-- <div
         style="width: 8.27rem;padding-bottom: 0.63rem;background: #242424;border-radius: 0.13rem;margin:0.4rem auto 0rem auto; "
       >
         <div
@@ -865,7 +1155,7 @@
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-top: 0.8rem;padding-left: 0.73rem;"
         >Token Information</div>
 
-        <div
+       &lt;!&ndash; <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #808080;margin-top: 0.34rem;padding-left: 0.73rem;"
         >
           Contract address
@@ -976,8 +1266,8 @@
           IDO End Time (UTC)
           <div v-show="isOgMarket" style="color: #FFFFFF;margin-top: 0.2rem">{{ this.timeEnd2}}</div>
           <div v-show="!isOgMarket" style="color: #FFFFFF;margin-top: 0.2rem">{{ this.timeEnd5}}</div>
-        </div>
-      </div>
+        </div>&ndash;&gt;
+      </div>-->
     </div>
 
     <my-dialog
@@ -1056,7 +1346,7 @@
 
 <script>
 import {mapGetters, mapState} from "vuex";
-import { pc_ido_img1, pc_ido_img2 } from "@/utils/images";
+
 import MyDialog from "@/views/components/myDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
@@ -1074,7 +1364,7 @@ import {
   InitRef, refresh_data
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
-import { share, close, gif } from "../../utils/images";
+import { share, close, gif ,smatic,pc_ido_img1, pc_ido_img2} from "../../utils/images";
 import store from "@/store";
 import {Base64} from "js-base64";
 export default {
@@ -1090,6 +1380,7 @@ export default {
       share,
       close,
       gif,
+      smatic,
       pc_ido_img1,
       pc_ido_img2,
       OG_allowance: 0,
@@ -1273,10 +1564,69 @@ export default {
   mounted() {
 
     this.getStartWatch();
+    this.pieChart()
   },
 
 
   methods: {
+    pieChart() {
+      var myChart = this.$echarts.init(document.getElementById("pieChart"));
+      let option = {
+        series: [
+
+          {
+            name: "",
+            type: "liquidFill",
+            radius: "45%",
+            data: [0.5, 0.5], //
+            center: ["45%", "40%"],
+            backgroundStyle: {
+              color: "RGBA(51, 66, 127, 0)",
+            },
+            color: [
+              {
+                type: "linear",
+                x: 0,
+                y: 1,
+                x2: 0,
+                y2: 0,
+                colorStops: [
+                  {
+                    offset: 1,
+                    color: ["rgba(0, 117, 241, 1)"], // 0%
+                  },
+                  {
+                    offset: 0,
+                    color: ["rgba(0, 117, 241, 0)"], // 100%
+                  },
+                ],
+                global: false, //  false
+              },
+            ],
+            label: {
+              normal: {
+                color: "#27e5f1",
+                insideColor: '#27e5f1',
+                textStyle: {
+                  fontSize: 12,
+                  fontWeight: "bold",
+                },
+              },
+            },
+            outline: {
+              show: false,
+              borderDistance: 5,
+              itemStyle: {
+                borderColor: "#27e5f1",
+                borderWidth: 3,
+              },
+            },
+          },
+        ],
+      };
+      myChart.setOption(option);
+      window.addEventListener("resize", () => myChart.resize(), false);
+    },
     onCopy(e) {
       console.log("" + e);
       // this.$message.success("success ");
@@ -1967,7 +2317,6 @@ export default {
           }
         }
       }
-
     },
     formatTime1(diff_time_sec) {
       let difTime = this.intervalTime(diff_time_sec);
@@ -2167,44 +2516,63 @@ export default {
 .h5-ido-btn1 {
   font-size: 0.35rem;
   font-family: Selawik;
-  font-weight: 400;
+  font-weight: 600;
   color: #ffffff;
   cursor: pointer;
   width: 2.8rem;
-  height: 0.55rem;
-  background: linear-gradient(-45deg, #4a3e48 0%, #25434a 100%);
-  border-radius: 0.13rem;
+  height: 0.67rem;
+  background: #0792E3;
   text-align: center;
-  line-height: 0.55rem;
+  line-height: 0.67rem;
 }
 .h5-ido-btn1:hover {
-  background: linear-gradient(-45deg, #25434a 0%, #4a3e48 100%);
+  background: #38a4e3;
 }
 
 .h5-ido-btn2 {
   font-size: 0.35rem;
   font-family: Selawik;
-  font-weight: 400;
+  font-weight: 600;
   color: #ffffff;
   cursor: pointer;
   width: 2.8rem;
-  height: 0.55rem;
+  height: 0.67rem;
   background: #242424;
-  border-radius: 0.13rem;
+
   text-align: center;
-  line-height: 0.55rem;
+  line-height: 0.67rem;
 }
 
 .h5-ido-btn2:hover {
   background: rgba(18, 18, 18, 0.7);
 }
-.h5-ido-btn3 {
-  width: 6.8rem;
+
+.h5-ido-btn-share {
+  font-size: 0.35rem;
+  font-family: Selawik;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  width: 2rem;
   height: 0.67rem;
-  background: rgba(65, 67, 70, 0.5);
-  border-radius: 0.13rem;
-  font-size: 0.21rem;
+  background: #0792E3;
+  text-align: center;
   line-height: 0.67rem;
+  margin-left: 1rem;
+}
+
+.h5-ido-btn-share:hover {
+  background: #38a4e3;
+}
+
+
+.h5-ido-btn3 {
+  width: 8.4rem;
+  height: 0.9rem;
+  background: #808080;
+  border-radius: 0.13rem;
+  font-size: 0.35rem;
+  line-height: 0.9rem;
   font-family: Selawik;
   font-weight: 600;
   color: #ffffff;
@@ -2218,12 +2586,12 @@ export default {
 }
 
 .h5-ido-btn3x {
-  width: 6.8rem;
-  height: 0.67rem;
+  width: 8.4rem;
+  height:  0.9rem;
   background: #414346;
   border-radius: 0.13rem;
-  font-size: 0.21rem;
-  line-height: 0.67rem;
+  font-size: 0.35rem;
+  line-height:  0.9rem;
   font-family: Selawik;
   font-weight: 600;
   color: #ffffff;
@@ -2417,7 +2785,8 @@ export default {
 .btn1:hover {
   background: #a6a6a6;
 }
-
+.h5-coin-ido-div-item{
+  display: flex;width: 8.4rem;margin: 0.4rem auto 0rem auto; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #FFFFFF;}
 .el-dialog__wrapper {
   position: fixed;
   top: 0;
