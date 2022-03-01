@@ -1265,6 +1265,7 @@ export default {
     this.configData = getConfigData();
 
 
+
      setInterval(this.timeDeal, 1000);
 
      this.getRefAddress();
@@ -1314,6 +1315,7 @@ export default {
       }
     },
     clickOgMarket(val) {
+      this.$refs.messageTipWarnDialog.showClick('address error address error address error address error address error address error address error ');
       this.isOgMarket = val;
       this.mDay = 0;
       this.mH0 = 0;

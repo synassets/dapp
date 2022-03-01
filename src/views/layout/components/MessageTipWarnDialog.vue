@@ -12,7 +12,7 @@
 
         </div>
 
-        <div style=" text-align: center;width:285px;margin: 20px auto 0px auto;font-size: 14px;font-family: Selawik;font-weight: 400;color: #FFFFFF; line-height: 30px;">{{tipMessgae}}</div>
+        <div style=" word-wrap: break-word; word-break: normal;text-align: center;width:285px;margin: 20px auto 0px auto;font-size: 14px;font-family: Selawik;font-weight: 400;color: #FFFFFF; line-height: 30px;">{{tipMessgae}}</div>
       </div>
 
 
@@ -28,7 +28,7 @@
 
         </div>
 
-        <div style="text-align: center; width:4.5rem;margin: 0.4rem auto 0px auto;font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #FFFFFF; line-height: 0.6rem;">{{tipMessgae}}</div>
+        <div style="word-wrap: break-word; word-break: normal;text-align: center; width:4.5rem;margin: 0.4rem auto 0px auto;font-size: 0.35rem;font-family: Selawik;font-weight: 400;color: #FFFFFF; line-height: 0.6rem;">{{tipMessgae}}</div>
 
 
 
