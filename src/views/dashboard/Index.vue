@@ -13,7 +13,7 @@
 
                 <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">TVL</div>
 
-                <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top:8px;">$321,720,913,496</div>
+                <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top:8px;">${{TVL}}</div>
 
 
               <!---2-->
@@ -56,12 +56,12 @@
           <div style="width: 1080px;height: 80px; background: #242424; border-radius: 10px;margin-top: 20px; display: flex;">
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Market Cap</div>
-              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">{{marketCap}}</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">${{marketCap}}</div>
             </div>
 
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per SAT</div>
-              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">{{backingPerOHM}}</div>
+              <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">${{backingPerOHM}}</div>
             </div>
 
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
@@ -76,15 +76,15 @@
             <div style="width: 530px;height: 303px;background: #242424;border-radius: 10px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">APY (%)</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 10px;">{{apy}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 10px;">{{APY}}%</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Total Value Deposited</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{OHMStakedTVL}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{TVL}}</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Current Index</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} {{symbol}}</div>
 
               <div class="pc-dashboard-btn">Start Stake</div>
 
@@ -93,11 +93,11 @@
             <div style="width: 530px; height: 303px;background: #242424;border-radius: 10px;margin-left: 20px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">Treasury Balance</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{marketValueOfTreasuryAssets}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{treasuryBalance}}</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">SAT Price</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{OHMPrice}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{OHMPrice}}</div>
 
               <div style="display: flex;padding-top: 20px;padding-left: 33px;">
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;">
@@ -204,29 +204,29 @@
 
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >TVL</div>
-        <div class="h5-div-item-down" >$1,720,913.67</div>
+        <div class="h5-div-item-down" >${{TVL}}</div>
       </div>
 
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >APY</div>
-        <div class="h5-div-item-down" >73,828.30%</div>
+        <div class="h5-div-item-down" >{{APY}}%</div>
       </div>
 
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Treasury Balance</div>
-        <div class="h5-div-item-down" >$4,771,525,254.43</div>
+        <div class="h5-div-item-down" >${{treasuryBalance}}</div>
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Market Cap</div>
-        <div class="h5-div-item-down" >$2,477,593,041.56</div>
+        <div class="h5-div-item-down" >${{marketCap}}</div>
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Current Index</div>
-        <div class="h5-div-item-down" >5.15 MTD</div>
+        <div class="h5-div-item-down" >{{currentIndex}} {{symbol}}</div>
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Back Per MTD</div>
-        <div class="h5-div-item-down" >$264.99</div>
+        <div class="h5-div-item-down" >${{backingPerOHM}}</div>
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Runaway</div>
@@ -280,6 +280,9 @@ export default {
      return 1;
       //return getAddress();
     },
+    symbol() {
+     return this.sAsset.symbol;
+    },
     OHMPrice() {
      return 2;
     },
@@ -287,7 +290,7 @@ export default {
      return 3;
     },
     currentIndex() {
-     return this.sAsset.currentIndex;
+     return this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals;
     },
     marketValueOfTreasuryAssets() {
      return 5;
@@ -296,16 +299,19 @@ export default {
      return 6;
     },
     marketCap() {
-     return 7;
+     return (this.sAsset.OHMTotalSupply * this.sAsset.DAIsPerOHM)//.toFixed(2);
     },
-    apy() {
+    APY() {
      return 8;
     },
     OHMStakedRatio() {
-     return 9;
+     return (this.sAsset.OHMBalanceOfStaking / this.sAsset.OHMTotalSupply);
     },
-    OHMStakedTVL() {
+    TVL() {
      return 10;
+    },
+    treasuryBalance() {
+     return 11;
     },
   },
   created() {

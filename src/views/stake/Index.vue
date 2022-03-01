@@ -13,9 +13,9 @@
              <div class="pc-dev-content-up-item">Current Index</div>
            </div>
            <div style="display: flex">
-             <div class="pc-dev-content-down-item">{{'$ --'}}</div>
-             <div class="pc-dev-content-down-item">{{'$ --'}}</div>
-             <div class="pc-dev-content-down-item">{{'$ --'}}</div>
+             <div class="pc-dev-content-down-item">${{APY}}</div>
+             <div class="pc-dev-content-down-item">${{TVL}}</div>
+             <div class="pc-dev-content-down-item">{{currentIndex}} {{symbol}}</div>
            </div>
          </div>
           <!----->
@@ -63,11 +63,11 @@
           <div  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;"  v-show="isStakeMenu" >
               <div class="pc-stake-div-detail-left">Your Balance</div>
-              <div class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div class="pc-stake-div-detail-right"> {{balance}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="isStakeMenu" >
               <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}}</div>
             </div>
 
             <div style="display: flex;"  v-show="!isStakeMenu" >
@@ -242,13 +242,32 @@ export default {
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      sAsset: state => state.sAsset,
     }),
     inviteLink() {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
     },
     myAddress() {
       return getAddress();
-    }
+    },
+    symbol() {
+      return this.sAsset.symbol;
+    },
+    APY() {
+      return 8;
+    },
+    TVL() {
+      return 10;
+    },
+    currentIndex() {
+      return this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals;
+    },
+    balance() {
+      return this.sAsset.OHMBalanceOfUser / 10**this.sAsset.OHMDecimals;
+    },
+    stakedBalance() {
+      return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
+    },
   },
   mounted() {
     this.data =  getDATA();

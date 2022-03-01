@@ -67,44 +67,44 @@ export default {
 
       this.Mult_watcher = createWatcher(
           [
-            {
-              target: this.ido.currentAddress,
-              call: [
-                "allowance(address,address)(uint256)",
-                this.address,
-                this.ido.og_sale.contract_address,
-              ],
-              returns: [["OG_allowance"]]
-            },
-            {
-              target: this.ido.currentAddress,
-              call: [
-                "allowance(address,address)(uint256)",
-                this.address,
-                this.ido.public_sale.contract_address,
-              ],
-              returns: [["NOG_allowance"]]
-            },
-            {
-              target:  this.ido.og_sale.contract_address,
-              call: ["amountSwapped1(address)(uint256)", this.address],
-              returns: [["my_amount_OG_Swapped"]]
-            },
-            {
-              target:  this.ido.public_sale.contract_address,
-              call: ["amountSwapped1(address)(uint256)", this.address],
-              returns: [["my_amount_public_Swapped"]]
-            },
-            {
-              target: this.ido.og_sale.contract_address,
-              call: ["amountTotal1()(uint256)"],
-              returns: [["og_amount_total"]]
-            },
-            {
-              target: this.ido.public_sale.contract_address,
-              call: ["amountTotal1()(uint256)"],
-              returns: [["nog_amount_total"]]
-            },
+            // {
+            //   target: this.ido.currentAddress,
+            //   call: [
+            //     "allowance(address,address)(uint256)",
+            //     this.address,
+            //     this.ido.og_sale.contract_address,
+            //   ],
+            //   returns: [["OG_allowance"]]
+            // },
+            // {
+            //   target: this.ido.currentAddress,
+            //   call: [
+            //     "allowance(address,address)(uint256)",
+            //     this.address,
+            //     this.ido.public_sale.contract_address,
+            //   ],
+            //   returns: [["NOG_allowance"]]
+            // },
+            // {
+            //   target:  this.ido.og_sale.contract_address,
+            //   call: ["amountSwapped1(address)(uint256)", this.address],
+            //   returns: [["my_amount_OG_Swapped"]]
+            // },
+            // {
+            //   target:  this.ido.public_sale.contract_address,
+            //   call: ["amountSwapped1(address)(uint256)", this.address],
+            //   returns: [["my_amount_public_Swapped"]]
+            // },
+            // {
+            //   target: this.ido.og_sale.contract_address,
+            //   call: ["amountTotal1()(uint256)"],
+            //   returns: [["og_amount_total"]]
+            // },
+            // {
+            //   target: this.ido.public_sale.contract_address,
+            //   call: ["amountTotal1()(uint256)"],
+            //   returns: [["nog_amount_total"]]
+            // },
 
             // {
             //   target: this.ido.og_sale.contract_address,
@@ -126,16 +126,16 @@ export default {
             //   call: ["calcT1(uint256)(uint256)", this.data.IDO.NOG.scala],
             //   returns: [["calcT15"]]
             // },
-            {
-              target: this.ido.og_sale.currentAddress,
-              call: ["balanceOf(address)(uint256)", this.address],
-              returns: [["OG_Balance_of_current"]]
-            },
-            {
-              target: this.ido.public_sale.currentAddress,
-              call: ["balanceOf(address)(uint256)", this.address],
-              returns: [["public_Balance_of_current"]]
-            },
+            // {
+            //   target: this.ido.og_sale.currentAddress,
+            //   call: ["balanceOf(address)(uint256)", this.address],
+            //   returns: [["OG_Balance_of_current"]]
+            // },
+            // {
+            //   target: this.ido.public_sale.currentAddress,
+            //   call: ["balanceOf(address)(uint256)", this.address],
+            //   returns: [["public_Balance_of_current"]]
+            // },
             // {
             //   target: this.data.IDO.OG.contractAddress,
             //   call: ["whitelist(address)(uint256)", this.address],
@@ -151,86 +151,108 @@ export default {
             //   call: ["inviteable(address)(bool)", this.address],
             //   returns: [["NOG_ambassador"]]
             // },
-            {
-              target: this.ido.og_sale.contract_address,
-              call: ["openAt()(uint256)"],
-              returns: [["openAtOG"]]
-            },
-            {
-              target: this.ido.og_sale.contract_address,
-              call: ["closeAt()(uint256)"],
-              returns: [["closeAtOG"]]
-            },
-            {
-              target: this.ido.public_sale.contract_address,
-              call: ["openAt()(uint256)"],
-              returns: [["openAtNOG"]]
-            },
-            {
-              target: this.ido.public_sale.contract_address,
-              call: ["closeAt()(uint256)"],
-              returns: [["closeAtNOG"]]
-            },
+            // {
+            //   target: this.ido.og_sale.contract_address,
+            //   call: ["openAt()(uint256)"],
+            //   returns: [["openAtOG"]]
+            // },
+            // {
+            //   target: this.ido.og_sale.contract_address,
+            //   call: ["closeAt()(uint256)"],
+            //   returns: [["closeAtOG"]]
+            // },
+            // {
+            //   target: this.ido.public_sale.contract_address,
+            //   call: ["openAt()(uint256)"],
+            //   returns: [["openAtNOG"]]
+            // },
+            // {
+            //   target: this.ido.public_sale.contract_address,
+            //   call: ["closeAt()(uint256)"],
+            //   returns: [["closeAtNOG"]]
+            // },
 
             //  sAsset
+            // {
+            //   target: this.sAsset.contract.Swap_Router,
+            //   call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000000000000',[this.sAsset.contract.OHM, this.sAsset.contract.DAI]],
+            //   returns: [['DAIsPerOHM']]
+            // },
             {
-              target: this.sAsset.contract.Swap_Router,
-              call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000000000000',[this.sAsset.contract.DAI, this.sAsset.contract.ETH, this.sAsset.contract.OHM]],
-              returns: [['DAIsPerOHM']]
-            },{
               target: this.sAsset.contract.sOHM,
               call: ['index()(uint256)'],
               returns: [['currentIndex']]
-            },{
+            },
+            {
               target: this.sAsset.contract.OHM,
               call: ['totalSupply()(uint256)'],
               returns: [['OHMTotalSupply']]
             },
             {
               target: this.sAsset.contract.OHM,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
-              returns: [['OHMBalanceOfStaking']]
-            },
-            {
-              target: this.sAsset.contract.DAI,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
-              returns: [['DAIBalanceOfTreasury']]
-            },
-            {
-              target: this.sAsset.contract.OHM_DAI_LP,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
-              returns: [['OHMDAILPBalanceOfTreasury']]
-            },
-            {
-              target: this.sAsset.contract.OHM_DAI_LP,
-              call: ['totalSupply()(uint256)'],
-              returns: [['OHMDAILPTotalSupply']]
+              call: ['decimals()(uint8)'],
+              returns: [['OHMDecimals']]
             },
             {
               target: this.sAsset.contract.OHM,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
-              returns: [['OHMLpBalanceOf']]
+              call: ['balanceOf(address)(uint256)',this.address],
+              returns: [['OHMBalanceOfUser']]
             },
             {
-              target: this.sAsset.contract.DAI,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
-              returns: [['DAIBalanceOfOHMDAILP']]
+              target: this.sAsset.contract.sOHM,
+              call: ['decimals()(uint8)'],
+              returns: [['sOHMDecimals']]
             },
             {
-              target: this.sAsset.contract.OHM,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
-              returns: [['OHMBalanceOfDAO']]
+              target: this.sAsset.contract.sOHM,
+              call: ['balanceOf(address)(uint256)',this.address],
+              returns: [['sOHMBalanceOfUser']]
             },
-            {
-              target: this.sAsset.contract.Staking,
-              call: ['epoch()(uint256, uint256, uint256, uint256) '],
-              returns: [['epochLength'],['epochNumber'],['epochEndBlock'],['epochDistribute']]
-            },
-            {
-              target: this.sAsset.contract.Staking,
-              call: ['contractBalance()(uint256)'],
-              returns: [['stakingContractBalance']]
-            },
+            // {
+            //   target: this.sAsset.contract.OHM,
+            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
+            //   returns: [['OHMBalanceOfStaking']]
+            // },
+            // {
+            //   target: this.sAsset.contract.DAI,
+            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
+            //   returns: [['DAIBalanceOfTreasury']]
+            // },
+            // {
+            //   target: this.sAsset.contract.OHM_DAI_LP,
+            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
+            //   returns: [['OHMDAILPBalanceOfTreasury']]
+            // },
+            // {
+            //   target: this.sAsset.contract.OHM_DAI_LP,
+            //   call: ['totalSupply()(uint256)'],
+            //   returns: [['OHMDAILPTotalSupply']]
+            // },
+            // {
+            //   target: this.sAsset.contract.OHM,
+            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+            //   returns: [['OHMLpBalanceOf']]
+            // },
+            // {
+            //   target: this.sAsset.contract.DAI,
+            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+            //   returns: [['DAIBalanceOfOHMDAILP']]
+            // },
+            // {
+            //   target: this.sAsset.contract.OHM,
+            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
+            //   returns: [['OHMBalanceOfDAO']]
+            // },
+            // {
+            //   target: this.sAsset.contract.Staking,
+            //   call: ['epoch()(uint256, uint256, uint256, uint256) '],
+            //   returns: [['epochLength'],['epochNumber'],['epochEndBlock'],['epochDistribute']]
+            // },
+            // {
+            //   target: this.sAsset.contract.Staking,
+            //   call: ['contractBalance()(uint256)'],
+            //   returns: [['stakingContractBalance']]
+            // },
           ],
           {
             rpcUrl: this.configData.rpcUrl,
@@ -291,6 +313,14 @@ export default {
             this.$store.commit("SET_CURRENT_INDEX", update.value);
           } else if(update.type=='OHMTotalSupply') {
             this.$store.commit("SET_OHM_TOTAL_SUPPLY", update.value);
+          } else if(update.type=='OHMDecimals') {
+            this.$store.commit("SET_OHM_DECIMALS", update.value);
+          } else if(update.type=='OHMBalanceOfUser') {
+            this.$store.commit("SET_OHM_BALANCE_OF_USER", update.value);
+          } else if(update.type=='sOHMDecimals') {
+            this.$store.commit("SET_sOHM_DECIMALS", update.value);
+          } else if(update.type=='sOHMBalanceOfUser') {
+            this.$store.commit("SET_SOHM_BALANCE_OF_USER", update.value);
           } else if(update.type=='OHMBalanceOfStaking') {
             this.$store.commit("SET_OHM_BALANCE_OF_STAKING", update.value);
           } else if(update.type=='DAIBalanceOfTreasury') {
@@ -313,7 +343,9 @@ export default {
           console.error("error "+e.toString());
         }
       });
+      console.log(1111)
       await this.Mult_watcher.start();
+      console.log(2222)
     },
 
 
