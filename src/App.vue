@@ -15,6 +15,7 @@ export default {
   computed: {
     ...mapState({
       ido: state => state.ido, //
+      sAsset: state => state.sAsset, //
       address: state => state.wallet.address, //
       configData:state => state.sys.Config, //
     }),
@@ -169,7 +170,67 @@ export default {
               target: this.ido.public_sale.contract_address,
               call: ["closeAt()(uint256)"],
               returns: [["closeAtNOG"]]
-            }
+            },
+
+            //  sAsset
+            {
+              target: this.sAsset.contract.Swap_Router,
+              call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000000000000',[this.sAsset.contract.DAI, this.sAsset.contract.ETH, this.sAsset.contract.OHM]],
+              returns: [['DAIsPerOHM']]
+            },{
+              target: this.sAsset.contract.sOHM,
+              call: ['index()(uint256)'],
+              returns: [['currentIndex']]
+            },{
+              target: this.sAsset.contract.OHM,
+              call: ['totalSupply()(uint256)'],
+              returns: [['OHMTotalSupply']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
+              returns: [['OHMBalanceOfStaking']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
+              returns: [['DAIBalanceOfTreasury']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
+              returns: [['OHMDAILPBalanceOfTreasury']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['totalSupply()(uint256)'],
+              returns: [['OHMDAILPTotalSupply']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+              returns: [['OHMLpBalanceOf']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+              returns: [['DAIBalanceOfOHMDAILP']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
+              returns: [['OHMBalanceOfDAO']]
+            },
+            {
+              target: this.sAsset.contract.Staking,
+              call: ['epoch()(uint256, uint256, uint256, uint256) '],
+              returns: [['epochLength'],['epochNumber'],['epochEndBlock'],['epochDistribute']]
+            },
+            {
+              target: this.sAsset.contract.Staking,
+              call: ['contractBalance()(uint256)'],
+              returns: [['stakingContractBalance']]
+            },
           ],
           {
             rpcUrl: this.configData.rpcUrl,
@@ -222,6 +283,32 @@ export default {
           } else if ("balanceOfSat" == update.type) {
             this.$store.commit("SET_SAT_BALANCE", update.value);
           }
+
+          // sAsset
+          else if(update.type=='DAIsPerOHM') {
+            this.$store.commit("SET_DAIS_PER_OHM", update.value);
+          } else if(update.type=='currentIndex') {
+            this.$store.commit("SET_CURRENT_INDEX", update.value);
+          } else if(update.type=='OHMTotalSupply') {
+            this.$store.commit("SET_OHM_TOTAL_SUPPLY", update.value);
+          } else if(update.type=='OHMBalanceOfStaking') {
+            this.$store.commit("SET_OHM_BALANCE_OF_STAKING", update.value);
+          } else if(update.type=='DAIBalanceOfTreasury') {
+            this.$store.commit("SET_DAI_BALANCE_OF_TREASURY", update.value);
+          } else if(update.type=='OHMDAILPBalanceOfTreasury') {
+            this.$store.commit("SET_OHM_DAI_LP_BALANCE_OF_TREASURY", update.value);
+          } else if(update.type=='OHMDAILPTotalSupply') {
+            this.$store.commit("SET_OHM_DAI_LP_TOTAL_SUPPLY", update.value);
+          } else if(update.type=='DAIBalanceOfOHMDAILP') {
+            this.$store.commit("SET_DAI_BALANCE_OF_OHM_DAI_LP", update.value);
+          } else if(update.type=='OHMBalanceOfDAO') {
+            this.$store.commit("SET_OHM_BALANCE_OF_DAO", update.value);
+          } else if(update.type=='epochDistribute') {
+            this.$store.commit("SET_EPOCH_DISTRIBUTE", update.value);
+          } else if(update.type=='stakingContractBalance') {
+            this.$store.commit("SET_STAKING_CONTRACT_BALANCE", update.value);
+          }
+
         } catch (e) {
           console.error("error "+e.toString());
         }
