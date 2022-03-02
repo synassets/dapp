@@ -13,9 +13,9 @@
              <div class="pc-dev-content-up-item">Current Index</div>
            </div>
            <div style="display: flex">
-             <div class="pc-dev-content-down-item">${{APY}}</div>
+             <div class="pc-dev-content-down-item">{{APY}}%</div>
              <div class="pc-dev-content-down-item">${{TVL}}</div>
-             <div class="pc-dev-content-down-item">{{currentIndex}} {{symbol}}</div>
+             <div class="pc-dev-content-down-item">{{currentIndex}} s{{symbol}}</div>
            </div>
          </div>
           <!----->
@@ -63,40 +63,32 @@
           <div  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;"  v-show="isStakeMenu" >
               <div class="pc-stake-div-detail-left">Your Balance</div>
-              <div class="pc-stake-div-detail-right"> {{balance}}</div>
+              <div class="pc-stake-div-detail-right"> {{balance}} {{symbol}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="isStakeMenu" >
               <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{stakedBalance}}</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{symbol}}</div>
             </div>
 
             <div style="display: flex;"  v-show="!isStakeMenu" >
-              <div class="pc-stake-div-detail-left">Unstaked Balance</div>
-              <div class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div class="pc-stake-div-detail-left">Your Balance</div>
+              <div class="pc-stake-div-detail-right"> {{balance}} {{symbol}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="!isStakeMenu" >
-              <div  class="pc-stake-div-detail-left">Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-stake-div-detail">
-              <div  class="pc-stake-div-detail-left" style="color: #808080">Wrapped Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-stake-div-detail">
-              <div  class="pc-stake-div-detail-left"  style="color: #808080">Exchange rate</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{symbol}}</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">Next Reward Amount</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{nextRewardAmount}} s{{symbol}}</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">Next Reward Yield</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{nextRewardYield}}%</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">ROI (5-Day Rate)</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{ROI}}%</div>
             </div>
           </div>
         </div>
@@ -128,11 +120,11 @@
         </div>
 
         <div style="display: flex;font-size: 0.48rem;font-family: Selawik;font-weight: 600; color: #ffffff;padding-top: 0.3rem;">
-          <div style="padding-left: 0.8rem;flex: 1;">6,217.20%</div>
-          <div style="flex: 1;">46.4 sMaic</div>
+          <div style="padding-left: 0.8rem;flex: 1;">{{APY}}%</div>
+          <div style="flex: 1;">{{currentIndex}} s{{symbol}}</div>
         </div>
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Total Value Deposited</div>
-        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">$2,288,357.96</div>
+        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">${{TVL}}</div>
 
 
         <div style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
@@ -148,40 +140,31 @@
 
        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
-         <div style="flex: 3;text-align: right;">0 sMatic</div>
+         <div style="flex: 3;text-align: right;">{{balance}} {{symbol}}</div>
        </div>
         <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="!isStakeMenu">
-          <div style="flex: 2;">Unstaked Balance</div>
-          <div style="flex: 3;text-align: right;">0 sMatic</div>
+          <div style="flex: 2;">Your Balance</div>
+          <div style="flex: 3;text-align: right;">{{balance}} {{symbol}}</div>
         </div>
         <div class="h5-stake-div-item"  v-show="isStakeMenu">
           <div style="flex: 1;">Your Staked Balance</div>
-          <div style="flex: 1;text-align: right;">0 sMatic</div>
+          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{symbol}}</div>
         </div>
         <div class="h5-stake-div-item"  v-show="!isStakeMenu" >
-          <div style="flex: 1;">Staked Balance</div>
-          <div style="flex: 1;text-align: right;">0 sMatic</div>
-        </div>
-        <div class="h5-stake-div-item" >
-          <div style="flex: 2;color: #808080">Wrapped Balance</div>
-          <div style="flex: 3;text-align: right;">0 sMatic</div>
-        </div>
-        <div class="h5-stake-div-item" >
-          <div style="flex: 2;color: #808080">Exchange rate</div>
-          <div style="flex: 3;text-align: right;color: #808080">1 wMatic = 25.9088 sMatic
-          </div>
+          <div style="flex: 1;">Your Staked Balance</div>
+          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{symbol}}</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">Next Reward Amount</div>
-          <div style="flex: 1;text-align: right;color: #808080">0 sMatic</div>
+          <div style="flex: 1;text-align: right;color: #808080">{{nextRewardAmount}} s{{symbol}}</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">Next Reward Yield</div>
-          <div style="flex: 1;text-align: right;">0.6229%</div>
+          <div style="flex: 1;text-align: right;">{{nextRewardYield}}%</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">ROI (5-Day Rate)</div>
-          <div style="flex: 1;text-align: right;">9.7629%</div>
+          <div style="flex: 1;text-align: right;">{{ROI}}%</div>
         </div>
       </div>
 
@@ -253,11 +236,15 @@ export default {
     symbol() {
       return this.sAsset.symbol;
     },
+    OHMPrice() {
+      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+    },
     APY() {
-      return 8;
+      const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
+      return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
     },
     TVL() {
-      return 10;
+      return (this.sAsset.OHMBalanceOfStaking / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
     currentIndex() {
       return this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals;
@@ -267,6 +254,15 @@ export default {
     },
     stakedBalance() {
       return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
+    },
+    nextRewardAmount() {
+      return (this.sAsset.epochDistribute * this.stakedBalance / this.sAsset.sOhmCirculatingSupply).toFixed(2);
+    },
+    nextRewardYield() {
+      return (this.sAsset.epochDistribute * 100 / this.sAsset.stakingContractBalance).toFixed(2);
+    },
+    ROI() {
+      return (this.nextRewardYield * 15).toFixed(2);
     },
   },
   mounted() {

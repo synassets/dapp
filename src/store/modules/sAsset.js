@@ -1,9 +1,9 @@
 //
 const sAsset = {
     state: {
-        name: "sMatic",
-        symbol: "MTD",
+        symbol: "",
         contract:{
+            USD: "",
             ETH: "",
             DAI: "",
             OHM: "",
@@ -20,7 +20,8 @@ const sAsset = {
             Swap_Router: "",
             OHM_DAI_LP: ""
         },
-        DAIsPerOHM: 0,
+        USDDecimals: 0,
+        USDFragmentsPerOHM: 0,
         currentIndex: 0,
         OHMTotalSupply: 0,
         OHMDecimals: 0,
@@ -31,20 +32,25 @@ const sAsset = {
         DAIBalanceOfTreasury: 0,
         OHMDAILPBalanceOfTreasury: 0,
         OHMDAILPTotalSupply: 0,
+        OHMBalanceOfOHMDAILP: 0,
         DAIBalanceOfOHMDAILP: 0,
         OHMBalanceOfDAO: 0,
         epochDistribute: 0,
         stakingContractBalance: 0,
+        sOhmCirculatingSupply: 0,
     },
     mutations: {
-        SET_NAME: (state, name) => {
-            state.name = name;
+        SET_SYMBOL: (state, symbol) => {
+            state.symbol = symbol;
         },
         SET_CONTRACT:(state, contract)=>{
             state.contract=contract;
         },
-        SET_DAIS_PER_OHM: (state, val) => {
-            state.DAIsPerOHM = val;
+        SET_USD_DECIMALS: (state, val) => {
+            state.USDDecimals = val;
+        },
+        SET_USD_FRAGMENTS_PER_OHM: (state, val) => {
+            state.USDFragmentsPerOHM = val;
         },
         SET_CURRENT_INDEX: (state, val) => {
             state.currentIndex = val;
@@ -76,6 +82,9 @@ const sAsset = {
         SET_OHM_DAI_LP_TOTAL_SUPPLY: (state, val) => {
             state.OHMDAILPTotalSupply = val;
         },
+        SET_OHM_BALANCE_OF_OHM_DAI_LP: (state, val) => {
+            state.OHMBalanceOfOHMDAILP = val;
+        },
         SET_DAI_BALANCE_OF_OHM_DAI_LP: (state, val) => {
             state.DAIBalanceOfOHMDAILP = val;
         },
@@ -87,6 +96,9 @@ const sAsset = {
         },
         SET_STAKING_CONTRACT_BALANCE: (state, val) => {
             state.stakingContractBalance = val;
+        },
+        SET_SOHM_CIRCULATING_SUPPLY: (state, val) => {
+            state.sOhmCirculatingSupply = val;
         },
     },
     actions: {

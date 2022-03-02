@@ -173,11 +173,21 @@ export default {
             // },
 
             //  sAsset
-            // {
-            //   target: this.sAsset.contract.Swap_Router,
-            //   call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000000000000',[this.sAsset.contract.OHM, this.sAsset.contract.DAI]],
-            //   returns: [['DAIsPerOHM']]
-            // },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['symbol()(string)'],
+              returns: [['symbol']]
+            },
+            {
+              target: this.sAsset.contract.USD,
+              call: ['decimals()(uint8)'],
+              returns: [['USDDecimals']]
+            },
+            {
+              target: this.sAsset.contract.Swap_Router,
+              call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000',[this.sAsset.contract.OHM, this.sAsset.contract.DAI, this.sAsset.contract.ETH, this.sAsset.contract.USD]],
+              returns: [['USDFragmentsPerOHM']]
+            },
             {
               target: this.sAsset.contract.sOHM,
               call: ['index()(uint256)'],
@@ -208,51 +218,56 @@ export default {
               call: ['balanceOf(address)(uint256)',this.address],
               returns: [['sOHMBalanceOfUser']]
             },
-            // {
-            //   target: this.sAsset.contract.OHM,
-            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
-            //   returns: [['OHMBalanceOfStaking']]
-            // },
-            // {
-            //   target: this.sAsset.contract.DAI,
-            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
-            //   returns: [['DAIBalanceOfTreasury']]
-            // },
-            // {
-            //   target: this.sAsset.contract.OHM_DAI_LP,
-            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
-            //   returns: [['OHMDAILPBalanceOfTreasury']]
-            // },
-            // {
-            //   target: this.sAsset.contract.OHM_DAI_LP,
-            //   call: ['totalSupply()(uint256)'],
-            //   returns: [['OHMDAILPTotalSupply']]
-            // },
-            // {
-            //   target: this.sAsset.contract.OHM,
-            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
-            //   returns: [['OHMLpBalanceOf']]
-            // },
-            // {
-            //   target: this.sAsset.contract.DAI,
-            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
-            //   returns: [['DAIBalanceOfOHMDAILP']]
-            // },
-            // {
-            //   target: this.sAsset.contract.OHM,
-            //   call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
-            //   returns: [['OHMBalanceOfDAO']]
-            // },
-            // {
-            //   target: this.sAsset.contract.Staking,
-            //   call: ['epoch()(uint256, uint256, uint256, uint256) '],
-            //   returns: [['epochLength'],['epochNumber'],['epochEndBlock'],['epochDistribute']]
-            // },
-            // {
-            //   target: this.sAsset.contract.Staking,
-            //   call: ['contractBalance()(uint256)'],
-            //   returns: [['stakingContractBalance']]
-            // },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
+              returns: [['OHMBalanceOfStaking']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
+              returns: [['DAIBalanceOfTreasury']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
+              returns: [['OHMDAILPBalanceOfTreasury']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['totalSupply()(uint256)'],
+              returns: [['OHMDAILPTotalSupply']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+              returns: [['OHMBalanceOfOHMDAILP']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+              returns: [['DAIBalanceOfOHMDAILP']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
+              returns: [['OHMBalanceOfDAO']]
+            },
+            {
+              target: this.sAsset.contract.Staking,
+              call: ['epoch()(uint256, uint256, uint256, uint256) '],
+              returns: [['epochLength'],['epochNumber'],['epochEndBlock'],['epochDistribute']]
+            },
+            {
+              target: this.sAsset.contract.Staking,
+              call: ['contractBalance()(uint256)'],
+              returns: [['stakingContractBalance']]
+            },
+            {
+              target: this.sAsset.contract.sOHM,
+              call: ['circulatingSupply()(uint256)'],
+              returns: [['sOhmCirculatingSupply']]
+            },
           ],
           {
             rpcUrl: this.configData.rpcUrl,
@@ -307,8 +322,12 @@ export default {
           }
 
           // sAsset
-          else if(update.type=='DAIsPerOHM') {
-            this.$store.commit("SET_DAIS_PER_OHM", update.value);
+          else if(update.type=='symbol') {
+            this.$store.commit("SET_SYMBOL", update.value);
+          } else if(update.type=='USDDecimals') {
+            this.$store.commit("SET_USD_DECIMALS", update.value);
+          } else if(update.type=='USDFragmentsPerOHM') {
+            this.$store.commit("SET_USD_FRAGMENTS_PER_OHM", update.value[update.value.length-1]);
           } else if(update.type=='currentIndex') {
             this.$store.commit("SET_CURRENT_INDEX", update.value);
           } else if(update.type=='OHMTotalSupply') {
@@ -329,6 +348,8 @@ export default {
             this.$store.commit("SET_OHM_DAI_LP_BALANCE_OF_TREASURY", update.value);
           } else if(update.type=='OHMDAILPTotalSupply') {
             this.$store.commit("SET_OHM_DAI_LP_TOTAL_SUPPLY", update.value);
+          } else if(update.type=='OHMBalanceOfOHMDAILP') {
+            this.$store.commit("SET_OHM_BALANCE_OF_OHM_DAI_LP", update.value);
           } else if(update.type=='DAIBalanceOfOHMDAILP') {
             this.$store.commit("SET_DAI_BALANCE_OF_OHM_DAI_LP", update.value);
           } else if(update.type=='OHMBalanceOfDAO') {
@@ -337,6 +358,8 @@ export default {
             this.$store.commit("SET_EPOCH_DISTRIBUTE", update.value);
           } else if(update.type=='stakingContractBalance') {
             this.$store.commit("SET_STAKING_CONTRACT_BALANCE", update.value);
+          } else if(update.type=='sOhmCirculatingSupply') {
+            this.$store.commit("SET_SOHM_CIRCULATING_SUPPLY", update.value);
           }
 
         } catch (e) {
