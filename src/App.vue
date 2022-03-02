@@ -174,9 +174,9 @@ export default {
 
             //  sAsset
             {
-              target: this.sAsset.contract.OHM,
-              call: ['symbol()(string)'],
-              returns: [['symbol']]
+              target: this.sAsset.contract.Swap_Router,
+              call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000',[this.sAsset.contract.OHM, this.sAsset.contract.DAI, this.sAsset.contract.ETH, this.sAsset.contract.USD]],
+              returns: [['USDFragmentsPerOHM']]
             },
             {
               target: this.sAsset.contract.USD,
@@ -184,14 +184,9 @@ export default {
               returns: [['USDDecimals']]
             },
             {
-              target: this.sAsset.contract.Swap_Router,
-              call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000',[this.sAsset.contract.OHM, this.sAsset.contract.DAI, this.sAsset.contract.ETH, this.sAsset.contract.USD]],
-              returns: [['USDFragmentsPerOHM']]
-            },
-            {
-              target: this.sAsset.contract.sOHM,
-              call: ['index()(uint256)'],
-              returns: [['currentIndex']]
+              target: this.sAsset.contract.OHM,
+              call: ['symbol()(string)'],
+              returns: [['OHMSymbol']]
             },
             {
               target: this.sAsset.contract.OHM,
@@ -209,9 +204,34 @@ export default {
               returns: [['OHMBalanceOfUser']]
             },
             {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
+              returns: [['OHMBalanceOfStaking']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+              returns: [['OHMBalanceOfOHMDAILP']]
+            },
+            {
+              target: this.sAsset.contract.OHM,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
+              returns: [['OHMBalanceOfDAO']]
+            },
+            {
+              target: this.sAsset.contract.sOHM,
+              call: ['index()(uint256)'],
+              returns: [['currentIndex']]
+            },
+            {
               target: this.sAsset.contract.sOHM,
               call: ['decimals()(uint8)'],
               returns: [['sOHMDecimals']]
+            },
+            {
+              target: this.sAsset.contract.sOHM,
+              call: ['circulatingSupply()(uint256)'],
+              returns: [['sOhmCirculatingSupply']]
             },
             {
               target: this.sAsset.contract.sOHM,
@@ -219,14 +239,39 @@ export default {
               returns: [['sOHMBalanceOfUser']]
             },
             {
-              target: this.sAsset.contract.OHM,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.Staking],
-              returns: [['OHMBalanceOfStaking']]
+              target: this.sAsset.contract.DAI,
+              call: ['symbol()(string)'],
+              returns: [['DAISymbol']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['decimals()(uint8)'],
+              returns: [['DAIDecimals']]
             },
             {
               target: this.sAsset.contract.DAI,
               call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
               returns: [['DAIBalanceOfTreasury']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
+              returns: [['DAIBalanceOfOHMDAILP']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
+              call: ['balanceOf(address)(uint256)',this.address],
+              returns: [['DAIBalanceOfUser']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['decimals()(uint8)'],
+              returns: [['OHMDAILPDecimals']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['totalSupply()(uint256)'],
+              returns: [['OHMDAILPTotalSupply']]
             },
             {
               target: this.sAsset.contract.OHM_DAI_LP,
@@ -235,23 +280,8 @@ export default {
             },
             {
               target: this.sAsset.contract.OHM_DAI_LP,
-              call: ['totalSupply()(uint256)'],
-              returns: [['OHMDAILPTotalSupply']]
-            },
-            {
-              target: this.sAsset.contract.OHM,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
-              returns: [['OHMBalanceOfOHMDAILP']]
-            },
-            {
-              target: this.sAsset.contract.DAI,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.OHM_DAI_LP],
-              returns: [['DAIBalanceOfOHMDAILP']]
-            },
-            {
-              target: this.sAsset.contract.OHM,
-              call: ['balanceOf(address)(uint256)',this.sAsset.contract.DAO],
-              returns: [['OHMBalanceOfDAO']]
+              call: ['balanceOf(address)(uint256)',this.address],
+              returns: [['OHMDAILPBalanceOfUser']]
             },
             {
               target: this.sAsset.contract.Staking,
@@ -263,10 +293,77 @@ export default {
               call: ['contractBalance()(uint256)'],
               returns: [['stakingContractBalance']]
             },
+            // DAI Bond
             {
-              target: this.sAsset.contract.sOHM,
-              call: ['circulatingSupply()(uint256)'],
-              returns: [['sOhmCirculatingSupply']]
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['bondPrice()(uint256)'],
+              returns: [['DAIBondPrice']]
+            },
+            {
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['bondPriceInUSD()(uint256)'],
+              returns: [['DAIBondPriceInUSD']]
+            },
+            {
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['maxPayout()(uint256)'],
+              returns: [['DAIBondMaxPayout']]
+            },
+            {
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['standardizedDebtRatio()(uint256)'],
+              returns: [['DAIBondStandardizedDebtRatio']]
+            },
+            {
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['terms()(uint256, uint256, uint256, uint256, uint256, uint256)'],
+              returns: [['DAIBondTermsControlVariable'], ['DAIBondTermsVestingTerm'], ['DAIBondTermsMinimumPrice'], ['DAIBondTermsMaxPayout'], ['DAIBondTermsFee'], ['DAIBondTermsMaxDebt']]
+            },
+            {
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['bondInfo(address)(uint256, uint256, uint256, uint256)',this.address],
+              returns: [['DAIBondInfoPayout'],['DAIBondInfoVesting'],['DAIBondInfoLastBlock'],['DAIBondInfoPricePaid']]
+            },
+            {
+              target: this.sAsset.contract.DAI_Bond,
+              call: ['pendingPayoutFor(address)(uint256)',this.address],
+              returns: [['DAIBondPendingPayoutFor']]
+            },
+            //  OHM-DAI LP Bond
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['bondPrice()(uint256)'],
+              returns: [['OHMDAILPBondPrice']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['bondPriceInUSD()(uint256)'],
+              returns: [['OHMDAILPBondPriceInUSD']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['maxPayout()(uint256)'],
+              returns: [['OHMDAILPBondMaxPayout']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['standardizedDebtRatio()(uint256)'],
+              returns: [['OHMDAILPBondStandardizedDebtRatio']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['terms()(uint256, uint256, uint256, uint256, uint256, uint256)'],
+              returns: [['OHMDAILPBondTermsControlVariable'], ['OHMDAILPBondTermsVestingTerm'], ['OHMDAILPBondTermsMinimumPrice'], ['OHMDAILPBondTermsMaxPayout'], ['OHMDAILPBondTermsFee'], ['OHMDAILPBondTermsMaxDebt']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['bondInfo(address)(uint256, uint256, uint256, uint256)',this.address],
+              returns: [['OHMDAILPBondInfoPayout'],['OHMDAILPBondInfoVesting'],['OHMDAILPBondInfoLastBlock'],['OHMDAILPBondInfoPricePaid']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP_Bond,
+              call: ['pendingPayoutFor(address)(uint256)',this.address],
+              returns: [['OHMDAILPBondPendingPayoutFor']]
             },
           ],
           {
@@ -322,49 +419,123 @@ export default {
           }
 
           // sAsset
-          else if(update.type=='symbol') {
-            this.$store.commit("SET_SYMBOL", update.value);
+          else if(update.type=='USDFragmentsPerOHM') {
+            this.$store.commit("SET_USD_FRAGMENTS_PER_OHM", update.value[update.value.length-1]);
           } else if(update.type=='USDDecimals') {
             this.$store.commit("SET_USD_DECIMALS", update.value);
-          } else if(update.type=='USDFragmentsPerOHM') {
-            this.$store.commit("SET_USD_FRAGMENTS_PER_OHM", update.value[update.value.length-1]);
-          } else if(update.type=='currentIndex') {
-            this.$store.commit("SET_CURRENT_INDEX", update.value);
+          } else if(update.type=='OHMSymbol') {
+            this.$store.commit("SET_OHM_SYMBOL", update.value);
           } else if(update.type=='OHMTotalSupply') {
             this.$store.commit("SET_OHM_TOTAL_SUPPLY", update.value);
           } else if(update.type=='OHMDecimals') {
             this.$store.commit("SET_OHM_DECIMALS", update.value);
           } else if(update.type=='OHMBalanceOfUser') {
             this.$store.commit("SET_OHM_BALANCE_OF_USER", update.value);
-          } else if(update.type=='sOHMDecimals') {
-            this.$store.commit("SET_sOHM_DECIMALS", update.value);
-          } else if(update.type=='sOHMBalanceOfUser') {
-            this.$store.commit("SET_SOHM_BALANCE_OF_USER", update.value);
           } else if(update.type=='OHMBalanceOfStaking') {
             this.$store.commit("SET_OHM_BALANCE_OF_STAKING", update.value);
-          } else if(update.type=='DAIBalanceOfTreasury') {
-            this.$store.commit("SET_DAI_BALANCE_OF_TREASURY", update.value);
-          } else if(update.type=='OHMDAILPBalanceOfTreasury') {
-            this.$store.commit("SET_OHM_DAI_LP_BALANCE_OF_TREASURY", update.value);
-          } else if(update.type=='OHMDAILPTotalSupply') {
-            this.$store.commit("SET_OHM_DAI_LP_TOTAL_SUPPLY", update.value);
           } else if(update.type=='OHMBalanceOfOHMDAILP') {
             this.$store.commit("SET_OHM_BALANCE_OF_OHM_DAI_LP", update.value);
-          } else if(update.type=='DAIBalanceOfOHMDAILP') {
-            this.$store.commit("SET_DAI_BALANCE_OF_OHM_DAI_LP", update.value);
           } else if(update.type=='OHMBalanceOfDAO') {
             this.$store.commit("SET_OHM_BALANCE_OF_DAO", update.value);
+          } else if(update.type=='currentIndex') {
+            this.$store.commit("SET_CURRENT_INDEX", update.value);
+          } else if(update.type=='sOHMDecimals') {
+            this.$store.commit("SET_sOHM_DECIMALS", update.value);
+          } else if(update.type=='sOhmCirculatingSupply') {
+            this.$store.commit("SET_SOHM_CIRCULATING_SUPPLY", update.value);
+          } else if(update.type=='sOHMBalanceOfUser') {
+            this.$store.commit("SET_SOHM_BALANCE_OF_USER", update.value);
+          } else if(update.type=='DAISymbol') {
+            this.$store.commit("SET_DAI_SYMBOL", update.value);
+          }  else if(update.type=='DAIDecimals') {
+            this.$store.commit("SET_DAI_DECIMALS", update.value);
+          } else if(update.type=='DAIBalanceOfTreasury') {
+            this.$store.commit("SET_DAI_BALANCE_OF_TREASURY", update.value);
+          } else if(update.type=='DAIBalanceOfOHMDAILP') {
+            this.$store.commit("SET_DAI_BALANCE_OF_OHM_DAI_LP", update.value);
+          } else if(update.type=='DAIBalanceOfUser') {
+            this.$store.commit("SET_DAI_BALANCE_OF_USER", update.value);
+          } else if(update.type=='OHMDAILPDecimals') {
+            this.$store.commit("SET_OHM_DAI_LP_DECIMALS", update.value);
+          } else if(update.type=='OHMDAILPTotalSupply') {
+            this.$store.commit("SET_OHM_DAI_LP_TOTAL_SUPPLY", update.value);
+          } else if(update.type=='OHMDAILPBalanceOfTreasury') {
+            this.$store.commit("SET_OHM_DAI_LP_BALANCE_OF_TREASURY", update.value);
+          } else if(update.type=='OHMDAILPBalanceOfUser') {
+            this.$store.commit("SET_OHM_DAI_LP_BALANCE_OF_USER", update.value);
           } else if(update.type=='epochDistribute') {
             this.$store.commit("SET_EPOCH_DISTRIBUTE", update.value);
           } else if(update.type=='stakingContractBalance') {
             this.$store.commit("SET_STAKING_CONTRACT_BALANCE", update.value);
-          } else if(update.type=='sOhmCirculatingSupply') {
-            this.$store.commit("SET_SOHM_CIRCULATING_SUPPLY", update.value);
+          }
+          // DAI Bond
+          else if(update.type=='DAIBondPrice') {
+            this.$store.commit("SET_DAI_BOND_PRICE", update.value);
+          } else if(update.type=='DAIBondPriceInUSD') {
+            this.$store.commit("SET_DAI_BOND_PRICE_IN_USD", update.value);
+          } else if(update.type=='DAIBondMaxPayout') {
+            this.$store.commit("SET_DAI_BOND_MAX_PAYOUT", update.value);
+          } else if(update.type=='DAIBondStandardizedDebtRatio') {
+            this.$store.commit("SET_DAI_BOND_STANDARDIZED_DEBT_RATIO", update.value);
+          } else if(update.type=='DAIBondTermsControlVariable') {
+            this.$store.commit("SET_DAI_BOND_TERMS_CONTROL_VARIABLE", update.value);
+          } else if(update.type=='DAIBondTermsVestingTerm') {
+            this.$store.commit("SET_DAI_BOND_TERMS_VESTING_TERM", update.value);
+          } else if(update.type=='DAIBondTermsMinimumPrice') {
+            this.$store.commit("SET_DAI_BOND_TERMS_MINIMUM_PRICE", update.value);
+          } else if(update.type=='DAIBondTermsMaxPayout') {
+            this.$store.commit("SET_DAI_BOND_TERMS_MAX_PAYOUT", update.value);
+          } else if(update.type=='DAIBondTermsFee') {
+            this.$store.commit("SET_DAI_BOND_TERMS_FEE", update.value);
+          } else if(update.type=='DAIBondTermsMaxDebt') {
+            this.$store.commit("SET_DAI_BOND_TERMS_MAX_DEBT", update.value);
+          } else if(update.type=='DAIBondInfoPayout') {
+            this.$store.commit("SET_DAI_BOND_INFO_PAYOUT", update.value);
+          } else if(update.type=='DAIBondInfoVesting') {
+            this.$store.commit("SET_DAI_BOND_INFO_VESTING", update.value);
+          } else if(update.type=='DAIBondInfoLastBlock') {
+            this.$store.commit("SET_DAI_BOND_INFO_LAST_BLOCK", update.value);
+          } else if(update.type=='DAIBondPendingPayoutFor') {
+            this.$store.commit("SET_DAI_BOND_PENDING_PAYOUT_FOR", update.value);
+          }
+          // OHM-DAI LP Bond
+          else if(update.type=='OHMDAILPBondPrice') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_PRICE", update.value);
+          } else if(update.type=='OHMDAILPBondPriceInUSD') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_PRICE_IN_USD", update.value);
+          } else if(update.type=='OHMDAILPBondMaxPayout') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_MAX_PAYOUT", update.value);
+          } else if(update.type=='OHMDAILPBondStandardizedDebtRatio') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_STANDARDIZED_DEBT_RATIO", update.value);
+          } else if(update.type=='OHMDAILPBondTermsControlVariable') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_TERMS_CONTROL_VARIABLE", update.value);
+          } else if(update.type=='OHMDAILPBondTermsVestingTerm') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_TERMS_VESTING_TERM", update.value);
+          } else if(update.type=='OHMDAILPBondTermsMinimumPrice') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_TERMS_MINIMUM_PRICE", update.value);
+          } else if(update.type=='OHMDAILPBondTermsMaxPayout') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_TERMS_MAX_PAYOUT", update.value);
+          } else if(update.type=='OHMDAILPBondTermsFee') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_TERMS_FEE", update.value);
+          } else if(update.type=='OHMDAILPBondTermsMaxDebt') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_TERMS_MAX_DEBT", update.value);
+          } else if(update.type=='OHMDAILPBondInfoPayout') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_INFO_PAYOUT", update.value);
+          } else if(update.type=='OHMDAILPBondInfoLastBlock') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_INFO_LAST_BLOCK", update.value);
+          } else if(update.type=='OHMDAILPBondInfoVesting') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_INFO_VESTING", update.value);
+          } else if(update.type=='OHMDAILPBondPendingPayoutFor') {
+            this.$store.commit("SET_OHM_DAI_LP_BOND_PENDING_PAYOUT_FOR", update.value);
           }
 
         } catch (e) {
           console.error("error "+e.toString());
         }
+      });
+      this.Mult_watcher.onNewBlock(blockNumber => {
+        console.log('New block:', blockNumber);
+        this.$store.commit("SET_BLOCK_NUMBER", blockNumber);
       });
       console.log(1111)
       await this.Mult_watcher.start();

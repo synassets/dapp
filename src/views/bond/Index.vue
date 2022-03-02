@@ -9,11 +9,11 @@
          <div class="pc-dev-content-up">
            <div style="display: flex">
              <div class="pc-dev-content-up-item">Treasury Balance</div>
-             <div class="pc-dev-content-up-item">CTD Price</div>
+             <div class="pc-dev-content-up-item">{{OHMSymbol}} Price</div>
            </div>
            <div style="display: flex">
-             <div class="pc-dev-content-down-item">{{'$ --'}}</div>
-             <div class="pc-dev-content-down-item">{{'$ --'}}</div>
+             <div class="pc-dev-content-down-item">${{marketValueOfTreasuryAssets}}</div>
+             <div class="pc-dev-content-down-item">${{OHMPrice}}</div>
            </div>
          </div>
           <!----->
@@ -32,15 +32,15 @@
                 <img :src="icon_matic_sat_lp"  style="width: 63px;height: 38px;margin-left: 5px;" alt />
               </div>
               <div style="flex: 1">
-                <div class="pc-div-table-item21">Matic - SAT LP</div>
+                <div class="pc-div-table-item21">{{DAISymbol}}-{{OHMSymbol}} LP</div>
                 <div @click="goLink('')"  class="pc-div-table-item22">view contract</div>
               </div>
 
-              <div class="pc-div-table-item3">{{'$ --'}}</div>
-              <div class="pc-div-table-item3">{{ '-- %'}}</div>
-              <div class="pc-div-table-item3">{{'$ --'}}</div>
+              <div class="pc-div-table-item3">${{OHMDAILPBondPriceDisplay}}</div>
+              <div class="pc-div-table-item3">{{OHMDAILPBondROI}}%</div>
+              <div class="pc-div-table-item3">${{OHMDAILPBondPurchased}}</div>
               <div class="pc-div-table-item4">
-                <div @click="showBound(1)"   class="class_bound" style="z-index: 999">
+                <div @click="showBound(0)"   class="class_bound" style="z-index: 999">
                   Bond
                 </div>
               </div>
@@ -55,13 +55,13 @@
               <div class="pc-div-table-item1">
                 <img :src="icon_matic"  style="width: 38px;height: 38px;margin-left: 24px;" alt />
               </div>
-              <div  class="pc-div-table-item3">Matic</div>
+              <div  class="pc-div-table-item3">{{DAISymbol}}</div>
 
-              <div  class="pc-div-table-item3">{{'$ --'}} </div>
-              <div  class="pc-div-table-item3"> {{ '-- %'}}</div>
-              <div  class="pc-div-table-item3">{{'$ --'}}</div>
+              <div  class="pc-div-table-item3">${{DAIBondPriceDisplay}}</div>
+              <div  class="pc-div-table-item3"> {{DAIBondROI}}%</div>
+              <div  class="pc-div-table-item3">${{DAIBondPurchased}}</div>
               <div  class="pc-div-table-item4">
-                <div @click="showBound(3)"   class="class_bound" style="z-index: 999">
+                <div @click="showBound(1)"   class="class_bound" style="z-index: 999">
                   Bond
                 </div>
               </div>
@@ -84,79 +84,79 @@
 
     <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
 
-      <div style="padding-top: 1.8rem;padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Bond (5, 5)</div>
+      <div style="padding-top: 1.8rem;padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Bond (1, 1)</div>
 
 
       <div style=" width: 100%;height: 4.53rem;background: #242424;margin-top: 0.7rem;">
-        <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">sMatic Price</div>
+        <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">{{OHMSymbol}} Price</div>
         <div style="padding-top: 0.3rem;display: flex">
-          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">$1.8</div>
+          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">${{OHMPrice}}</div>
           <div style="padding-left: 0.3rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #22AC38;padding-top: 0.2rem;">+15%</div>
         </div>
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Treasury Balance</div>
-        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">$638,403,207</div>
-      </div>
-
-
-      <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
-         <div style="position: relative;">
-           <img :src="icon_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
-           <div style="position: absolute;left: 2rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">Matic</div>
-           <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
-           <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 4.3rem;top: 0.6rem;" alt />
-         </div>
-
-        <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
-          <div class="h5-bond-item-left">Price</div>
-          <div class="h5-bond-item-right">2 days</div>
-        </div>
-
-        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
-          <div class="h5-bond-item-left">ROI</div>
-          <div class="h5-bond-item-right" style="color: #0792E3">$2</div>
-        </div>
-
-        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
-          <div class="h5-bond-item-left">Duration</div>
-          <div class="h5-bond-item-right" >863</div>
-        </div>
-        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
-          <div class="h5-bond-item-left">Purchased</div>
-          <div class="h5-bond-item-right" >975.89</div>
-        </div>
-
-        <div class="h5-bond-btn"  @click="showBound(3)">Bond Matic</div>
+        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">${{marketValueOfTreasuryAssets}}</div>
       </div>
 
 
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
         <div style="position: relative;">
           <img :src="icon_matic_sat_lp"  style="width: 1.36rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
-          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">Matic - SAT LP</div>
+          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}-{{OHMSymbol}} LP</div>
           <div style="position: absolute;left: 2.6rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
           <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 5rem;top: 0.6rem;" alt />
         </div>
 
         <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
           <div class="h5-bond-item-left">Price</div>
-          <div class="h5-bond-item-right">2 days</div>
+          <div class="h5-bond-item-right">${{OHMDAILPBondPriceDisplay}}</div>
         </div>
 
         <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
           <div class="h5-bond-item-left">ROI</div>
-          <div class="h5-bond-item-right" style="color: #E5004F">$2</div>
+          <div class="h5-bond-item-right" style="color: #E5004F">{{OHMDAILPBondROI}}%</div>
         </div>
 
         <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
           <div class="h5-bond-item-left">Duration</div>
-          <div class="h5-bond-item-right" >863</div>
+          <div class="h5-bond-item-right" >{{OHMDAILPBondDuration}}</div>
         </div>
         <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
           <div class="h5-bond-item-left">Purchased</div>
-          <div class="h5-bond-item-right" >975.89</div>
+          <div class="h5-bond-item-right" >${{OHMDAILPBondPurchased}}</div>
         </div>
 
-        <div class="h5-bond-btn"  @click="showBound(1)">Bond Matic</div>
+        <div class="h5-bond-btn"  @click="showBound(0)">Bond {{DAISymbol}}-{{OHMSymbol}} LP</div>
+      </div>
+
+
+      <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
+        <div style="position: relative;">
+          <img :src="icon_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
+          <div style="position: absolute;left: 2rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}</div>
+          <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
+          <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 4.3rem;top: 0.6rem;" alt />
+        </div>
+
+        <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Price</div>
+          <div class="h5-bond-item-right">${{DAIBondPriceDisplay}}</div>
+        </div>
+
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">ROI</div>
+          <div class="h5-bond-item-right" style="color: #0792E3">{{DAIBondROI}}%</div>
+        </div>
+
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Duration</div>
+          <div class="h5-bond-item-right" >{{DAIBondDuration}}</div>
+        </div>
+        <div style="display: flex;width: 8.4rem;margin:0.3rem auto 0rem auto;">
+          <div class="h5-bond-item-left">Purchased</div>
+          <div class="h5-bond-item-right" >${{DAIBondPurchased}}</div>
+        </div>
+
+        <div class="h5-bond-btn"  @click="showBound(1)">Bond {{DAISymbol}}</div>
       </div>
 
 
@@ -167,7 +167,7 @@
     </div>
 
     <!----showBondDialog-->
-    <BondDialog :is-show="showBondDialog"    @clickCloseDialog="clickCloseDialog"/>
+    <BondDialog :is-show="showBondDialog"  :bondIndex="bondIndex"  @clickCloseDialog="clickCloseDialog"/>
 
   </div>
 </template>
@@ -214,18 +214,63 @@ export default {
       data:{},
       configData:{},
       searchText:'',
+      bondIndex: 0,
     };
   },
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      sAsset: state => state.sAsset,
     }),
     inviteLink() {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
     },
     myAddress() {
       return getAddress();
-    }
+    },
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
+    },
+    DAISymbol() {
+      return this.sAsset.DAISymbol;
+    },
+    OHMPrice() {
+      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+    },
+    marketValueOfTreasuryAssets() {
+      const t1 = this.sAsset.OHMBalanceOfOHMDAILP * this.sAsset.DAIBalanceOfTreasury / this.sAsset.DAIBalanceOfOHMDAILP;
+      const t2 = this.sAsset.OHMDAILPBalanceOfTreasury * this.sAsset.OHMBalanceOfOHMDAILP * 2 / this.sAsset.OHMDAILPTotalSupply;
+      const temp  = ((t1 + t2) / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2)
+      return temp;
+    },
+    OHMDAILPBondPriceDisplay() {
+      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+    },
+    OHMDAILPBondROI() {
+      return ((this.OHMPrice - this.OHMDAILPBondPriceDisplay) / this.OHMDAILPBondPriceDisplay * 100).toFixed(2);
+    },
+    OHMDAILPBondDuration() {
+      const seconds = this.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
+      return this.prettifySeconds(seconds, 'day');
+    },
+    OHMDAILPBondPurchased() {
+      return (this.sAsset.OHMDAILPBalanceOfTreasury * this.sAsset.OHMBalanceOfOHMDAILP * 2 * this.OHMPrice / this.sAsset.OHMDAILPTotalSupply / 10**this.sAsset.OHMDecimals).toFixed(2);
+    },
+    DAIBondPriceDisplay() {
+      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+    },
+    DAIBondROI() {
+      return ((this.OHMPrice - this.DAIBondPriceDisplay) / this.DAIBondPriceDisplay * 100).toFixed(2);
+    },
+    DAIBondDuration() {
+      const seconds = this.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
+      return this.prettifySeconds(seconds, 'day');
+    },
+    DAIBondPurchased() {
+      return (this.sAsset.OHMBalanceOfOHMDAILP * this.sAsset.DAIBalanceOfTreasury * this.OHMPrice / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals).toFixed(2);
+    },
   },
   mounted() {
     this.data =  getDATA();
@@ -237,7 +282,8 @@ export default {
     clickTabBond(val){
       this.isBondMenu = val;
     },
-    showBound(index){
+    showBound(bondIndex){
+      this.bondIndex = bondIndex
       this.showBondDialog = true;
     },
     clickCloseDialog(){
@@ -245,7 +291,35 @@ export default {
     },
     inputChange(){},
     maxValueClick(){},
-    goLink(){}
+    goLink(){},
+    calcBlockSeconds(blocks){
+      const blockRateSeconds = 5.61;
+      return blocks * blockRateSeconds
+    },
+    prettifySeconds(seconds, resolution) {
+      if (seconds !== 0 && !seconds) {
+        return "";
+      }
+
+      const d = Math.floor(seconds / (3600 * 24));
+      const h = Math.floor((seconds % (3600 * 24)) / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+
+      if (resolution === "day") {
+        return d + (d === 1 ? " day" : " days");
+      }
+
+      const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
+      const hDisplay = h > 0 ? h + (h === 1 ? " hr, " : " hrs, ") : "";
+      const mDisplay = m > 0 ? m + (m === 1 ? " min" : " mins") : "";
+
+      let result = dDisplay + hDisplay + mDisplay;
+      if (mDisplay === "") {
+        result = result.slice(0, result.length - 2);
+      }
+
+      return result;
+    }
   }
 };
 </script>

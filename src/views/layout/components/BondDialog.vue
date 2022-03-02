@@ -9,13 +9,13 @@
 
           <div class="pc-dialog-div-header">
             <div style="display: flex">
-              <div class="pc-dialog-div-header-up">Treasury Balance</div>
-              <div class="pc-dialog-div-header-up">CTD Price</div>
+              <div class="pc-dialog-div-header-up">Bond Price</div>
+              <div class="pc-dialog-div-header-up">Market Price</div>
             </div>
             <div style="display: flex">
-              <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+              <div  class="pc-dialog-div-header-down">${{bond.price}}</div>
 
-              <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+              <div  class="pc-dialog-div-header-down">${{OHMPrice}}</div>
             </div>
           </div>
 
@@ -31,8 +31,8 @@
           <div v-show="isBondMenu" class="pc-bond-div-tip1">
             <div style="width: 540px;position: relative;">
               <div  class="pc-bond-div-tip2">
-                <div>First time bond CTD?</div>
-                <div>Please approve Crypto Dao to use your CTD for bond.</div>
+                <div>First time bond {{bond.name}}?</div>
+                <div>Please approve Crypto Dao to use your {{bond.name}} for bond.</div>
               </div>
 
 
@@ -66,27 +66,35 @@
           <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;">
               <div class="pc-bond-div-detail-left">Your Balance</div>
-              <div class="pc-bond-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-bond-div-detail">
-              <div  class="pc-bond-div-detail-left">You Will Get</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div class="pc-bond-div-detail-right"> {{bond.yourBalance}} {{bond.symbol}}</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">Max You Can Buy</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.maxYouCanBuy}} {{bond.symbol}}</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Pending Rewards</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.pendingRewards}} {{OHMSymbol}}</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Claimable Rewards</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.claimableRewards}} {{OHMSymbol}}</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Time until fully vested</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.timeUntilFullyVested}}</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">ROI</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.ROI}}%</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Debt Ratio</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.debtRatio}}%</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">Vesting Term</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-bond-div-detail">
-              <div  class="pc-bond-div-detail-left">Minimum purchase</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.duration}}</div>
             </div>
           </div>
 
@@ -101,23 +109,23 @@
           <div  v-show="!isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 30px">
             <div style="display: flex;">
               <div  class="pc-bond-div-detail-left">Pending Rewards</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right">{{bond.pendingRewards}} {{OHMSymbol}}</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">Claimable Rewards</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.claimableRewards}} {{OHMSymbol}}</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">Time until fully vested</div>
-              <div  class="pc-bond-div-detail-right"> {{ ''}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.timeUntilFullyVested}}</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">ROI</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right">{{bond.ROI}}%</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">Vesting Term</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.duration}}</div>
             </div>
           </div>
 
@@ -135,14 +143,14 @@
 
             <div style="width: 1.8rem;display: flex;margin: 0.34rem auto 0rem auto;">
               <img :src="icon_matic" style="width: 0.4rem;height: 0.4rem;"  />
-              <div style=" font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;margin-left: 0.4rem;">Matic</div>
+              <div style=" font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;margin-left: 0.4rem;">{{bond.name}}</div>
             </div>
 
           </div>
 
         <div style="width: 8.27rem;text-align: center;margin: 0.4rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Fixed Term</div>
 
-          <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">2 days</div>
+          <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">{{bond.duration}}</div>
 
 
           <div style="display: flex; font-size: 0.32rem; font-family: Selawik;font-weight: 400;color: #808080;padding-top: 0.5rem;text-align: center;">
@@ -152,8 +160,8 @@
 
 
           <div style="display: flex; font-size: 0.48rem; font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-top: 0.2rem;text-align: center;">
-            <div style="flex: 1">$67.98</div>
-            <div style="flex: 1">$69.46</div>
+            <div style="flex: 1">${{bond.price}}</div>
+            <div style="flex: 1">${{OHMPrice}}</div>
           </div>
         <!--  <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
           <div style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
@@ -181,24 +189,31 @@
 
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;">
             <div style="flex: 1;">Your Balance</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
-          </div>
-
-          <div class="h5-bond-dialog-item" >
-            <div style="flex: 1;">You Will Get</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
           </div>
           <div class="h5-bond-dialog-item" >
             <div style="flex: 1;">Max You Can Buy</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.maxYouCanBuy}} {{bond.symbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Pending Rewards</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Claimable Rewards</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Time until fully vested</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
           </div>
           <div class="h5-bond-dialog-item" >
             <div style="flex: 1;">ROI</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">6.84%</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.ROI}}%</div>
           </div>
           <div class="h5-bond-dialog-item" >
-            <div style="flex: 1;">Minimum purchase</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">2712.5145</div>
+            <div style="flex: 1;">Debt Ratio</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.debtRatio}}%</div>
           </div>
          <div style="height: 0.5rem; width: 2rem;"></div>
         </div>
@@ -243,18 +258,113 @@ export default {
     },
     pubVue: {
       type: Object
+    },
+    bondIndex: {
+      type: Number
     }
   },
   computed:{
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      sAsset: state => state.sAsset,
 
-    })
+    }),
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
+    },
+    DAISymbol() {
+      return this.sAsset.DAISymbol;
+    },
+    DAIBalance() {
+      return this.sAsset.DAIBalanceOfUser / 10**this.sAsset.DAIDecimals;
+    },
+    OHMDAILPBalance() {
+      return this.sAsset.OHMDAILPBalanceOfUser / 10**this.sAsset.OHMDAILPDecimals;
+    },
+    stakedBalance() {
+      return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
+    },
+    OHMPrice() {
+      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+    },
+    OHMDAILPBondPriceDisplay() {
+      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+    },
+    OHMDAILPBondMaxYouCanBuy() {
+      const amount = this.sAsset.OHMDAILPBondMaxPayout / 10**this.sAsset.OHMDecimals * (this.sAsset.OHMDAILPBondPrice / 100).toFixed(2)
+      return (amount * 0.95).toFixed(2)
+    },
+    OHMDAILPBondROI() {
+      return ((this.OHMPrice - this.OHMDAILPBondPriceDisplay) / this.OHMDAILPBondPriceDisplay * 100).toFixed(2);
+    },
+    OHMDAILPBondTimeUntilFullyVested() {
+      const fullyVestBlocks = parseInt(this.sAsset.OHMDAILPBondInfoVesting) + parseInt(this.sAsset.OHMDAILPBondInfoLastBlock);
+      if (fullyVestBlocks === 0) {
+        return '--'
+      }
+      const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
+      const milliSecondsDiff = this.calcBlockSeconds(blocksDiff) * 1000;
+      return this.dataFormat(new Date().getTime() + milliSecondsDiff);
+    },
+    OHMDAILPBondDuration() {
+      const seconds = this.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
+      return this.prettifySeconds(seconds, 'day');
+    },
+    DAIBondPriceDisplay() {
+      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+    },
+    DAIBondMaxYouCanBuy() {
+      const amount = this.sAsset.DAIBondMaxPayout / 10**this.sAsset.OHMDecimals * (this.sAsset.DAIBondPrice / 100).toFixed(2)
+      return (amount * 0.95).toFixed(2)
+    },
+    DAIBondROI() {
+      return ((this.OHMPrice - this.DAIBondPriceDisplay) / this.DAIBondPriceDisplay * 100).toFixed(2);
+    },
+    DAIBondTimeUntilFullyVested() {
+      const fullyVestBlocks = parseInt(this.sAsset.DAIBondInfoVesting) + parseInt(this.sAsset.DAIBondInfoLastBlock);
+      const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
+      const milliSecondsDiff = this.calcBlockSeconds(blocksDiff) * 1000;
+      return this.dataFormat(new Date().getTime() + milliSecondsDiff);
+    },
+    DAIBondDuration() {
+      const seconds = this.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
+      return this.prettifySeconds(seconds, 'day');
+    },
+    bond() {
+      switch (this.bondIndex) {
+        case 1: return {
+          name: this.sAsset.DAISymbol,
+          symbol: this.sAsset.DAISymbol,
+          yourBalance: this.DAIBalance,
+          price: this.DAIBondPriceDisplay,
+          maxYouCanBuy: this.DAIBondMaxYouCanBuy,
+          pendingRewards: (this.sAsset.DAIBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
+          claimableRewards: (this.sAsset.DAIBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
+          timeUntilFullyVested: this.DAIBondTimeUntilFullyVested,
+          ROI: this.DAIBondROI,
+          debtRatio: (this.sAsset.DAIBondStandardizedDebtRatio * 100 / 1e9).toFixed(2),
+          duration: this.DAIBondDuration,
+        };
+        default: return {
+          name: this.OHMSymbol + '-' + this.DAISymbol + ' LP',
+          symbol: 'LP',
+          yourBalance: this.OHMDAILPBalance,
+          price: this.OHMDAILPBondPriceDisplay,
+          maxYouCanBuy: this.OHMDAILPBondMaxYouCanBuy,
+          pendingRewards: (this.sAsset.OHMDAILPBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
+          claimableRewards: (this.sAsset.OHMDAILPBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
+          timeUntilFullyVested: this.OHMDAILPBondTimeUntilFullyVested,
+          ROI: this.OHMDAILPBondROI,
+          debtRatio: (this.sAsset.OHMDAILPBondStandardizedDebtRatio * 100 / 1e18).toFixed(2),
+          duration: this.OHMDAILPBondDuration,
+        }
+      }
+    }
   },
 
-  created() {
-
-  },
+  created() {},
   methods:{
     clickTabBond(val){
       this.isBondMenu = val;
@@ -264,10 +374,48 @@ export default {
     goLink(){},
     closeDialog(){
       this.$emit('clickCloseDialog', {});
-
     },
+    calcBlockSeconds(blocks){
+      const blockRateSeconds = 5.61;
+      return blocks * blockRateSeconds
+    },
+    prettifySeconds(seconds, resolution) {
+      if (seconds !== 0 && !seconds) {
+        return "";
+      }
 
+      const d = Math.floor(seconds / (3600 * 24));
+      const h = Math.floor((seconds % (3600 * 24)) / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
 
+      if (resolution === "day") {
+        return d + (d === 1 ? " day" : " days");
+      }
+
+      const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
+      const hDisplay = h > 0 ? h + (h === 1 ? " hr, " : " hrs, ") : "";
+      const mDisplay = m > 0 ? m + (m === 1 ? " min" : " mins") : "";
+
+      let result = dDisplay + hDisplay + mDisplay;
+      if (mDisplay === "") {
+        result = result.slice(0, result.length - 2);
+      }
+
+      return result;
+    },
+    fillWith0(number) {
+      return number > 10 ? number : '0' + number;
+    },
+    dataFormat(milliSeconds) {
+      const time = new Date(milliSeconds),
+       y = time.getFullYear(),
+       M = time.getMonth()+1,
+       d = time.getDate(),
+       H = time.getHours(),
+       m = time.getMinutes(),
+       s = time.getSeconds();
+      return y+'-'+this.fillWith0(M)+'-'+this.fillWith0(d)+' '+this.fillWith0(H)+':'+this.fillWith0(m)+':'+this.fillWith0(s);
+    }
   }
 }
 </script>
