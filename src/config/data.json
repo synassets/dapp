@@ -12,7 +12,8 @@
     "whiteListURL": "https://medium.com/@SynAssets/synassets-tokenomics-ido-whitelists-details-569626623e46"
   },
   "sMatic": {
-    "ETH": "",
+    "USD": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "ETH": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
     "DAI": "0xd9ebC0B70DD5fcCEd48F3Dd47024fded68b05eCe",
     "OHM": "0x37df5ed44a0459f5f9c937f3c878a29ac48838ab",
     "Treasury": "0x41e317B68b7276e94847620f00744E994622f2fE",
