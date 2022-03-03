@@ -9,7 +9,8 @@
     "medium": "https://medium.com/@SynAssets",
     "discord": "https://discord.gg/BzVUJJszaU",
     "doc": "https://doc.synassets.finance/",
-    "whiteListURL": "https://medium.com/@SynAssets/synassets-tokenomics-ido-whitelists-details-569626623e46"
+    "whiteListURL": "https://medium.com/@SynAssets/synassets-tokenomics-ido-whitelists-details-569626623e46",
+    "blockRateSeconds": 5.61
   },
   "sMatic": {
     "USD": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",

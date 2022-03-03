@@ -233,6 +233,7 @@ import {mapState} from "vuex";
 import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import * as publicJs from "@/utils/public";
 
 export default {
   name: "BondDialog",
@@ -305,11 +306,11 @@ export default {
       }
       const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
       const milliSecondsDiff = this.calcBlockSeconds(blocksDiff) * 1000;
-      return this.dataFormat(new Date().getTime() + milliSecondsDiff);
+      return publicJs.dateFormat(new Date().getTime() + milliSecondsDiff);
     },
     OHMDAILPBondDuration() {
-      const seconds = this.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
-      return this.prettifySeconds(seconds, 'day');
+      const seconds = publicJs.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
+      return publicJs.prettifySeconds(seconds, 'day');
     },
     DAIBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
@@ -325,12 +326,12 @@ export default {
     DAIBondTimeUntilFullyVested() {
       const fullyVestBlocks = parseInt(this.sAsset.DAIBondInfoVesting) + parseInt(this.sAsset.DAIBondInfoLastBlock);
       const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
-      const milliSecondsDiff = this.calcBlockSeconds(blocksDiff) * 1000;
-      return this.dataFormat(new Date().getTime() + milliSecondsDiff);
+      const milliSecondsDiff = publicJs.calcBlockSeconds(blocksDiff) * 1000;
+      return publicJs.dateFormat(new Date().getTime() + milliSecondsDiff);
     },
     DAIBondDuration() {
-      const seconds = this.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
-      return this.prettifySeconds(seconds, 'day');
+      const seconds = publicJs.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
+      return publicJs.prettifySeconds(seconds, 'day');
     },
     bond() {
       switch (this.bondIndex) {
@@ -375,47 +376,6 @@ export default {
     closeDialog(){
       this.$emit('clickCloseDialog', {});
     },
-    calcBlockSeconds(blocks){
-      const blockRateSeconds = 5.61;
-      return blocks * blockRateSeconds
-    },
-    prettifySeconds(seconds, resolution) {
-      if (seconds !== 0 && !seconds) {
-        return "";
-      }
-
-      const d = Math.floor(seconds / (3600 * 24));
-      const h = Math.floor((seconds % (3600 * 24)) / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-
-      if (resolution === "day") {
-        return d + (d === 1 ? " day" : " days");
-      }
-
-      const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-      const hDisplay = h > 0 ? h + (h === 1 ? " hr, " : " hrs, ") : "";
-      const mDisplay = m > 0 ? m + (m === 1 ? " min" : " mins") : "";
-
-      let result = dDisplay + hDisplay + mDisplay;
-      if (mDisplay === "") {
-        result = result.slice(0, result.length - 2);
-      }
-
-      return result;
-    },
-    fillWith0(number) {
-      return number > 10 ? number : '0' + number;
-    },
-    dataFormat(milliSeconds) {
-      const time = new Date(milliSeconds),
-       y = time.getFullYear(),
-       M = time.getMonth()+1,
-       d = time.getDate(),
-       H = time.getHours(),
-       m = time.getMinutes(),
-       s = time.getSeconds();
-      return y+'-'+this.fillWith0(M)+'-'+this.fillWith0(d)+' '+this.fillWith0(H)+':'+this.fillWith0(m)+':'+this.fillWith0(s);
-    }
   }
 }
 </script>

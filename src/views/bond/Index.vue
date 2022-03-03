@@ -190,6 +190,7 @@ import {
   getAddress,
 
 } from "../../utils/Wallet";
+import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
@@ -251,8 +252,8 @@ export default {
       return ((this.OHMPrice - this.OHMDAILPBondPriceDisplay) / this.OHMDAILPBondPriceDisplay * 100).toFixed(2);
     },
     OHMDAILPBondDuration() {
-      const seconds = this.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
-      return this.prettifySeconds(seconds, 'day');
+      const seconds = publicJs.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
+      return publicJs.prettifySeconds(seconds, 'day');
     },
     OHMDAILPBondPurchased() {
       return (this.sAsset.OHMDAILPBalanceOfTreasury * this.sAsset.OHMBalanceOfOHMDAILP * 2 * this.OHMPrice / this.sAsset.OHMDAILPTotalSupply / 10**this.sAsset.OHMDecimals).toFixed(2);
@@ -265,8 +266,8 @@ export default {
       return ((this.OHMPrice - this.DAIBondPriceDisplay) / this.DAIBondPriceDisplay * 100).toFixed(2);
     },
     DAIBondDuration() {
-      const seconds = this.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
-      return this.prettifySeconds(seconds, 'day');
+      const seconds = publicJs.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
+      return publicJs.prettifySeconds(seconds, 'day');
     },
     DAIBondPurchased() {
       return (this.sAsset.OHMBalanceOfOHMDAILP * this.sAsset.DAIBalanceOfTreasury * this.OHMPrice / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals).toFixed(2);
@@ -292,34 +293,10 @@ export default {
     inputChange(){},
     maxValueClick(){},
     goLink(){},
-    calcBlockSeconds(blocks){
-      const blockRateSeconds = 5.61;
-      return blocks * blockRateSeconds
-    },
-    prettifySeconds(seconds, resolution) {
-      if (seconds !== 0 && !seconds) {
-        return "";
-      }
-
-      const d = Math.floor(seconds / (3600 * 24));
-      const h = Math.floor((seconds % (3600 * 24)) / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-
-      if (resolution === "day") {
-        return d + (d === 1 ? " day" : " days");
-      }
-
-      const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-      const hDisplay = h > 0 ? h + (h === 1 ? " hr, " : " hrs, ") : "";
-      const mDisplay = m > 0 ? m + (m === 1 ? " min" : " mins") : "";
-
-      let result = dDisplay + hDisplay + mDisplay;
-      if (mDisplay === "") {
-        result = result.slice(0, result.length - 2);
-      }
-
-      return result;
-    }
+    // calcBlockSeconds(blocks){
+    //   const blockRateSeconds = 5.61;
+    //   return blocks * blockRateSeconds
+    // },
   }
 };
 </script>

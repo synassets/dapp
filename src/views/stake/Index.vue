@@ -5,7 +5,7 @@
       <div   class="pc-div-content" >
         <div class="pc-dev-header">
           <div class="pc-dev-title">Single Stake (C, C)</div>
-          <div  class="pc-dev-title1" >3 hrs, 47 mins to next rebase</div>
+          <div  class="pc-dev-title1" >{{time2NextRebase}} to next rebase</div>
          <div class="pc-dev-content-up">
            <div style="display: flex">
              <div class="pc-dev-content-up-item">APY</div>
@@ -15,7 +15,7 @@
            <div style="display: flex">
              <div class="pc-dev-content-down-item">{{APY}}%</div>
              <div class="pc-dev-content-down-item">${{TVL}}</div>
-             <div class="pc-dev-content-down-item">{{currentIndex}} s{{symbol}}</div>
+             <div class="pc-dev-content-down-item">{{currentIndex}} s{{OHMSymbol}}</div>
            </div>
          </div>
           <!----->
@@ -29,8 +29,8 @@
           <div  class="pc-stake-div-tip1">
             <div style="width: 540px;position: relative;">
              <div  class="pc-stake-div-tip2">
-                <div>First time unstaking sCTD?</div>
-                <div>Please approve Crypto Dao to use your sCTD for unstaking.</div>
+                <div>First time unstaking s{{OHMSymbol}}?</div>
+                <div>Please approve Crypto Dao to use your s{{OHMSymbol}} for unstaking.</div>
               </div>
 
               <!--  <div class='pc-stake-div-input'>
@@ -63,24 +63,24 @@
           <div  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;"  v-show="isStakeMenu" >
               <div class="pc-stake-div-detail-left">Your Balance</div>
-              <div class="pc-stake-div-detail-right"> {{balance}} {{symbol}}</div>
+              <div class="pc-stake-div-detail-right"> {{balance}} {{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="isStakeMenu" >
               <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{symbol}}</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{OHMSymbol}}</div>
             </div>
 
             <div style="display: flex;"  v-show="!isStakeMenu" >
               <div class="pc-stake-div-detail-left">Your Balance</div>
-              <div class="pc-stake-div-detail-right"> {{balance}} {{symbol}}</div>
+              <div class="pc-stake-div-detail-right"> {{balance}} {{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="!isStakeMenu" >
               <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{symbol}}</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">Next Reward Amount</div>
-              <div  class="pc-stake-div-detail-right"> {{nextRewardAmount}} s{{symbol}}</div>
+              <div  class="pc-stake-div-detail-right"> {{nextRewardAmount}} s{{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">Next Reward Yield</div>
@@ -121,7 +121,7 @@
 
         <div style="display: flex;font-size: 0.48rem;font-family: Selawik;font-weight: 600; color: #ffffff;padding-top: 0.3rem;">
           <div style="padding-left: 0.8rem;flex: 1;">{{APY}}%</div>
-          <div style="flex: 1;">{{currentIndex}} s{{symbol}}</div>
+          <div style="flex: 1;">{{currentIndex}} s{{OHMSymbol}}</div>
         </div>
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Total Value Deposited</div>
         <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">${{TVL}}</div>
@@ -140,23 +140,23 @@
 
        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
-         <div style="flex: 3;text-align: right;">{{balance}} {{symbol}}</div>
+         <div style="flex: 3;text-align: right;">{{balance}} {{OHMSymbol}}</div>
        </div>
         <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="!isStakeMenu">
           <div style="flex: 2;">Your Balance</div>
-          <div style="flex: 3;text-align: right;">{{balance}} {{symbol}}</div>
+          <div style="flex: 3;text-align: right;">{{balance}} {{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item"  v-show="isStakeMenu">
           <div style="flex: 1;">Your Staked Balance</div>
-          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{symbol}}</div>
+          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item"  v-show="!isStakeMenu" >
           <div style="flex: 1;">Your Staked Balance</div>
-          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{symbol}}</div>
+          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">Next Reward Amount</div>
-          <div style="flex: 1;text-align: right;color: #808080">{{nextRewardAmount}} s{{symbol}}</div>
+          <div style="flex: 1;text-align: right;color: #808080">{{nextRewardAmount}} s{{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">Next Reward Yield</div>
@@ -195,6 +195,7 @@ import {
   pc_ido_img1
 } from "@/utils/images";
 // import MyDialog from "@/views/components/myDialog";
+import * as publicJs from "@/utils/public";
 
 
 import {
@@ -233,8 +234,8 @@ export default {
     myAddress() {
       return getAddress();
     },
-    symbol() {
-      return this.sAsset.symbol;
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
     },
     OHMPrice() {
       return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
@@ -263,6 +264,11 @@ export default {
     },
     ROI() {
       return (this.nextRewardYield * 15).toFixed(2);
+    },
+    time2NextRebase() {
+      const blocksDiff = this.sAsset.epochEndBlock - this.sAsset.blockNumber;
+      const secondsDiff = publicJs.calcBlockSeconds(blocksDiff);
+      return publicJs.prettifySeconds(secondsDiff);
     },
   },
   mounted() {
