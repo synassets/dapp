@@ -35,7 +35,7 @@ export default {
 
   created() {
     this.$store.commit("SET_CONTRACT", config_data.sMatic);
-    this.$store.commit("SET_BASE_CONFIG", config_data.Config);
+    this.$store.commit("SET_CONFIG", config_data.Config);
     this.handleEnvSet();
   },
   mounted(){

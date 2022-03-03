@@ -33,6 +33,9 @@ const sys = {
 
   },
   mutations: {
+    SET_CONFIG: (state, val) => {
+      state.Config = val;
+    },
     SET_BASE_CONFIG: (state, baseConfig) => {
       state.baseConfig = baseConfig;
     },
