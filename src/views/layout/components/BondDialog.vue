@@ -13,7 +13,7 @@
               <div class="pc-dialog-div-header-up">Market Price</div>
             </div>
             <div style="display: flex">
-              <div  class="pc-dialog-div-header-down">${{bond.price}}</div>
+              <div  class="pc-dialog-div-header-down">${{bond.priceDisplay}}</div>
 
               <div  class="pc-dialog-div-header-down">${{OHMPrice}}</div>
             </div>
@@ -30,18 +30,18 @@
 
           <div v-show="isBondMenu" class="pc-bond-div-tip1">
             <div style="width: 540px;position: relative;">
-              <div  class="pc-bond-div-tip2">
+              <div  class="pc-bond-div-tip2" v-show="!bond.isApproved">
                 <div>First time bond {{bond.name}}?</div>
                 <div>Please approve Crypto Dao to use your {{bond.name}} for bond.</div>
               </div>
 
 
-              <!--<div class='pc-bond-div-input'>
+              <div class='pc-bond-div-input' v-show="bond.isApproved">
                 <input v-model="bondInputAmount" type="text"  @input="inputChange()"
                  class='pc-bond-div-input1'
                         />
-                <div  @click="maxValueClick()"  class='pc-bond-div-input-max' >MAX</div>
-              </div>-->
+                <div  @click="clickMaxValue()"  class='pc-bond-div-input-max' >MAX</div>
+              </div>
 
 
 
@@ -57,6 +57,9 @@
             </div>
             <div class="pc-bond-div-btn" v-show="bond.isApproved" @click="clickBond">
               Bond
+            </div>
+            <div class="pc-bond-div-gif" style="" v-show="bondPending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
 
           </div>
@@ -160,7 +163,7 @@
 
 
           <div style="display: flex; font-size: 0.48rem; font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-top: 0.2rem;text-align: center;">
-            <div style="flex: 1">${{bond.price}}</div>
+            <div style="flex: 1">${{bond.priceDisplay}}</div>
             <div style="flex: 1">${{OHMPrice}}</div>
           </div>
         <!--  <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
@@ -250,6 +253,7 @@ export default {
       isBondMenu:true,
       bondInputAmount:'',
       approvePending: false,
+      bondPending: false,
     }
   },
   props: {
@@ -268,6 +272,7 @@ export default {
   computed:{
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      address: state => state.wallet.address,
       sAsset: state => state.sAsset,
 
     }),
@@ -344,7 +349,7 @@ export default {
           name: this.sAsset.DAISymbol,
           symbol: this.sAsset.DAISymbol,
           yourBalance: this.DAIBalance,
-          price: this.DAIBondPriceDisplay,
+          priceDisplay: this.DAIBondPriceDisplay,
           maxYouCanBuy: this.DAIBondMaxYouCanBuy,
           pendingRewards: (this.sAsset.DAIBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
           claimableRewards: (this.sAsset.DAIBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
@@ -353,6 +358,7 @@ export default {
           debtRatio: (this.sAsset.DAIBondStandardizedDebtRatio * 100 / 1e9).toFixed(2),
           duration: this.DAIBondDuration,
           isApproved: this.sAsset.DAIAllowanceOfUserToDAIBond > 999999 * 10**this.sAsset.DAIDecimals,
+          bondPrice: this.sAsset.DAIBondPrice,
         };
         default: return {
           address: this.sAsset.contract.OHM_DAI_LP_Bond,
@@ -361,7 +367,7 @@ export default {
           name: this.OHMSymbol + '-' + this.DAISymbol + ' LP',
           symbol: 'LP',
           yourBalance: this.OHMDAILPBalance,
-          price: this.OHMDAILPBondPriceDisplay,
+          priceDisplay: this.OHMDAILPBondPriceDisplay,
           maxYouCanBuy: this.OHMDAILPBondMaxYouCanBuy,
           pendingRewards: (this.sAsset.OHMDAILPBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
           claimableRewards: (this.sAsset.OHMDAILPBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
@@ -370,6 +376,7 @@ export default {
           debtRatio: (this.sAsset.OHMDAILPBondStandardizedDebtRatio * 100 / 1e18).toFixed(2),
           duration: this.OHMDAILPBondDuration,
           isApproved: this.sAsset.OHMDAILPAllowanceOfUserToDAIBond > 999999 * 10**this.sAsset.OHMDAILPDecimals,
+          bondPrice: this.sAsset.OHMDAILPBondPrice,
         }
       }
     }
@@ -381,12 +388,12 @@ export default {
       this.isBondMenu = val;
     },
     inputChange(){},
-    maxValueClick(){},
+    clickMaxValue(){},
     goLink(){},
     closeDialog(){
       this.$emit('clickCloseDialog', {});
     },
-    async clickApprove() {
+    clickApprove() {
       this.approvePending = true;
       const baseNumber = publicJs.toBigNumber(99999999999);
       const power = publicJs.toBigNumber(10**this.bond.tokenDecimals);
@@ -400,8 +407,24 @@ export default {
             this.approvePending = false;
           })
     },
-    async clickBond() {
-      console.log(this.bondIndex)
+    clickBond() {
+      if (isNaN(this.bondInputAmount) || this.bondInputAmount <= 0) {
+        this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
+        return
+      }
+      this.bondPending = true;
+      console.log(this.bondInputAmount)
+      const amount = publicJs.toBigNumber(this.bondInputAmount).multipliedBy(10**this.bond.tokenDecimals)
+      const maxPrice = this.bond.bondPrice * 2
+      wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            console.log(reason)
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            this.bondPending = false;
+          })
     }
   }
 }

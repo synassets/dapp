@@ -352,24 +352,14 @@ export async function callApprove(contractAddress, spender, amount) {
   return await contract.methods.approve(spender, amount).send({
         from: getWalletAddressSync(),
       })
-  // return new Promise((resolve, reject) => {
-    // contract.methods
-    //     .approve(spender, amount)
-    //     .send({
-    //       from: getWalletAddressSync(),
-    //     })
-    //     .then((data) => {
-    //       resolve(data);
-    //       return true;
-    //     })
-    //     .catch((error) => {
-    //       reject(error);
-    //     });
+}
 
-    // setTimeout(() => {
-    //   reject("timeout");
-    // }, 200000);
-  // });
+export async function bondDeposit(contractAddress, amount, maxPrice, depositor) {
+  const abi = CONTRACT_DATA['bond'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.deposit(amount, maxPrice, depositor).send({
+        from: getWalletAddressSync(),
+      })
 }
 
 export async function approve(type, spender, amount) {
