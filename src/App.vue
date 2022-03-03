@@ -39,7 +39,6 @@ export default {
     this.handleEnvSet();
   },
   mounted(){
-
     this.getStartWatch()
   },
   beforeDestroy: function () {
