@@ -354,6 +354,22 @@ export async function callApprove(contractAddress, spender, amount) {
       })
 }
 
+export async function callStake(contractAddress, amount, recipient) {
+  const abi = CONTRACT_DATA['staking'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.stake(amount, recipient).send({
+    from: getWalletAddressSync(),
+  })
+}
+
+export async function callUnstake(contractAddress, amount, trigger) {
+  const abi = CONTRACT_DATA['staking'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.unstake(amount, trigger).send({
+    from: getWalletAddressSync(),
+  })
+}
+
 export async function bondDeposit(contractAddress, amount, maxPrice, depositor) {
   const abi = CONTRACT_DATA['bond'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)

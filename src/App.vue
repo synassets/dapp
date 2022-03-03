@@ -219,6 +219,11 @@ export default {
               returns: [['OHMBalanceOfDAO']]
             },
             {
+              target: this.sAsset.contract.OHM,
+              call: ['allowance(address,address)(uint256)',this.address,this.sAsset.contract.Staking_Helper],
+              returns: [['OHMAllowanceOfUserToStakingHelper']]
+            },
+            {
               target: this.sAsset.contract.sOHM,
               call: ['index()(uint256)'],
               returns: [['currentIndex']]
@@ -237,6 +242,11 @@ export default {
               target: this.sAsset.contract.sOHM,
               call: ['balanceOf(address)(uint256)',this.address],
               returns: [['sOHMBalanceOfUser']]
+            },
+            {
+              target: this.sAsset.contract.sOHM,
+              call: ['allowance(address,address)(uint256)',this.address,this.sAsset.contract.Staking],
+              returns: [['sOHMAllowanceOfUserToStaking']]
             },
             {
               target: this.sAsset.contract.DAI,

@@ -34,11 +34,13 @@ const sAsset = {
         OHMBalanceOfStaking: 0,
         OHMBalanceOfOHMDAILP: 0,
         OHMBalanceOfDAO: 0,
+        OHMAllowanceOfUserToStakingHelper: 0,
         // sOHM
         currentIndex: 0,
         sOHMDecimals: 0,
         sOhmCirculatingSupply: 0,
         sOHMBalanceOfUser: 0,
+        sOHMAllowanceOfUserToStaking: 0,
         // DAI
         DAISymbol: "",
         DAIDecimals: 0,

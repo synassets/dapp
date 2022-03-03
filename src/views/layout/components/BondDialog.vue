@@ -420,14 +420,12 @@ export default {
         return
       }
       this.bondPending = true;
-      console.log(this.bondInputAmount)
       const amount = publicJs.toBigNumber(this.bondInputAmount).multipliedBy(10**this.bond.tokenDecimals)
       const maxPrice = this.bond.bondPrice * 2
       wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address)
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {
-            console.log(reason)
             this.$refs.MessageTipErrorDialog.showClick(reason.message);
           }).finally(() => {
             this.bondPending = false;
@@ -443,7 +441,6 @@ export default {
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {
-            console.log(reason)
             this.$refs.MessageTipErrorDialog.showClick(reason.message);
           }).finally(() => {
             if (stake) {
