@@ -42,6 +42,7 @@ const sAsset = {
         // DAI
         DAISymbol: "",
         DAIDecimals: 0,
+        DAIAllowanceOfUserToDAIBond: 0,
         DAIBalanceOfTreasury: 0,
         DAIBalanceOfOHMDAILP: 0,
         DAIBalanceOfUser: 0,
@@ -135,6 +136,9 @@ const sAsset = {
         },
         SET_DAI_DECIMALS: (state, val) => {
             state.DAIDecimals = val;
+        },
+        SET_DAI_ALLOWANCE_OF_USER_TO_DAI_BOND: (state, val) => {
+            state.DAIAllowanceOfUserToDAIBond = val;
         },
         SET_DAI_BALANCE_OF_TREASURY: (state, val) => {
             state.DAIBalanceOfTreasury = val;

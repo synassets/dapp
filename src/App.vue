@@ -250,6 +250,11 @@ export default {
             },
             {
               target: this.sAsset.contract.DAI,
+              call: ['allowance(address,address)(uint256)', this.address, this.sAsset.contract.DAI_Bond],
+              returns: [['DAIAllowanceOfUserToDAIBond']]
+            },
+            {
+              target: this.sAsset.contract.DAI,
               call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
               returns: [['DAIBalanceOfTreasury']]
             },
@@ -449,6 +454,8 @@ export default {
             this.$store.commit("SET_DAI_SYMBOL", update.value);
           }  else if(update.type=='DAIDecimals') {
             this.$store.commit("SET_DAI_DECIMALS", update.value);
+          }  else if(update.type=='DAIAllowanceOfUserToDAIBond') {
+            this.$store.commit("SET_DAI_ALLOWANCE_OF_USER_TO_DAI_BOND", update.value);
           } else if(update.type=='DAIBalanceOfTreasury') {
             this.$store.commit("SET_DAI_BALANCE_OF_TREASURY", update.value);
           } else if(update.type=='DAIBalanceOfOHMDAILP') {
