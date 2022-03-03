@@ -280,6 +280,11 @@ export default {
             },
             {
               target: this.sAsset.contract.OHM_DAI_LP,
+              call: ['allowance(address,address)(uint256)', this.address, this.sAsset.contract.OHM_DAI_LP_Bond],
+              returns: [['OHMDAILPAllowanceOfUserToDAIBond']]
+            },
+            {
+              target: this.sAsset.contract.OHM_DAI_LP,
               call: ['balanceOf(address)(uint256)',this.sAsset.contract.Treasury],
               returns: [['OHMDAILPBalanceOfTreasury']]
             },

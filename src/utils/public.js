@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js';
 import moment from 'moment';
+import BigNumber from "bignumber.js";
 const config_data =  require('@/config/data.json')
 /*
  ** 
@@ -208,4 +209,8 @@ export function dateFormat(milliSeconds) {
       m = time.getMinutes(),
       s = time.getSeconds();
   return y+'-'+fillWith0(M)+'-'+fillWith0(d)+' '+fillWith0(H)+':'+fillWith0(m)+':'+fillWith0(s);
+}
+
+export function toBigNumber(number) {
+  return new BigNumber('' + number);
 }

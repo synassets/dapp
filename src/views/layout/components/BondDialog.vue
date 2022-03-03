@@ -49,13 +49,13 @@
 
 
             </div>
-            <div class="pc-bond-div-btn" >
+            <div class="pc-bond-div-btn" v-show="!bond.isApproved" @click="clickApprove">
               Approve
             </div>
-            <div class="pc-bond-div-gif" style="">
+            <div class="pc-bond-div-gif" style="" v-show="approvePending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
-            <div class="pc-bond-div-btn" >
+            <div class="pc-bond-div-btn" v-show="bond.isApproved" @click="clickBond">
               Bond
             </div>
 
@@ -219,7 +219,7 @@
         </div>
       </div>
     </my-dialog>
-    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
+    <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
     <MessageTipOkDialog   ref="MessageTipOkDialog" />
   </div>
 </template>
@@ -230,7 +230,7 @@ import myDialog from "@/views/components/myDialog";
 import {close, gif,icon_matic,icon_matic_sat_lp} from "@/utils/images";
 import {mapState} from "vuex";
 // eslint-disable-next-line no-unused-vars
-import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
+import * as wallet from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import * as publicJs from "@/utils/public";
@@ -249,6 +249,7 @@ export default {
       showBoundPosition:1,
       isBondMenu:true,
       bondInputAmount:'',
+      approvePending: false,
     }
   },
   props: {
@@ -288,6 +289,7 @@ export default {
     OHMPrice() {
       return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
+
     OHMDAILPBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
       return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
@@ -336,6 +338,9 @@ export default {
     bond() {
       switch (this.bondIndex) {
         case 1: return {
+          address: this.sAsset.contract.DAI_Bond,
+          tokenAddress: this.sAsset.contract.DAI,
+          tokenDecimals: this.sAsset.DAIDecimals,
           name: this.sAsset.DAISymbol,
           symbol: this.sAsset.DAISymbol,
           yourBalance: this.DAIBalance,
@@ -347,8 +352,12 @@ export default {
           ROI: this.DAIBondROI,
           debtRatio: (this.sAsset.DAIBondStandardizedDebtRatio * 100 / 1e9).toFixed(2),
           duration: this.DAIBondDuration,
+          isApproved: this.sAsset.DAIAllowanceOfUserToDAIBond > 999999 * 10**this.sAsset.DAIDecimals,
         };
         default: return {
+          address: this.sAsset.contract.OHM_DAI_LP_Bond,
+          tokenAddress: this.sAsset.contract.OHM_DAI_LP,
+          tokenDecimals: this.sAsset.OHMDAILPDecimals,
           name: this.OHMSymbol + '-' + this.DAISymbol + ' LP',
           symbol: 'LP',
           yourBalance: this.OHMDAILPBalance,
@@ -360,6 +369,7 @@ export default {
           ROI: this.OHMDAILPBondROI,
           debtRatio: (this.sAsset.OHMDAILPBondStandardizedDebtRatio * 100 / 1e18).toFixed(2),
           duration: this.OHMDAILPBondDuration,
+          isApproved: this.sAsset.OHMDAILPAllowanceOfUserToDAIBond > 999999 * 10**this.sAsset.OHMDAILPDecimals,
         }
       }
     }
@@ -376,6 +386,23 @@ export default {
     closeDialog(){
       this.$emit('clickCloseDialog', {});
     },
+    async clickApprove() {
+      this.approvePending = true;
+      const baseNumber = publicJs.toBigNumber(99999999999);
+      const power = publicJs.toBigNumber(10**this.bond.tokenDecimals);
+      const amount = baseNumber.multipliedBy(power)
+      wallet.callApprove(this.bond.tokenAddress, this.bond.address, amount)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            this.approvePending = false;
+          })
+    },
+    async clickBond() {
+      console.log(this.bondIndex)
+    }
   }
 }
 </script>

@@ -49,6 +49,7 @@ const sAsset = {
         // OHM-DAI LP
         OHMDAILPDecimals: 0,
         OHMDAILPTotalSupply: 0,
+        OHMDAILPAllowanceOfUserToDAIBond: 0,
         OHMDAILPBalanceOfTreasury: 0,
         OHMDAILPBalanceOfUser: 0,
         // Staking

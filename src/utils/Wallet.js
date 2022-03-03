@@ -346,11 +346,37 @@ export function trim(value) {
 
 ///////////////////approve()    //approve  ////////////////////////////
 
-export async function approve(amount, type, approveAddress) {
+export async function callApprove(contractAddress, spender, amount) {
+  const abi = CONTRACT_DATA['coin'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.approve(spender, amount).send({
+        from: getWalletAddressSync(),
+      })
+  // return new Promise((resolve, reject) => {
+    // contract.methods
+    //     .approve(spender, amount)
+    //     .send({
+    //       from: getWalletAddressSync(),
+    //     })
+    //     .then((data) => {
+    //       resolve(data);
+    //       return true;
+    //     })
+    //     .catch((error) => {
+    //       reject(error);
+    //     });
+
+    // setTimeout(() => {
+    //   reject("timeout");
+    // }, 200000);
+  // });
+}
+
+export async function approve(type, spender, amount) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContract(type);
     contract_obj.methods
-      .approve(approveAddress, (amount * 1000*10**18))
+      .approve(spender, amount)
       .send({
         from: getWalletAddressSync(),
       })
