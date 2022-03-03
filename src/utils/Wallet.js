@@ -362,6 +362,14 @@ export async function bondDeposit(contractAddress, amount, maxPrice, depositor) 
       })
 }
 
+export async function bondRedeem(contractAddress, recipient, stake) {
+  const abi = CONTRACT_DATA['bond'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.redeem(recipient, stake).send({
+        from: getWalletAddressSync(),
+      })
+}
+
 export async function approve(type, spender, amount) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContract(type);

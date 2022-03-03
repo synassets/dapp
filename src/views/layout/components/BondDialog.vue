@@ -101,11 +101,14 @@
             </div>
           </div>
 
-          <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim</div>
+          <div v-show="!isBondMenu && !claimPending" @click="clickClaim(false)" class="pc-bond-div-btn1">Claim</div>
+          <div v-show="!isBondMenu && claimPending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
+            <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
+          </div>
 
-          <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim and Autostake</div>
+          <div v-show="!isBondMenu && !claimAndStakePending"  @click="clickClaim(true)" class="pc-bond-div-btn1">Claim and Autostake</div>
 
-          <div v-show="!isBondMenu"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
+          <div v-show="!isBondMenu && claimAndStakePending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
             <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
           </div>
 
@@ -185,10 +188,10 @@
             />
           </div>
 
-
-          <div class="h5-bond-dialog-btn" v-show="isBondMenu">Bond</div>
-          <div class="h5-bond-dialog-btn"  v-show="!isBondMenu">Claim</div>
-          <div class="h5-bond-dialog-btn"  v-show="!isBondMenu">Claim and Autostake</div>
+          <div @click="clickApprove" class="h5-bond-dialog-btn" v-show="isBondMenu&&!bond.isApproved">Approve</div>
+          <div @click="clickBond" class="h5-bond-dialog-btn" v-show="isBondMenu&&bond.isApproved">Bond</div>
+          <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu">Claim</div>
+          <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
 
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;">
             <div style="flex: 1;">Your Balance</div>
@@ -254,6 +257,8 @@ export default {
       bondInputAmount:'',
       approvePending: false,
       bondPending: false,
+      claimPending: false,
+      claimAndStakePending: false,
     }
   },
   props: {
@@ -388,7 +393,9 @@ export default {
       this.isBondMenu = val;
     },
     inputChange(){},
-    clickMaxValue(){},
+    clickMaxValue(){
+      this.bondInputAmount = this.bond.yourBalance;
+    },
     goLink(){},
     closeDialog(){
       this.$emit('clickCloseDialog', {});
@@ -425,7 +432,27 @@ export default {
           }).finally(() => {
             this.bondPending = false;
           })
-    }
+    },
+    clickClaim(stake) {
+      if (stake) {
+        this.claimAndStakePending = true;
+      } else {
+        this.claimPending = true;
+      }
+      wallet.bondRedeem(this.bond.address, this.address, stake)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            console.log(reason)
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            if (stake) {
+              this.claimAndStakePending = false;
+            } else {
+              this.claimPending = false;
+            }
+          })
+    },
   }
 }
 </script>
