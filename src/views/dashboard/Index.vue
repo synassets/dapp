@@ -253,6 +253,7 @@ import {
 
 
 } from "../../utils/Wallet";
+import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
@@ -284,13 +285,13 @@ export default {
      return this.sAsset.symbol;
     },
     OHMPrice() {
-     return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+      return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
     DAIBalance() {
-      return this.sAsset.DAIBalanceOfUser / 10**this.sAsset.DAIDecimals;
+      return publicJs.toBigNumber(this.sAsset.DAIBalanceOfUser).dividedBy(10**this.sAsset.DAIDecimals);
     },
     OHMDAILPBalance() {
-      return this.sAsset.OHMDAILPBalanceOfUser / 10**this.sAsset.OHMDAILPDecimals;
+      return publicJs.toBigNumber(this.sAsset.OHMDAILPBalanceOfUser).dividedBy(10**this.sAsset.OHMDAILPDecimals);
     },
     backingPerOHM() {
       const OHMCirculatingSupply = this.sAsset.OHMTotalSupply - this.sAsset.OHMBalanceOfDAO;

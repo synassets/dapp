@@ -279,7 +279,7 @@ export default {
       return this.sAsset.OHMSymbol;
     },
     OHMPrice() {
-      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+      return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
     APY() {
       if (this.sAsset.stakingContractBalance <= 0) {
