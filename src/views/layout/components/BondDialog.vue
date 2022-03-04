@@ -288,16 +288,16 @@ export default {
       return this.sAsset.DAISymbol;
     },
     DAIBalance() {
-      return this.sAsset.DAIBalanceOfUser / 10**this.sAsset.DAIDecimals;
+      return publicJs.toBigNumber(this.sAsset.DAIBalanceOfUser).dividedBy(10**this.sAsset.DAIDecimals);
     },
     OHMDAILPBalance() {
-      return this.sAsset.OHMDAILPBalanceOfUser / 10**this.sAsset.OHMDAILPDecimals;
+      return publicJs.toBigNumber(this.sAsset.OHMDAILPBalanceOfUser).dividedBy(10**this.sAsset.OHMDAILPDecimals);
     },
     stakedBalance() {
-      return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
+      return publicJs.toBigNumber(this.sAsset.sOHMBalanceOfUser).dividedBy(10**this.sAsset.sOHMDecimals);
     },
     OHMPrice() {
-      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+      return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
 
     OHMDAILPBondPriceDisplay() {
@@ -325,7 +325,7 @@ export default {
       return publicJs.prettifySeconds(seconds, 'day');
     },
     DAIBondPriceDisplay() {
-      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      const DAIPriceOfOHM = publicJs.toBigNumber(this.sAsset.OHMBalanceOfOHMDAILP).dividedBy(this.sAsset.DAIBalanceOfOHMDAILP).dividedBy(10**this.sAsset.OHMDecimals);
       return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
     },
     DAIBondMaxYouCanBuy() {
@@ -356,8 +356,8 @@ export default {
           yourBalance: this.DAIBalance,
           priceDisplay: this.DAIBondPriceDisplay,
           maxYouCanBuy: this.DAIBondMaxYouCanBuy,
-          pendingRewards: (this.sAsset.DAIBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
-          claimableRewards: (this.sAsset.DAIBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
+          pendingRewards: publicJs.toBigNumber(this.sAsset.DAIBondInfoPayout).dividedBy(10**this.sAsset.OHMDecimals).toFixed(2),
+          claimableRewards: publicJs.toBigNumber(this.sAsset.DAIBondPendingPayoutFor).dividedBy(10**this.sAsset.OHMDecimals).toFixed(2),
           timeUntilFullyVested: this.DAIBondTimeUntilFullyVested,
           ROI: this.DAIBondROI,
           debtRatio: (this.sAsset.DAIBondStandardizedDebtRatio * 100 / 1e9).toFixed(2),
@@ -374,8 +374,8 @@ export default {
           yourBalance: this.OHMDAILPBalance,
           priceDisplay: this.OHMDAILPBondPriceDisplay,
           maxYouCanBuy: this.OHMDAILPBondMaxYouCanBuy,
-          pendingRewards: (this.sAsset.OHMDAILPBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
-          claimableRewards: (this.sAsset.OHMDAILPBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
+          pendingRewards: publicJs.toBigNumber(this.sAsset.OHMDAILPBondInfoPayout).dividedBy(10**this.sAsset.OHMDecimals).toFixed(2),
+          claimableRewards: publicJs.toBigNumber(this.sAsset.OHMDAILPBondPendingPayoutFor).dividedBy(10**this.sAsset.OHMDecimals).toFixed(2),
           timeUntilFullyVested: this.OHMDAILPBondTimeUntilFullyVested,
           ROI: this.OHMDAILPBondROI,
           debtRatio: (this.sAsset.OHMDAILPBondStandardizedDebtRatio * 100 / 1e18).toFixed(2),

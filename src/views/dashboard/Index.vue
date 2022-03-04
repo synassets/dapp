@@ -86,7 +86,7 @@
 
               <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} s{{symbol}}</div>
 
-              <div class="pc-dashboard-btn">Start Stake</div>
+              <div class="pc-dashboard-btn" @click="route('/stake')">Start Stake</div>
 
 
             </div>
@@ -102,19 +102,19 @@
               <div style="display: flex;padding-top: 20px;padding-left: 33px;">
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;">
                   <img :src="icon_matic_sat_lp"  style="width: 45px;height: 30px;position: absolute;top:4px ;left: 10px;"    />
-                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 72px;top: 5px;">--</div>
+                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 72px;top: 5px;">${{OHMDAILPBalance}}</div>
 
-                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;">View contract</div>
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;" @click="viewContract(sAsset.contract.OHM_DAI_LP)">View contract</div>
                 </div>
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;margin-left: 15px;">
                   <img :src="icon_sat"  style="width: 30px;height: 30px;position: absolute;top:4px ;left: 10px;"   />
-                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 60px;top: 5px;">--</div>
+                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 60px;top: 5px;">${{DAIBalance}}</div>
 
-                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left:60px;bottom: 5px;">View contract</div>
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left:60px;bottom: 5px;" @click="viewContract(sAsset.contract.DAI)">View contract</div>
                 </div>
 
               </div>
-              <div class="pc-dashboard-end-btn">Start Bond</div>
+              <div class="pc-dashboard-end-btn" @click="route('/bond')">Start Bond</div>
 
             </div>
 
@@ -253,6 +253,7 @@ import {
 
 
 } from "../../utils/Wallet";
+import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
@@ -284,7 +285,13 @@ export default {
      return this.sAsset.symbol;
     },
     OHMPrice() {
-     return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+      return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+    },
+    DAIBalance() {
+      return publicJs.toBigNumber(this.sAsset.DAIBalanceOfUser).dividedBy(10**this.sAsset.DAIDecimals);
+    },
+    OHMDAILPBalance() {
+      return publicJs.toBigNumber(this.sAsset.OHMDAILPBalanceOfUser).dividedBy(10**this.sAsset.OHMDAILPDecimals);
     },
     backingPerOHM() {
       const OHMCirculatingSupply = this.sAsset.OHMTotalSupply - this.sAsset.OHMBalanceOfDAO;
@@ -306,6 +313,9 @@ export default {
      return (this.sAsset.OHMTotalSupply / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
     APY() {
+      if (this.sAsset.stakingContractBalance <= 0) {
+        return 0;
+      }
       const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
      return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
     },
@@ -332,6 +342,12 @@ export default {
   },
 
   methods: {
+    viewContract(address) {
+      window.open(this.configData.blockExplorerUrls + 'address/' + address)
+    },
+    route(path) {
+      this.$router.push(path);
+    },
     initCharts() {
       let charts = this.$echarts.init(document.getElementById('canvas'));
       var option = {
