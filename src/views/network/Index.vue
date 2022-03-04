@@ -13,15 +13,15 @@
 
             />
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">357.66
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myPower}}
           </div>
           <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 15px;">My PowerRate
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">2.66 sMatic/s
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myPowerRate}} s{{OHMSymbol}}/s
           </div>
           <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 15px;">My Rewards
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">154.12 sMatic
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myClaimableReward}} s{{OHMSymbol}}
 
             <span style="float: right;margin-right: 40px; background: #00A0E9; border-radius: 5px; font-size: 14px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-left: 15px;padding-right: 15px;cursor: pointer;">Harvest</span>
 
@@ -44,12 +44,12 @@
 
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 25px;">Network Power
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">12,634,357.66
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{networkPower}}
           </div>
 
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 20px;">Network PowerRate
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">25,682.66 sMatic/s
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{networkPowerRate}} s{{OHMSymbol}}/s
           </div>
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 20px;">Earnings Formula
           </div>
@@ -129,10 +129,10 @@
 
        <div style="display: flex;padding-top: 0.2rem;">
          <div style="flex: 1; font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;padding-left: 0.8rem;">
-           357.66
+           {{myPower}}
          </div>
          <div style="flex: 1;font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;">
-           2.66 sMatic/s
+           {{myPowerRate}} s{{OHMSymbol}}/s
          </div>
          <div
              style="width: 0.29rem;height: 0.29rem;margin-right: 0.8rem;"
@@ -144,7 +144,7 @@
        </div>
 
        <div style="display: flex;padding-top: 0.4rem; font-size: 0.64rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 100%;position: relative;">
-       <div style="padding-left: 0.8rem;">154.12 sMatic</div>
+       <div style="padding-left: 0.8rem;">{{myClaimableReward}} s{{OHMSymbol}}</div>
 
          <div style=" cursor: pointer;position: absolute;right: 0.8rem;width: 2.13rem; height: 0.67rem; line-height: 0.67rem; background: #00A0E9; border-radius: 0.07rem;text-align: center;  font-size: 0.32rem; font-family: Selawik; font-weight: bold; color: #FFFFFF;">
            Harvest</div>
@@ -195,7 +195,7 @@
 
         <div style="display: flex;padding-top: 0.2rem;">
           <div style=" font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;padding-left: 0.8rem;">
-            12,634,357.66
+            {{networkPower}}
           </div>
           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600;color: #22AC38;margin-left: 0.3rem;padding-top: 0.2rem;">
             +15%
@@ -208,7 +208,7 @@
         </div>
 
         <div style="display: flex;padding-top: 0.4rem; font-size: 0.64rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 100%;position: relative;">
-          <div style="padding-left: 0.8rem;">25,682.66 sMatic/s</div>
+          <div style="padding-left: 0.8rem;">{{networkPowerRate}} s{{OHMSymbol}}/s</div>
         </div>
         <div style="padding-top: 0.5rem;display: flex;">
           <div class="h5-div-item1" style="font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;">Network Rank</div>
@@ -285,6 +285,7 @@ import {
   getAddress,
 
 } from "../../utils/Wallet";
+import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
@@ -296,7 +297,6 @@ export default {
       gif,
       pc_ido_img1,
       icon_share,
-      address:'',
 
 
       data:{},
@@ -306,18 +306,48 @@ export default {
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      address: state => state.wallet.address,
+      sAsset: state => state.sAsset,
     }),
     inviteLink() {
       return "https://" + window.location.host + "?ref=" + this.myAddress;
     },
     myAddress() {
       return getAddress();
-    }
+    },
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
+    },
+    nextRewardAmount() {
+      if (this.sAsset.sOhmCirculatingSupply <= 0) {
+        return 0;
+      }
+      const sOHMBalance = publicJs.toBigNumber(this.sAsset.sOHMBalanceOfUser).div(10**this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.epochDistribute).times(sOHMBalance).div(this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
+    },
+    networkPower() {
+      return this.sAsset.ConsensusPoolTotalPower;
+    },
+    networkPowerRate() {
+      return publicJs.toBigNumber(this.nextRewardAmount).times(0.1).div(8*60*60);
+    },
+    myPower() {
+      return this.sAsset.ConsensusPoolGetInfoOfUserPower;
+    },
+    myClaimableReward() {
+      return this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount;
+    },
+    myPowerRate() {
+      if (this.networkPower <= 0) {
+        return 0;
+      }
+      const nextConsensusReward = publicJs.toBigNumber(this.nextRewardAmount).times(0.1).times(this.myPower).div(this.networkPower);
+      return nextConsensusReward.div(8*60*60)
+    },
   },
   mounted() {
     this.data =  getDATA();
     this.configData = getConfigData()
-    this.address = getAddress();
     this.pieChart()
   },
 

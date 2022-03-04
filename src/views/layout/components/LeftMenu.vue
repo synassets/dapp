@@ -546,17 +546,17 @@ export default {
         this.currency = "DOT";
         this.isShowMenu = true;
       }else if(index == 8){
-        this.$router.push("/dashboard");
+        this.$router.push("/dashboard").catch(err => {err});
       }else if(index == 9){
-        this.$router.push("/coin_ido");
+        this.$router.push("/coin_ido").catch(err => {err});
       }else if(index == 10){
-        this.$router.push("/stake");
+        this.$router.push("/stake").catch(err => {err});
       }else if(index == 11){
-        this.$router.push("/bond");
+        this.$router.push("/bond").catch(err => {err});
       }else if(index == 12){
-        this.$router.push("/calculate");
+        this.$router.push("/calculate").catch(err => {err});
       }else if(index == 13){
-        this.$router.push("/network");
+        this.$router.push("/network").catch(err => {err});
       }
 
 
