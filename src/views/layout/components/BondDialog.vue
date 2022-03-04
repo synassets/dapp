@@ -9,13 +9,13 @@
 
           <div class="pc-dialog-div-header">
             <div style="display: flex">
-              <div class="pc-dialog-div-header-up">Treasury Balance</div>
-              <div class="pc-dialog-div-header-up">CTD Price</div>
+              <div class="pc-dialog-div-header-up">Bond Price</div>
+              <div class="pc-dialog-div-header-up">Market Price</div>
             </div>
             <div style="display: flex">
-              <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+              <div  class="pc-dialog-div-header-down">${{bond.priceDisplay}}</div>
 
-              <div  class="pc-dialog-div-header-down">{{'$ --'}}</div>
+              <div  class="pc-dialog-div-header-down">${{OHMPrice}}</div>
             </div>
           </div>
 
@@ -30,18 +30,18 @@
 
           <div v-show="isBondMenu" class="pc-bond-div-tip1">
             <div style="width: 540px;position: relative;">
-              <div  class="pc-bond-div-tip2">
-                <div>First time bond CTD?</div>
-                <div>Please approve Crypto Dao to use your CTD for bond.</div>
+              <div  class="pc-bond-div-tip2" v-show="!bond.isApproved">
+                <div>First time bond {{bond.name}}?</div>
+                <div>Please approve Crypto Dao to use your {{bond.name}} for bond.</div>
               </div>
 
 
-              <!--<div class='pc-bond-div-input'>
+              <div class='pc-bond-div-input' v-show="bond.isApproved">
                 <input v-model="bondInputAmount" type="text"  @input="inputChange()"
                  class='pc-bond-div-input1'
                         />
-                <div  @click="maxValueClick()"  class='pc-bond-div-input-max' >MAX</div>
-              </div>-->
+                <div  @click="clickMaxValue()"  class='pc-bond-div-input-max' >MAX</div>
+              </div>
 
 
 
@@ -49,14 +49,17 @@
 
 
             </div>
-            <div class="pc-bond-div-btn" >
+            <div class="pc-bond-div-btn" v-show="!bond.isApproved" @click="clickApprove">
               Approve
             </div>
-            <div class="pc-bond-div-gif" style="">
+            <div class="pc-bond-div-gif" style="" v-show="approvePending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
-            <div class="pc-bond-div-btn" >
+            <div class="pc-bond-div-btn" v-show="bond.isApproved" @click="clickBond">
               Bond
+            </div>
+            <div class="pc-bond-div-gif" style="" v-show="bondPending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
 
           </div>
@@ -66,58 +69,69 @@
           <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;">
               <div class="pc-bond-div-detail-left">Your Balance</div>
-              <div class="pc-bond-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-bond-div-detail">
-              <div  class="pc-bond-div-detail-left">You Will Get</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div class="pc-bond-div-detail-right"> {{bond.yourBalance}} {{bond.symbol}}</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">Max You Can Buy</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.maxYouCanBuy}} {{bond.symbol}}</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Pending Rewards</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.pendingRewards}} {{OHMSymbol}}</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Claimable Rewards</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.claimableRewards}} {{OHMSymbol}}</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Time until fully vested</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.timeUntilFullyVested}}</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">ROI</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.ROI}}%</div>
+            </div>
+            <div class="pc-bond-div-detail">
+              <div  class="pc-bond-div-detail-left">Debt Ratio</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.debtRatio}}%</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">Vesting Term</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-bond-div-detail">
-              <div  class="pc-bond-div-detail-left">Minimum purchase</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.duration}}</div>
             </div>
           </div>
 
-          <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim</div>
+          <div v-show="!isBondMenu && !claimPending" @click="clickClaim(false)" class="pc-bond-div-btn1">Claim</div>
+          <div v-show="!isBondMenu && claimPending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
+            <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
+          </div>
 
-          <div v-show="!isBondMenu"  class="pc-bond-div-btn1">Claim and Autostake</div>
+          <div v-show="!isBondMenu && !claimAndStakePending"  @click="clickClaim(true)" class="pc-bond-div-btn1">Claim and Autostake</div>
 
-          <div v-show="!isBondMenu"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
+          <div v-show="!isBondMenu && claimAndStakePending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
             <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
           </div>
 
           <div  v-show="!isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 30px">
             <div style="display: flex;">
               <div  class="pc-bond-div-detail-left">Pending Rewards</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right">{{bond.pendingRewards}} {{OHMSymbol}}</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">Claimable Rewards</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.claimableRewards}} {{OHMSymbol}}</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">Time until fully vested</div>
-              <div  class="pc-bond-div-detail-right"> {{ ''}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.timeUntilFullyVested}}</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">ROI</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right">{{bond.ROI}}%</div>
             </div>
             <div style="display: flex;padding-top: 6px;">
               <div  class="pc-bond-div-detail-left">Vesting Term</div>
-              <div  class="pc-bond-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-bond-div-detail-right"> {{bond.duration}}</div>
             </div>
           </div>
 
@@ -135,14 +149,14 @@
 
             <div style="width: 1.8rem;display: flex;margin: 0.34rem auto 0rem auto;">
               <img :src="icon_matic" style="width: 0.4rem;height: 0.4rem;"  />
-              <div style=" font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;margin-left: 0.4rem;">Matic</div>
+              <div style=" font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;margin-left: 0.4rem;">{{bond.name}}</div>
             </div>
 
           </div>
 
         <div style="width: 8.27rem;text-align: center;margin: 0.4rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Fixed Term</div>
 
-          <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">2 days</div>
+          <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">{{bond.duration}}</div>
 
 
           <div style="display: flex; font-size: 0.32rem; font-family: Selawik;font-weight: 400;color: #808080;padding-top: 0.5rem;text-align: center;">
@@ -152,8 +166,8 @@
 
 
           <div style="display: flex; font-size: 0.48rem; font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-top: 0.2rem;text-align: center;">
-            <div style="flex: 1">$67.98</div>
-            <div style="flex: 1">$69.46</div>
+            <div style="flex: 1">${{bond.priceDisplay}}</div>
+            <div style="flex: 1">${{OHMPrice}}</div>
           </div>
         <!--  <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
           <div style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
@@ -174,37 +188,44 @@
             />
           </div>
 
-
-          <div class="h5-bond-dialog-btn" v-show="isBondMenu">Bond</div>
-          <div class="h5-bond-dialog-btn"  v-show="!isBondMenu">Claim</div>
-          <div class="h5-bond-dialog-btn"  v-show="!isBondMenu">Claim and Autostake</div>
+          <div @click="clickApprove" class="h5-bond-dialog-btn" v-show="isBondMenu&&!bond.isApproved">Approve</div>
+          <div @click="clickBond" class="h5-bond-dialog-btn" v-show="isBondMenu&&bond.isApproved">Bond</div>
+          <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu">Claim</div>
+          <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
 
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;">
             <div style="flex: 1;">Your Balance</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
-          </div>
-
-          <div class="h5-bond-dialog-item" >
-            <div style="flex: 1;">You Will Get</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
           </div>
           <div class="h5-bond-dialog-item" >
             <div style="flex: 1;">Max You Can Buy</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">0 sMatic</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.maxYouCanBuy}} {{bond.symbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Pending Rewards</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Claimable Rewards</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item" >
+            <div style="flex: 1;">Time until fully vested</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
           </div>
           <div class="h5-bond-dialog-item" >
             <div style="flex: 1;">ROI</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">6.84%</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.ROI}}%</div>
           </div>
           <div class="h5-bond-dialog-item" >
-            <div style="flex: 1;">Minimum purchase</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">2712.5145</div>
+            <div style="flex: 1;">Debt Ratio</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.debtRatio}}%</div>
           </div>
          <div style="height: 0.5rem; width: 2rem;"></div>
         </div>
       </div>
     </my-dialog>
-    <MessageTipErrorDialog   ref="messageTipErrorDialog" />
+    <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
     <MessageTipOkDialog   ref="MessageTipOkDialog" />
   </div>
 </template>
@@ -215,9 +236,10 @@ import myDialog from "@/views/components/myDialog";
 import {close, gif,icon_matic,icon_matic_sat_lp} from "@/utils/images";
 import {mapState} from "vuex";
 // eslint-disable-next-line no-unused-vars
-import {getDATA,isAddress, transfer_white_list} from "@/utils/Wallet";
+import * as wallet from "@/utils/Wallet";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import * as publicJs from "@/utils/public";
 
 export default {
   name: "BondDialog",
@@ -233,6 +255,10 @@ export default {
       showBoundPosition:1,
       isBondMenu:true,
       bondInputAmount:'',
+      approvePending: false,
+      bondPending: false,
+      claimPending: false,
+      claimAndStakePending: false,
     }
   },
   props: {
@@ -243,31 +269,187 @@ export default {
     },
     pubVue: {
       type: Object
+    },
+    bondIndex: {
+      type: Number
     }
   },
   computed:{
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      address: state => state.wallet.address,
+      sAsset: state => state.sAsset,
 
-    })
+    }),
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
+    },
+    DAISymbol() {
+      return this.sAsset.DAISymbol;
+    },
+    DAIBalance() {
+      return this.sAsset.DAIBalanceOfUser / 10**this.sAsset.DAIDecimals;
+    },
+    OHMDAILPBalance() {
+      return this.sAsset.OHMDAILPBalanceOfUser / 10**this.sAsset.OHMDAILPDecimals;
+    },
+    stakedBalance() {
+      return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
+    },
+    OHMPrice() {
+      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+    },
+
+    OHMDAILPBondPriceDisplay() {
+      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+    },
+    OHMDAILPBondMaxYouCanBuy() {
+      const amount = this.sAsset.OHMDAILPBondMaxPayout / 10**this.sAsset.OHMDecimals * (this.sAsset.OHMDAILPBondPrice / 100).toFixed(2)
+      return (amount * 0.95).toFixed(2)
+    },
+    OHMDAILPBondROI() {
+      return ((this.OHMPrice - this.OHMDAILPBondPriceDisplay) / this.OHMDAILPBondPriceDisplay * 100).toFixed(2);
+    },
+    OHMDAILPBondTimeUntilFullyVested() {
+      const fullyVestBlocks = parseInt(this.sAsset.OHMDAILPBondInfoVesting) + parseInt(this.sAsset.OHMDAILPBondInfoLastBlock);
+      if (fullyVestBlocks === 0) {
+        return '--'
+      }
+      const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
+      const milliSecondsDiff = this.calcBlockSeconds(blocksDiff) * 1000;
+      return publicJs.dateFormat(new Date().getTime() + milliSecondsDiff);
+    },
+    OHMDAILPBondDuration() {
+      const seconds = publicJs.calcBlockSeconds(this.sAsset.OHMDAILPBondTermsVestingTerm)
+      return publicJs.prettifySeconds(seconds, 'day');
+    },
+    DAIBondPriceDisplay() {
+      const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
+      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+    },
+    DAIBondMaxYouCanBuy() {
+      const amount = this.sAsset.DAIBondMaxPayout / 10**this.sAsset.OHMDecimals * (this.sAsset.DAIBondPrice / 100).toFixed(2)
+      return (amount * 0.95).toFixed(2)
+    },
+    DAIBondROI() {
+      return ((this.OHMPrice - this.DAIBondPriceDisplay) / this.DAIBondPriceDisplay * 100).toFixed(2);
+    },
+    DAIBondTimeUntilFullyVested() {
+      const fullyVestBlocks = parseInt(this.sAsset.DAIBondInfoVesting) + parseInt(this.sAsset.DAIBondInfoLastBlock);
+      const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
+      const milliSecondsDiff = publicJs.calcBlockSeconds(blocksDiff) * 1000;
+      return publicJs.dateFormat(new Date().getTime() + milliSecondsDiff);
+    },
+    DAIBondDuration() {
+      const seconds = publicJs.calcBlockSeconds(this.sAsset.DAIBondTermsVestingTerm)
+      return publicJs.prettifySeconds(seconds, 'day');
+    },
+    bond() {
+      switch (this.bondIndex) {
+        case 1: return {
+          address: this.sAsset.contract.DAI_Bond,
+          tokenAddress: this.sAsset.contract.DAI,
+          tokenDecimals: this.sAsset.DAIDecimals,
+          name: this.sAsset.DAISymbol,
+          symbol: this.sAsset.DAISymbol,
+          yourBalance: this.DAIBalance,
+          priceDisplay: this.DAIBondPriceDisplay,
+          maxYouCanBuy: this.DAIBondMaxYouCanBuy,
+          pendingRewards: (this.sAsset.DAIBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
+          claimableRewards: (this.sAsset.DAIBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
+          timeUntilFullyVested: this.DAIBondTimeUntilFullyVested,
+          ROI: this.DAIBondROI,
+          debtRatio: (this.sAsset.DAIBondStandardizedDebtRatio * 100 / 1e9).toFixed(2),
+          duration: this.DAIBondDuration,
+          isApproved: this.sAsset.DAIAllowanceOfUserToDAIBond > 999999 * 10**this.sAsset.DAIDecimals,
+          bondPrice: this.sAsset.DAIBondPrice,
+        };
+        default: return {
+          address: this.sAsset.contract.OHM_DAI_LP_Bond,
+          tokenAddress: this.sAsset.contract.OHM_DAI_LP,
+          tokenDecimals: this.sAsset.OHMDAILPDecimals,
+          name: this.OHMSymbol + '-' + this.DAISymbol + ' LP',
+          symbol: 'LP',
+          yourBalance: this.OHMDAILPBalance,
+          priceDisplay: this.OHMDAILPBondPriceDisplay,
+          maxYouCanBuy: this.OHMDAILPBondMaxYouCanBuy,
+          pendingRewards: (this.sAsset.OHMDAILPBondInfoPayout / 10**this.sAsset.OHMDecimals).toFixed(2),
+          claimableRewards: (this.sAsset.OHMDAILPBondPendingPayoutFor / 10**this.sAsset.OHMDecimals).toFixed(2),
+          timeUntilFullyVested: this.OHMDAILPBondTimeUntilFullyVested,
+          ROI: this.OHMDAILPBondROI,
+          debtRatio: (this.sAsset.OHMDAILPBondStandardizedDebtRatio * 100 / 1e18).toFixed(2),
+          duration: this.OHMDAILPBondDuration,
+          isApproved: this.sAsset.OHMDAILPAllowanceOfUserToDAIBond > 999999 * 10**this.sAsset.OHMDAILPDecimals,
+          bondPrice: this.sAsset.OHMDAILPBondPrice,
+        }
+      }
+    }
   },
 
-  created() {
-
-  },
+  created() {},
   methods:{
     clickTabBond(val){
       this.isBondMenu = val;
     },
     inputChange(){},
-    maxValueClick(){},
+    clickMaxValue(){
+      this.bondInputAmount = this.bond.yourBalance;
+    },
     goLink(){},
     closeDialog(){
       this.$emit('clickCloseDialog', {});
-
     },
-
-
+    clickApprove() {
+      this.approvePending = true;
+      const baseNumber = publicJs.toBigNumber(99999999999);
+      const power = publicJs.toBigNumber(10**this.bond.tokenDecimals);
+      const amount = baseNumber.multipliedBy(power)
+      wallet.callApprove(this.bond.tokenAddress, this.bond.address, amount)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            this.approvePending = false;
+          })
+    },
+    clickBond() {
+      if (isNaN(this.bondInputAmount) || this.bondInputAmount <= 0) {
+        this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
+        return
+      }
+      this.bondPending = true;
+      const amount = publicJs.toBigNumber(this.bondInputAmount).multipliedBy(10**this.bond.tokenDecimals)
+      const maxPrice = this.bond.bondPrice * 2
+      wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            this.bondPending = false;
+          })
+    },
+    clickClaim(stake) {
+      if (stake) {
+        this.claimAndStakePending = true;
+      } else {
+        this.claimPending = true;
+      }
+      wallet.bondRedeem(this.bond.address, this.address, stake)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            if (stake) {
+              this.claimAndStakePending = false;
+            } else {
+              this.claimPending = false;
+            }
+          })
+    },
   }
 }
 </script>

@@ -1,5 +1,7 @@
 import Decimal from 'decimal.js';
 import moment from 'moment';
+import BigNumber from "bignumber.js";
+const config_data =  require('@/config/data.json')
 /*
  ** 
  **  +  Number 
@@ -161,4 +163,54 @@ export function getUrlParams(url) {
   return params;
 }
 
+export function calcBlockSeconds(blocks){
+  // const blockRateSeconds = 5.61;
+  return blocks * config_data.Config.blockRateSeconds
+}
 
+export function prettifySeconds(seconds, resolution) {
+  if (seconds !== 0 && !seconds) {
+    return "";
+  }
+  if (seconds < 0) {
+    return "0 hr, 0 min";
+  }
+
+  const d = Math.floor(seconds / (3600 * 24));
+  const h = Math.floor((seconds % (3600 * 24)) / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+
+  if (resolution === "day") {
+    return d + (d === 1 ? " day" : " days");
+  }
+
+  const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
+  const hDisplay = h > 0 ? h + (h === 1 ? " hr, " : " hrs, ") : "";
+  const mDisplay = m > 0 ? m + (m === 1 ? " min" : " mins") : "";
+
+  let result = dDisplay + hDisplay + mDisplay;
+  if (mDisplay === "") {
+    result = result.slice(0, result.length - 2);
+  }
+
+  return result;
+}
+
+function fillWith0(number) {
+  return number > 10 ? number : '0' + number;
+}
+
+export function dateFormat(milliSeconds) {
+  const time = new Date(milliSeconds),
+      y = time.getFullYear(),
+      M = time.getMonth()+1,
+      d = time.getDate(),
+      H = time.getHours(),
+      m = time.getMinutes(),
+      s = time.getSeconds();
+  return y+'-'+fillWith0(M)+'-'+fillWith0(d)+' '+fillWith0(H)+':'+fillWith0(m)+':'+fillWith0(s);
+}
+
+export function toBigNumber(number) {
+  return new BigNumber('' + number);
+}

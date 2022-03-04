@@ -60,7 +60,7 @@
             </div>
 
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
-              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per SAT</div>
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per {{symbol}}</div>
               <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">${{backingPerOHM}}</div>
             </div>
 
@@ -84,7 +84,7 @@
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Current Index</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} {{symbol}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} s{{symbol}}</div>
 
               <div class="pc-dashboard-btn">Start Stake</div>
 
@@ -93,7 +93,7 @@
             <div style="width: 530px; height: 303px;background: #242424;border-radius: 10px;margin-left: 20px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">Treasury Balance</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{treasuryBalance}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{marketValueOfTreasuryAssets}}</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">SAT Price</div>
 
@@ -198,8 +198,8 @@
     <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #808080;">Dashboard</div>
 
     <div class="h5-div-item" style="margin-top: 0.8rem;">
-      <div class="h5-div-item-up" >MTD Price</div>
-      <div class="h5-div-item-down" >$1,720,913.67</div>
+      <div class="h5-div-item-up" >{{symbol}} Price</div>
+      <div class="h5-div-item-down" >${{OHMPrice}}</div>
     </div>
 
       <div class="h5-div-item" >
@@ -214,7 +214,7 @@
 
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Treasury Balance</div>
-        <div class="h5-div-item-down" >${{treasuryBalance}}</div>
+        <div class="h5-div-item-down" >${{marketValueOfTreasuryAssets}}</div>
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Market Cap</div>
@@ -222,10 +222,10 @@
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Current Index</div>
-        <div class="h5-div-item-down" >{{currentIndex}} {{symbol}}</div>
+        <div class="h5-div-item-down" >{{currentIndex}} s{{symbol}}</div>
       </div>
       <div class="h5-div-item" >
-        <div class="h5-div-item-up" >Back Per MTD</div>
+        <div class="h5-div-item-up" >Back Per {{symbol}}</div>
         <div class="h5-div-item-down" >${{backingPerOHM}}</div>
       </div>
       <div class="h5-div-item" >
@@ -284,34 +284,36 @@ export default {
      return this.sAsset.symbol;
     },
     OHMPrice() {
-     return 2;
+     return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
     backingPerOHM() {
-     return 3;
+      const OHMCirculatingSupply = this.sAsset.OHMTotalSupply - this.sAsset.OHMBalanceOfDAO;
+     return (this.marketValueOfTreasuryAssets / (OHMCirculatingSupply / 10**this.sAsset.OHMDecimals)).toFixed(this.sAsset.OHMDecimals);
     },
     currentIndex() {
      return this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals;
     },
     marketValueOfTreasuryAssets() {
-     return 5;
+      const t1 = this.sAsset.OHMBalanceOfOHMDAILP * this.sAsset.DAIBalanceOfTreasury / this.sAsset.DAIBalanceOfOHMDAILP;
+      const t2 = this.sAsset.OHMDAILPBalanceOfTreasury * this.sAsset.OHMBalanceOfOHMDAILP * 2 / this.sAsset.OHMDAILPTotalSupply;
+      const temp  = ((t1 + t2) / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2)
+      return temp;
     },
     circulatingSupply() {
      return 6;
     },
     marketCap() {
-     return (this.sAsset.OHMTotalSupply * this.sAsset.DAIsPerOHM)//.toFixed(2);
+     return (this.sAsset.OHMTotalSupply / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
     APY() {
-     return 8;
+      const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
+     return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
     },
     OHMStakedRatio() {
      return (this.sAsset.OHMBalanceOfStaking / this.sAsset.OHMTotalSupply);
     },
     TVL() {
-     return 10;
-    },
-    treasuryBalance() {
-     return 11;
+     return (this.sAsset.OHMBalanceOfStaking / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
   },
   created() {

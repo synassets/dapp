@@ -5,7 +5,7 @@
       <div   class="pc-div-content" >
         <div class="pc-dev-header">
           <div class="pc-dev-title">Single Stake (C, C)</div>
-          <div  class="pc-dev-title1" >3 hrs, 47 mins to next rebase</div>
+          <div  class="pc-dev-title1" >{{time2NextRebase}} to next rebase</div>
          <div class="pc-dev-content-up">
            <div style="display: flex">
              <div class="pc-dev-content-up-item">APY</div>
@@ -13,9 +13,9 @@
              <div class="pc-dev-content-up-item">Current Index</div>
            </div>
            <div style="display: flex">
-             <div class="pc-dev-content-down-item">${{APY}}</div>
+             <div class="pc-dev-content-down-item">{{APY}}%</div>
              <div class="pc-dev-content-down-item">${{TVL}}</div>
-             <div class="pc-dev-content-down-item">{{currentIndex}} {{symbol}}</div>
+             <div class="pc-dev-content-down-item">{{currentIndex}} s{{OHMSymbol}}</div>
            </div>
          </div>
           <!----->
@@ -28,30 +28,54 @@
           </div>
           <div  class="pc-stake-div-tip1">
             <div style="width: 540px;position: relative;">
-             <div  class="pc-stake-div-tip2">
-                <div>First time unstaking sCTD?</div>
-                <div>Please approve Crypto Dao to use your sCTD for unstaking.</div>
+             <div  class="pc-stake-div-tip2" v-show="isStakeMenu&&!isStakeApproved">
+                <div>First time staking {{OHMSymbol}}?</div>
+                <div>Please approve Crypto Dao to use your {{OHMSymbol}} for staking.</div>
+              </div>
+             <div  class="pc-stake-div-tip2" v-show="!isStakeMenu&&!isUnstakeApproved">
+                <div>First time unstaking s{{OHMSymbol}}?</div>
+                <div>Please approve Crypto Dao to use your s{{OHMSymbol}} for unstaking.</div>
               </div>
 
-              <!--  <div class='pc-stake-div-input'>
-                 <input v-model="bondInputAmount" type="text"  @input="inputChange()"
+              <div class='pc-stake-div-input' v-show="isStakeMenu&&isStakeApproved">
+                 <input v-model="stakeInputAmount" type="text"  @input="inputChange()"
                   class='pc-stake-div-input1'
                          />
                  <div  @click="maxValueClick()"  class='pc-stake-div-input-max' >MAX</div>
-               </div>-->
+               </div>
+
+              <div class='pc-stake-div-input' v-show="!isStakeMenu&&isUnstakeApproved">
+                 <input v-model="unstakeInputAmount" type="text"  @input="inputChange()"
+                  class='pc-stake-div-input1'
+                         />
+                 <div  @click="maxValueClick()"  class='pc-stake-div-input-max' >MAX2</div>
+               </div>
 
             </div>
-            <div class="pc-stake-div-btn" >
+            <div @click="clickStakeApprove" class="pc-stake-div-btn" v-show="isStakeMenu&&!isStakeApproved&&!stakeApprovePending">
               Approve
             </div>
-            <div class="pc-stake-div-gif" >
+            <div class="pc-stake-div-gif" v-show="isStakeMenu&&stakeApprovePending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
-            <div class="pc-stake-div-btn" v-show="isStakeMenu">
+            <div @click="clickStake" class="pc-stake-div-btn" v-show="isStakeMenu&&isStakeApproved">
               Stake
             </div>
-            <div class="pc-stake-div-btn" v-show="!isStakeMenu">
+            <div class="pc-stake-div-gif" v-show="isStakeMenu&&stakePending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+            </div>
+
+            <div class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">
+              Approve
+            </div>
+            <div class="pc-stake-div-gif" v-show="!isStakeMenu&&unstakeApprovePending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+            </div>
+            <div @click="clickStake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved">
               Unstake
+            </div>
+            <div class="pc-stake-div-gif" v-show="!isStakeMenu&&unstakePending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
 
           </div>
@@ -63,40 +87,32 @@
           <div  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;"  v-show="isStakeMenu" >
               <div class="pc-stake-div-detail-left">Your Balance</div>
-              <div class="pc-stake-div-detail-right"> {{balance}}</div>
+              <div class="pc-stake-div-detail-right"> {{balance}} {{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="isStakeMenu" >
               <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{stakedBalance}}</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{OHMSymbol}}</div>
             </div>
 
             <div style="display: flex;"  v-show="!isStakeMenu" >
-              <div class="pc-stake-div-detail-left">Unstaked Balance</div>
-              <div class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div class="pc-stake-div-detail-left">Your Balance</div>
+              <div class="pc-stake-div-detail-right"> {{balance}} {{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail"  v-show="!isStakeMenu" >
-              <div  class="pc-stake-div-detail-left">Staked Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-stake-div-detail">
-              <div  class="pc-stake-div-detail-left" style="color: #808080">Wrapped Balance</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
-            </div>
-            <div class="pc-stake-div-detail">
-              <div  class="pc-stake-div-detail-left"  style="color: #808080">Exchange rate</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-left">Your Staked Balance</div>
+              <div  class="pc-stake-div-detail-right"> {{stakedBalance}} s{{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">Next Reward Amount</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{nextRewardAmount}} s{{OHMSymbol}}</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">Next Reward Yield</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{nextRewardYield}}%</div>
             </div>
             <div class="pc-stake-div-detail">
               <div  class="pc-stake-div-detail-left">ROI (5-Day Rate)</div>
-              <div  class="pc-stake-div-detail-right"> {{ '--'}}</div>
+              <div  class="pc-stake-div-detail-right"> {{ROI}}%</div>
             </div>
           </div>
         </div>
@@ -128,16 +144,16 @@
         </div>
 
         <div style="display: flex;font-size: 0.48rem;font-family: Selawik;font-weight: 600; color: #ffffff;padding-top: 0.3rem;">
-          <div style="padding-left: 0.8rem;flex: 1;">6,217.20%</div>
-          <div style="flex: 1;">46.4 sMaic</div>
+          <div style="padding-left: 0.8rem;flex: 1;">{{APY}}%</div>
+          <div style="flex: 1;">{{currentIndex}} s{{OHMSymbol}}</div>
         </div>
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Total Value Deposited</div>
-        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">$2,288,357.96</div>
+        <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">${{TVL}}</div>
 
 
         <div style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
           <input
-              v-model="bondInputAmount"   placeholder="Amount"
+              v-model="stakeInputAmount"   placeholder="Amount"
               type="text"
               style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
           />
@@ -148,40 +164,31 @@
 
        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
-         <div style="flex: 3;text-align: right;">0 sMatic</div>
+         <div style="flex: 3;text-align: right;">{{balance}} {{OHMSymbol}}</div>
        </div>
         <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="!isStakeMenu">
-          <div style="flex: 2;">Unstaked Balance</div>
-          <div style="flex: 3;text-align: right;">0 sMatic</div>
+          <div style="flex: 2;">Your Balance</div>
+          <div style="flex: 3;text-align: right;">{{balance}} {{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item"  v-show="isStakeMenu">
           <div style="flex: 1;">Your Staked Balance</div>
-          <div style="flex: 1;text-align: right;">0 sMatic</div>
+          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item"  v-show="!isStakeMenu" >
-          <div style="flex: 1;">Staked Balance</div>
-          <div style="flex: 1;text-align: right;">0 sMatic</div>
-        </div>
-        <div class="h5-stake-div-item" >
-          <div style="flex: 2;color: #808080">Wrapped Balance</div>
-          <div style="flex: 3;text-align: right;">0 sMatic</div>
-        </div>
-        <div class="h5-stake-div-item" >
-          <div style="flex: 2;color: #808080">Exchange rate</div>
-          <div style="flex: 3;text-align: right;color: #808080">1 wMatic = 25.9088 sMatic
-          </div>
+          <div style="flex: 1;">Your Staked Balance</div>
+          <div style="flex: 1;text-align: right;">{{stakedBalance}} s{{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">Next Reward Amount</div>
-          <div style="flex: 1;text-align: right;color: #808080">0 sMatic</div>
+          <div style="flex: 1;text-align: right;color: #808080">{{nextRewardAmount}} s{{OHMSymbol}}</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">Next Reward Yield</div>
-          <div style="flex: 1;text-align: right;">0.6229%</div>
+          <div style="flex: 1;text-align: right;">{{nextRewardYield}}%</div>
         </div>
         <div class="h5-stake-div-item" >
           <div style="flex: 1;">ROI (5-Day Rate)</div>
-          <div style="flex: 1;text-align: right;">9.7629%</div>
+          <div style="flex: 1;text-align: right;">{{ROI}}%</div>
         </div>
       </div>
 
@@ -201,6 +208,8 @@
 
 
 
+      <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
+      <MessageTipOkDialog   ref="MessageTipOkDialog" />
     </div>
   </div>
 </template>
@@ -212,6 +221,9 @@ import {
   pc_ido_img1
 } from "@/utils/images";
 // import MyDialog from "@/views/components/myDialog";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import * as publicJs from "@/utils/public";
 
 
 import {
@@ -220,28 +232,36 @@ import {
   getAddress,
 
 } from "../../utils/Wallet";
+import * as wallet from "@/utils/Wallet";
 export default {
   name: "Index",
   components: {
     // MyDialog
+    MessageTipErrorDialog,MessageTipOkDialog
   },
   data() {
     return {
       close,
       gif,
       pc_ido_img1,
-      address:'',
+      // address:'',
 
 
       isStakeMenu:true,
-      bondInputAmount:'',
+      stakeInputAmount:'',
+      unstakeInputAmount:'',
       data:{},
       configData:{},
+      stakeApprovePending: false,
+      stakePending: false,
+      unstakeApprovePending: false,
+      unstakePending: false,
     };
   },
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      address: state => state.wallet.address,
       sAsset: state => state.sAsset,
     }),
     inviteLink() {
@@ -250,14 +270,18 @@ export default {
     myAddress() {
       return getAddress();
     },
-    symbol() {
-      return this.sAsset.symbol;
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
+    },
+    OHMPrice() {
+      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
     APY() {
-      return 8;
+      const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
+      return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
     },
     TVL() {
-      return 10;
+      return (this.sAsset.OHMBalanceOfStaking / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
     currentIndex() {
       return this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals;
@@ -268,11 +292,31 @@ export default {
     stakedBalance() {
       return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
     },
+    nextRewardAmount() {
+      return (this.sAsset.epochDistribute * this.stakedBalance / this.sAsset.sOhmCirculatingSupply).toFixed(2);
+    },
+    nextRewardYield() {
+      return (this.sAsset.epochDistribute * 100 / this.sAsset.stakingContractBalance).toFixed(2);
+    },
+    ROI() {
+      return (this.nextRewardYield * 15).toFixed(2);
+    },
+    time2NextRebase() {
+      const blocksDiff = this.sAsset.epochEndBlock - this.sAsset.blockNumber;
+      const secondsDiff = publicJs.calcBlockSeconds(blocksDiff);
+      return publicJs.prettifySeconds(secondsDiff);
+    },
+    isStakeApproved() {
+      return this.sAsset.OHMAllowanceOfUserToStakingHelper > 999999 * 10**this.sAsset.OHMDecimals;
+    },
+    isUnstakeApproved() {
+      return this.sAsset.sOHMAllowanceOfUserToStaking > 999999 * 10**this.sAsset.sOHMDecimals;
+    },
   },
   mounted() {
     this.data =  getDATA();
     this.configData = getConfigData()
-    this.address = getAddress();
+    // this.address = getAddress();
   },
 
   methods: {
@@ -281,7 +325,71 @@ export default {
     },
     inputChange(){},
     maxValueClick(){},
-    goLink(){}
+    goLink(){},
+    clickStakeApprove() {
+      this.stakeApprovePending = true;
+      const baseNumber = publicJs.toBigNumber(99999999999);
+      const power = publicJs.toBigNumber(10**this.sAsset.OHMDecimals);
+      const amount = baseNumber.multipliedBy(power)
+      wallet.callApprove(this.sAsset.contract.OHM, this.sAsset.contract.Staking_Helper, amount)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+        this.$refs.MessageTipErrorDialog.showClick(reason.message);
+      }).finally(() => {
+        this.stakeApprovePending = false;
+      })
+    },
+    clickUntakeApprove() {
+      this.unstakeApprovePending = true;
+      const baseNumber = publicJs.toBigNumber(99999999999);
+      const power = publicJs.toBigNumber(10**this.sAsset.sOHMDecimals);
+      const amount = baseNumber.multipliedBy(power)
+      wallet.callApprove(this.sAsset.contract.sOHM, this.sAsset.contract.Staking, amount)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+        this.$refs.MessageTipErrorDialog.showClick(reason.message);
+      }).finally(() => {
+        this.unstakeApprovePending = false;
+      })
+    },
+
+    clickStake() {
+      if (isNaN(this.stakeInputAmount) || this.stakeInputAmount <= 0) {
+        this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
+        return
+      }
+      this.stakePending = true;
+      const amount = publicJs.toBigNumber(this.stakeInputAmount).multipliedBy(10**this.sAsset.OHMDecimals)
+      wallet.callStake(this.sAsset.contract.Staking, amount, this.address)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+        console.log(reason)
+        this.$refs.MessageTipErrorDialog.showClick(reason.message);
+      }).finally(() => {
+        this.stakePending = false;
+      })
+    },
+
+    clickUnstake() {
+      if (isNaN(this.unstakeInputAmount) || this.unstakeInputAmount <= 0) {
+        this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
+        return
+      }
+      this.unstakePending = true;
+      const amount = publicJs.toBigNumber(this.unstakeInputAmount).multipliedBy(10**this.sAsset.OHMDecimals)
+      wallet.callUnstake(this.sAsset.contract.Staking, amount, false)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+        console.log(reason)
+        this.$refs.MessageTipErrorDialog.showClick(reason.message);
+      }).finally(() => {
+        this.unstakePending = false;
+      })
+    },
   }
 };
 </script>
