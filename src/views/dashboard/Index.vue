@@ -330,10 +330,10 @@ export default {
       return this.sAsset.ConsensusPoolTotalPower;
     },
     myClaimableReward() {
-      return this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount;
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).toFixed(this.sAsset.sOHMDecimals);
     },
     myTotalReward() {
-      return this.sAsset.ConsensusPoolGetInfoOfUserTotalReward;
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserTotalReward).toFixed(this.sAsset.sOHMDecimals);
     },
     myPowerRate() {
       if (this.networkPower <= 0) {
@@ -341,7 +341,7 @@ export default {
       }
       const myPower = this.sAsset.ConsensusPoolGetInfoOfUserPower;
       const nextConsensusReward = publicJs.toBigNumber(this.nextRewardAmount).times(0.1).times(myPower).div(this.networkPower);
-      return nextConsensusReward.div(8*60*60)
+      return nextConsensusReward.div(8*60*60).toFixed(8)
     },
   },
   created() {

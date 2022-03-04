@@ -13,7 +13,7 @@
 
             />
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myPower}}
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myPower}} s{{OHMSymbol}}
           </div>
           <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 15px;">My PowerRate
           </div>
@@ -44,7 +44,7 @@
 
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 25px;">Network Power
           </div>
-          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{networkPower}}
+          <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{networkPower}} s{{OHMSymbol}}
           </div>
 
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 20px;">Network PowerRate
@@ -129,7 +129,7 @@
 
        <div style="display: flex;padding-top: 0.2rem;">
          <div style="flex: 1; font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;padding-left: 0.8rem;">
-           {{myPower}}
+           {{myPower}} s{{OHMSymbol}}
          </div>
          <div style="flex: 1;font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;">
            {{myPowerRate}} s{{OHMSymbol}}/s
@@ -195,7 +195,7 @@
 
         <div style="display: flex;padding-top: 0.2rem;">
           <div style=" font-size: 0.48rem;font-family: Selawik; font-weight: 600;color: #ffffff;padding-left: 0.8rem;">
-            {{networkPower}}
+            {{networkPower}} s{{OHMSymbol}}
           </div>
           <div style="font-size: 0.32rem;font-family: Selawik; font-weight: 600;color: #22AC38;margin-left: 0.3rem;padding-top: 0.2rem;">
             +15%
@@ -326,23 +326,23 @@ export default {
       return publicJs.toBigNumber(this.sAsset.epochDistribute).times(sOHMBalance).div(this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
     },
     networkPower() {
-      return this.sAsset.ConsensusPoolTotalPower;
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolTotalPower).dividedBy(10**this.sAsset.sOHMDecimals).toFixed(this.sAsset.sOHMDecimals);
     },
     networkPowerRate() {
-      return publicJs.toBigNumber(this.nextRewardAmount).times(0.1).div(8*60*60);
+      return publicJs.toBigNumber(this.nextRewardAmount).times(0.1).div(8*60*60).toFixed(8);
     },
     myPower() {
-      return this.sAsset.ConsensusPoolGetInfoOfUserPower;
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserPower).toFixed(this.sAsset.sOHMDecimals);
     },
     myClaimableReward() {
-      return this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount;
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).toFixed(this.sAsset.sOHMDecimals);
     },
     myPowerRate() {
       if (this.networkPower <= 0) {
         return 0;
       }
       const nextConsensusReward = publicJs.toBigNumber(this.nextRewardAmount).times(0.1).times(this.myPower).div(this.networkPower);
-      return nextConsensusReward.div(8*60*60)
+      return nextConsensusReward.div(8*60*60).toFixed(8)
     },
   },
   mounted() {
