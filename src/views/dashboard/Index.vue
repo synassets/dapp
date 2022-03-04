@@ -86,7 +86,7 @@
 
               <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} s{{symbol}}</div>
 
-              <div class="pc-dashboard-btn">Start Stake</div>
+              <div class="pc-dashboard-btn" @click="route('/stake')">Start Stake</div>
 
 
             </div>
@@ -114,7 +114,7 @@
                 </div>
 
               </div>
-              <div class="pc-dashboard-end-btn">Start Bond</div>
+              <div class="pc-dashboard-end-btn" @click="route('/bond')">Start Bond</div>
 
             </div>
 
@@ -344,6 +344,9 @@ export default {
   methods: {
     viewContract(address) {
       window.open(this.configData.blockExplorerUrls + 'address/' + address)
+    },
+    route(path) {
+      this.$router.push(path);
     },
     initCharts() {
       let charts = this.$echarts.init(document.getElementById('canvas'));
