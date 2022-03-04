@@ -282,6 +282,9 @@ export default {
       return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
     APY() {
+      if (this.sAsset.stakingContractBalance <= 0) {
+        return 0;
+      }
       const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
       return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
     },
@@ -298,9 +301,15 @@ export default {
       return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
     },
     nextRewardAmount() {
+      if (this.sAsset.sOhmCirculatingSupply <= 0) {
+        return 0;
+      }
       return (this.sAsset.epochDistribute * this.stakedBalance / this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
     },
     nextRewardYield() {
+      if (this.sAsset.stakingContractBalance <= 0) {
+        return 0;
+      }
       return (this.sAsset.epochDistribute * 100 / this.sAsset.stakingContractBalance).toFixed(2);
     },
     ROI() {

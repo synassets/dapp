@@ -104,7 +104,7 @@
                   <img :src="icon_matic_sat_lp"  style="width: 45px;height: 30px;position: absolute;top:4px ;left: 10px;"    />
                   <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 72px;top: 5px;">--</div>
 
-                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;">View contract</div>
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;" >View contract</div>
                 </div>
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;margin-left: 15px;">
                   <img :src="icon_sat"  style="width: 30px;height: 30px;position: absolute;top:4px ;left: 10px;"   />
@@ -306,6 +306,9 @@ export default {
      return (this.sAsset.OHMTotalSupply / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
     APY() {
+      if (this.sAsset.stakingContractBalance <= 0) {
+        return 0;
+      }
       const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
      return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
     },
