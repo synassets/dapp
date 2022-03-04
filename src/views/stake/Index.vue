@@ -304,13 +304,13 @@ export default {
       if (this.sAsset.sOhmCirculatingSupply <= 0) {
         return 0;
       }
-      return (this.sAsset.epochDistribute * this.stakedBalance / this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.epochDistribute).times(this.stakedBalance).div(this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
     },
     nextRewardYield() {
       if (this.sAsset.stakingContractBalance <= 0) {
         return 0;
       }
-      return (this.sAsset.epochDistribute * 100 / this.sAsset.stakingContractBalance).toFixed(2);
+      return publicJs.toBigNumber(this.sAsset.epochDistribute).times(100).div(this.sAsset.stakingContractBalance).toFixed(2);
     },
     ROI() {
       return (this.nextRewardYield * 15).toFixed(2);
@@ -385,10 +385,11 @@ export default {
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {
-        this.$refs.MessageTipErrorDialog.showClick(reason.message);
-      }).finally(() => {
-        this.stakePending = false;
-      })
+            console.log(reason)
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            this.stakePending = false;
+          })
     },
 
     clickUnstake() {

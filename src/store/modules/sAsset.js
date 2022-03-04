@@ -88,6 +88,13 @@ const sAsset = {
         OHMDAILPBondInfoVesting: 0,
         OHMDAILPBondInfoLastBlock: 0,
         OHMDAILPBondPendingPayoutFor: 0,
+        // Consensus Pool
+        ConsensusPoolGetInfoOfUserClaimableAmount: 0,
+        ConsensusPoolGetInfoOfUserTotalReward: 0,
+        ConsensusPoolGetInfoOfUserPower: 0,
+        ConsensusPoolGetInfoOfUserInviteNum: 0,
+        ConsensusPoolGetInfoOfUserBurnAmount: 0,
+        ConsensusPoolTotalPower: 0,
     },
     mutations: {
         SET: (state, [name, val]) => {

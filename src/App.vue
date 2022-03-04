@@ -385,6 +385,17 @@ export default {
               call: ['pendingPayoutFor(address)(uint256)',this.address],
               returns: [['OHMDAILPBondPendingPayoutFor']]
             },
+            //  Consensus Pool
+            {
+              target: this.sAsset.contract.ConsensusPool,
+              call: ['getInfo(address)(uint256,uint256,uint256,uint256,uint256)',this.address],
+              returns: [['ConsensusPoolGetInfoOfUserClaimableAmount'], ['ConsensusPoolGetInfoOfUserTotalReward'], ['ConsensusPoolGetInfoOfUserPower'], ['ConsensusPoolGetInfoOfUserInviteNum'], ['ConsensusPoolGetInfoOfUserBurnAmount']]
+            },
+            {
+              target: this.sAsset.contract.ConsensusPool,
+              call: ['totalPower()(uint256)'],
+              returns: [['ConsensusPoolTotalPower']]
+            },
           ],
           {
             rpcUrl: this.configData.rpcUrl,

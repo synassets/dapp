@@ -25,11 +25,11 @@
             <div style="width: 420px; height: 303px;background: #242424;border-radius: 10px;margin-left: 20px;">
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 25px;">My PowerRate</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 8px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 8px;">{{myPowerRate}} s{{OHMSymbol}}/s</div>
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 12px;">Available/Total</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 8px;">--</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 8px;">{{myClaimableReward}} s{{OHMSymbol}}/ {{myTotalReward}} s{{OHMSymbol}}</div>
 
               <div style="display: flex;margin-left: 33px;margin-top: 12px;">
                 <div style=" width: 11px;height: 11px; background: #0792E3;"></div>
@@ -60,7 +60,7 @@
             </div>
 
             <div style="width: 290px;height: 50px;border: 1px solid #0792E3;border-radius: 10px;margin-left: 30px;margin-top: 14px;">
-              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per {{symbol}}</div>
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-top: 6px;padding-left: 21px;">Back per {{OHMSymbol}}</div>
               <div style="font-size: 20px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-left: 21px; ">${{backingPerOHM}}</div>
             </div>
 
@@ -84,7 +84,7 @@
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Current Index</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} s{{symbol}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} s{{OHMSymbol}}</div>
 
               <div class="pc-dashboard-btn" @click="route('/stake')">Start Stake</div>
 
@@ -95,7 +95,7 @@
 
               <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{marketValueOfTreasuryAssets}}</div>
 
-              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">SAT Price</div>
+              <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">{{OHMSymbol}} Price</div>
 
               <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">${{OHMPrice}}</div>
 
@@ -198,7 +198,7 @@
     <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #808080;">Dashboard</div>
 
     <div class="h5-div-item" style="margin-top: 0.8rem;">
-      <div class="h5-div-item-up" >{{symbol}} Price</div>
+      <div class="h5-div-item-up" >{{OHMSymbol}} Price</div>
       <div class="h5-div-item-down" >${{OHMPrice}}</div>
     </div>
 
@@ -222,10 +222,10 @@
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Current Index</div>
-        <div class="h5-div-item-down" >{{currentIndex}} s{{symbol}}</div>
+        <div class="h5-div-item-down" >{{currentIndex}} s{{OHMSymbol}}</div>
       </div>
       <div class="h5-div-item" >
-        <div class="h5-div-item-up" >Back Per {{symbol}}</div>
+        <div class="h5-div-item-up" >Back Per {{OHMSymbol}}</div>
         <div class="h5-div-item-down" >${{backingPerOHM}}</div>
       </div>
       <div class="h5-div-item" >
@@ -274,15 +274,8 @@ export default {
       isMobile: state => state.sys.isMobile,
       sAsset: state => state.sAsset,
     }),
-    inviteLink() {
-      return "https://" + window.location.host + "?ref=" + this.myAddress;
-    },
-    myAddress() {
-     return 1;
-      //return getAddress();
-    },
-    symbol() {
-     return this.sAsset.symbol;
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
     },
     OHMPrice() {
       return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
@@ -325,6 +318,31 @@ export default {
     TVL() {
      return (this.sAsset.OHMBalanceOfStaking / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
+    // Consensus Pool
+    nextRewardAmount() {
+      if (this.sAsset.sOhmCirculatingSupply <= 0) {
+        return 0;
+      }
+      const sOHMBalance = publicJs.toBigNumber(this.sAsset.sOHMBalanceOfUser).div(10**this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.epochDistribute).times(sOHMBalance).div(this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
+    },
+    networkPower() {
+      return this.sAsset.ConsensusPoolTotalPower;
+    },
+    myClaimableReward() {
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).toFixed(this.sAsset.sOHMDecimals);
+    },
+    myTotalReward() {
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserTotalReward).toFixed(this.sAsset.sOHMDecimals);
+    },
+    myPowerRate() {
+      if (this.networkPower <= 0) {
+        return 0;
+      }
+      const myPower = this.sAsset.ConsensusPoolGetInfoOfUserPower;
+      const nextConsensusReward = publicJs.toBigNumber(this.nextRewardAmount).times(0.1).times(myPower).div(this.networkPower);
+      return nextConsensusReward.div(8*60*60).toFixed(8)
+    },
   },
   created() {
     this.$nextTick(function () {
@@ -346,7 +364,7 @@ export default {
       window.open(this.configData.blockExplorerUrls + 'address/' + address)
     },
     route(path) {
-      this.$router.push(path);
+      this.$router.push(path).catch(err => {err});
     },
     initCharts() {
       let charts = this.$echarts.init(document.getElementById('canvas'));
