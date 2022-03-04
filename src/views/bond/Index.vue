@@ -33,7 +33,7 @@
               </div>
               <div style="flex: 1">
                 <div class="pc-div-table-item21">{{DAISymbol}}-{{OHMSymbol}} LP</div>
-                <div @click="goLink('')"  class="pc-div-table-item22">view contract</div>
+                <div @click="viewContract(sAsset.contract.OHM_DAI_LP)"  class="pc-div-table-item22">view contract</div>
               </div>
 
               <div class="pc-div-table-item3">${{OHMDAILPBondPriceDisplay}}</div>
@@ -55,7 +55,10 @@
               <div class="pc-div-table-item1">
                 <img :src="icon_matic"  style="width: 38px;height: 38px;margin-left: 24px;" alt />
               </div>
-              <div  class="pc-div-table-item3">{{DAISymbol}}</div>
+              <div style="flex: 1">
+                <div  class="pc-div-table-item3">{{DAISymbol}}</div>
+                <div @click="viewContract(sAsset.contract.DAI)"  class="pc-div-table-item22">view contract</div>
+              </div>
 
               <div  class="pc-div-table-item3">${{DAIBondPriceDisplay}}</div>
               <div  class="pc-div-table-item3"> {{DAIBondROI}}%</div>
@@ -102,8 +105,10 @@
         <div style="position: relative;">
           <img :src="icon_matic_sat_lp"  style="width: 1.36rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
           <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}-{{OHMSymbol}} LP</div>
-          <div style="position: absolute;left: 2.6rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
-          <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 5rem;top: 0.6rem;" alt />
+          <div @click="viewContract(sAsset.contract.OHM_DAI_LP)">
+            <div style="position: absolute;left: 2.6rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
+            <img :src="icon_contact" style="width: 0.25rem;height: 0.25rem;position: absolute;left: 5rem;top: 0.6rem;" alt />
+          </div>
         </div>
 
         <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
@@ -133,8 +138,10 @@
         <div style="position: relative;">
           <img :src="icon_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
           <div style="position: absolute;left: 2rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}</div>
-          <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
-          <img :src="icon_contact"  style="width: 0.25rem;height: 0.25rem;position: absolute;left: 4.3rem;top: 0.6rem;" alt />
+          <div @click="viewContract(sAsset.contract.DAI)">
+            <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
+            <img :src="icon_contact" style="width: 0.25rem;height: 0.25rem;position: absolute;left: 4.3rem;top: 0.6rem;" alt />
+          </div>
         </div>
 
         <div style="display: flex;width: 8.4rem;margin:1.5rem auto 0rem auto;">
@@ -280,6 +287,9 @@ export default {
   },
 
   methods: {
+    viewContract(address) {
+      window.open(this.configData.blockExplorerUrls + 'address/' + address)
+    },
     clickTabBond(val){
       this.isBondMenu = val;
     },
@@ -292,7 +302,6 @@ export default {
     },
     inputChange(){},
     maxValueClick(){},
-    goLink(){},
     // calcBlockSeconds(blocks){
     //   const blockRateSeconds = 5.61;
     //   return blocks * blockRateSeconds

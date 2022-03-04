@@ -150,8 +150,8 @@
           </div>
           <div class="div_right1" >
             <div style="display: flex;margin-top: 1.8rem;">
-              <img :src="h5_left_mt_logo"  style="width: 0.8rem;height: 0.77rem;margin-left:0.96rem; "   />
-              <div style=" font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;margin-left: 0.4rem;line-height: 2;">Matic-DAO</div>
+              <img :src="h5_left_img3"  style="width: 0.8rem;height: 0.77rem;margin-left:0.96rem; "   />
+              <div style=" font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;margin-left: 0.4rem;line-height: 2;">{{OHMSymbol}}-DAO</div>
             </div>
 
             <div class="div-tab"  @click="onClickMenu(8)" style="margin-top: 1.9rem;">Dashboard</div>
@@ -284,8 +284,8 @@
        </div>
        <div style="width: 280px;background: rgba(22, 22, 22, 0.7);min-height: 1000px;  border: 1px solid #808080;" v-show="tabPcIndex==1">
          <div style="display: flex;padding-left: 39px;padding-top: 70px;">
-           <img :src="h5_left_mt_logo"  style="width: 30px;height: 29px;"    />
-           <div style=" font-size: 20px;font-family: Selawik; font-weight: bold; color: #FFFFFF;margin-left: 15px;">-- Dao</div>
+           <img :src="pc_left_img3"  style="width: 30px;height: 29px;"    />
+           <div style=" font-size: 20px;font-family: Selawik; font-weight: bold; color: #FFFFFF;margin-left: 15px;">{{OHMSymbol}}-DAO</div>
          </div>
 
          <div class="pc-tab280"  @click="onClickMenu(8)"  style="margin-top: 60px;">Dashboard</div>
@@ -395,8 +395,12 @@ export default {
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+      sAsset: state => state.sAsset,
       language: state => state.app.language
-    })
+    }),
+    OHMSymbol() {
+      return this.sAsset.OHMSymbol;
+    },
   },
   created() {
     this.$bus.$on("formBus", (to, from) => {

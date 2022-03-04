@@ -102,15 +102,15 @@
               <div style="display: flex;padding-top: 20px;padding-left: 33px;">
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;">
                   <img :src="icon_matic_sat_lp"  style="width: 45px;height: 30px;position: absolute;top:4px ;left: 10px;"    />
-                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 72px;top: 5px;">--</div>
+                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 72px;top: 5px;">${{OHMDAILPBalance}}</div>
 
-                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;" >View contract</div>
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;" @click="viewContract(sAsset.contract.OHM_DAI_LP)">View contract</div>
                 </div>
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;margin-left: 15px;">
                   <img :src="icon_sat"  style="width: 30px;height: 30px;position: absolute;top:4px ;left: 10px;"   />
-                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 60px;top: 5px;">--</div>
+                  <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 60px;top: 5px;">${{DAIBalance}}</div>
 
-                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left:60px;bottom: 5px;">View contract</div>
+                  <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left:60px;bottom: 5px;" @click="viewContract(sAsset.contract.DAI)">View contract</div>
                 </div>
 
               </div>
@@ -286,6 +286,12 @@ export default {
     OHMPrice() {
      return (this.sAsset.USDFragmentsPerOHM / 10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
+    DAIBalance() {
+      return this.sAsset.DAIBalanceOfUser / 10**this.sAsset.DAIDecimals;
+    },
+    OHMDAILPBalance() {
+      return this.sAsset.OHMDAILPBalanceOfUser / 10**this.sAsset.OHMDAILPDecimals;
+    },
     backingPerOHM() {
       const OHMCirculatingSupply = this.sAsset.OHMTotalSupply - this.sAsset.OHMBalanceOfDAO;
      return (this.marketValueOfTreasuryAssets / (OHMCirculatingSupply / 10**this.sAsset.OHMDecimals)).toFixed(this.sAsset.OHMDecimals);
@@ -335,6 +341,9 @@ export default {
   },
 
   methods: {
+    viewContract(address) {
+      window.open(this.configData.blockExplorerUrls + 'address/' + address)
+    },
     initCharts() {
       let charts = this.$echarts.init(document.getElementById('canvas'));
       var option = {
