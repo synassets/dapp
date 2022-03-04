@@ -41,14 +41,14 @@
                  <input v-model="stakeInputAmount" type="text"  @input="inputChange()"
                   class='pc-stake-div-input1'
                          />
-                 <div  @click="maxValueClick()"  class='pc-stake-div-input-max' >MAX</div>
+                 <div  @click="clickStakeMaxValue()"  class='pc-stake-div-input-max' >MAX</div>
                </div>
 
               <div class='pc-stake-div-input' v-show="!isStakeMenu&&isUnstakeApproved">
                  <input v-model="unstakeInputAmount" type="text"  @input="inputChange()"
                   class='pc-stake-div-input1'
                          />
-                 <div  @click="maxValueClick()"  class='pc-stake-div-input-max' >MAX2</div>
+                 <div  @click="clickUnstakeMaxValue()"  class='pc-stake-div-input-max' >MAX</div>
                </div>
 
             </div>
@@ -65,13 +65,13 @@
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
 
-            <div class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">
+            <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">
               Approve
             </div>
             <div class="pc-stake-div-gif" v-show="!isStakeMenu&&unstakeApprovePending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
-            <div @click="clickStake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved">
+            <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved">
               Unstake
             </div>
             <div class="pc-stake-div-gif" v-show="!isStakeMenu&&unstakePending">
@@ -153,14 +153,19 @@
 
         <div style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
           <input
-              v-model="stakeInputAmount"   placeholder="Amount"
+              v-model="stakeInputAmount" v-show="isStakeMenu" placeholder="Amount"
+              type="text"
+              style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
+          />
+          <input
+              v-model="unstakeInputAmount" v-show="!isStakeMenu" placeholder="Amount"
               type="text"
               style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
           />
         </div>
 
-       <div class="h5-stake-div-btn" v-show="isStakeMenu">Stake</div>
-        <div class="h5-stake-div-btn" v-show="!isStakeMenu">Unstake</div>
+       <div class="h5-stake-div-btn" @click="clickStake" v-show="isStakeMenu">Stake</div>
+        <div class="h5-stake-div-btn" @click="clickUnstake" v-show="!isStakeMenu">Unstake</div>
 
        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
@@ -293,7 +298,7 @@ export default {
       return this.sAsset.sOHMBalanceOfUser / 10**this.sAsset.sOHMDecimals;
     },
     nextRewardAmount() {
-      return (this.sAsset.epochDistribute * this.stakedBalance / this.sAsset.sOhmCirculatingSupply).toFixed(2);
+      return (this.sAsset.epochDistribute * this.stakedBalance / this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
     },
     nextRewardYield() {
       return (this.sAsset.epochDistribute * 100 / this.sAsset.stakingContractBalance).toFixed(2);
@@ -324,7 +329,12 @@ export default {
       this.isStakeMenu = val;
     },
     inputChange(){},
-    maxValueClick(){},
+    clickStakeMaxValue(){
+      this.stakeInputAmount = this.balance
+    },
+    clickUnstakeMaxValue(){
+      this.unstakeInputAmount = this.stakedBalance
+    },
     goLink(){},
     clickStakeApprove() {
       this.stakeApprovePending = true;
@@ -340,7 +350,7 @@ export default {
         this.stakeApprovePending = false;
       })
     },
-    clickUntakeApprove() {
+    clickUnstakeApprove() {
       this.unstakeApprovePending = true;
       const baseNumber = publicJs.toBigNumber(99999999999);
       const power = publicJs.toBigNumber(10**this.sAsset.sOHMDecimals);
@@ -362,11 +372,10 @@ export default {
       }
       this.stakePending = true;
       const amount = publicJs.toBigNumber(this.stakeInputAmount).multipliedBy(10**this.sAsset.OHMDecimals)
-      wallet.callStake(this.sAsset.contract.Staking, amount, this.address)
+      wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address)
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {
-        console.log(reason)
         this.$refs.MessageTipErrorDialog.showClick(reason.message);
       }).finally(() => {
         this.stakePending = false;
@@ -384,7 +393,6 @@ export default {
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {
-        console.log(reason)
         this.$refs.MessageTipErrorDialog.showClick(reason.message);
       }).finally(() => {
         this.unstakePending = false;
