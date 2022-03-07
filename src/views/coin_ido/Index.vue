@@ -1516,6 +1516,7 @@ export default {
       ogWhitelist:state => {
         return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
       },
+      share_link_url:state => state.wallet.share_link_url,
       ...mapGetters({
         is_connected: "is_connected"
       })
@@ -1523,7 +1524,7 @@ export default {
     }),
 
     inviteLink() {
-      return "https://" + window.location.host + "?ref=" + this.myAddress;
+      return this.share_link_url;
     }
   },
 
@@ -1559,7 +1560,7 @@ export default {
 
      setInterval(this.timeDeal, 1000);
 
-     this.getRefAddress();
+
   },
   mounted() {
 
@@ -1633,9 +1634,6 @@ export default {
       this.$refs.messageTipOkDialog.showClick();
       this.showInviteDialog = false;
     },
-    async getRefAddress(){
-    await InitRef()
-   },
     onError(e) {
       console.log("" + e);
       // this.$message.error("copy error ");

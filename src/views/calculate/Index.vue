@@ -259,6 +259,7 @@ export default {
   computed: {
     ...mapState({
       isMobile: state => state.sys.isMobile,
+
     }),
     inviteLink() {
       return "https://" + window.location.host + "?ref=" + this.myAddress;

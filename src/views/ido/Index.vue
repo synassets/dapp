@@ -1218,6 +1218,7 @@ export default {
       return Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
     },
     ...mapState({
+      share_link_url:state => state.wallet.share_link_url,
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
@@ -1232,7 +1233,7 @@ export default {
     }),
 
     inviteLink() {
-      return "https://" + window.location.host + "?ref=" + this.myAddress;
+      return this.share_link_url;
     }
   },
 
@@ -1263,12 +1264,8 @@ export default {
     this.data = getDATA();
 
     this.configData = getConfigData();
-
-
-
      setInterval(this.timeDeal, 1000);
 
-     this.getRefAddress();
   },
   mounted() {
 
@@ -1283,9 +1280,7 @@ export default {
       this.$refs.messageTipOkDialog.showClick();
       this.showInviteDialog = false;
     },
-    async getRefAddress(){
-    await InitRef()
-   },
+
     onError(e) {
       console.log("" + e);
       // this.$message.error("copy error ");
@@ -1315,7 +1310,6 @@ export default {
       }
     },
     clickOgMarket(val) {
-      this.$refs.messageTipWarnDialog.showClick('address error address error address error address error address error address error address error ');
       this.isOgMarket = val;
       this.mDay = 0;
       this.mH0 = 0;
