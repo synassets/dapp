@@ -29,8 +29,8 @@
 
           <div style=" font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 20px;">My node
           </div>
-          <div style="padding-left: 30px;display: flex;margin-top: 10px">
-            <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">0x135....8492</div>
+          <div style="padding-left: 30px;display: flex;margin-top: 10px" v-for="node in myNodeList">
+            <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;">{{prettifyAddress(node.address)}}</div>
             <div style=" font-size: 12px;font-family: Selawik; font-weight: 400;color: #00A0E9;margin-left: 17px">.............................................................</div>
             <div style=" width: 8px;height: 8px;border: 1px solid #00A0E9;border-radius: 50%;margin-left: 20px;margin-top: 5px"></div>
             <div style=" font-size: 12px;font-family: Selawik;font-weight: 400; color: #00A0E9; margin-left: 20px;">live</div>
@@ -64,39 +64,18 @@
 
           <div style="display: flex;padding-left: 30px;padding-right:40px; font-size: 12px; font-family: Selawik;font-weight: 400; color: #808080;padding-top: 20px;">
             <div style="flex: 1;text-align: left;">Address</div>
-            <div style="flex: 1;text-align: center;">Node</div>
+<!--            <div style="flex: 1;text-align: center;">Node</div>-->
             <div style="flex: 1;text-align: right;">Power</div>
           </div>
-          <div style="display: flex;padding-left: 30px;padding-right:40px; font-size: 18px; font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;">
-            <div style="flex: 1;text-align: left;"><span style="color: #00A0E9">1</span>  0xB79....ewh5</div>
-            <div style="flex: 1;text-align: center;">2,001</div>
-            <div style="flex: 1;text-align: right;">439,567.23
-             </div>
-          </div>
-          <div style="display: flex;padding-left: 30px;padding-right:40px; font-size: 16px; font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;">
-            <div style="flex: 1;text-align: left;"><span style="color: #00A0E9">2</span>  0xB79....ewh5</div>
-            <div style="flex: 1;text-align: center;">2,001</div>
-            <div style="flex: 1;text-align: right;">439,567.23
+          <div v-for="(item, index) in networkRankList">
+            <div :id="'network_' + index" :style="' font-size: ' + (18 - 2*index) +'px; display: flex;padding-left: 30px;padding-right:40px; font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;'">
+              <div style="flex: 1;text-align: left;"><span style="color: #00A0E9">{{index+1}}</span> {{prettifyAddress(item.address)}}</div>
+<!--              <div style="flex: 1;text-align: center;">2,001</div>-->
+              <div style="flex: 1;text-align: right;">{{prettifyPower(item.power)}}
+              </div>
             </div>
           </div>
-          <div style="display: flex;padding-left: 30px;padding-right:40px; font-size: 14px; font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;">
-            <div style="flex: 1;text-align: left;"><span style="color: #00A0E9">3</span>  0xB79....ewh5</div>
-            <div style="flex: 1;text-align: center;">2,001</div>
-            <div style="flex: 1;text-align: right;">439,567.23
-            </div>
-          </div>
-          <div style="display: flex;padding-left: 30px;padding-right:40px; font-size: 12px; font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;">
-            <div style="flex: 1;text-align: left;"><span style="color: #00A0E9">4</span>  0xB79....ewh5</div>
-            <div style="flex: 1;text-align: center;">2,001</div>
-            <div style="flex: 1;text-align: right;">439,567.23
-            </div>
-          </div>
-          <div style="display: flex;padding-left: 30px;padding-right:40px; font-size: 10px; font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;">
-            <div style="flex: 1;text-align: left;"><span style="color: #00A0E9">5</span>  0xB79....ewh5</div>
-            <div style="flex: 1;text-align: center;">2,001</div>
-            <div style="flex: 1;text-align: right;">439,567.23
-            </div>
-          </div>
+
         </div>
       </div>
 
@@ -307,7 +286,10 @@ export default {
 
       data:{},
       configData:{},
-      harvestPending: false
+      harvestPending: false,
+      myNodeList: [],
+      networkRankList: [],
+      timer: 0
     };
   },
   computed: {
@@ -353,10 +335,24 @@ export default {
       return nextConsensusReward.div(8*60*60).toFixed(8)
     },
   },
+  watch: {
+    address() {
+      this.getNetWorkRankList()
+      this.getMyNodeList()
+    }
+  },
   mounted() {
     this.data =  getDATA();
     this.configData = getConfigData()
     // this.pieChart()
+    this.timer = setInterval(() => {
+      // build request
+      this.getNetWorkRankList()
+      this.getMyNodeList()
+    }, 5000)
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   },
 
   methods: {
@@ -375,6 +371,34 @@ export default {
           }).finally(() => {
             this.harvestPending = false;
           })
+    },
+    getMyNodeList() {
+      axios({
+        url: this.configData.backendUrl + 'stake-data/' + this.address,
+        params: {
+          pageNum: 1,
+          pageSize: 10
+        }
+      }).then((r) => {
+        this.myNodeList = r.data.data.data.slice(0, 5)
+      })
+    },
+    getNetWorkRankList() {
+      axios({
+        url: this.configData.backendUrl + 'stake-data',
+        params: {
+          pageNum: 1,
+          pageSize: 10
+        }
+      }).then((r) => {
+        this.networkRankList = r.data.data.data.slice(0, 5)
+      })
+    },
+    prettifyAddress(address) {
+      return address.substring(0, 5) + '...' + address.substring(38);
+    },
+    prettifyPower(power) {
+      return publicJs.toBigNumber(power).div(10**this.sAsset.sOHMDecimals).toFixed(2)
     },
     pieChart() {
       var myChart = this.$echarts.init(document.getElementById("pieChart"));
