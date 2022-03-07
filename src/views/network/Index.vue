@@ -345,11 +345,13 @@ export default {
     this.data =  getDATA();
     this.configData = getConfigData()
     // this.pieChart()
+    this.getNetWorkRankList()
+    this.getMyNodeList()
     this.timer = setInterval(() => {
       // build request
       this.getNetWorkRankList()
       this.getMyNodeList()
-    }, 5000)
+    }, 60000)
   },
   beforeDestroy() {
     clearInterval(this.timer)
