@@ -51,20 +51,93 @@
           :src="sat_icon"
           style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
+
         <div
-          style="position: absolute;left: 1.4rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0.3rem;"
+         class="h5-coin-name"
         >SAT</div>
         <div
-          style="position: absolute;right: 0rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0rem;"
+          class="h5-coin-balance"
         >{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-        <div
+       <!-- <div
           style="position: absolute;right: 0rem;top: 0.5rem;font-size: 0.21rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;color: #808080"
-        >{{ '$ ' + staValve }}</div>
+        >{{ '$ ' + staValve }}</div>-->
+      </div>
+
+
+      <div style="width: 7.87rem;margin: 4.6rem auto 0rem auto;position: relative;">
+        <img
+            :src="icon_coin1"
+            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+        />
+
+        <div
+            class="h5-coin-name"
+        >MATIC</div>
+        <div
+            class="h5-coin-balance"
+        >{{' 0.00'}}</div>
+      </div>
+
+      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
+        <img
+            :src="icon_coin2"
+            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+        />
+
+        <div
+            class="h5-coin-name"
+        >TEST_SAT</div>
+        <div
+            class="h5-coin-balance"
+        >{{' 0.00'}}</div>
+      </div>
+
+      <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
+        <img
+            :src="icon_coin3"
+            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+        />
+
+        <div
+            class="h5-coin-name"
+        >TEST_USDC</div>
+        <div
+            class="h5-coin-balance"
+        >{{' 0.00'}}</div>
+      </div>
+
+      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
+        <img
+            :src="icon_coin4"
+            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+        />
+
+        <div
+            class="h5-coin-name"
+        >TEST_WMATIC</div>
+        <div
+            class="h5-coin-balance"
+        >{{' 0.00'}}</div>
+      </div>
+
+
+      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
+        <img
+            :src="icon_coin5"
+            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+        />
+
+        <div
+            class="h5-coin-name"
+        >TEST_SWMATIC</div>
+        <div
+            class="h5-coin-balance"
+        >{{' 0.00'}}</div>
       </div>
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
-      <div class="h5-add-wallet-btn"  style="margin-top: 0.77rem" @click="showWhitelistClick">Whitelist transfer</div>
-
+      <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="showWhitelistClick">Whitelist transfer</div>
+      <div class="h5-add-wallet-blue-btn" >Claim TestCoin</div>
       <div class="h5-disconnect-wallet-btn" @click="disconnectWallet">Disconnect</div>
     </div>
 
@@ -93,12 +166,45 @@
             <div class="pc-div-btn2-item1">
               <img class="pc-div-btn2-item2" :src="sat_icon" />
               <div class="pc-div-btn2-item3">{{this.data.IDO.OG.symbol}}</div>
-              <div class="pc-div-btn2-item4">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-              <div class="pc-div-btn2-item5">{{ '$ ' + staValve }}</div>
+           <!--   <div class="pc-div-btn2-item4">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
+              <div class="pc-div-btn2-item5">{{ '$ ' + staValve }}</div>-->
+              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+            </div>
+
+            <div class="pc-div-btn2-item1" >
+              <img class="pc-div-btn2-item2" :src="icon_coin1" />
+              <div class="pc-div-btn2-item3">{{'MATIC'}}</div>
+
+              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+            </div>
+
+            <div class="pc-div-btn2-item1" >
+              <img class="pc-div-btn2-item2" :src="icon_coin2" />
+              <div class="pc-div-btn2-item3">{{'TEST_SAT'}}</div>
+              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+            </div>
+
+            <div class="pc-div-btn2-item1" >
+              <img class="pc-div-btn2-item2" :src="icon_coin3" />
+              <div class="pc-div-btn2-item3">{{'TEST_USDC'}}</div>
+              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+            </div>
+
+            <div class="pc-div-btn2-item1" >
+              <img class="pc-div-btn2-item2" :src="icon_coin4" />
+              <div class="pc-div-btn2-item3">{{'TEST_WMATIC'}}</div>
+              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+            </div>
+
+            <div class="pc-div-btn2-item1" >
+              <img class="pc-div-btn2-item2" :src="icon_coin5" />
+              <div class="pc-div-btn2-item3">{{'TEST_SWMATIC'}}</div>
+              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
             </div>
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
-            <div class="whitelist-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
+            <div class="add-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
+            <div class="whitelist-wallet-btn"  >Claim TestCoin</div>
           </div>
         </div>
       </div>
@@ -195,7 +301,7 @@ import {
   icon_fox,
   icon_wifi,
   icon_down_arrow,
-  gif
+  gif, icon_coin1, icon_coin2, icon_coin3, icon_coin4, icon_coin5
 } from "@/utils/images";
 
 import Cookies from "js-cookie";
@@ -230,7 +336,11 @@ export default {
       metamask,
       icon_fox,
       icon_wifi,
-
+      icon_coin1,
+      icon_coin2,
+      icon_coin3,
+      icon_coin4,
+      icon_coin5,
       loops: "",
       firstRun: true,
       loading: "",
@@ -390,7 +500,7 @@ export default {
   color: #808080;
   width: 7.87rem;
   height: 1.07rem;
-  margin: 6rem auto 0rem auto;
+  margin: 11rem auto 0rem auto;
   border: 1px solid #808080;
   position: relative;
   text-align: center;
@@ -398,6 +508,25 @@ export default {
 }
 .h5-add-wallet-btn:hover {
   background: linear-gradient(-45deg, #25434a 0%, #4a3e48 100%);
+}
+
+.h5-add-wallet-blue-btn {
+  cursor: pointer;
+  font-size: 0.32rem;
+  font-family: Selawik;
+  font-weight: 400;
+  color: #ffffff;
+  width: 7.87rem;
+  height: 1.07rem;
+  margin: 0.6rem auto 0rem auto;
+  border: 1px solid #0792E3;
+  background: #0792E3;
+  position: relative;
+  text-align: center;
+  line-height: 1.07rem;
+}
+.h5-add-wallet-blue-btn:hover {
+  background: #91cbee;
 }
 .h5-disconnect-wallet-btn{
   cursor: pointer;
@@ -426,8 +555,14 @@ export default {
 .spanner-item-n{
   width: 770px;height: 50px; background: #FFFFFF;display: flex;z-index: 999;
 }
+.h5-coin-name{
+  position: absolute;left: 1.4rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0.3rem;
+}
+.h5-coin-balance{
+  position: absolute;right: 0rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0.3rem;
+}
 .add-wallet-btn {
-  margin: 0px auto;
+  margin: 20px auto 0px auto;
   font-size: 14px;
   font-family: Selawik;
   font-weight: 400;
@@ -574,7 +709,7 @@ export default {
   right: 0px;
   top: 42px;
   width: 300px;
-  height:240px;
+  height:540px;
   background: #242424;
   border-radius: 10px;
 }
@@ -597,7 +732,7 @@ pc-div-btn2-item:hover {
 }
 .pc-div-btn2-item1 {
   display: flex;
-  padding: 20px;
+  padding: 10px 20px;
   position: relative;
 }
 .pc-div-btn2-item1:hover .pc-div-btn2-item {
@@ -640,7 +775,8 @@ pc-div-btn2-item:hover {
 .pc-div-btn2-item5 {
   position: absolute;
   right: 20px;
-  top: 20px;
+  //top: 20px;
+  line-height: 1.5;
   font-size: 10px;
   font-family: Selawik;
   font-weight: 400;
