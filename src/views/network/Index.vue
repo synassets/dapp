@@ -330,19 +330,19 @@ export default {
         return 0;
       }
       const sOHMBalance = publicJs.toBigNumber(this.sAsset.sOHMBalanceOfUser).div(10**this.sAsset.sOHMDecimals);
-      return publicJs.toBigNumber(this.sAsset.epochDistribute).times(sOHMBalance).div(this.sAsset.sOhmCirculatingSupply).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.epochDistribute).times(sOHMBalance).div(this.sAsset.sOhmCirculatingSupply);
     },
     networkPower() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolTotalPower).dividedBy(10**this.sAsset.sOHMDecimals).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolTotalPower).dividedBy(10**this.sAsset.sOHMDecimals).toFixed(2);
     },
     networkPowerRate() {
       return publicJs.toBigNumber(this.nextRewardAmount).times(0.1).div(8*60*60).toFixed(8);
     },
     myPower() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserPower).div(10**this.sAsset.sOHMDecimals).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserPower).div(10**this.sAsset.sOHMDecimals).toFixed(2);
     },
     myClaimableReward() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).div(10**this.sAsset.sOHMDecimals).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).div(10**this.sAsset.sOHMDecimals).toFixed(2);
     },
     myPowerRate() {
       if (this.networkPower <= 0) {

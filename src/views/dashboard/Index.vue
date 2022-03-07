@@ -37,16 +37,16 @@
               </div>
 
 
-              <div style="margin-left: 33px;margin-top: 20px;width: 360px;height: 16px;border-radius: 8px;background:#5F5F5F;position: relative;">
-                <div style="width: 300px;height: 16px;border-radius: 8px;background:#F29C9F;position: absolute;left: 0;"></div>
-                <div style="width: 280px;height: 16px;border-radius: 8px;background:#0792E3;position: absolute;left: 0;"></div>
-                <div style="width: 250px;height: 16px;border-radius: 8px;background:#5F52A0;position: absolute;left: 0;"></div>
+              <div style="margin-left: 33px;margin-top: 20px;width: 360px;height: 16px;border-radius: 8px;background:#F29C9F;position: relative;">
+                <div id="percentageLineChart" style="width: 180px;height: 16px;border-radius: 8px;background:#0792E3;position: absolute;left: 0;"></div>
+<!--                <div style="width: 280px;height: 16px;border-radius: 8px;background:#F29C9F;position: absolute;left: 0;"></div>-->
+<!--                <div style="width: 250px;height: 16px;border-radius: 8px;background:#5F52A0;position: absolute;left: 0;"></div>-->
               </div>
 
-              <div style="margin-left: 33px;margin-top: 10px;width: 360px;position: relative;">
-                <div style="position: absolute;right: 0;font-family: Selawik; font-weight: 400;color: #808080;font-size: 12px;">--/--</div>
-              </div>
-              <div class="pc-dashboard-btn1">Harvest</div>
+<!--              <div style="margin-left: 33px;margin-top: 10px;width: 360px;position: relative;">-->
+<!--                <div style="position: absolute;right: 0;font-family: Selawik; font-weight: 400;color: #808080;font-size: 12px;">&#45;&#45;/&#45;&#45;</div>-->
+<!--              </div>-->
+              <div class="pc-dashboard-btn1" @click="clickHarvest">Harvest</div>
             </div>
 
 
@@ -235,6 +235,8 @@
     </div>
 
 
+    <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
+    <MessageTipOkDialog   ref="MessageTipOkDialog" />
   </div>
 </template>
 <script>
@@ -254,9 +256,13 @@ import {
 
 } from "../../utils/Wallet";
 import * as publicJs from "@/utils/public";
+import * as wallet from "@/utils/Wallet";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 export default {
   name: "Index",
   components: {
+    MessageTipErrorDialog,MessageTipOkDialog
 
   },
   data() {
@@ -268,6 +274,16 @@ export default {
       configData:{},
 
     };
+  },
+  watch: {
+    myClaimableReward() {
+      const width = publicJs.toBigNumber(this.myClaimableReward).div(this.myTotalReward).times(360);
+      document.getElementById('percentageLineChart').style.width=width + 'px'
+    },
+    myTotalReward() {
+      const width = publicJs.toBigNumber(this.myClaimableReward).div(this.myTotalReward).times(360);
+      document.getElementById('percentageLineChart').style.width=width + 'px'
+    },
   },
   computed: {
     ...mapState({
@@ -330,10 +346,10 @@ export default {
       return this.sAsset.ConsensusPoolTotalPower;
     },
     myClaimableReward() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).div(10**this.sAsset.sOHMDecimals).toFixed(2);
     },
     myTotalReward() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserTotalReward).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserTotalReward).div(10**this.sAsset.sOHMDecimals).toFixed(2);
     },
     myPowerRate() {
       if (this.networkPower <= 0) {
@@ -366,6 +382,22 @@ export default {
     route(path) {
       this.$router.push(path).catch(err => {err});
     },
+    clickHarvest() {
+      if (this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount <= 0) {
+        this.$refs.MessageTipErrorDialog.showClick('Nothing to harvest!');
+        return;
+      }
+      this.harvestPending = true;
+      wallet.callClaimReward(this.sAsset.contract.ConsensusPool)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+        console.log(reason)
+        this.$refs.MessageTipErrorDialog.showClick(reason.message);
+      }).finally(() => {
+        this.harvestPending = false;
+      })
+    },
     initCharts() {
       let charts = this.$echarts.init(document.getElementById('canvas'));
       var option = {
@@ -377,7 +409,7 @@ export default {
           axisLine:{
             lineStyle:{
               color:'#0792E3',
-              width:0,//这里是为了突出显示加上的
+              width:0,
             }
 
           },
