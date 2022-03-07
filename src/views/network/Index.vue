@@ -315,9 +315,10 @@ export default {
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       sAsset: state => state.sAsset,
+      share_link_url:state => state.wallet.share_link_url,
     }),
     inviteLink() {
-      return "https://" + window.location.host + "?ref=" + this.myAddress;
+      return this.share_link_url;
     },
     myAddress() {
       return getAddress();

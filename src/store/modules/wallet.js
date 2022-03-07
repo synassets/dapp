@@ -12,6 +12,7 @@ const wallet  ={
     my_amount_og_swapped:0,
     my_amount_nog_swapped:0,
     refresh_flag: 0,
+    share_link_url:""
    },
   getters: {
     is_connected: state => {
@@ -76,7 +77,10 @@ const wallet  ={
       // console.log("address :-> "+payload);
       state.address = payload
     },
-
+    SET_SHARE_LINK_URL :(state, payload)=> {
+      // console.log("address :-> "+payload);
+      state.share_link_url = payload
+    },
     SET_REF_ADDRESS:(state, payload)=> {
       if (payload === 0) {
         state.invite_address = ''
