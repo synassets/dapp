@@ -386,6 +386,14 @@ export async function bondRedeem(contractAddress, recipient, stake) {
       })
 }
 
+export async function callClaimReward(contractAddress) {
+  const abi = CONTRACT_DATA['consensusPool'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.claimReward().send({
+        from: getWalletAddressSync(),
+      })
+}
+
 export async function approve(type, spender, amount) {
   return new Promise((resolve, reject) => {
     const contract_obj = getContract(type);

@@ -23,7 +23,7 @@
           </div>
           <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myClaimableReward}} s{{OHMSymbol}}
 
-            <span style="float: right;margin-right: 40px; background: #00A0E9; border-radius: 5px; font-size: 14px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-left: 15px;padding-right: 15px;cursor: pointer;">Harvest</span>
+            <span style="float: right;margin-right: 40px; background: #00A0E9; border-radius: 5px; font-size: 14px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-left: 15px;padding-right: 15px;cursor: pointer;" @click="clickHarvest">Harvest</span>
 
           </div>
 
@@ -40,7 +40,7 @@
 
         </div>
         <div style="width: 658px;background: #242424;height: 470px;margin-left: 20px;position: relative;">
-          <div id="pieChart" style="width: 120px;height: 120px;position: absolute;right:60px;top: 25px "></div>
+<!--          <div id="pieChart" style="width: 120px;height: 120px;position: absolute;right:60px;top: 25px "></div>-->
 
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 25px;">Network Power
           </div>
@@ -146,7 +146,7 @@
        <div style="display: flex;padding-top: 0.4rem; font-size: 0.64rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 100%;position: relative;">
        <div style="padding-left: 0.8rem;">{{myClaimableReward}} s{{OHMSymbol}}</div>
 
-         <div style=" cursor: pointer;position: absolute;right: 0.8rem;width: 2.13rem; height: 0.67rem; line-height: 0.67rem; background: #00A0E9; border-radius: 0.07rem;text-align: center;  font-size: 0.32rem; font-family: Selawik; font-weight: bold; color: #FFFFFF;">
+         <div style=" cursor: pointer;position: absolute;right: 0.8rem;width: 2.13rem; height: 0.67rem; line-height: 0.67rem; background: #00A0E9; border-radius: 0.07rem;text-align: center;  font-size: 0.32rem; font-family: Selawik; font-weight: bold; color: #FFFFFF;" @click="clickHarvest">
            Harvest</div>
 
        </div>
@@ -266,6 +266,8 @@
       <!--3--->
 
 
+      <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
+      <MessageTipOkDialog   ref="MessageTipOkDialog" />
     </div>
 
   </div>
@@ -286,9 +288,13 @@ import {
 
 } from "../../utils/Wallet";
 import * as publicJs from "@/utils/public";
+import * as wallet from "@/utils/Wallet";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
+import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 export default {
   name: "Index",
   components: {
+    MessageTipErrorDialog,MessageTipOkDialog
 
   },
   data() {
@@ -301,6 +307,7 @@ export default {
 
       data:{},
       configData:{},
+      harvestPending: false
     };
   },
   computed: {
@@ -332,10 +339,10 @@ export default {
       return publicJs.toBigNumber(this.nextRewardAmount).times(0.1).div(8*60*60).toFixed(8);
     },
     myPower() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserPower).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserPower).div(10**this.sAsset.sOHMDecimals).toFixed(this.sAsset.sOHMDecimals);
     },
     myClaimableReward() {
-      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).toFixed(this.sAsset.sOHMDecimals);
+      return publicJs.toBigNumber(this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount).div(10**this.sAsset.sOHMDecimals).toFixed(this.sAsset.sOHMDecimals);
     },
     myPowerRate() {
       if (this.networkPower <= 0) {
@@ -348,10 +355,26 @@ export default {
   mounted() {
     this.data =  getDATA();
     this.configData = getConfigData()
-    this.pieChart()
+    // this.pieChart()
   },
 
   methods: {
+    clickHarvest() {
+      if (this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount <= 0) {
+        this.$refs.MessageTipErrorDialog.showClick('Nothing to harvest!');
+        return;
+      }
+      this.harvestPending = true;
+      wallet.callClaimReward(this.sAsset.contract.ConsensusPool)
+          .then(() => {
+            this.$refs.MessageTipOkDialog.showClick();
+          }).catch((reason) => {
+            console.log(reason)
+            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+          }).finally(() => {
+            this.harvestPending = false;
+          })
+    },
     pieChart() {
       var myChart = this.$echarts.init(document.getElementById("pieChart"));
       let option = {
