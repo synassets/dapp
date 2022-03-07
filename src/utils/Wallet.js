@@ -354,10 +354,10 @@ export async function callApprove(contractAddress, spender, amount) {
       })
 }
 
-export async function callStake(contractAddress, amount, recipient) {
-  const abi = CONTRACT_DATA['staking'].abi
+export async function callStake(contractAddress, amount, recipient, inviter) {
+  const abi = CONTRACT_DATA['stakingHelper'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
-  return await contract.methods.stake(amount, recipient).send({
+  return await contract.methods.stake(amount, recipient, inviter).send({
     from: getWalletAddressSync(),
   })
 }
@@ -382,6 +382,14 @@ export async function bondRedeem(contractAddress, recipient, stake) {
   const abi = CONTRACT_DATA['bond'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.redeem(recipient, stake).send({
+        from: getWalletAddressSync(),
+      })
+}
+
+export async function callClaimReward(contractAddress) {
+  const abi = CONTRACT_DATA['consensusPool'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.claimReward().send({
         from: getWalletAddressSync(),
       })
 }

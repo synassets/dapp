@@ -269,6 +269,7 @@ export default {
       address: state => state.wallet.address,
       sAsset: state => state.sAsset,
       share_link_url:state => state.wallet.share_link_url,
+      invite_address:state => state.wallet.invite_address,
     }),
     inviteLink() {
       return this.share_link_url;
@@ -376,13 +377,17 @@ export default {
     },
 
     clickStake() {
+      if (!this.invite_address) {
+        this.$refs.MessageTipErrorDialog.showClick('inviter is null');
+        return;
+      }
       if (isNaN(this.stakeInputAmount) || this.stakeInputAmount <= 0) {
         this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
         return
       }
       this.stakePending = true;
       const amount = publicJs.toBigNumber(this.stakeInputAmount).multipliedBy(10**this.sAsset.OHMDecimals)
-      wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address)
+      wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address, this.invite_address)
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {

@@ -11,9 +11,9 @@ const sys = {
       medium: "",
       discord: "",
       doc: "",
-      whiteListURL: ""
+      whiteListURL: "",
+      backendUrl: "",
     },
-
     baseConfig: {
     },
     // 
