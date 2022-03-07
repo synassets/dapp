@@ -522,39 +522,41 @@ export default {
         Cookies.set("CHAIN_TYPE", this.currencyNo, { expires: 31 });
         this.$router.push("/ido");
       }else if(index == 3){
-        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-       Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
-        this.currency = "POLYGON";
-        this.isShowMenu = true;
+        // Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
+        // this.currency = "POLYGON";
+        // this.isShowMenu = true;
       }else if(index == 4){
-        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
-        this.currency = "ETH";
-        this.isShowMenu = true;
+        // Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
+        //this.currency = "ETH";
+        // this.isShowMenu = true;
       }else if(index == 5){
         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
-        this.currency = "UNI";
-        this.isShowMenu = true;
+        // Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
+        // this.currency = "UNI";
+        //this.isShowMenu = true;
       }else if(index == 6){
-        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
-        this.currency = "DOT";
-        this.isShowMenu = true;
+        // Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
+        //this.currency = "DOT";
+        //this.isShowMenu = true;
       }else if(index == 8){
         this.$router.push("/dashboard").catch(err => {err});
       }else if(index == 9){
-        this.$router.push("/coin_ido").catch(err => {err});
+        //this.$router.push("/coin_ido").catch(err => {err});
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
       }else if(index == 10){
         this.$router.push("/stake").catch(err => {err});
       }else if(index == 11){
         this.$router.push("/bond").catch(err => {err});
       }else if(index == 12){
-        this.$router.push("/calculate").catch(err => {err});
+       // this.$router.push("/calculate").catch(err => {err});
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
       }else if(index == 13){
         this.$router.push("/network").catch(err => {err});
       }
