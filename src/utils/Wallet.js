@@ -355,7 +355,7 @@ export async function callApprove(contractAddress, spender, amount) {
 }
 
 export async function callStake(contractAddress, amount, recipient, inviter) {
-  const abi = CONTRACT_DATA['staking'].abi
+  const abi = CONTRACT_DATA['stakingHelper'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.stake(amount, recipient, inviter).send({
     from: getWalletAddressSync(),
