@@ -229,9 +229,10 @@ export default {
     ...mapState({
       isMobile: state => state.sys.isMobile,
       sAsset: state => state.sAsset,
+      share_link_url:state => state.wallet.share_link_url,
     }),
     inviteLink() {
-      return "https://" + window.location.host + "?ref=" + this.myAddress;
+     return this.share_link_url;
     },
     myAddress() {
       return getAddress();

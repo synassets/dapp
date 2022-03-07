@@ -8,7 +8,10 @@
 
 import { mapState } from 'vuex';
 import { createWatcher } from "@makerdao/multicall";
+import {InitRef} from "@/utils/Wallet";
+import {Base64} from "js-base64";
 const config_data =  require('./config/data.json')
+import store from "@/store";
 
 export default {
   name: 'App',
@@ -18,6 +21,7 @@ export default {
       sAsset: state => state.sAsset, //
       address: state => state.wallet.address, //
       configData:state => state.sys.Config, //
+      share_link_url:state => state.wallet.share_link_url,
     }),
   },
   data() {
@@ -27,8 +31,11 @@ export default {
     }
   },
   watch: {
-    address(newQuestion, oldQuestion) {
-      console.log(newQuestion + " old: :" + oldQuestion);
+    address(new_address, old_address) {
+      console.log(new_address + " old: :" + old_address);
+      let myAddress = Base64.encode(new_address);
+      let shareLinkUrl = "https://" + window.location.host + "?ref=" + myAddress;
+      store.commit("SET_SHARE_LINK_URL", shareLinkUrl);
       this.restartWatch()
     },
   },
@@ -36,6 +43,7 @@ export default {
   created() {
     this.$store.commit("SET_CONTRACT", config_data.sMatic);
     this.$store.commit("SET_CONFIG", config_data.Config);
+    InitRef();
     this.handleEnvSet();
   },
   mounted(){
@@ -67,110 +75,6 @@ export default {
 
       this.Mult_watcher = createWatcher(
           [
-            // {
-            //   target: this.ido.currentAddress,
-            //   call: [
-            //     "allowance(address,address)(uint256)",
-            //     this.address,
-            //     this.ido.og_sale.contract_address,
-            //   ],
-            //   returns: [["OG_allowance"]]
-            // },
-            // {
-            //   target: this.ido.currentAddress,
-            //   call: [
-            //     "allowance(address,address)(uint256)",
-            //     this.address,
-            //     this.ido.public_sale.contract_address,
-            //   ],
-            //   returns: [["NOG_allowance"]]
-            // },
-            // {
-            //   target:  this.ido.og_sale.contract_address,
-            //   call: ["amountSwapped1(address)(uint256)", this.address],
-            //   returns: [["my_amount_OG_Swapped"]]
-            // },
-            // {
-            //   target:  this.ido.public_sale.contract_address,
-            //   call: ["amountSwapped1(address)(uint256)", this.address],
-            //   returns: [["my_amount_public_Swapped"]]
-            // },
-            // {
-            //   target: this.ido.og_sale.contract_address,
-            //   call: ["amountTotal1()(uint256)"],
-            //   returns: [["og_amount_total"]]
-            // },
-            // {
-            //   target: this.ido.public_sale.contract_address,
-            //   call: ["amountTotal1()(uint256)"],
-            //   returns: [["nog_amount_total"]]
-            // },
-
-            // {
-            //   target: this.ido.og_sale.contract_address,
-            //   call: ["amountTotal0()(uint256)"],
-            //   returns: [["amountTotal02"]]
-            // },
-            // {
-            //   target: this.data.IDO.NOG.contractAddress,
-            //   call: ["amountTotal0()(uint256)"],
-            //   returns: [["amountTotal05"]]
-            // },
-            // {
-            //   target: this.data.IDO.OG.contractAddress,
-            //   call: ["calcT1(uint256)(uint256)", this.data.IDO.OG.scala],
-            //   returns: [["calcT12"]]
-            // },
-            // {
-            //   target: this.data.IDO.NOG.contractAddress,
-            //   call: ["calcT1(uint256)(uint256)", this.data.IDO.NOG.scala],
-            //   returns: [["calcT15"]]
-            // },
-            // {
-            //   target: this.ido.og_sale.currentAddress,
-            //   call: ["balanceOf(address)(uint256)", this.address],
-            //   returns: [["OG_Balance_of_current"]]
-            // },
-            // {
-            //   target: this.ido.public_sale.currentAddress,
-            //   call: ["balanceOf(address)(uint256)", this.address],
-            //   returns: [["public_Balance_of_current"]]
-            // },
-            // {
-            //   target: this.data.IDO.OG.contractAddress,
-            //   call: ["whitelist(address)(uint256)", this.address],
-            //   returns: [["OGwhitelist"]]
-            // },
-            // {
-            //   target: this.data.IDO.OG.contractAddress,
-            //   call: ["inviteable(address)(bool)", this.address],
-            //   returns: [["OG_ambassador"]]
-            // },
-            // {
-            //   target: this.data.IDO.NOG.contractAddress,
-            //   call: ["inviteable(address)(bool)", this.address],
-            //   returns: [["NOG_ambassador"]]
-            // },
-            // {
-            //   target: this.ido.og_sale.contract_address,
-            //   call: ["openAt()(uint256)"],
-            //   returns: [["openAtOG"]]
-            // },
-            // {
-            //   target: this.ido.og_sale.contract_address,
-            //   call: ["closeAt()(uint256)"],
-            //   returns: [["closeAtOG"]]
-            // },
-            // {
-            //   target: this.ido.public_sale.contract_address,
-            //   call: ["openAt()(uint256)"],
-            //   returns: [["openAtNOG"]]
-            // },
-            // {
-            //   target: this.ido.public_sale.contract_address,
-            //   call: ["closeAt()(uint256)"],
-            //   returns: [["closeAtNOG"]]
-            // },
 
             //  sAsset
             {
