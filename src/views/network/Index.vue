@@ -7,11 +7,16 @@
       <div style="display: flex;width: 1078px;margin: 0px auto 0px auto;padding-top: 150px;padding-left: 380px;">
         <div style="width: 400px;background: #242424;height: 470px;">
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 25px;">My Power
-            <img
-                :src="icon_share"
+            <div
                 style="width: 19px;height: 19px;float: right;margin-right: 40px;cursor: pointer;"
+                v-clipboard:copy="this.share_link_url"
+                v-clipboard:success="onCopy"
+                v-clipboard:error="onError"
+            > <img
+                :src="icon_share"
+                style="width: 19px;height: 19px;cursor: pointer;"
 
-            />
+            /></div>
           </div>
           <div style=" font-size: 20px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 30px;padding-top: 5px;">{{myPower}} s{{OHMSymbol}}
           </div>
@@ -100,10 +105,17 @@
           <div style="flex: 1;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #808080;">
             My PowerRate
           </div>
+          <div
+              style="width: 0.5rem;height: 0.5rem;margin-right: 0.8rem;cursor: pointer;"
+              v-clipboard:copy="this.share_link_url"
+              v-clipboard:success="onCopy"
+              v-clipboard:error="onError"
+          >
           <img
               :src="icon_share"
-              style="width: 0.29rem;height: 0.29rem;margin-right: 0.8rem;cursor: pointer;margin-top: 0.04rem;"
+              style="width: 0.29rem;height: 0.29rem;cursor: pointer;margin-left: 0.15rem;margin-top: 0.04rem;"
           />
+          </div>
         </div>
 
        <div style="display: flex;padding-top: 0.2rem;">
@@ -203,8 +215,9 @@
       <!--3--->
 
 
-      <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
-      <MessageTipOkDialog   ref="MessageTipOkDialog" />
+      <MessageTipOkDialog    ref="messageTipOkDialog" />
+      <MessageTipWarnDialog   ref="messageTipWarnDialog" />
+      <MessageTipErrorDialog   ref="messageTipErrorDialog" />
     </div>
 
   </div>
@@ -226,12 +239,15 @@ import {
 } from "../../utils/Wallet";
 import * as publicJs from "@/utils/public";
 import * as wallet from "@/utils/Wallet";
-import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
+import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 export default {
   name: "Index",
   components: {
-    MessageTipErrorDialog,MessageTipOkDialog
+    MessageTipOkDialog,
+    MessageTipWarnDialog,
+    MessageTipErrorDialog
 
   },
   data() {
@@ -240,7 +256,6 @@ export default {
       gif,
       pc_ido_img1,
       icon_share,
-
 
       data:{},
       configData:{},
@@ -316,6 +331,17 @@ export default {
   },
 
   methods: {
+    onCopy(e) {
+      console.log("" + e);
+      // this.$message.success("success ");
+      this.$refs.messageTipOkDialog.showClick();
+
+    },
+
+    onError(e) {
+
+      this.$refs.messageTipErrorDialog.showClick('copy error ');
+    },
     clickHarvest() {
       if (this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount <= 0) {
         this.$refs.MessageTipErrorDialog.showClick('Nothing to harvest!');
