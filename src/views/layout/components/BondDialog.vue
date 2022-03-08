@@ -279,6 +279,7 @@ export default {
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       sAsset: state => state.sAsset,
+      invite_address:state => state.wallet.invite_address,
 
     }),
     OHMSymbol() {
@@ -415,6 +416,10 @@ export default {
           })
     },
     clickBond() {
+      if (!this.invite_address) {
+        this.$refs.MessageTipErrorDialog.showClick('inviter not exist');
+        return;
+      }
       if (isNaN(this.bondInputAmount) || this.bondInputAmount <= 0) {
         this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
         return
@@ -422,7 +427,7 @@ export default {
       this.bondPending = true;
       const amount = publicJs.toBigNumber(this.bondInputAmount).multipliedBy(10**this.bond.tokenDecimals)
       const maxPrice = this.bond.bondPrice * 2
-      wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address)
+      wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address, this.invite_address)
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
           }).catch((reason) => {
