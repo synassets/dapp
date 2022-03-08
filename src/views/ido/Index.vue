@@ -1293,9 +1293,9 @@ export default {
         return;
       }
       this.showInviteDialog = true;
-      let myAddress = Base64.encode(this.address);
-      this.shareLinkUrl =
-        "https://" + window.location.host + "?ref=" + myAddress;
+
+      this.shareLinkUrl = this.share_link_url;
+
     },
 
     closedClickSetDialog() {
