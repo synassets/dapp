@@ -257,7 +257,7 @@ export default {
       }
       this.isShowProgress = true;
       try {
-          let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.contractAddress);
+          let data =  await transfer_white_list(this.whitelistInputAddress, this.data.IDO.OG.sale_address);
           if(data.status == true){
             this.$refs.messageTipOkDialog.showClick();
           }

@@ -69,10 +69,10 @@ export const icon_matic_sat_lp = require("@/assets/img/icon_matic_sat_lp.png");
 export const icon_contact = require("@/assets/img/icon_contact.png");
 export const smatic = require("@/assets/img/smatic.png");
 
-export const icon_coin1 = require("@/assets/img/icon_coin1.png");
-export const icon_coin2 = require("@/assets/img/icon_coin2.png");
-export const icon_coin3 = require("@/assets/img/icon_coin3.png");
-export const icon_coin4 = require("@/assets/img/icon_coin4.png");
+export const icon_coin_matic = require("@/assets/img/icon_coin1.png");
+export const icon_coin_test_sat = require("@/assets/img/icon_coin2.png");
+export const icon_coin_test_usdc = require("@/assets/img/icon_coin3.png");
+export const icon_coin_test_matic = require("@/assets/img/icon_coin4.png");
 export const icon_coin5 = require("@/assets/img/icon_coin5.png");
 
 

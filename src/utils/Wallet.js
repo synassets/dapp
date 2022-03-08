@@ -5,8 +5,6 @@ import {
   CONTRACT_DATA,
 } from "../config/wallet";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-
-
 export let web3 = null;
 const contractData =  require('../config/data.json')
 export function getDATA() {
@@ -45,10 +43,11 @@ async function createMetaMaskProvider(){
     return null;
   }
   const provider = window.ethereum || window.web3.currentProvider;
-  await window.ethereum.enable();
+
   await window.ethereum.on('accountsChanged', function (accounts) {
     updateAddress(accounts[0]);
   })
+ await window.ethereum.send('eth_requestAccounts');
   return  provider;
 }
 export async function walletDisConnect(){
@@ -201,10 +200,8 @@ export async function   switchChain(){
   }
 }
 
-export async function   addSATCoin(){
-  const tokenAddress = getDATA().IDO.OG.address;
-  const tokenSymbol = getDATA().IDO.OG.symbol;
-  const tokenDecimals = 18;
+export async function   addWatchAsset(tokenAddress, tokenSymbol, tokenDecimals){
+
   const tokenImage = '';
 
   try {
@@ -313,7 +310,7 @@ export async function getBlockTimestamp(number) {
 export async function getBalance(address) {
   let balance = 0;
   try {
-    balance = await this.web3.eth.getBalance(address);
+    balance = await web3.eth.getBalance(address);
   } catch (e) {
     console.log(e)
   }
@@ -345,6 +342,16 @@ export function trim(value) {
 
 
 ///////////////////approve()    //approve  ////////////////////////////
+
+export async function MintTestCoin(contractAddress) {
+  console.log("mint:" + contractAddress);
+  const abi = CONTRACT_DATA['coin'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.mint().send({
+    from: getWalletAddressSync(),
+  })
+}
+
 
 export async function callApprove(contractAddress, spender, amount) {
   let price  = await getGasPrice() *1.6;
