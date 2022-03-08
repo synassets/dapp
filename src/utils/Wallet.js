@@ -372,10 +372,10 @@ export async function callUnstake(contractAddress, amount, trigger) {
   })
 }
 
-export async function bondDeposit(contractAddress, amount, maxPrice, depositor) {
+export async function bondDeposit(contractAddress, amount, maxPrice, depositor, inviter) {
   const abi = CONTRACT_DATA['bond'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
-  return await contract.methods.deposit(amount, maxPrice, depositor).send({
+  return await contract.methods.deposit(amount, maxPrice, depositor, inviter).send({
         from: getWalletAddressSync(),
       })
 }
