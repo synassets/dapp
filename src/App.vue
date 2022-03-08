@@ -8,7 +8,7 @@
 
 import { mapState } from 'vuex';
 import { createWatcher } from "@makerdao/multicall";
-import {InitRef} from "@/utils/Wallet";
+import {getBalance, InitRef} from "@/utils/Wallet";
 import {Base64} from "js-base64";
 const config_data =  require('./config/data.json')
 import store from "@/store";
@@ -21,6 +21,7 @@ export default {
       sAsset: state => state.sAsset, //
       address: state => state.wallet.address, //
       configData:state => state.sys.Config, //
+      refresh_flag:state => state.wallet.refresh_flag,
       share_link_url:state => state.wallet.share_link_url,
     }),
   },
@@ -38,6 +39,11 @@ export default {
       store.commit("SET_SHARE_LINK_URL", shareLinkUrl);
       this.restartWatch()
     },
+    refresh_flag(newQuestion, oldQuestion) {
+      console.log(newQuestion + " old: :" + oldQuestion);
+      this.restartWatch()
+    },
+
   },
 
   created() {
@@ -59,10 +65,12 @@ export default {
     async restartWatch()
     {
       console.log("restartWatch------------");
-      if(this.Mult_watcher != null){
+      if (this.Mult_watcher != null) {
         this.Mult_watcher.stop();
         this.Mult_watcher = null;
       }
+      let balance = await getBalance(this.address);
+      this.$store.commit("SET_BALANCE", balance);
       await this.getStartWatch();
     },
     async getStartWatch() {

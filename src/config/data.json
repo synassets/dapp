@@ -35,22 +35,6 @@
     "PUB": "0x342E24d1bE1c336697a4476005612fa10Bc7DE61"
   },
   "SAT": {
-    "Address": {
-      "BondDepositoryDai": "",
-      "BondDepositoryLp": "",
-      "StakingHelper": "",
-      "Staking": "",
-      "ohm_coin": "",
-      "sohm_coin": "",
-      "dai_coin": "",
-      "xxx_dai_lp_coin": "",
-      "PreSale2": "",
-      "PreSale5": "",
-      "getLpPrice": "",
-      "Migrate": "",
-      "sohm_coin_old": ""
-    },
-
     "IDO": {
       "OG": {
         "enableWhiteList": false,

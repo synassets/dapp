@@ -1071,12 +1071,11 @@ import {
   saleSwap,
   getConfigData,
   isAddress,
-  InitRef, refresh_data
+   refresh_data
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif } from "../../utils/images";
 import store from "@/store";
-import {Base64} from "js-base64";
 export default {
   name: "Index",
   components: {

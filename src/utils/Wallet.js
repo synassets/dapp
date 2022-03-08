@@ -5,7 +5,7 @@ import {
   CONTRACT_DATA,
 } from "../config/wallet";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-
+import * as publicJs from "@/utils/public";
 
 export let web3 = null;
 const contractData =  require('../config/data.json')
@@ -313,7 +313,8 @@ export async function getBlockTimestamp(number) {
 export async function getBalance(address) {
   let balance = 0;
   try {
-    balance = await this.web3.eth.getBalance(address);
+    balance = await web3.eth.getBalance(address);
+    balance = publicJs.toBigNumber(balance).dividedBy(10**18).toFixed(3);
   } catch (e) {
     console.log(e)
   }

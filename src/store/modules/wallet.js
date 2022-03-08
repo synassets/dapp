@@ -61,11 +61,13 @@ const wallet  ={
 
 
     SET_OG_WHITE_LIST_COUNTER:(state, payload)=> {
-
       state.whitelist_og_counter = payload
     },
     SET_SAT_BALANCE:(state, payload)=> {
       state.sat_balance = payload
+    },
+    SET_BALANCE:(state, payload)=> {
+      state.balance = payload
     },
     SET_CHAIN_ID:(state, payload)=> {
       state.chain_id = payload

@@ -175,7 +175,7 @@
               <img class="pc-div-btn2-item2" :src="icon_coin1" />
               <div class="pc-div-btn2-item3">{{'MATIC'}}</div>
 
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+              <div class="pc-div-btn2-item5">{{ this.balance}}</div>
             </div>
 
             <div class="pc-div-btn2-item1" >
@@ -370,7 +370,9 @@ export default {
       isMobile: state => state.sys.isMobile,
       address: state => state.wallet.address,
       satBalance: state => state.wallet.sat_balance,
+      balance: state => state.wallet.balance,
       whitelist_og_counter: state => state.wallet.whitelist_og_counter,
+      sAsset: state => state.sAsset,
     }),
     ...mapGetters({
       is_connected: "is_connected"
