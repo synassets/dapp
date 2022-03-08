@@ -393,7 +393,7 @@ export default {
   methods: {
     async addSatCoin() {
      await addWatchAsset(this.data.IDO.OG.sat_address,this.data.IDO.OG.sat_symbol,18);
-      await addWatchAsset(this.data.IDO.OG.cash_address,this.data.IDO.OG.current,6);
+      await addWatchAsset(this.data.IDO.OG.cash_address,this.data.IDO.OG.cash_symbol,6);
      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },
 

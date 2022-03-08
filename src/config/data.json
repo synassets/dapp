@@ -42,27 +42,27 @@
         "enableWhiteList": false,
         "sat_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
         "sat_symbol": "TEST_SAT",
-        "symbolScala": "1000000000000000000",
+        "sat_scala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "1000000000",
         "minAmount1PerWallet": "1000000000",
-        "scala": "1000000",
-        "current": "TEST_USDC",
+        "cash_scala": "1000000",
+        "cash_symbol": "TEST_USDC",
         "cash_address": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "sale_address" : "0x73fCFd308a33BEDa4aD6dBB37f663Ea2d26FbA2c"
+        "sale_address" : "0xB1601bF2D7FE00d24ccb4037F5D87b7664b19c7e"
       },
       "NOG": {
         "enableWhiteList": false,
         "sat_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
         "sat_symbol": "TEST_SAT",
-        "symbolScala": "1000000000000000000",
+        "sat_scala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "10000000000",
         "minAmount1PerWallet": "500000000",
-        "scala": "1000000",
-        "current": "TEST_USDC",
+        "cash_scala": "1000000",
+        "cash_symbol": "TEST_USDC",
         "cash_address": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "sale_address" : "0x73fCFd308a33BEDa4aD6dBB37f663Ea2d26FbA2c"
+        "sale_address" : "0xdCde2c8CC76f9C40f439e294843D9c7DaB7a2A5e"
       }
     }
   }

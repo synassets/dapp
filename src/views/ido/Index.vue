@@ -93,17 +93,17 @@
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala)}}</div>
+                  >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala)}}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala)}}</div>
+                  >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala)}}</div>
                 </div>
 
                 <div class="pc-div1">
                   <div class="pc-div1-left">IDO currency</div>
-                  <div v-show="isOgMarket" class="pc-div1-right">{{ this.data.IDO.OG.current}}</div>
-                  <div v-show="!isOgMarket" class="pc-div1-right">{{ this.data.IDO.NOG.current}}</div>
+                  <div v-show="isOgMarket" class="pc-div1-right">{{ this.data.IDO.OG.cash_symbol}}</div>
+                  <div v-show="!isOgMarket" class="pc-div1-right">{{ this.data.IDO.NOG.cash_symbol}}</div>
                 </div>
 
                 <div class="pc-div1">
@@ -117,11 +117,11 @@
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.formatAmount( this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala)}}</div>
+                  >{{ this.formatAmount( this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.cash_scala)}}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.formatAmount( this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala)}}</div>
+                  >{{ this.formatAmount( this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.cash_scala)}}</div>
                 </div>
 
                 <div class="pc-div1">
@@ -129,11 +129,11 @@
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.formatAmount( this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala)}}</div>
+                  >{{ this.formatAmount( this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.cash_scala)}}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala)}}</div>
+                  >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.cash_scala)}}</div>
                 </div>
 
                 <div class="pc-div1">
@@ -153,16 +153,16 @@
                     class="pc-div1-left"
                     style="font-size: 14px;font-family: Selawik;font-weight: 600;color: #DDDDDD;"
                   >IDO Progress</div>
-                  <!--                           <div v-show="isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current  }} </div>
-                  <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current  }}</div>-->
+                  <!--                           <div v-show="isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol  }} </div>
+                  <div v-show="!isOgMarket"  style="position: absolute;right: 0.5rem;">{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol  }}</div>-->
                   <div
                     v-show="isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) +' '+ this.data.IDO.OG.cash_symbol }}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
-                  >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala) +' '+ this.data.IDO.OG.cash_symbol }}</div>
                 </div>
                 <div
                   style="width: 380px;height: 16px;background: #5F5F5F;border-radius:  8px;margin: 20px auto 0px auto;position: relative;"
@@ -221,11 +221,11 @@
                 <div
                   v-show="isOgMarket&&step!=3"
                   style="position: absolute;top: 50px;left: 0px;text-align: center;font-size: 20px;font-family: Selawik; font-weight: 600; color: #FFFFFF;width:480px;padding-top: 20px; "
-                >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
+                >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol }}</div>
                 <div
                   v-show="!isOgMarket&&step!=3"
                   style="position: absolute;top: 50px;left: 0px;text-align: center;font-size: 20px;font-family: Selawik; font-weight: 600; color: #FFFFFF;width:480px;padding-top: 20px; "
-                >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala)+ ' '+this.data.IDO.NOG.current }}</div>
+                >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala)+ ' '+this.data.IDO.NOG.cash_symbol }}</div>
 
                 <div
                   v-show="step==3"
@@ -242,11 +242,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
+                  >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.cash_symbol + ' (Max)' }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
+                  >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.cash_symbol + ' (Max)' }}</div>
                 </div>
                 <div
                   v-show="step!=3"
@@ -256,11 +256,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.calcT12PricePerToken +' '+ this.data.IDO.OG.current }}</div>
+                  >{{ this.calcT12PricePerToken +' '+ this.data.IDO.OG.cash_symbol }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.calcT15PricePerToken +' '+ this.data.IDO.NOG.current }}</div>
+                  >{{ this.calcT15PricePerToken +' '+ this.data.IDO.NOG.cash_symbol }}</div>
                 </div>
 
                 <div class="pc-ido-btn3" v-show="step==1" @click="goLink(1)">Join Discord</div>
@@ -274,7 +274,7 @@
                 <div
                   v-show="step==2"
                   style="max-width: 400px;margin:20px auto 0px auto;font-size: 12px; font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right;"
-                >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
+                >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.cash_symbol }}</div>
                 <div
                   v-show="step==2"
                   style="width:  400px;height:  40px;background: #FFFFFF;margin: 15px auto 0px auto;position: relative"
@@ -392,11 +392,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ ' 1 '+ this.data.IDO.OG.sat_symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current }}</div>
+                  >{{ ' 1 '+ this.data.IDO.OG.sat_symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.cash_symbol }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ ' 1 '+ this.data.IDO.NOG.sat_symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current }}</div>
+                  >{{ ' 1 '+ this.data.IDO.NOG.sat_symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.cash_symbol }}</div>
                 </div>
 
                 <div
@@ -407,11 +407,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + this.data.IDO.OG.current }}</div>
+                  >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + this.data.IDO.OG.cash_symbol }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + this.data.IDO.NOG.current }}</div>
+                  >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala) + this.data.IDO.NOG.cash_symbol }}</div>
                 </div>
                 <div
                   v-show="step==3"
@@ -421,11 +421,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.amountTotal12_format + this.data.IDO.OG.current }}</div>
+                  >{{ this.amountTotal12_format + this.data.IDO.OG.cash_symbol }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ this.amountTotal15_format + this.data.IDO.NOG.current }}</div>
+                  >{{ this.amountTotal15_format + this.data.IDO.NOG.cash_symbol }}</div>
                 </div>
               </div>
             </div>
@@ -481,11 +481,11 @@
         <div
           style="font-size: 0.3rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 8.27rem;text-align: center;padding-top: 0.19rem;"
           v-show="isOgMarket&&step!=3"
-        >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
+        >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol }}</div>
         <div
           style="font-size: 0.3rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 8.27rem;text-align: center;padding-top: 0.19rem;"
           v-show="!isOgMarket&&step!=3"
-        >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala)+ ' '+this.data.IDO.NOG.current }}</div>
+        >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala)+ ' '+this.data.IDO.NOG.cash_symbol }}</div>
 
         <div
           style="height: 0.03rem; background: #5F5F5F;width: 6.8rem;text-align: center;margin: 0.32rem auto 0rem auto;"
@@ -498,11 +498,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + ' (Max)' }}</div>
+          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.cash_symbol + ' (Max)' }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.19rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + ' (Max)' }}</div>
+          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.cash_symbol + ' (Max)' }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -511,11 +511,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.27rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.calcT12PricePerToken + this.data.IDO.OG.current }}</div>
+          >{{ this.calcT12PricePerToken + this.data.IDO.OG.cash_symbol }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.27rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.calcT15PricePerToken + this.data.IDO.NOG.current }}</div>
+          >{{ this.calcT15PricePerToken + this.data.IDO.NOG.cash_symbol }}</div>
         </div>
         <div class="h5-ido-btn3" @click="goLink(1)">Join Discord</div>
         <div class="h5-ido-btn3" @click="goLink(2)" v-show="isOgMarket">How to get Whitelist ?</div>
@@ -612,11 +612,11 @@
           <div
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
             v-show="isOgMarket"
-          >{{ ' 1 '+ this.data.IDO.OG.sat_symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current }}</div>
+          >{{ ' 1 '+ this.data.IDO.OG.sat_symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.cash_symbol }}</div>
           <div
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
             v-show="!isOgMarket"
-          >{{ ' 1 '+ this.data.IDO.NOG.sat_symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current }}</div>
+          >{{ ' 1 '+ this.data.IDO.NOG.sat_symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.cash_symbol }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -625,11 +625,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + this.data.IDO.OG.current }}</div>
+          >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + this.data.IDO.OG.cash_symbol }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + this.data.IDO.NOG.current }}</div>
+          >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala) + this.data.IDO.NOG.cash_symbol }}</div>
         </div>
 
         <div
@@ -639,11 +639,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.amountTotal12_format + this.data.IDO.OG.current }}</div>
+          >{{ this.amountTotal12_format + this.data.IDO.OG.cash_symbol }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.amountTotal15_format + this.data.IDO.NOG.current }}</div>
+          >{{ this.amountTotal15_format + this.data.IDO.NOG.cash_symbol }}</div>
         </div>
       </div>
       <!-----end close-->
@@ -666,11 +666,11 @@
         <div
           style="font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 8.27rem;text-align: center;padding-top: 0.19rem;"
           v-show="isOgMarket&&step!=3"
-        >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
+        >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol }}</div>
         <div
           style="font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;width: 8.27rem;text-align: center;padding-top: 0.19rem;"
           v-show="!isOgMarket&&step!=3"
-        >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala)+ ' '+this.data.IDO.NOG.current }}</div>
+        >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala)+ ' '+this.data.IDO.NOG.cash_symbol }}</div>
 
         <div
           style="height: 0.03rem; background: #5F5F5F;width: 6.8rem;text-align: center;margin: 0.32rem auto 0rem auto;"
@@ -682,11 +682,11 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.2rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.current + '(Max)' }}</div>
+          >{{ this.left_for_og_amount_format + ' ' + this.data.IDO.OG.cash_symbol + '(Max)' }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.2rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.current + '(Max)' }}</div>
+          >{{ this.left_for_nog_Amount_format + ' ' + this.data.IDO.NOG.cash_symbol + '(Max)' }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.21rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -695,21 +695,21 @@
           <div
             v-show="isOgMarket"
             style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.calcT12PricePerToken +' '+ this.data.IDO.OG.current }}</div>
+          >{{ this.calcT12PricePerToken +' '+ this.data.IDO.OG.cash_symbol }}</div>
           <div
             v-show="!isOgMarket"
             style="float: right;font-size: 0.21rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
-          >{{ this.calcT15PricePerToken + ' '+this.data.IDO.NOG.current }}</div>
+          >{{ this.calcT15PricePerToken + ' '+this.data.IDO.NOG.cash_symbol }}</div>
         </div>
 
         <div
           v-show="isOgMarket"
           style="width: 6.8rem;margin: 0.3rem auto 0rem auto; font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right"
-        >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.current }}</div>
+        >{{ 'Balance ' + this.BalanceOf_usdc_format + ' ' + this.data.IDO.OG.cash_symbol }}</div>
         <div
           v-show="!isOgMarket"
           style="width: 6.8rem;margin: 0.3rem auto 0rem auto; font-size: 0.3rem;font-family: Selawik;font-weight: 400;color: #FFFFFF;text-align: right"
-        >{{'Balance '+this.BalanceOf_usdc_format+' '+ this.data.IDO.NOG.current}}</div>
+        >{{'Balance '+this.BalanceOf_usdc_format+' '+ this.data.IDO.NOG.cash_symbol}}</div>
 
         <div
           style="width: 6.8rem;height: 0.7rem;background: #FFFFFF;margin: 0.1rem auto 0 auto;position: relative"
@@ -840,11 +840,11 @@
           <div
             v-show="isOgMarket"
             style="position: absolute;right: 0.5rem;"
-          >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala) + ' '+this.data.IDO.OG.current }}</div>
+          >{{ this.og_amount_total +'/'+ this.formatAmount(this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol }}</div>
           <div
             v-show="!isOgMarket"
             style="position: absolute;right: 0.5rem;"
-          >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala) + ' '+this.data.IDO.OG.current }}</div>
+          >{{ this.nog_amount_total +'/'+ this.formatAmount(this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala) + ' '+this.data.IDO.OG.cash_symbol }}</div>
         </div>
         <div
           style="width: 6.8rem; height: 0.21rem;background: #5F5F5F;border-radius: 0.13rem;margin: 0.31rem auto 0rem auto;position: relative;"
@@ -903,11 +903,11 @@
           <div
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem"
-          >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.scala ) }}</div>
+          >{{ this.formatAmount( this.data.IDO.OG.maxAmount1 / this.data.IDO.OG.cash_scala ) }}</div>
           <div
             v-show="!isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem"
-          >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.scala ) }}</div>
+          >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1 / this.data.IDO.NOG.cash_scala ) }}</div>
         </div>
 
         <div
@@ -917,11 +917,11 @@
           <div
             style="color: #FFFFFF;margin-top: 0.2rem"
             v-show="isOgMarket"
-          >{{ this.data.IDO.OG.current}}</div>
+          >{{ this.data.IDO.OG.cash_symbol}}</div>
           <div
             style="color: #FFFFFF;margin-top: 0.2rem"
             v-show="!isOgMarket"
-          >{{ this.data.IDO.NOG.current}}</div>
+          >{{ this.data.IDO.NOG.cash_symbol}}</div>
         </div>
         <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #808080;margin-top: 0.34rem;padding-left: 0.73rem;"
@@ -943,11 +943,11 @@
           <div
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.3rem"
-          >{{ this.formatAmount( this.data.IDO.OG.minAmount1PerWallet/ this.data.IDO.OG.scala ) }}</div>
+          >{{ this.formatAmount( this.data.IDO.OG.minAmount1PerWallet/ this.data.IDO.OG.cash_scala ) }}</div>
           <div
             v-show="!isOgMarket"
             style="color: #FFFFFF;margin-top: 0.3rem"
-          >{{ this.formatAmount( this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala ) }}</div>
+          >{{ this.formatAmount( this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.cash_scala ) }}</div>
         </div>
         <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #808080;margin-top: 0.34rem;padding-left: 0.73rem;"
@@ -956,11 +956,11 @@
           <div
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem"
-          >{{ this.formatAmount( this.data.IDO.OG.maxAmount1PerWallet/ this.data.IDO.OG.scala ) }}</div>
+          >{{ this.formatAmount( this.data.IDO.OG.maxAmount1PerWallet/ this.data.IDO.OG.cash_scala ) }}</div>
           <div
             v-show="!isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem"
-          >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala ) }}</div>
+          >{{ this.formatAmount( this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.cash_scala ) }}</div>
         </div>
 
         <div
@@ -1180,10 +1180,10 @@ export default {
       return  moment(this.openAtNOG * 1000).diff(moment(), "seconds") >= 0
     },
     BalanceOf_usdc() {
-      return this.usdc_balance/ this.data.IDO.OG.scala;
+      return this.usdc_balance/ this.data.IDO.OG.cash_scala;
     },
     BalanceOf_usdc_format() {
-      return (this.usdc_balance/ this.data.IDO.OG.scala).toFixed(2);
+      return (this.usdc_balance/ this.data.IDO.OG.cash_scala).toFixed(2);
     },
 
     isPublicSaleApproved : function ()  {
@@ -1196,10 +1196,10 @@ export default {
       return this.$store.getters.wallet.address
     },
     min_og_swap:function (){
-       return Number((this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0));
+       return Number((this.data.IDO.OG.minAmount1PerWallet / this.data.IDO.OG.cash_scala).toFixed(0));
     },
     min_nog_swap:function (){
-        return  Number((this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.scala).toFixed(0));
+        return  Number((this.data.IDO.NOG.minAmount1PerWallet / this.data.IDO.NOG.cash_scala).toFixed(0));
     },
     max_og_swap:function (){
       let left_amount = 0;
@@ -1207,7 +1207,7 @@ export default {
         left_amount =this.left_for_og_amount;
       }
       else {
-        left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+        left_amount = (this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.cash_scala).toFixed(0);
       }
       return   Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
 
@@ -1218,7 +1218,7 @@ export default {
         left_amount = this.left_for_nog_amount;
       }
       else
-        left_amount = (this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.OG.scala).toFixed(0);
+        left_amount = (this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.OG.cash_scala).toFixed(0);
       return Number(left_amount > this.BalanceOf_usdc ? this.BalanceOf_usdc :left_amount);
     },
     ...mapState({
@@ -1460,12 +1460,12 @@ export default {
           },
           {
             target: this.data.IDO.OG.sale_address,
-            call: ["calcT1(uint256)(uint256)", this.data.IDO.OG.scala],
+            call: ["calcT1(uint256)(uint256)", this.data.IDO.OG.cash_scala],
             returns: [["calcT12"]]
           },
           {
             target: this.data.IDO.NOG.sale_address,
-            call: ["calcT1(uint256)(uint256)", this.data.IDO.NOG.scala],
+            call: ["calcT1(uint256)(uint256)", this.data.IDO.NOG.cash_scala],
             returns: [["calcT15"]]
           },
 
@@ -1521,30 +1521,30 @@ export default {
 
         try {
           if (update.type == "OG_allowance") {
-            this.OG_allowance = Number((Number(update.value) / this.data.IDO.OG.scala).toFixed(0));
+            this.OG_allowance = Number((Number(update.value) / this.data.IDO.OG.cash_scala).toFixed(0));
           } else if (update.type == "NOG_allowance") {
-            this.NOG_allowance = Number((Number(update.value) / this.data.IDO.OG.scala).toFixed(0));
+            this.NOG_allowance = Number((Number(update.value) / this.data.IDO.OG.cash_scala).toFixed(0));
           } else if (update.type == "my_amount_OG_Swapped") {
-            this.my_amount_OG_swapped = update.value / this.data.IDO.OG.scala;
+            this.my_amount_OG_swapped = update.value / this.data.IDO.OG.cash_scala;
             this.$store.commit("SET_AMOUNT_OG_SWAPPED", this.my_amount_OG_swapped);
             let maxAmount1PerWallet =
-                this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.scala;
+                this.data.IDO.OG.maxAmount1PerWallet / this.data.IDO.OG.cash_scala;
             this.left_for_og_amount =
                 maxAmount1PerWallet - this.my_amount_OG_swapped;
             this.left_for_og_amount_format = this.formatAmount(
                 this.left_for_og_amount
             );
           } else if (update.type == "my_amount_NOG_Swapped") {
-            this.my_amount_NOG_swapped = update.value / this.data.IDO.NOG.scala;
+            this.my_amount_NOG_swapped = update.value / this.data.IDO.NOG.cash_scala;
             this.$store.commit("SET_AMOUNT_NOG_SWAPPED", this.my_amount_NOG_swapped);
             let maxAmount1PerWallet =
-                this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.scala;
+                this.data.IDO.NOG.maxAmount1PerWallet / this.data.IDO.NOG.cash_scala;
             this.left_for_nog_amount = maxAmount1PerWallet - this.my_amount_NOG_swapped;
             this.left_for_nog_Amount_format = this.formatAmount(
                 this.left_for_nog_amount
             );
           } else if (update.type == "og_amount_total") {
-            this.og_amount_total = update.value / this.data.IDO.OG.scala;
+            this.og_amount_total = update.value / this.data.IDO.OG.cash_scala;
             this.amountTotal12_format = this.formatAmount(this.og_amount_total);
             if (this.og_amount_total > 0) {
               this.pc_OG_Progress =
@@ -1553,7 +1553,7 @@ export default {
                   (update.value * 6.8) / this.data.IDO.OG.maxAmount1;
             }
           } else if (update.type == "nog_amount_total") {
-            this.nog_amount_total = update.value / this.data.IDO.NOG.scala;
+            this.nog_amount_total = update.value / this.data.IDO.NOG.cash_scala;
             this.amountTotal15_format = this.formatAmount(this.nog_amount_total);
             if (this.nog_amount_total > 0) {
               this.pc_NOG_Progress =
@@ -1562,10 +1562,10 @@ export default {
                   (update.value * 6.8) / this.data.IDO.NOG.maxAmount1;
             }
           } else if (update.type == "amountTotal02") {
-            this.amountTotal02 = update.value / this.data.IDO.OG.scala;
+            this.amountTotal02 = update.value / this.data.IDO.OG.cash_scala;
             this.amountTotal02_format = this.formatAmount(this.amountTotal02);
           } else if (update.type == "amountTotal05") {
-            this.amountTotal05 = update.value / this.data.IDO.NOG.scala;
+            this.amountTotal05 = update.value / this.data.IDO.NOG.cash_scala;
             this.amountTotal05_format = this.formatAmount(this.amountTotal05);
           } else if (update.type == "calcT12") {
             this.calcT12 = update.value / 1000000000000000000;
@@ -1780,9 +1780,9 @@ export default {
           return;
         }
         this.isShowProgress = true;
-        console.log("this.OGSale()" + "this.stakeAmount * this.data.IDO.og.scala :" +this.stakeAmount * this.data.IDO.OG.scala +"this.refAddress :" +this.refAddress);
+        console.log("this.OGSale()" + "this.stakeAmount * this.data.IDO.og.scala :" +this.stakeAmount * this.data.IDO.OG.cash_scala +"this.refAddress :" +this.refAddress);
         let res = await saleSwap(
-          this.stakeAmount * this.data.IDO.NOG.scala,
+          this.stakeAmount * this.data.IDO.NOG.cash_scala,
           "TokenSale",
           this.data.IDO.OG.sale_address,
           this.refAddress
@@ -1860,9 +1860,9 @@ export default {
 
       try {
         this.isShowProgress = true;
-        console.log("this.publicSale()" + "this.stakeAmount * this.data.IDO.NOG.scala :" +this.stakeAmount * this.data.IDO.NOG.scala +"this.refAddress :" +this.refAddress);
+        console.log("this.publicSale()" + "this.stakeAmount * this.data.IDO.NOG.cash_scala :" +this.stakeAmount * this.data.IDO.NOG.cash_scala +"this.refAddress :" +this.refAddress);
         let res = await saleSwap(
-          this.stakeAmount * this.data.IDO.NOG.scala,
+          this.stakeAmount * this.data.IDO.NOG.cash_scala,
           "TokenSale",
           this.data.IDO.NOG.sale_address,
           this.refAddress
