@@ -344,16 +344,16 @@ export default {
     },
     clickHarvest() {
       if (this.sAsset.ConsensusPoolGetInfoOfUserClaimableAmount <= 0) {
-        this.$refs.MessageTipErrorDialog.showClick('Nothing to harvest!');
+        this.$refs.messageTipErrorDialog.showClick('Nothing to harvest!');
         return;
       }
       this.harvestPending = true;
       wallet.callClaimReward(this.sAsset.contract.ConsensusPool)
           .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
+            this.$refs.messageTipOkDialog.showClick();
           }).catch((reason) => {
             console.log(reason)
-            this.$refs.MessageTipErrorDialog.showClick(reason.message);
+            this.$refs.messageTipErrorDialog.showClick(reason.message);
           }).finally(() => {
             this.harvestPending = false;
           })
