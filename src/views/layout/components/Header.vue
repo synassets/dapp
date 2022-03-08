@@ -42,14 +42,14 @@
         />
       </div>
 
+<!--
 
 
-
-<!--      <div style="width: 7.87rem;margin: 1.6rem auto 0rem auto;position: relative;">
+&lt;!&ndash;      <div style="width: 7.87rem;margin: 1.6rem auto 0rem auto;position: relative;">
         <div
           style="position: absolute;left: 0rem;font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;"
         >$&#45;&#45;</div>
-      </div>-->
+      </div>&ndash;&gt;
 
       <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img
@@ -80,7 +80,7 @@
         >{{this.matic_Balance_show}}</div>
       </div>
 
-<!--      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
+&lt;!&ndash;      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin_test_sat"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -92,7 +92,7 @@
         <div
             class="h5-coin-balance"
         >{{' 0.00'}}</div>
-      </div>-->
+      </div>&ndash;&gt;
 
       <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
         <img
@@ -106,7 +106,7 @@
         <div
             class="h5-coin-balance"
         >{{this.sAsset.DAIBalanceOfUser_show}}</div>
-      </div>
+      </div>-->
 
 <!--      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
         <img
@@ -166,6 +166,7 @@
           <div class="pc-div-btn2-item">
             <div class="pc-div-btn2-item0">My Wallet</div>
 
+<!--
             <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_matic" />
               <div class="pc-div-btn2-item3">{{'MATIC'}}</div>
@@ -177,6 +178,7 @@
               <div class="pc-div-btn2-item3">{{this.data.IDO.OG.sat_symbol}}</div>
               <div class="pc-div-btn2-item5">{{this.satBalance}}</div>
             </div>
+-->
 
 
 
@@ -186,11 +188,11 @@
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
             </div>-->
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
               <div class="pc-div-btn2-item3">{{'TEST_MATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ this.sAsset.DAIBalanceOfUser_show}}</div>
-            </div>
+            </div>-->
 
 <!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
