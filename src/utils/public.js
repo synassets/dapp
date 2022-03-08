@@ -197,7 +197,7 @@ export function prettifySeconds(seconds, resolution) {
 }
 
 function fillWith0(number) {
-  return number > 10 ? number : '0' + number;
+  return number >= 10 ? number : '0' + number;
 }
 
 export function dateFormat(milliSeconds) {

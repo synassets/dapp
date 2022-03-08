@@ -378,7 +378,7 @@ export default {
 
     clickStake() {
       if (!this.invite_address) {
-        this.$refs.MessageTipErrorDialog.showClick('inviter is null');
+        this.$refs.MessageTipErrorDialog.showClick('inviter not exist');
         return;
       }
       if (isNaN(this.stakeInputAmount) || this.stakeInputAmount <= 0) {
