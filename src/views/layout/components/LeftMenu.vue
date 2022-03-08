@@ -288,12 +288,12 @@
            <div style=" font-size: 20px;font-family: Selawik; font-weight: bold; color: #FFFFFF;margin-left: 15px;">{{OHMSymbol}}-DAO</div>
          </div>
 
-         <div class="pc-tab280"  @click="onClickMenu(8)"  style="margin-top: 60px;">Dashboard</div>
-         <div class="pc-tab280"  @click="onClickMenu(9)"  >IDO</div>
-         <div class="pc-tab280"  @click="onClickMenu(10)" >Stake</div>
-         <div class="pc-tab280"  @click="onClickMenu(11)" >Bond</div>
-         <div class="pc-tab280"  @click="onClickMenu(12)" >Calculator</div>
-         <div class="pc-tab280"  @click="onClickMenu(13)" >Consensus Network</div>
+         <div :class="twoPcMenuIndex==1?'pc-tab2801':'pc-tab280'"  @click="onClickMenu(8)"  style="margin-top: 60px;">Dashboard</div>
+         <div :class="twoPcMenuIndex==2?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(9)"  >IDO</div>
+         <div :class="twoPcMenuIndex==3?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(10)" >Stake</div>
+         <div :class="twoPcMenuIndex==4?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(11)" >Bond</div>
+         <div :class="twoPcMenuIndex==5?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(12)" >Calculator</div>
+         <div :class="twoPcMenuIndex==6?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(13)" >Consensus Network</div>
 
        </div>
 
@@ -384,6 +384,8 @@ export default {
       currentTab: "",
       tabIndex:0,
       tabPcIndex:0,
+
+      twoPcMenuIndex:1,
 
       currency:'',
 
@@ -522,43 +524,55 @@ export default {
         Cookies.set("CHAIN_TYPE", this.currencyNo, { expires: 31 });
         this.$router.push("/ido");
       }else if(index == 3){
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        // Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
-        // this.currency = "POLYGON";
-        // this.isShowMenu = true;
+        Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
+        this.currency = "POLYGON";
+        this.isShowMenu = true;
+        this.$router.push("/dashboard").catch(err => {err});
+        this.twoPcMenuIndex = 1;
       }else if(index == 4){
-         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+         // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        // Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
-        //this.currency = "ETH";
-        // this.isShowMenu = true;
+        Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
+        this.currency = "ETH";
+        this.isShowMenu = true;
+        this.$router.push("/dashboard").catch(err => {err});
+        this.twoPcMenuIndex = 1;
       }else if(index == 5){
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        // Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
-        // this.currency = "UNI";
-        //this.isShowMenu = true;
+        Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
+        this.currency = "UNI";
+        this.isShowMenu = true;
+        this.$router.push("/dashboard").catch(err => {err});
+        this.twoPcMenuIndex = 1;
       }else if(index == 6){
-        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        // Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
-        //this.currency = "DOT";
-        //this.isShowMenu = true;
+        Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
+        this.currency = "DOT";
+        this.isShowMenu = true;
+        this.$router.push("/dashboard").catch(err => {err});
+        this.twoPcMenuIndex = 1;
       }else if(index == 8){
         this.$router.push("/dashboard").catch(err => {err});
+        this.twoPcMenuIndex = 1;
       }else if(index == 9){
         //this.$router.push("/coin_ido").catch(err => {err});
         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
       }else if(index == 10){
         this.$router.push("/stake").catch(err => {err});
+        this.twoPcMenuIndex = 3;
       }else if(index == 11){
         this.$router.push("/bond").catch(err => {err});
+        this.twoPcMenuIndex = 4;
       }else if(index == 12){
        // this.$router.push("/calculate").catch(err => {err});
         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
       }else if(index == 13){
         this.$router.push("/network").catch(err => {err});
+        this.twoPcMenuIndex = 6;
       }
 
 
@@ -674,6 +688,13 @@ export default {
 }
 .pc-tab280:hover{
   background: linear-gradient(-45deg, #504551 0%, #3E5153 100%);
+}
+.pc-tab2801{
+  width: 200px;height: 40px;background:linear-gradient(-45deg, #504551 0%, #3E5153 100%); border: 2px solid #808080; border-radius: 10px;margin: 10px auto 0px auto;font-size: 16px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 22px;line-height: 40px;
+  cursor: pointer;
+}
+.pc-tab2801:hover{
+  background: rgba(0, 0, 0, 0.7);
 }
 @media screen and (max-width: 750px) {
   .lm_wrap {
