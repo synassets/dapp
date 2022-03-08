@@ -66,19 +66,19 @@
                     class="pc-div1-right"
                     style="text-decoration: underline;cursor: pointer;"
                     @click="goContract()"
-                  >{{ this.data.IDO.OG.address.substr(0,10)+"****"+this.data.IDO.OG.address.substr(this.data.IDO.OG.address.length-10,this.data.IDO.OG.address.length)}}</div>
+                  >{{ this.data.IDO.OG.sat_address.substr(0,10)+"****"+this.data.IDO.OG.sat_address.substr(this.data.IDO.OG.sat_address.length-10,this.data.IDO.OG.sat_address.length)}}</div>
                   <div
                     v-show="!isOgMarket"
                     class="pc-div1-right"
                     style="text-decoration: underline;cursor: pointer;"
                     @click="goContract()"
-                  >{{ this.data.IDO.NOG.address.substr(0,10)+"****"+this.data.IDO.NOG.address.substr(this.data.IDO.NOG.address.length-10,this.data.IDO.NOG.address.length)}}</div>
+                  >{{ this.data.IDO.NOG.sat_address.substr(0,10)+"****"+this.data.IDO.NOG.sat_address.substr(this.data.IDO.NOG.sat_address.length-10,this.data.IDO.NOG.sat_address.length)}}</div>
                 </div>
 
                 <div class="pc-div1">
                   <div class="pc-div1-left">Token symbol</div>
-                  <div v-show="isOgMarket" class="pc-div1-right">{{ this.data.IDO.OG.symbol}}</div>
-                  <div v-show="!isOgMarket" class="pc-div1-right">{{ this.data.IDO.NOG.symbol}}</div>
+                  <div v-show="isOgMarket" class="pc-div1-right">{{ this.data.IDO.OG.sat_symbol}}</div>
+                  <div v-show="!isOgMarket" class="pc-div1-right">{{ this.data.IDO.NOG.sat_symbol}}</div>
                 </div>
 
                 <div class="pc-div1" style="margin-top: 40px;">
@@ -392,11 +392,11 @@
                   <div
                     v-show="isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ ' 1 '+ this.data.IDO.OG.symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current }}</div>
+                  >{{ ' 1 '+ this.data.IDO.OG.sat_symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current }}</div>
                   <div
                     v-show="!isOgMarket"
                     style="position: absolute;right: 0px;color: #FFFFFF;"
-                  >{{ ' 1 '+ this.data.IDO.NOG.symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current }}</div>
+                  >{{ ' 1 '+ this.data.IDO.NOG.sat_symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current }}</div>
                 </div>
 
                 <div
@@ -612,11 +612,11 @@
           <div
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
             v-show="isOgMarket"
-          >{{ ' 1 '+ this.data.IDO.OG.symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current }}</div>
+          >{{ ' 1 '+ this.data.IDO.OG.sat_symbol + ' = ' +this.calcT12PricePerToken +' ' +this.data.IDO.OG.current }}</div>
           <div
             style="float: right;font-size: 0.35rem;font-family: Selawik; font-weight: 400;color: #FFFFFF;"
             v-show="!isOgMarket"
-          >{{ ' 1 '+ this.data.IDO.NOG.symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current }}</div>
+          >{{ ' 1 '+ this.data.IDO.NOG.sat_symbol + ' = ' +this.calcT15PricePerToken +' ' +this.data.IDO.NOG.current }}</div>
         </div>
         <div
           style="width: 6.8rem;margin: 0.27rem auto 0rem auto; font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;"
@@ -873,12 +873,12 @@
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.3rem;text-decoration: underline;cursor: pointer;"
             @click="goContract()"
-          >{{ this.data.IDO.OG.address.substr(0,10)+"****"+this.data.IDO.OG.address.substr(this.data.IDO.OG.address.length-10,this.data.IDO.OG.address.length)}}</div>
+          >{{ this.data.IDO.OG.sat_address.substr(0,10)+"****"+this.data.IDO.OG.sat_address.substr(this.data.IDO.OG.sat_address.length-10,this.data.IDO.OG.sat_address.length)}}</div>
           <div
             v-show="!isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem;text-decoration: underline;cursor: pointer;"
             @click="goContract()"
-          >{{ this.data.IDO.NOG.address.substr(0,10)+"****"+this.data.IDO.NOG.address.substr(this.data.IDO.NOG.address.length-10,this.data.IDO.NOG.address.length)}}</div>
+          >{{ this.data.IDO.NOG.sat_address.substr(0,10)+"****"+this.data.IDO.NOG.sat_address.substr(this.data.IDO.NOG.sat_address.length-10,this.data.IDO.NOG.sat_address.length)}}</div>
         </div>
         <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #808080;margin-top: 0.34rem;padding-left: 0.73rem;"
@@ -887,11 +887,11 @@
           <div
             v-show="isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem"
-          >{{ this.data.IDO.OG.symbol}}</div>
+          >{{ this.data.IDO.OG.sat_symbol}}</div>
           <div
             v-show="!isOgMarket"
             style="color: #FFFFFF;margin-top: 0.2rem"
-          >{{ this.data.IDO.NOG.symbol}}</div>
+          >{{ this.data.IDO.NOG.sat_symbol}}</div>
         </div>
         <div
           style="font-size: 0.3rem; font-family: Selawik;font-weight: 600; color: #FFFFFF;margin-top: 0.56rem;padding-left: 0.73rem;"
@@ -1342,11 +1342,11 @@ export default {
     goContract() {
       if (this.isOgMarket) {
         window.open(
-          "https://polygonscan.com/address/" + this.data.IDO.OG.contractAddress
+          "https://polygonscan.com/address/" + this.data.IDO.OG.sale_address
         );
       } else {
         window.open(
-          "https://polygonscan.com/address/" + this.data.IDO.NOG.contractAddress
+          "https://polygonscan.com/address/" + this.data.IDO.NOG.sale_address
         );
       }
     },
@@ -1410,102 +1410,102 @@ export default {
       this.Mult_watcher = createWatcher(
         [
           {
-            target: this.data.IDO.OG.currentAddress,
+            target: this.data.IDO.OG.cash_address,
             call: [
               "allowance(address,address)(uint256)",
               this.address,
-              this.data.IDO.OG.contractAddress
+              this.data.IDO.OG.sale_address
             ],
             returns: [["OG_allowance"]]
           },
           {
-            target: this.data.IDO.NOG.currentAddress,
+            target: this.data.IDO.NOG.cash_address,
             call: [
               "allowance(address,address)(uint256)",
               this.address,
-              this.data.IDO.NOG.contractAddress
+              this.data.IDO.NOG.sale_address
             ],
             returns: [["NOG_allowance"]]
           },
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["amountSwapped1(address)(uint256)", this.address],
             returns: [["my_amount_OG_Swapped"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["amountSwapped1(address)(uint256)", this.address],
             returns: [["my_amount_NOG_Swapped"]]
           },
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["amountTotal1()(uint256)"],
             returns: [["og_amount_total"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["amountTotal1()(uint256)"],
             returns: [["nog_amount_total"]]
           },
 
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["amountTotal0()(uint256)"],
             returns: [["amountTotal02"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["amountTotal0()(uint256)"],
             returns: [["amountTotal05"]]
           },
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["calcT1(uint256)(uint256)", this.data.IDO.OG.scala],
             returns: [["calcT12"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["calcT1(uint256)(uint256)", this.data.IDO.NOG.scala],
             returns: [["calcT15"]]
           },
 
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["whitelist(address)(uint256)", this.address],
             returns: [["OGwhitelist"]]
           },
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["inviteable(address)(bool)", this.address],
             returns: [["OG_ambassador"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["inviteable(address)(bool)", this.address],
             returns: [["NOG_ambassador"]]
           },
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["openAt()(uint256)"],
             returns: [["openAtOG"]]
           },
           {
-            target: this.data.IDO.OG.contractAddress,
+            target: this.data.IDO.OG.sale_address,
             call: ["closeAt()(uint256)"],
             returns: [["closeAtOG"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["openAt()(uint256)"],
             returns: [["openAtNOG"]]
           },
           {
-            target: this.data.IDO.NOG.contractAddress,
+            target: this.data.IDO.NOG.sale_address,
             call: ["closeAt()(uint256)"],
             returns: [["closeAtNOG"]]
           },
           {
-            target: this.data.IDO.OG.address,
+            target: this.data.IDO.OG.sat_address,
             call: ["balanceOf(address)(uint256)", this.address],
             returns: [["balanceOfSat"]]
           }
@@ -1665,8 +1665,8 @@ export default {
           let data = await doApprove2New(
               toWei(10000),
               "coin",
-              this.data.IDO.OG.currentAddress,
-              this.data.IDO.OG.contractAddress
+              this.data.IDO.OG.cash_address,
+              this.data.IDO.OG.sale_address
           );
           if (data.status == true) {
             this.$refs.messageTipOkDialog.showClick();
@@ -1698,8 +1698,8 @@ export default {
           let data = await doApprove2New(
               toWei(999999999),
               "coin",
-              this.data.IDO.NOG.currentAddress,
-              this.data.IDO.NOG.contractAddress
+              this.data.IDO.NOG.cash_address,
+              this.data.IDO.NOG.sale_address
           );
           if (data.status == true) {
             this.$refs.messageTipOkDialog.showClick();
@@ -1784,7 +1784,7 @@ export default {
         let res = await saleSwap(
           this.stakeAmount * this.data.IDO.NOG.scala,
           "TokenSale",
-          this.data.IDO.OG.contractAddress,
+          this.data.IDO.OG.sale_address,
           this.refAddress
         );
         if (res.status) {
@@ -1864,7 +1864,7 @@ export default {
         let res = await saleSwap(
           this.stakeAmount * this.data.IDO.NOG.scala,
           "TokenSale",
-          this.data.IDO.NOG.contractAddress,
+          this.data.IDO.NOG.sale_address,
           this.refAddress
         );
 

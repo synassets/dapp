@@ -345,7 +345,13 @@ export function trim(value) {
 
 ///////////////////approve()    //approve  ////////////////////////////
 
-
+export async function MintTestCoin(contractAddress, spender, amount) {
+  const abi = CONTRACT_DATA['coin'].abi
+  const contract = new web3.eth.Contract(abi, contractAddress)
+  return await contract.methods.approve(spender, amount).send({
+    from: getWalletAddressSync(),
+  })
+}
 
 
 export async function callApprove(contractAddress, spender, amount) {
