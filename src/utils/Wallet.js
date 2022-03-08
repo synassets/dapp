@@ -354,50 +354,68 @@ export async function MintTestCoin(contractAddress) {
 
 
 export async function callApprove(contractAddress, spender, amount) {
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   const abi = CONTRACT_DATA['coin'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.approve(spender, amount).send({
         from: getWalletAddressSync(),
+        gasPrice: price
       })
 }
 
 export async function callStake(contractAddress, amount, recipient, inviter) {
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   const abi = CONTRACT_DATA['stakingHelper'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.stake(amount, recipient, inviter).send({
     from: getWalletAddressSync(),
+    gasPrice: price
   })
 }
 
 export async function callUnstake(contractAddress, amount, trigger) {
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   const abi = CONTRACT_DATA['staking'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.unstake(amount, trigger).send({
     from: getWalletAddressSync(),
+    gasPrice: price
   })
 }
 
 export async function bondDeposit(contractAddress, amount, maxPrice, depositor, inviter) {
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   const abi = CONTRACT_DATA['bond'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.deposit(amount, maxPrice, depositor, inviter).send({
         from: getWalletAddressSync(),
+    gasPrice: price
       })
 }
 
 export async function bondRedeem(contractAddress, recipient, stake) {
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   const abi = CONTRACT_DATA['bond'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.redeem(recipient, stake).send({
         from: getWalletAddressSync(),
+        gasPrice: price
       })
 }
 
 export async function callClaimReward(contractAddress) {
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   const abi = CONTRACT_DATA['consensusPool'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.claimReward().send({
         from: getWalletAddressSync(),
+    gasPrice: price
       })
 }
 
