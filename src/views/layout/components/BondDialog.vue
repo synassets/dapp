@@ -318,7 +318,7 @@ export default {
         return '--'
       }
       const blocksDiff = fullyVestBlocks - this.sAsset.blockNumber;
-      const milliSecondsDiff = this.calcBlockSeconds(blocksDiff) * 1000;
+      const milliSecondsDiff = publicJs.calcBlockSeconds(blocksDiff) * 1000;
       return publicJs.dateFormat(new Date().getTime() + milliSecondsDiff);
     },
     OHMDAILPBondDuration() {
