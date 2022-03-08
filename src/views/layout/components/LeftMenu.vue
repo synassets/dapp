@@ -508,8 +508,7 @@ export default {
     },
    async onClickMenu(index) {
       this.isShowMenu = false;
-     this.tabPcIndex = 1;
-     this.tabIndex = 1;
+
       if(index == 1){
 
       this.tabPcIndex = 0;
@@ -531,30 +530,38 @@ export default {
         this.isShowMenu = true;
         this.$router.push("/dashboard").catch(err => {err});
         this.twoPcMenuIndex = 1;
+        this.tabPcIndex = 1;
+        this.tabIndex = 1;
       }else if(index == 4){
-         // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
-        this.currency = "ETH";
-        this.isShowMenu = true;
-        this.$router.push("/dashboard").catch(err => {err});
-        this.twoPcMenuIndex = 1;
+        // Cookies.set("CHAIN_TYPE", "ETH", { expires: 31 });
+        // this.currency = "ETH";
+        // this.isShowMenu = true;
+        // this.$router.push("/dashboard").catch(err => {err});
+        // this.twoPcMenuIndex = 1;
+        /*this.tabPcIndex = 1;
+        this.tabIndex = 1;*/
       }else if(index == 5){
-        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
-        this.currency = "UNI";
-        this.isShowMenu = true;
-        this.$router.push("/dashboard").catch(err => {err});
-        this.twoPcMenuIndex = 1;
+        // Cookies.set("CHAIN_TYPE", "UNI", { expires: 31 });
+        // this.currency = "UNI";
+        // this.isShowMenu = true;
+        // this.$router.push("/dashboard").catch(err => {err});
+        // this.twoPcMenuIndex = 1;
+        /*this.tabPcIndex = 1;
+       this.tabIndex = 1;*/
       }else if(index == 6){
-        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
-        Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
-        this.currency = "DOT";
-        this.isShowMenu = true;
-        this.$router.push("/dashboard").catch(err => {err});
-        this.twoPcMenuIndex = 1;
+        // Cookies.set("CHAIN_TYPE", "DOT", { expires: 31 });
+        // this.currency = "DOT";
+        // this.isShowMenu = true;
+        // this.$router.push("/dashboard").catch(err => {err});
+        // this.twoPcMenuIndex = 1;
+        /*this.tabPcIndex = 1;
+       this.tabIndex = 1;*/
       }else if(index == 8){
         this.$router.push("/dashboard").catch(err => {err});
         this.twoPcMenuIndex = 1;
