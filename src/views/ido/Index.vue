@@ -1149,8 +1149,8 @@ export default {
 
       step: 1, // 1 no open  2 open  3 close
 
-      BalanceOf_usdc: 0,
-      BalanceOf_usdc_format: 0,
+
+
 
       showTimestamp2: "",
       showTimestamp5: "",
@@ -1179,7 +1179,12 @@ export default {
     isNogNotStart:function (){
       return  moment(this.openAtNOG * 1000).diff(moment(), "seconds") >= 0
     },
-
+    BalanceOf_usdc() {
+      return this.usdc_balance/ this.data.IDO.OG.scala;
+    },
+    BalanceOf_usdc_format() {
+      return (this.usdc_balance/ this.data.IDO.OG.scala).toFixed(2);
+    },
 
     isPublicSaleApproved : function ()  {
       return Number(this.NOG_allowance) > this.max_nog_swap;
@@ -1222,6 +1227,7 @@ export default {
       address: state => state.wallet.address,
       refAddress: state => state.wallet.invite_address,
       refresh_flag:state => state.wallet.refresh_flag,
+      usdc_balance:state => state.wallet.usdc_balance,
       ogWhitelist:state => {
         return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
       },
@@ -1462,11 +1468,7 @@ export default {
             call: ["calcT1(uint256)(uint256)", this.data.IDO.NOG.scala],
             returns: [["calcT15"]]
           },
-          {
-            target: this.data.IDO.OG.currentAddress,
-            call: ["balanceOf(address)(uint256)", this.address],
-            returns: [["BalanceOf_usdc"]]
-          },
+
           {
             target: this.data.IDO.OG.contractAddress,
             call: ["whitelist(address)(uint256)", this.address],
@@ -1571,15 +1573,7 @@ export default {
           } else if (update.type == "calcT15") {
             this.calcT15 = update.value / 1000000000000000000;
             this.calcT15PricePerToken = (1 / this.calcT15).toFixed(5);
-          } else if (update.type == "BalanceOf_usdc") {
-
-            this.BalanceOf_usdc = update.value / this.data.IDO.OG.scala;
-            console.log("this.BalanceOf_usdc ::" + this.BalanceOf_usdc);
-            this.BalanceOf_usdc_format = this.formatAmount(
-                this.BalanceOf_usdc
-            );
-            console.log("this.BalanceOf_usdc_format ::" + this.BalanceOf_usdc_format);
-          } else if (update.type == "OGwhitelist") {
+          }  else if (update.type == "OGwhitelist") {
               let temp = Number(update.value);
               this.$store.commit("SET_OG_WHITE_LIST_COUNTER", temp);
 
@@ -1607,10 +1601,6 @@ export default {
             this.openAtNOG = update.value;
             this.timePurchased5 = this.openAtNOG;
             this.time5 = this.format(this.timePurchased5);
-          } else if ("balanceOfSat" == update.type) {
-            let temp = update.value / this.data.IDO.OG.symbolScala;
-            temp = temp.toFixed(2);
-            this.$store.commit("SET_SAT_BALANCE", temp);
           }
         } catch (e) {
           console.error("error "+e.toString());

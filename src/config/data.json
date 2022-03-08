@@ -11,7 +11,9 @@
     "doc": "https://doc.synassets.finance/",
     "whiteListURL": "https://medium.com/@SynAssets/synassets-tokenomics-ido-whitelists-details-569626623e46",
     "blockRateSeconds": 1.12,
-    "backendUrl": "http://47.89.183.127:8081/synassets/"
+    "backendUrl": "http://47.89.183.127:8081/synassets/",
+    "USDC": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "SAT": "0x29bF0DA05dbabdfD625E63e227F72CF4E1488117"
   },
   "sMatic": {
     "USD": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
@@ -39,26 +41,26 @@
       "OG": {
         "enableWhiteList": false,
         "address": "0x29bF0DA05dbabdfD625E63e227F72CF4E1488117",
-        "symbol": "SAT",
+        "symbol": "TEST_SAT",
         "symbolScala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "1000000000",
         "minAmount1PerWallet": "1000000000",
         "scala": "1000000",
-        "current": "USDC",
+        "current": "TEST_USDC",
         "currentAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
         "contractAddress": "0x73fCFd308a33BEDa4aD6dBB37f663Ea2d26FbA2c"
       },
       "NOG": {
         "enableWhiteList": false,
         "address": "0x29bF0DA05dbabdfD625E63e227F72CF4E1488117",
-        "symbol": "SAT",
+        "symbol": "TEST_SAT",
         "symbolScala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "10000000000",
         "minAmount1PerWallet": "500000000",
         "scala": "1000000",
-        "current": "USDC",
+        "current": "TEST_USDC",
         "currentAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
         "contractAddress": "0x491f473BdAB297Cc86bae6BF3C92C2Dc732B0E62"
       }

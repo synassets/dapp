@@ -29,6 +29,8 @@
       v-show="isMobile&&isShowAddWallet"
       style="  width: 10rem;height: 30rem;  background: #161616;position: fixed;top: 0rem;z-index: 9999;"
     >
+
+
       <div style="width: 7.87rem;margin: 1rem auto 0rem auto;position: relative;">
         <div
           style="position: absolute;left: 0rem;font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #808080;"
@@ -40,13 +42,16 @@
         />
       </div>
 
-      <div style="width: 7.87rem;margin: 1.6rem auto 0rem auto;position: relative;">
+
+
+
+<!--      <div style="width: 7.87rem;margin: 1.6rem auto 0rem auto;position: relative;">
         <div
           style="position: absolute;left: 0rem;font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;"
-        >$--</div>
-      </div>
+        >$&#45;&#45;</div>
+      </div>-->
 
-<!--      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img
           :src="sat_icon"
           style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -58,15 +63,12 @@
         <div
           class="h5-coin-balance"
         >{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-       &lt;!&ndash; <div
-          style="position: absolute;right: 0rem;top: 0.5rem;font-size: 0.21rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;color: #808080"
-        >{{ '$ ' + staValve }}</div>&ndash;&gt;
-      </div>-->
+      </div>
 
 
       <div style="width: 7.87rem;margin: 4.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin1"
+            :src="icon_coin_matic"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
@@ -80,7 +82,7 @@
 
 <!--      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin2"
+            :src="icon_coin_test_sat"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
@@ -94,7 +96,7 @@
 
       <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin3"
+            :src="icon_coin_test_usdc"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
@@ -108,7 +110,7 @@
 
 <!--      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin4"
+            :src="icon_coin_test_matic"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
@@ -163,35 +165,35 @@
           <div style="margin-left: 10px;line-height: 40px;">{{this.data.IDO.OG.symbol}}</div>
           <div class="pc-div-btn2-item">
             <div class="pc-div-btn2-item0">My Wallet</div>
-<!--            <div class="pc-div-btn2-item1">
-              <img class="pc-div-btn2-item2" :src="sat_icon" />
-              <div class="pc-div-btn2-item3">{{this.data.IDO.OG.symbol}}</div>
-           &lt;!&ndash;   <div class="pc-div-btn2-item4">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-              <div class="pc-div-btn2-item5">{{ '$ ' + staValve }}</div>&ndash;&gt;
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>-->
 
             <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin1" />
+              <img class="pc-div-btn2-item2" :src="icon_coin_matic" />
               <div class="pc-div-btn2-item3">{{'MATIC'}}</div>
-
               <div class="pc-div-btn2-item5">{{ this.balance}}</div>
             </div>
 
+            <div class="pc-div-btn2-item1">
+              <img class="pc-div-btn2-item2" :src="sat_icon" />
+              <div class="pc-div-btn2-item3">{{this.data.IDO.OG.symbol}}</div>
+              <div class="pc-div-btn2-item5">{{this.satBalance}}</div>
+            </div>
+
+
+
 <!--            <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin2" />
+              <img class="pc-div-btn2-item2" :src="icon_coin_test_sat" />
               <div class="pc-div-btn2-item3">{{'TEST_SAT'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
             </div>-->
 
             <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin3" />
+              <img class="pc-div-btn2-item2" :src="icon_coin_test_usdc" />
               <div class="pc-div-btn2-item3">{{'TEST_MATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ this.sAsset.DAIBalanceOfUser}}</div>
             </div>
 
 <!--            <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin4" />
+              <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
               <div class="pc-div-btn2-item3">{{'TEST_WMATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
             </div>-->
@@ -301,7 +303,7 @@ import {
   icon_fox,
   icon_wifi,
   icon_down_arrow,
-  gif, icon_coin1, icon_coin2, icon_coin3, icon_coin4, icon_coin5
+  gif, icon_coin_matic, icon_coin_test_sat, icon_coin_test_usdc, icon_coin_test_matic, icon_coin5
 } from "@/utils/images";
 
 import Cookies from "js-cookie";
@@ -336,10 +338,10 @@ export default {
       metamask,
       icon_fox,
       icon_wifi,
-      icon_coin1,
-      icon_coin2,
-      icon_coin3,
-      icon_coin4,
+      icon_coin_matic: icon_coin_matic,
+      icon_coin_test_sat: icon_coin_test_sat,
+      icon_coin_test_usdc: icon_coin_test_usdc,
+      icon_coin_test_matic: icon_coin_test_matic,
       icon_coin5,
       loops: "",
       firstRun: true,
@@ -391,6 +393,7 @@ export default {
   methods: {
     async addSatCoin() {
      await addWatchAsset(this.data.IDO.OG.address,this.data.IDO.OG.symbol,18);
+      await addWatchAsset(this.data.IDO.OG.currentAddress,this.data.IDO.OG.current,6);
      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },
 

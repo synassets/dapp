@@ -91,6 +91,16 @@ export default {
               returns: [['USDFragmentsPerOHM']]
             },
             {
+              target: this.configData.USDC,
+              call: ["balanceOf(address)(uint256)", this.address],
+              returns: [["BalanceOf_usdc"]]
+            },
+            {
+              target: this.configData.SAT,
+              call: ["balanceOf(address)(uint256)", this.address],
+              returns: [["BalanceOf_SAT"]]
+            },
+            {
               target: this.sAsset.contract.USD,
               call: ['decimals()(uint8)'],
               returns: [['USDDecimals']]
@@ -315,10 +325,18 @@ export default {
             interval: 10000
           }
       );
+
       this.Mult_watcher.subscribe(update => {
         console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
         try {
-          this.$store.commit("SET", [update.type, update.value]);
+          if(update.type == "BalanceOf_usdc"){
+            this.$store.commit("SET_USDC_BALANCE",  update.value);
+          }else if(update.type == "BalanceOf_SAT"){
+            this.$store.commit("SET_SAT_BALANCE",  update.value);
+          } else
+          {
+            this.$store.commit("SET", [update.type, update.value]);
+          }
         } catch (e) {
           console.error("error "+e.toString());
         }

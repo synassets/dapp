@@ -4,6 +4,7 @@ const wallet  ={
     address: '0x0000000000000000000000000000000000000000',
     invite_address:null,
     balance: 0,
+    usdc_balance:0,
     chain_id:0,
     target_chain_id:0,
     wallet_type:"meta_mask",
@@ -37,6 +38,9 @@ const wallet  ={
     balance: state => {
       return state.balance
     },
+    usdc_balance: state => {
+      return state.usdc_balance
+    },
   },
   mutations: {
     UPDATE:(state, payload)=> {
@@ -59,7 +63,9 @@ const wallet  ={
       state.my_amount_nog_swapped = payload
     },
 
-
+    SET_USDC_BALANCE:(state, payload)=> {
+      state.usdc_balance = payload
+    },
     SET_OG_WHITE_LIST_COUNTER:(state, payload)=> {
       state.whitelist_og_counter = payload
     },
