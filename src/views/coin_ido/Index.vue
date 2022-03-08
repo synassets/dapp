@@ -1361,7 +1361,7 @@ import {
   saleSwap,
   getConfigData,
   isAddress,
-  InitRef, refresh_data
+  refresh_data
 } from "../../utils/Wallet";
 import { createWatcher } from "@makerdao/multicall";
 import { share, close, gif ,smatic,pc_ido_img1, pc_ido_img2} from "../../utils/images";

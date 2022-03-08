@@ -5,8 +5,6 @@ import {
   CONTRACT_DATA,
 } from "../config/wallet";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import * as publicJs from "@/utils/public";
-
 export let web3 = null;
 const contractData =  require('../config/data.json')
 export function getDATA() {
@@ -45,10 +43,11 @@ async function createMetaMaskProvider(){
     return null;
   }
   const provider = window.ethereum || window.web3.currentProvider;
-  await window.ethereum.enable();
+
   await window.ethereum.on('accountsChanged', function (accounts) {
     updateAddress(accounts[0]);
   })
+ await window.ethereum.send('eth_requestAccounts');
   return  provider;
 }
 export async function walletDisConnect(){
@@ -312,7 +311,6 @@ export async function getBalance(address) {
   let balance = 0;
   try {
     balance = await web3.eth.getBalance(address);
-    balance = publicJs.toBigNumber(balance).dividedBy(10**18).toFixed(3);
   } catch (e) {
     console.log(e)
   }
@@ -345,10 +343,11 @@ export function trim(value) {
 
 ///////////////////approve()    //approve  ////////////////////////////
 
-export async function MintTestCoin(contractAddress, spender, amount) {
+export async function MintTestCoin(contractAddress) {
+  console.log("mint:" + contractAddress);
   const abi = CONTRACT_DATA['coin'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
-  return await contract.methods.approve(spender, amount).send({
+  return await contract.methods.mint().send({
     from: getWalletAddressSync(),
   })
 }

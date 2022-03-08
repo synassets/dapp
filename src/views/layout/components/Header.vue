@@ -62,7 +62,7 @@
         >SAT</div>
         <div
           class="h5-coin-balance"
-        >{{satBalance+' '+this.data.IDO.OG.sat_symbol}}</div>
+        >{{satBalance_show+' '+this.data.IDO.OG.sat_symbol}}</div>
       </div>
 
 
@@ -77,7 +77,7 @@
         >MATIC</div>
         <div
             class="h5-coin-balance"
-        >{{this.balance}}</div>
+        >{{this.matic_Balance_show}}</div>
       </div>
 
 <!--      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
@@ -96,7 +96,7 @@
 
       <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin_test_usdc"
+            :src="icon_coin_test_matic"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
@@ -105,7 +105,7 @@
         >TEST_MATIC</div>
         <div
             class="h5-coin-balance"
-        >{{this.sAsset.DAIBalanceOfUser}}</div>
+        >{{this.sAsset.DAIBalanceOfUser_show}}</div>
       </div>
 
 <!--      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
@@ -169,7 +169,7 @@
             <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_matic" />
               <div class="pc-div-btn2-item3">{{'MATIC'}}</div>
-              <div class="pc-div-btn2-item5">{{ this.balance}}</div>
+              <div class="pc-div-btn2-item5">{{ this.matic_Balance_show}}</div>
             </div>
 
             <div class="pc-div-btn2-item1">
@@ -187,9 +187,9 @@
             </div>-->
 
             <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin_test_usdc" />
+              <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
               <div class="pc-div-btn2-item3">{{'TEST_MATIC'}}</div>
-              <div class="pc-div-btn2-item5">{{ this.sAsset.DAIBalanceOfUser}}</div>
+              <div class="pc-div-btn2-item5">{{ this.sAsset.DAIBalanceOfUser_show}}</div>
             </div>
 
 <!--            <div class="pc-div-btn2-item1" >
@@ -206,7 +206,7 @@
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
             <div class="add-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
-            <div class="whitelist-wallet-btn"  >Claim TestCoin</div>
+            <div class="whitelist-wallet-btn"  @click="OnClaimTestCoin" >Claim TestCoin</div>
           </div>
         </div>
       </div>
@@ -311,7 +311,7 @@ import {
 
   addWatchAsset,
   getConfigData,
-  getDATA, initConnection, walletDisConnect,
+  getDATA, initConnection, MintTestCoin, walletDisConnect,
 } from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
@@ -319,6 +319,7 @@ import WhitelistTransferDialog from "@/views/layout/components/WhitelistTransfer
 import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
+import * as publicJs from "@/utils/public";
 export default {
   name: "Header",
   components: {
@@ -378,7 +379,16 @@ export default {
     }),
     ...mapGetters({
       is_connected: "is_connected"
-    })
+    }),
+    satBalance_show(){
+      return (this.satBalance/this.data.IDO.sat_scala).toFixed(2)
+    },
+    matic_Balance_show(){
+      return publicJs.toBigNumber(this.balance).dividedBy(10**18).toFixed(3);
+    },
+    DAIBalanceOfUser_show(){
+      return publicJs.toBigNumber(this.sAsset.DAIBalanceOfUser).dividedBy(10**this.sAsset.DAIDecimals).toFixed(3);
+    }
   },
 
   created() {
@@ -398,8 +408,8 @@ export default {
     },
 
     async OnClaimTestCoin() {
-      await addWatchAsset(this.data.IDO.OG.sat_address,this.data.IDO.OG.sat_symbol,18);
-      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
+      await MintTestCoin(this.data.IDO.OG.cash_address);
+      await MintTestCoin(this.sAsset.contract.DAI);
     },
 
 
