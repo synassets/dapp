@@ -201,10 +201,8 @@ export async function   switchChain(){
   }
 }
 
-export async function   addSATCoin(){
-  const tokenAddress = getDATA().IDO.OG.address;
-  const tokenSymbol = getDATA().IDO.OG.symbol;
-  const tokenDecimals = 18;
+export async function   addWatchAsset(tokenAddress, tokenSymbol, tokenDecimals){
+
   const tokenImage = '';
 
   try {
@@ -346,6 +344,9 @@ export function trim(value) {
 
 
 ///////////////////approve()    //approve  ////////////////////////////
+
+
+
 
 export async function callApprove(contractAddress, spender, amount) {
   const abi = CONTRACT_DATA['coin'].abi

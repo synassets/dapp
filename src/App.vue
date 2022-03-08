@@ -323,11 +323,11 @@ export default {
           console.error("error "+e.toString());
         }
       });
-      this.Mult_watcher.onNewBlock(blockNumber => {
+    /*  this.Mult_watcher.onNewBlock(blockNumber => {
         console.log('New block:', blockNumber);
         // this.$store.commit("SET_BLOCK_NUMBER", blockNumber);
         this.$store.commit("SET", ['blockNumber', blockNumber]);
-      });
+      });*/
       console.log(1111)
       await this.Mult_watcher.start();
       console.log(2222)

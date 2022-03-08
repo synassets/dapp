@@ -46,7 +46,7 @@
         >$--</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img
           :src="sat_icon"
           style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -58,10 +58,10 @@
         <div
           class="h5-coin-balance"
         >{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-       <!-- <div
+       &lt;!&ndash; <div
           style="position: absolute;right: 0rem;top: 0.5rem;font-size: 0.21rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;color: #808080"
-        >{{ '$ ' + staValve }}</div>-->
-      </div>
+        >{{ '$ ' + staValve }}</div>&ndash;&gt;
+      </div>-->
 
 
       <div style="width: 7.87rem;margin: 4.6rem auto 0rem auto;position: relative;">
@@ -75,10 +75,10 @@
         >MATIC</div>
         <div
             class="h5-coin-balance"
-        >{{' 0.00'}}</div>
+        >{{this.balance}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin2"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -90,7 +90,7 @@
         <div
             class="h5-coin-balance"
         >{{' 0.00'}}</div>
-      </div>
+      </div>-->
 
       <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
         <img
@@ -100,13 +100,13 @@
 
         <div
             class="h5-coin-name"
-        >TEST_USDC</div>
+        >TEST_MATIC</div>
         <div
             class="h5-coin-balance"
-        >{{' 0.00'}}</div>
+        >{{this.sAsset.DAIBalanceOfUser}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin4"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -118,10 +118,10 @@
         <div
             class="h5-coin-balance"
         >{{' 0.00'}}</div>
-      </div>
+      </div>-->
 
 
-      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin5"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -133,11 +133,11 @@
         <div
             class="h5-coin-balance"
         >{{' 0.00'}}</div>
-      </div>
+      </div>-->
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
       <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="showWhitelistClick">Whitelist transfer</div>
-      <div class="h5-add-wallet-blue-btn" >Claim TestCoin</div>
+      <div class="h5-add-wallet-blue-btn" @click="OnClaimTestCoin">Claim TestCoin</div>
       <div class="h5-disconnect-wallet-btn" @click="disconnectWallet">Disconnect</div>
     </div>
 
@@ -163,13 +163,13 @@
           <div style="margin-left: 10px;line-height: 40px;">{{this.data.IDO.OG.symbol}}</div>
           <div class="pc-div-btn2-item">
             <div class="pc-div-btn2-item0">My Wallet</div>
-            <div class="pc-div-btn2-item1">
+<!--            <div class="pc-div-btn2-item1">
               <img class="pc-div-btn2-item2" :src="sat_icon" />
               <div class="pc-div-btn2-item3">{{this.data.IDO.OG.symbol}}</div>
-           <!--   <div class="pc-div-btn2-item4">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
-              <div class="pc-div-btn2-item5">{{ '$ ' + staValve }}</div>-->
+           &lt;!&ndash;   <div class="pc-div-btn2-item4">{{satBalance+' '+this.data.IDO.OG.symbol}}</div>
+              <div class="pc-div-btn2-item5">{{ '$ ' + staValve }}</div>&ndash;&gt;
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>
+            </div>-->
 
             <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin1" />
@@ -178,29 +178,29 @@
               <div class="pc-div-btn2-item5">{{ this.balance}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin2" />
               <div class="pc-div-btn2-item3">{{'TEST_SAT'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>
+            </div>-->
 
             <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin3" />
-              <div class="pc-div-btn2-item3">{{'TEST_USDC'}}</div>
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+              <div class="pc-div-btn2-item3">{{'TEST_MATIC'}}</div>
+              <div class="pc-div-btn2-item5">{{ this.sAsset.DAIBalanceOfUser}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin4" />
               <div class="pc-div-btn2-item3">{{'TEST_WMATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>
+            </div>-->
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin5" />
               <div class="pc-div-btn2-item3">{{'TEST_SWMATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>
+            </div>-->
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
             <div class="add-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
@@ -307,7 +307,7 @@ import {
 import Cookies from "js-cookie";
 import {
 
-  addSATCoin,
+  addWatchAsset,
   getConfigData,
   getDATA, initConnection, walletDisConnect,
 } from "../../../utils/Wallet";
@@ -389,9 +389,16 @@ export default {
   },
 
   methods: {
-    addSatCoin() {
-      addSATCoin();
+    async addSatCoin() {
+     await addWatchAsset(this.data.IDO.OG.address,this.data.IDO.OG.symbol,18);
+     await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },
+
+    async OnClaimTestCoin() {
+      await addWatchAsset(this.data.IDO.OG.address,this.data.IDO.OG.symbol,18);
+      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
+    },
+
 
     goLink(url) {
         window.open(url);
