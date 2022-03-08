@@ -382,11 +382,6 @@ export async function callUnstake(contractAddress, amount, trigger) {
 export async function bondDeposit(contractAddress, amount, maxPrice, depositor, inviter) {
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
-  console.log('amount:', amount.toString())
-  console.log('maxPrice:', maxPrice)
-  console.log('depositor:', depositor)
-  console.log('inviter:', inviter)
-  console.log('gasPrice:', price)
   const abi = CONTRACT_DATA['bond'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
   return await contract.methods.deposit(amount, maxPrice, depositor, inviter).send({
