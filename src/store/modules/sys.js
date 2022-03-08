@@ -13,6 +13,8 @@ const sys = {
       doc: "",
       whiteListURL: "",
       backendUrl: "",
+      USDC: "",
+      SAT: ""
     },
     baseConfig: {
     },

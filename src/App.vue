@@ -8,7 +8,7 @@
 
 import { mapState } from 'vuex';
 import { createWatcher } from "@makerdao/multicall";
-import {InitRef} from "@/utils/Wallet";
+import {getBalance, InitRef} from "@/utils/Wallet";
 import {Base64} from "js-base64";
 const config_data =  require('./config/data.json')
 import store from "@/store";
@@ -21,6 +21,7 @@ export default {
       sAsset: state => state.sAsset, //
       address: state => state.wallet.address, //
       configData:state => state.sys.Config, //
+      refresh_flag:state => state.wallet.refresh_flag,
       share_link_url:state => state.wallet.share_link_url,
     }),
   },
@@ -38,6 +39,11 @@ export default {
       store.commit("SET_SHARE_LINK_URL", shareLinkUrl);
       this.restartWatch()
     },
+    refresh_flag(newQuestion, oldQuestion) {
+      console.log(newQuestion + " old: :" + oldQuestion);
+      this.restartWatch()
+    },
+
   },
 
   created() {
@@ -59,10 +65,12 @@ export default {
     async restartWatch()
     {
       console.log("restartWatch------------");
-      if(this.Mult_watcher != null){
+      if (this.Mult_watcher != null) {
         this.Mult_watcher.stop();
         this.Mult_watcher = null;
       }
+      let balance = await getBalance(this.address);
+      this.$store.commit("SET_BALANCE", balance);
       await this.getStartWatch();
     },
     async getStartWatch() {
@@ -81,6 +89,16 @@ export default {
               target: this.sAsset.contract.Swap_Router,
               call: ['getAmountsOut(uint256,address[])(uint256[])','1000000000',[this.sAsset.contract.OHM, this.sAsset.contract.DAI, this.sAsset.contract.ETH, this.sAsset.contract.USD]],
               returns: [['USDFragmentsPerOHM']]
+            },
+            {
+              target: this.configData.USDC,
+              call: ["balanceOf(address)(uint256)", this.address],
+              returns: [["BalanceOf_usdc"]]
+            },
+            {
+              target: this.configData.SAT,
+              call: ["balanceOf(address)(uint256)", this.address],
+              returns: [["BalanceOf_SAT"]]
             },
             {
               target: this.sAsset.contract.USD,
@@ -307,19 +325,27 @@ export default {
             interval: 10000
           }
       );
+
       this.Mult_watcher.subscribe(update => {
         console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
         try {
-          this.$store.commit("SET", [update.type, update.value]);
+          if(update.type == "BalanceOf_usdc"){
+            this.$store.commit("SET_USDC_BALANCE",  update.value);
+          }else if(update.type == "BalanceOf_SAT"){
+            this.$store.commit("SET_SAT_BALANCE",  update.value);
+          } else
+          {
+            this.$store.commit("SET", [update.type, update.value]);
+          }
         } catch (e) {
           console.error("error "+e.toString());
         }
       });
-      this.Mult_watcher.onNewBlock(blockNumber => {
+    /*  this.Mult_watcher.onNewBlock(blockNumber => {
         console.log('New block:', blockNumber);
         // this.$store.commit("SET_BLOCK_NUMBER", blockNumber);
         this.$store.commit("SET", ['blockNumber', blockNumber]);
-      });
+      });*/
       console.log(1111)
       await this.Mult_watcher.start();
       console.log(2222)
