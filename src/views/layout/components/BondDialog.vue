@@ -18,8 +18,6 @@
               <div  class="pc-dialog-div-header-down">${{OHMPrice}}</div>
             </div>
           </div>
-
-
           <div class="pc-bond-tab">
             <div @click="clickTabBond(true)" v-show="isBondMenu" class="pc-bond-tab-left-p">Bond</div>
             <div @click="clickTabBond(true)"  v-show="!isBondMenu" class="pc-bond-tab-left-n">Bond</div>
@@ -42,11 +40,6 @@
                         />
                 <div  @click="clickMaxValue()"  class='pc-bond-div-input-max' >MAX</div>
               </div>
-
-
-
-
-
 
             </div>
             <div class="pc-bond-div-btn" v-show="!bond.isApproved" @click="clickApprove">
