@@ -214,3 +214,7 @@ export function dateFormat(milliSeconds) {
 export function toBigNumber(number) {
   return new BigNumber('' + number);
 }
+
+export function isBigNumber(value) {
+  return BigNumber.isBigNumber(value)
+}

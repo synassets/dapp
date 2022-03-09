@@ -5,6 +5,7 @@ import {
   CONTRACT_DATA,
 } from "../config/wallet";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import * as publicJs from "@/utils/public";
 export let web3 = null;
 const contractData =  require('../config/data.json')
 export function getDATA() {
@@ -354,6 +355,9 @@ export async function MintTestCoin(contractAddress) {
 
 
 export async function callApprove(contractAddress, spender, amount) {
+  if(publicJs.isBigNumber(amount)) {
+    amount = amount.toString()
+  }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
   const abi = CONTRACT_DATA['coin'].abi
@@ -365,6 +369,9 @@ export async function callApprove(contractAddress, spender, amount) {
 }
 
 export async function callStake(contractAddress, amount, recipient, inviter) {
+  if(publicJs.isBigNumber(amount)) {
+    amount = amount.toString()
+  }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
   const abi = CONTRACT_DATA['stakingHelper'].abi
@@ -376,6 +383,9 @@ export async function callStake(contractAddress, amount, recipient, inviter) {
 }
 
 export async function callUnstake(contractAddress, amount, trigger) {
+  if(publicJs.isBigNumber(amount)) {
+    amount = amount.toString()
+  }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
   const abi = CONTRACT_DATA['staking'].abi
@@ -387,6 +397,12 @@ export async function callUnstake(contractAddress, amount, trigger) {
 }
 
 export async function bondDeposit(contractAddress, amount, maxPrice, depositor, inviter) {
+  if(publicJs.isBigNumber(amount)) {
+    amount = amount.toString()
+  }
+  if(publicJs.isBigNumber(maxPrice)) {
+    maxPrice = maxPrice.toString()
+  }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
   const abi = CONTRACT_DATA['bond'].abi
