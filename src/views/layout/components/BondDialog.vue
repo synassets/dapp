@@ -140,7 +140,7 @@
                 @click="closeDialog"
             />
 
-            <div style="width: 1.8rem;display: flex;margin: 0.34rem auto 0rem auto;">
+            <div style="width: 7rem;display: flex;margin: 0.34rem auto 0rem auto;flex-direction: row; justify-content: center; align-items: center;">
               <img :src="icon_matic" style="width: 0.4rem;height: 0.4rem;"  />
               <div style=" font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;margin-left: 0.4rem;">{{bond.name}}</div>
             </div>
@@ -186,34 +186,61 @@
           <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu">Claim</div>
           <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
 
-          <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;">
+          <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"   v-show="isBondMenu">
             <div style="flex: 1;">Your Balance</div>
             <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
           </div>
-          <div class="h5-bond-dialog-item" >
+          <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">Max You Can Buy</div>
             <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.maxYouCanBuy}} {{bond.symbol}}</div>
           </div>
-          <div class="h5-bond-dialog-item" >
+          <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">Pending Rewards</div>
             <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
           </div>
-          <div class="h5-bond-dialog-item" >
+          <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">Claimable Rewards</div>
             <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
           </div>
-          <div class="h5-bond-dialog-item" >
-            <div style="flex: 1;">Time until fully vested</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
+          <div class="h5-bond-dialog-item"   v-show="isBondMenu">
+            <div style="flex: 3;">Time until fully vested</div>
+            <div style="flex: 2;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
           </div>
-          <div class="h5-bond-dialog-item" >
+          <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">ROI</div>
             <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.ROI}}%</div>
           </div>
-          <div class="h5-bond-dialog-item" >
+          <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">Debt Ratio</div>
             <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.debtRatio}}%</div>
           </div>
+
+
+
+
+
+          <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"  v-show="!isBondMenu">
+            <div style="flex: 1;">Pending Rewards</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
+          </div>
+          <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
+            <div style="flex: 1;">Claimable Rewards</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
+          </div>
+
+          <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
+            <div style="flex: 3;">Time until fully vested</div>
+            <div style="flex: 2;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
+          </div>
+          <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
+            <div style="flex: 1;">ROI</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.ROI}}%</div>
+          </div>
+          <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
+            <div style="flex: 1;">Vesting Term</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.duration}}</div>
+          </div>
+
          <div style="height: 0.5rem; width: 2rem;"></div>
         </div>
       </div>
