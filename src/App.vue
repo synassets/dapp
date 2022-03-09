@@ -49,6 +49,9 @@ export default {
   created() {
     this.$store.commit("SET_CONTRACT", config_data.sMatic);
     this.$store.commit("SET_CONFIG", config_data.Config);
+    this.$store.commit("SET_OG_CFG", config_data.SAT.IDO.OG);
+    this.$store.commit("SET_PUB_CFG", config_data.SAT.IDO.NOG);
+
     InitRef();
     this.handleEnvSet();
   },
@@ -91,14 +94,14 @@ export default {
               returns: [['USDFragmentsPerOHM']]
             },
             {
-              target: this.configData.USDC,
+              target: this.ido.og_sale.cash_address,
               call: ["balanceOf(address)(uint256)", this.address],
-              returns: [["BalanceOf_usdc"]]
+              returns: [["BalanceOf_cash"]]
             },
             {
-              target: this.configData.SAT,
+              target: this.ido.og_sale.sale_token_address,
               call: ["balanceOf(address)(uint256)", this.address],
-              returns: [["BalanceOf_SAT"]]
+              returns: [["BalanceOf_sale_token"]]
             },
             {
               target: this.sAsset.contract.USD,
@@ -329,9 +332,9 @@ export default {
       this.Mult_watcher.subscribe(update => {
         console.log(`this.Mult_watcher.subscribe - > Update: ${update.type} = ${update.value}`);
         try {
-          if(update.type == "BalanceOf_usdc"){
+          if(update.type == "BalanceOf_cash"){
             this.$store.commit("SET_USDC_BALANCE",  update.value);
-          }else if(update.type == "BalanceOf_SAT"){
+          }else if(update.type == "BalanceOf_sale_token"){
             this.$store.commit("SET_SAT_BALANCE",  update.value);
           } else
           {

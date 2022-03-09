@@ -339,7 +339,6 @@ import {pc_logo,h5_left_img1,
 import {getConfigData} from "../../../utils/Wallet";
 import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 
-import MessageTipOkDialog from "@/views/layout/components/MessageTipOkDialog";
 import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDialog";
 
 export default {

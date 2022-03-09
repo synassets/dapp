@@ -48,7 +48,7 @@
         ></div>
       </div>
 
-      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img
           :src="sat_icon"
           style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -59,8 +59,8 @@
         >SAT</div>
         <div
           class="h5-coin-balance"
-        >{{satBalance_show+' '+this.data.IDO.OG.sat_symbol}}</div>
-      </div>
+        >{{satBalance_show+' '+this.ido.og_sale.sale_token_symbol}}</div>
+      </div>-->
 
 
       <div style="width: 7.87rem;margin: 4.6rem auto 0rem auto;position: relative;">
@@ -88,7 +88,7 @@
         >TEST_SAT</div>
         <div
             class="h5-coin-balance"
-        >{{' 0.00'}}</div>
+        >{{satBalance_show}}</div>
       </div>
 
       <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
@@ -102,25 +102,25 @@
         >TEST_MATIC</div>
         <div
             class="h5-coin-balance"
-        >{{this.sAsset.DAIBalanceOfUser_show}}</div>
+        >{{this.DAIBalanceOfUser_show}}</div>
       </div>
 
       <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin_test_matic"
+            :src="icon_coin_test_usdc"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
         <div
             class="h5-coin-name"
-        >TEST_WMATIC</div>
+        >{{this.ido.public_sale.cash_symbol}}</div>
         <div
             class="h5-coin-balance"
-        >{{' 0.00'}}</div>
+        >{{this.crash_balance_show}}</div>
       </div>
 
 
-      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin5"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -132,7 +132,7 @@
         <div
             class="h5-coin-balance"
         >{{' 0.00'}}</div>
-      </div>
+      </div>-->
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
       <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="showWhitelistClick">Whitelist transfer</div>
@@ -159,7 +159,7 @@
             style="width: 29px;height: 26px;margin-left: 30px;margin-top: 6px;"
             alt
           />
-          <div style="margin-left: 10px;line-height: 40px;">{{this.data.IDO.OG.sat_symbol}}</div>
+          <div style="margin-left: 10px;line-height: 40px;">{{this.ido.og_sale.sale_token_symbol}}</div>
           <div class="pc-div-btn2-item">
             <div class="pc-div-btn2-item0">My Wallet</div>
 
@@ -170,38 +170,38 @@
               <div class="pc-div-btn2-item5">{{ this.matic_Balance_show}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1">
+<!--            <div class="pc-div-btn2-item1">
               <img class="pc-div-btn2-item2" :src="sat_icon" />
-              <div class="pc-div-btn2-item3">{{this.data.IDO.OG.sat_symbol}}</div>
+              <div class="pc-div-btn2-item3">{{this.ido.og_sale.sale_token_symbol}}</div>
               <div class="pc-div-btn2-item5">{{this.satBalance}}</div>
-            </div>
+            </div>-->
 
 
 
 
            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_sat" />
-              <div class="pc-div-btn2-item3">{{'TEST_SAT'}}</div>
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+              <div class="pc-div-btn2-item3">{{this.ido.public_sale.sale_token_symbol}}</div>
+              <div class="pc-div-btn2-item5">{{ satBalance_show}}</div>
             </div>
 
             <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
               <div class="pc-div-btn2-item3">{{'TEST_MATIC'}}</div>
-              <div class="pc-div-btn2-item5">{{ this.sAsset.DAIBalanceOfUser_show}}</div>
+              <div class="pc-div-btn2-item5">{{ this.DAIBalanceOfUser_show}}</div>
             </div>
 
             <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
-              <div class="pc-div-btn2-item3">{{'TEST_WMATIC'}}</div>
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+              <img class="pc-div-btn2-item2" :src="icon_coin_test_usdc" />
+              <div class="pc-div-btn2-item3">{{this.ido.public_sale.cash_symbol}}</div>
+              <div class="pc-div-btn2-item5">{{ this.crash_balance_show}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin5" />
               <div class="pc-div-btn2-item3">{{'TEST_SWMATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>
+            </div>-->
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
             <div class="add-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
@@ -307,10 +307,8 @@ import {
 
 import Cookies from "js-cookie";
 import {
-
   addWatchAsset,
-  getConfigData,
-  getDATA, initConnection, MintTestCoin, walletDisConnect,
+   initConnection, MintTestCoin, walletDisConnect,
 } from "../../../utils/Wallet";
 
 import MyDialog from "@/views/components/myDialog";
@@ -364,7 +362,6 @@ export default {
       configData: {
         chainId: 0
       },
-      data: {}
     };
   },
   computed: {
@@ -375,12 +372,18 @@ export default {
       balance: state => state.wallet.balance,
       whitelist_og_counter: state => state.wallet.whitelist_og_counter,
       sAsset: state => state.sAsset,
+      ido: state => state.ido,
+      usdc_balance: state => state.wallet.usdc_balance,
     }),
     ...mapGetters({
       is_connected: "is_connected"
     }),
     satBalance_show(){
-      return (this.satBalance/this.data.IDO.sat_scala).toFixed(2)
+      console.log("adsfafd:" +this.ido);
+      return (this.satBalance/this.ido.public_sale.sale_token_scala).toFixed(2)
+    },
+    crash_balance_show(){
+      return publicJs.toBigNumber(this.usdc_balance).dividedBy(10**6).toFixed(3);
     },
     matic_Balance_show(){
       return publicJs.toBigNumber(this.balance).dividedBy(10**18).toFixed(3);
@@ -391,8 +394,6 @@ export default {
   },
 
   created() {
-    this.data = getDATA();
-    this.configData = getConfigData();
 
   },
   mounted() {
@@ -401,13 +402,13 @@ export default {
 
   methods: {
     async addSatCoin() {
-     await addWatchAsset(this.data.IDO.OG.sat_address,this.data.IDO.OG.sat_symbol,18);
-      await addWatchAsset(this.data.IDO.OG.cash_address,this.data.IDO.OG.cash_symbol,6);
+     await addWatchAsset(this.ido.og_sale.sale_token_address,this.ido.og_sale.sale_token_symbol,18);
+      await addWatchAsset(this.ido.og_sale.cash_address,this.ido.og_sale.cash_symbol,6);
      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },
 
     async OnClaimTestCoin() {
-      await MintTestCoin(this.data.IDO.OG.cash_address);
+      await MintTestCoin(this.ido.og_sale.cash_address);
       await MintTestCoin(this.sAsset.contract.DAI);
     },
 
