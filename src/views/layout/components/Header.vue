@@ -63,7 +63,7 @@
       </div>-->
 
 
-      <div style="width: 7.87rem;margin: 4.6rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin: 2.8rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin_matic"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -77,7 +77,7 @@
         >{{this.matic_Balance_show}}</div>
       </div>
 
-    <div style="width: 7.87rem;margin: 5.6rem auto 0rem auto;position: relative;">
+    <div style="width: 7.87rem;margin: 3.8rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin_test_sat"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -91,7 +91,7 @@
         >{{satBalance_show}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin: 4.8rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin_test_matic"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -105,7 +105,7 @@
         >{{this.DAIBalanceOfUser_show}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin: 5.8rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin_test_usdc"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -522,7 +522,7 @@ export default {
   color: #808080;
   width: 7.87rem;
   height: 1.07rem;
-  margin: 11rem auto 0rem auto;
+  margin: 8rem auto 0rem auto;
   border: 1px solid #808080;
   position: relative;
   text-align: center;
@@ -731,7 +731,7 @@ export default {
   right: 0px;
   top: 42px;
   width: 300px;
-  height:540px;
+  height:460px;
   background: #242424;
   border-radius: 10px;
 }
