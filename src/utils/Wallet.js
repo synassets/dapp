@@ -348,8 +348,11 @@ export async function MintTestCoin(contractAddress) {
   console.log("mint:" + contractAddress);
   const abi = CONTRACT_DATA['coin'].abi
   const contract = new web3.eth.Contract(abi, contractAddress)
+  let price  = await getGasPrice() *1.6;
+  price = price.toFixed(0);
   return await contract.methods.mint().send({
     from: getWalletAddressSync(),
+    gasPrice: price
   })
 }
 

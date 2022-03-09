@@ -75,5 +75,8 @@ export const icon_coin_test_usdc = require("@/assets/img/icon_coin3.png");
 export const icon_coin_test_matic = require("@/assets/img/icon_coin4.png");
 export const icon_coin5 = require("@/assets/img/icon_coin5.png");
 
+export const icon_coin5_999 = require("@/assets/img/matic--2x.png");
+
+
 
 

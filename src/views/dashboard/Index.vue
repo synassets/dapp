@@ -107,7 +107,7 @@
                   <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left: 72px;bottom: 5px;" @click="viewContract(sAsset.contract.OHM_DAI_LP)">View contract</div>
                 </div>
                 <div style="width: 170px;height: 40px;border: 1px solid #0792E3;border-radius: 10px;position: relative;margin-left: 15px;">
-                  <img :src="icon_sat"  style="width: 30px;height: 30px;position: absolute;top:4px ;left: 10px;"   />
+                  <img :src="smatic"  style="width: 30px;height: 30px;position: absolute;top:4px ;left: 10px;"   />
                   <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #FFFFFF;position: absolute;left: 60px;top: 5px;">${{DAIBalance}}</div>
 
                   <div style="cursor: pointer;font-size: 10px;font-family: Selawik; font-weight: 400;text-decoration: underline;color: #808080;position: absolute;left:60px;bottom: 5px;" @click="viewContract(sAsset.contract.DAI)">View contract</div>
@@ -230,7 +230,7 @@
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Runaway</div>
-        <div class="h5-div-item-down" >455.2 d</div>
+        <div class="h5-div-item-down" >------</div>
       </div>
     </div>
 
@@ -244,8 +244,8 @@ import { mapState } from "vuex";
 import {
   icon_matic_sat_lp,
   icon_sat,
-
   pc_ido_img1,
+  smatic
 
 } from "@/utils/images";
 
@@ -267,7 +267,7 @@ export default {
   },
   data() {
     return {
-      icon_sat,icon_matic_sat_lp,
+      icon_sat,icon_matic_sat_lp,smatic,
       pc_ido_img1,
 
       data:{},

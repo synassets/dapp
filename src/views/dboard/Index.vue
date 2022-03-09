@@ -22,10 +22,10 @@
              <div style=" margin-left: 284px;line-height: 40px;display: flex;">APY</div>
           </div>
          <div class="pc-sum-div-item" @click="goDashboard()">
-           <img :src="pc_sum_img2" style="width: 54px;height:  54px;left: 70px;top: 13px;position: absolute;"  />
+           <img :src="icon_coin5_999" style="width: 54px;height:  54px;left: 70px;top: 13px;position: absolute;"  />
            <div style="left: 150px;position: absolute;" >
-             <div style="font-size: 14px; font-family: Selawik;font-weight: bold; color: #808080;padding-top: 18px;">FMD</div>
-             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">First Matic DAO</div>
+             <div style="font-size: 14px; font-family: Selawik;font-weight: bold; color: #808080;padding-top: 18px;">sMat</div>
+             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">Matic DAO</div>
            </div>
 
            <div style="left: 480px;position: absolute;" >
@@ -83,7 +83,7 @@
       <div style="margin-top: 0.4rem;width: 100%; height: 5.33rem;background: #242424;padding-top: 0.5rem;">
         <div style="text-align: center;width: 100%;position: relative;font-size: 0.35rem;font-family: Selawik; font-weight: 600; color: #FFFFFF;line-height: 0.8rem;">
           <img
-              :src="icon_matic"
+              :src="icon_coin5_999"
               style="width: 0.8rem;height: 0.8rem;left: 0.8rem;top:0rem ;position: absolute;"
           />
           sMatic
@@ -121,7 +121,7 @@ import { mapState } from "vuex";
 import {
   pc_sum_img1,
   pc_sum_img2,
-  pc_sum_img3, h5_sum_bg, icon_matic
+  pc_sum_img3, h5_sum_bg, icon_matic, icon_coin5_999
 } from "../../utils/images";
 export default {
   name: "Index",
@@ -130,6 +130,7 @@ export default {
   },
   data() {
     return {
+      icon_coin5_999,
       h5_sum_bg,
       pc_sum_img1,
       pc_sum_img2,

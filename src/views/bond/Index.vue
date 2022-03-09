@@ -53,7 +53,7 @@
  <!---3----->
             <div style="display: flex;margin-top: 20px;">
               <div class="pc-div-table-item1">
-                <img :src="icon_matic"  style="width: 38px;height: 38px;margin-left: 24px;" alt />
+                <img :src="icon_coin_test_matic"  style="width: 38px;height: 38px;margin-left: 24px;" alt />
               </div>
               <div style="flex: 1">
                 <div  class="pc-div-table-item3">{{DAISymbol}}</div>
@@ -136,7 +136,7 @@
 
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
         <div style="position: relative;">
-          <img :src="icon_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
+          <img :src="icon_coin_test_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
           <div style="position: absolute;left: 2rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}</div>
           <div @click="viewContract(sAsset.contract.DAI)">
             <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
@@ -183,8 +183,9 @@ import { mapState } from "vuex";
 import {
   close,
   gif,
-  pc_ido_img1,
-  icon_matic,
+  pc_ido_img1
+  ,
+  icon_coin_test_matic,
   icon_matic_sat_lp,
   icon_contact
 
@@ -209,7 +210,7 @@ export default {
       close,
       gif,
       pc_ido_img1,
-      icon_matic,
+      icon_coin_test_matic,
       icon_matic_sat_lp,
       icon_contact,
 
