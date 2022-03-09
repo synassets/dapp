@@ -424,6 +424,14 @@ export default {
         this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
         return
       }
+      if (Number(this.bondInputAmount) > Number(this.bond.yourBalance)) {
+        this.$refs.MessageTipErrorDialog.showClick('insufficient balance');
+        return
+      }
+      if (Number(this.bondInputAmount) > Number(this.bond.maxYouCanBuy)) {
+        this.$refs.MessageTipErrorDialog.showClick('amount should be less than the max you can buy');
+        return
+      }
       this.bondPending = true;
       const amount = publicJs.toBigNumber(this.bondInputAmount).multipliedBy(10**this.bond.tokenDecimals)
       const maxPrice = this.bond.bondPrice * 2
