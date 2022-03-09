@@ -49,6 +49,9 @@ export default {
   created() {
     this.$store.commit("SET_CONTRACT", config_data.sMatic);
     this.$store.commit("SET_CONFIG", config_data.Config);
+    this.$store.commit("SET_OG_CFG", config_data.IDO.SAT.OG);
+    this.$store.commit("SET_PUB_CFG", config_data.IDO.SAT.NOG);
+
     InitRef();
     this.handleEnvSet();
   },

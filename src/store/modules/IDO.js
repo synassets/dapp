@@ -1,7 +1,6 @@
 //
 const ido = {
     state: {
-
         og_sale: {
             sell_token_address: "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
             sell_token_symbol: "TEST_SAT",
@@ -45,8 +44,11 @@ const ido = {
         SET_NAME: (state, name) => {
             state.name = name;
         },
-        SET_IDO_CFG: (state, name) => {
-            state.name = name;
+        SET_OG_CFG: (state, name) => {
+            state.og_sale = name;
+        },
+        SET_PUB_CFG: (state, name) => {
+            state.public_sale = name;
         },
         SET_OG_ALLOWANCE: (state, allowance) => {
             state.og_sale.allowance = allowance;

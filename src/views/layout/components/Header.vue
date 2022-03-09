@@ -364,7 +364,6 @@ export default {
       configData: {
         chainId: 0
       },
-      data: {}
     };
   },
   computed: {
@@ -375,6 +374,7 @@ export default {
       balance: state => state.wallet.balance,
       whitelist_og_counter: state => state.wallet.whitelist_og_counter,
       sAsset: state => state.sAsset,
+      IDO: state => state.IDO,
     }),
     ...mapGetters({
       is_connected: "is_connected"
@@ -391,8 +391,6 @@ export default {
   },
 
   created() {
-    this.data = getDATA();
-    this.configData = getConfigData();
 
   },
   mounted() {
@@ -401,13 +399,13 @@ export default {
 
   methods: {
     async addSatCoin() {
-     await addWatchAsset(this.data.IDO.OG.sell_token_address,this.data.IDO.OG.sell_token_symbol,18);
-      await addWatchAsset(this.data.IDO.OG.cash_address,this.data.IDO.OG.cash_symbol,6);
+     await addWatchAsset(this.IDO.og_sale.sell_token_address,this.IDO.og_sale.sell_token_symbol,18);
+      await addWatchAsset(this.IDO.og_sale.cash_address,this.IDO.og_sale.cash_symbol,6);
      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },
 
     async OnClaimTestCoin() {
-      await MintTestCoin(this.data.IDO.OG.cash_address);
+      await MintTestCoin(this.IDO.og_sale.cash_address);
       await MintTestCoin(this.sAsset.contract.DAI);
     },
 
