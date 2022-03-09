@@ -294,7 +294,7 @@ export default {
       return (this.sAsset.OHMBalanceOfStaking / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
     },
     currentIndex() {
-      return (this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals).toFixed(2);
+      return (this.sAsset.currentIndex / 10**this.sAsset.sOHMDecimals).toFixed(2);
     },
     balance() {
       return this.sAsset.OHMBalanceOfUser / 10**this.sAsset.OHMDecimals;
