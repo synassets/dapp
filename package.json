@@ -15,7 +15,6 @@
     "amfe-flexible": "^2.2.1",
     "ant-design-vue": "^1.7.4",
     "axios": "^0.19.0",
-    "bignumber.js": "^9.0.2",
     "core-js": "^3.6.4",
     "decimal.js": "^10.0.1",
     "echarts": "^4.9.0",

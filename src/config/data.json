@@ -11,8 +11,8 @@
     "doc": "https://doc.synassets.finance/",
     "whiteListURL": "https://medium.com/@SynAssets/synassets-tokenomics-ido-whitelists-details-569626623e46",
     "blockRateSeconds": 1.12,
-    "backendUrl": "http://47.89.183.127:8081/synassets/",
-    "USDC": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
+    "backendUrl":"https://api.synassets.finance/synassets/",
+    "USDC":"0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
     "SAT": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47"
   },
   "sMatic": {
