@@ -21,7 +21,7 @@ const store = new Vuex.Store({
   getters: {
     sys: state => state.sys,
     wallet:state=> state.wallet,
-    IDO:state=> state.ido,
+    ido:state=> state.ido,
     sAsset:state=> state.sAsset,
   },
 
