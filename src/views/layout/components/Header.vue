@@ -59,7 +59,7 @@
         >SAT</div>
         <div
           class="h5-coin-balance"
-        >{{satBalance_show+' '+this.data.IDO.OG.sat_symbol}}</div>
+        >{{satBalance_show+' '+this.data.IDO.OG.sell_token_symbol}}</div>
       </div>
 
 
@@ -159,7 +159,7 @@
             style="width: 29px;height: 26px;margin-left: 30px;margin-top: 6px;"
             alt
           />
-          <div style="margin-left: 10px;line-height: 40px;">{{this.data.IDO.OG.sat_symbol}}</div>
+          <div style="margin-left: 10px;line-height: 40px;">{{this.data.IDO.OG.sell_token_symbol}}</div>
           <div class="pc-div-btn2-item">
             <div class="pc-div-btn2-item0">My Wallet</div>
 
@@ -172,7 +172,7 @@
 
             <div class="pc-div-btn2-item1">
               <img class="pc-div-btn2-item2" :src="sat_icon" />
-              <div class="pc-div-btn2-item3">{{this.data.IDO.OG.sat_symbol}}</div>
+              <div class="pc-div-btn2-item3">{{this.data.IDO.OG.sell_token_symbol}}</div>
               <div class="pc-div-btn2-item5">{{this.satBalance}}</div>
             </div>
 
@@ -401,7 +401,7 @@ export default {
 
   methods: {
     async addSatCoin() {
-     await addWatchAsset(this.data.IDO.OG.sat_address,this.data.IDO.OG.sat_symbol,18);
+     await addWatchAsset(this.data.IDO.OG.sell_token_address,this.data.IDO.OG.sell_token_symbol,18);
       await addWatchAsset(this.data.IDO.OG.cash_address,this.data.IDO.OG.cash_symbol,6);
      await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },

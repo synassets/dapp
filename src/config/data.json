@@ -39,10 +39,10 @@
   "SAT": {
     "IDO": {
       "OG": {
+        "sell_token_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
+        "sell_token_symbol": "TEST_SAT",
+        "sell_token_scala": "1000000000000000000",
         "enableWhiteList": false,
-        "sat_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
-        "sat_symbol": "TEST_SAT",
-        "sat_scala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "1000000000",
         "minAmount1PerWallet": "1000000000",
@@ -53,9 +53,9 @@
       },
       "NOG": {
         "enableWhiteList": false,
-        "sat_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
-        "sat_symbol": "TEST_SAT",
-        "sat_scala": "1000000000000000000",
+        "sell_token_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
+        "sell_token_symbol": "TEST_SAT",
+        "sell_token_scala": "1000000000000000000",
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "10000000000",
         "minAmount1PerWallet": "500000000",

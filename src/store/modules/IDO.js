@@ -1,10 +1,11 @@
 //
 const ido = {
     state: {
-        sell_token_address: "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
-        sell_token_symbol: "TEST_SAT",
-        sell_token_scala: "1000000000000000000",
+
         og_sale: {
+            sell_token_address: "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
+            sell_token_symbol: "TEST_SAT",
+            sell_token_scala: "1000000000000000000",
             cash_scala: "1000000",
             cash_symbol: "TEST_USDC",
             cash_address: "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
@@ -21,6 +22,9 @@ const ido = {
             balance_of_cash:0,
         },
         public_sale: {
+            sell_token_address: "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
+            sell_token_symbol: "TEST_SAT",
+            sell_token_scala: "1000000000000000000",
             cash_scala: "1000000",
             cash_symbol: "TEST_USDC",
             cash_address: "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
@@ -39,6 +43,9 @@ const ido = {
     },
     mutations: {
         SET_NAME: (state, name) => {
+            state.name = name;
+        },
+        SET_IDO_CFG: (state, name) => {
             state.name = name;
         },
         SET_OG_ALLOWANCE: (state, allowance) => {
