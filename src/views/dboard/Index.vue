@@ -21,7 +21,7 @@
              <div style=" margin-left: 395px;line-height: 40px;display: flex;">TVL</div>
              <div style=" margin-left: 284px;line-height: 40px;display: flex;">APY</div>
           </div>
-         <div class="pc-sum-div-item">
+         <div class="pc-sum-div-item" @click="goDashboard()">
            <img :src="pc_sum_img2" style="width: 54px;height:  54px;left: 70px;top: 13px;position: absolute;"  />
            <div style="left: 150px;position: absolute;" >
              <div style="font-size: 14px; font-family: Selawik;font-weight: bold; color: #808080;padding-top: 18px;">FMD</div>
@@ -103,7 +103,7 @@
           <div  class="h5-bond-div-detail-left">APY</div>
           <div  class="h5-bond-div-detail-right"> {{ '4,928.77%'}}</div>
         </div>
-        <div class="h5-bond-btn">Join DAO</div>
+        <div class="h5-bond-btn" @click="goDashboard">Join DAO</div>
 
       </div>
 
@@ -157,7 +157,9 @@ export default {
   },
 
   methods: {
-
+    goDashboard(){
+      this.$router.push("/dashboard").catch(err => {err});
+    },
     inputChange(){},
     goLink(url) {
       window.open(url);
@@ -174,7 +176,7 @@ export default {
 <style lang="scss" scoped>
 .pc-sum-div-item{
   width: 1080px;height: 80px; background: #242424;border-radius: 5px;
-  margin-top: 5px;display: flex;position: relative;
+  margin-top: 5px;display: flex;position: relative;cursor: pointer;
 }
 .pc-sum-div-item:hover{
   background: linear-gradient(-45deg, #4A3E48 0%, #25434A 100%);
@@ -186,6 +188,7 @@ export default {
   font-size: 0.35rem;font-family: Selawik;font-weight: 600;color: #ffffff;flex: 1;text-align: right;
 }
 .h5-bond-btn{
+  cursor:pointer;
   margin: 0.5rem auto 0rem auto; width: 8.4rem; height: 0.93rem;line-height:0.93rem;  background: #00A0E9;  border-radius: 0.13rem;text-align: center;font-size: 0.35rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;
 }
 .h5-bond-btn:hover{

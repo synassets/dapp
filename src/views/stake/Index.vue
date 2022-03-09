@@ -55,27 +55,27 @@
             <div @click="clickStakeApprove" class="pc-stake-div-btn" v-show="isStakeMenu&&!isStakeApproved&&!stakeApprovePending">
               Approve
             </div>
-            <div class="pc-stake-div-gif" v-show="isStakeMenu&&stakeApprovePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+            <div class="pc-stake1-div-gif"   v-show="isStakeMenu&&stakeApprovePending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
             </div>
             <div @click="clickStake" class="pc-stake-div-btn" v-show="isStakeMenu&&isStakeApproved">
               Stake
             </div>
-            <div class="pc-stake-div-gif" v-show="isStakeMenu&&stakePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+            <div class="pc-stake1-div-gif" v-show="isStakeMenu&&stakePending" >
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" alt="zh" />
             </div>
 
             <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">
               Approve
             </div>
-            <div class="pc-stake-div-gif" v-show="!isStakeMenu&&unstakeApprovePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+            <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&unstakeApprovePending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" alt="zh" />
             </div>
             <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved">
               Unstake
             </div>
-            <div class="pc-stake-div-gif" v-show="!isStakeMenu&&unstakePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
+            <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&unstakePending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
             </div>
 
           </div>
@@ -542,8 +542,8 @@ font-size: 14px;font-family: Selawik; font-weight: 400;color: #FFFFFF;padding-le
 .pc-stake-div-btn{
   position: absolute;right: 10px;top: 0px;cursor: pointer; width: 210px;height: 50px;background: #0792E3; border-radius: 5px;z-index: 999;text-align: center;line-height: 50px;color: #FFFFFF;font-size: 20px;font-family: Selawik; font-weight: 600;
 }
-.pc-stake-div-gif{
-  position: absolute;right: 10px;top: 0px;width: 210px;height: 50px;background: #414346; border-radius: 5px;z-index: 999;line-height: 50px;
+.pc-stake1-div-gif{
+  position: absolute;right: 10px;top: 0px;width: 210px;height: 50px;background: #414346; border-radius: 5px;z-index: 999;line-height: 0.4;
 }
 .pc-stake-div-detail{
   display: flex;padding-top: 6px;
