@@ -307,7 +307,7 @@ export default {
      return (this.marketValueOfTreasuryAssets / (OHMCirculatingSupply / 10**this.sAsset.OHMDecimals)).toFixed(this.sAsset.OHMDecimals);
     },
     currentIndex() {
-     return this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals;
+     return (this.sAsset.currentIndex / 10**this.sAsset.OHMDecimals).toFixed(2);
     },
     marketValueOfTreasuryAssets() {
       const t1 = this.sAsset.OHMBalanceOfOHMDAILP * this.sAsset.DAIBalanceOfTreasury / this.sAsset.DAIBalanceOfOHMDAILP;

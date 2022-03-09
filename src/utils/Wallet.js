@@ -356,7 +356,7 @@ export async function MintTestCoin(contractAddress) {
 
 export async function callApprove(contractAddress, spender, amount) {
   if(publicJs.isBigNumber(amount)) {
-    amount = amount.toString()
+    amount = web3.utils.toBN(amount)
   }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
@@ -370,7 +370,7 @@ export async function callApprove(contractAddress, spender, amount) {
 
 export async function callStake(contractAddress, amount, recipient, inviter) {
   if(publicJs.isBigNumber(amount)) {
-    amount = amount.toString()
+    amount = web3.utils.toBN(amount)
   }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
@@ -384,7 +384,7 @@ export async function callStake(contractAddress, amount, recipient, inviter) {
 
 export async function callUnstake(contractAddress, amount, trigger) {
   if(publicJs.isBigNumber(amount)) {
-    amount = amount.toString()
+    amount = web3.utils.toBN(amount)
   }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
@@ -398,10 +398,10 @@ export async function callUnstake(contractAddress, amount, trigger) {
 
 export async function bondDeposit(contractAddress, amount, maxPrice, depositor, inviter) {
   if(publicJs.isBigNumber(amount)) {
-    amount = amount.toString()
+    amount = web3.utils.toBN(amount)
   }
   if(publicJs.isBigNumber(maxPrice)) {
-    maxPrice = maxPrice.toString()
+    amount = web3.utils.toBN(amount)
   }
   let price  = await getGasPrice() *1.6;
   price = price.toFixed(0);
