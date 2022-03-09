@@ -386,7 +386,7 @@ export default {
         return
       }
       this.stakePending = true;
-      const amount = publicJs.toBigNumber(this.stakeInputAmount).multipliedBy(10**this.sAsset.OHMDecimals)
+      const amount = publicJs.toBigNumber(Number(this.stakeInputAmount)*10**this.sAsset.OHMDecimals);
       wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address, this.invite_address)
           .then(() => {
             this.$refs.MessageTipOkDialog.showClick();
