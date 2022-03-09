@@ -48,7 +48,7 @@
         ></div>
       </div>
 
-      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img
           :src="sat_icon"
           style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -60,7 +60,7 @@
         <div
           class="h5-coin-balance"
         >{{satBalance_show+' '+this.ido.og_sale.sale_token_symbol}}</div>
-      </div>
+      </div>-->
 
 
       <div style="width: 7.87rem;margin: 4.6rem auto 0rem auto;position: relative;">
@@ -88,7 +88,7 @@
         >TEST_SAT</div>
         <div
             class="h5-coin-balance"
-        >{{' 0.00'}}</div>
+        >{{satBalance_show}}</div>
       </div>
 
       <div style="width: 7.87rem;margin: 6.6rem auto 0rem auto;position: relative;">
@@ -107,20 +107,20 @@
 
       <div style="width: 7.87rem;margin: 7.6rem auto 0rem auto;position: relative;">
         <img
-            :src="icon_coin_test_matic"
+            :src="icon_coin_test_usdc"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
         />
 
         <div
             class="h5-coin-name"
-        >TEST_WMATIC</div>
+        >{{this.ido.public_sale.cash_symbol}}</div>
         <div
             class="h5-coin-balance"
-        >{{' 0.00'}}</div>
+        >{{this.crash_balance_show}}</div>
       </div>
 
 
-      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 8.6rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin5"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -132,7 +132,7 @@
         <div
             class="h5-coin-balance"
         >{{' 0.00'}}</div>
-      </div>
+      </div>-->
 
       <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
       <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="showWhitelistClick">Whitelist transfer</div>
@@ -170,19 +170,19 @@
               <div class="pc-div-btn2-item5">{{ this.matic_Balance_show}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1">
+<!--            <div class="pc-div-btn2-item1">
               <img class="pc-div-btn2-item2" :src="sat_icon" />
               <div class="pc-div-btn2-item3">{{this.ido.og_sale.sale_token_symbol}}</div>
               <div class="pc-div-btn2-item5">{{this.satBalance}}</div>
-            </div>
+            </div>-->
 
 
 
 
            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_sat" />
-              <div class="pc-div-btn2-item3">{{'TEST_SAT'}}</div>
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+              <div class="pc-div-btn2-item3">{{this.ido.public_sale.sale_token_symbol}}</div>
+              <div class="pc-div-btn2-item5">{{ satBalance_show}}</div>
             </div>
 
             <div class="pc-div-btn2-item1" >
@@ -192,16 +192,16 @@
             </div>
 
             <div class="pc-div-btn2-item1" >
-              <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
-              <div class="pc-div-btn2-item3">{{'TEST_WMATIC'}}</div>
-              <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
+              <img class="pc-div-btn2-item2" :src="icon_coin_test_usdc" />
+              <div class="pc-div-btn2-item3">{{this.ido.public_sale.cash_symbol}}</div>
+              <div class="pc-div-btn2-item5">{{ this.crash_balance_show}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin5" />
               <div class="pc-div-btn2-item3">{{'TEST_SWMATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
-            </div>
+            </div>-->
 
             <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
             <div class="add-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
@@ -372,7 +372,8 @@ export default {
       balance: state => state.wallet.balance,
       whitelist_og_counter: state => state.wallet.whitelist_og_counter,
       sAsset: state => state.sAsset,
-      ido: state => state.ido
+      ido: state => state.ido,
+      usdc_balance: state => state.wallet.usdc_balance,
     }),
     ...mapGetters({
       is_connected: "is_connected"
@@ -380,6 +381,9 @@ export default {
     satBalance_show(){
       console.log("adsfafd:" +this.ido);
       return (this.satBalance/this.ido.public_sale.sale_token_scala).toFixed(2)
+    },
+    crash_balance_show(){
+      return publicJs.toBigNumber(this.usdc_balance).dividedBy(10**6).toFixed(3);
     },
     matic_Balance_show(){
       return publicJs.toBigNumber(this.balance).dividedBy(10**18).toFixed(3);
