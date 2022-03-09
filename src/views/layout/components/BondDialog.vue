@@ -32,7 +32,7 @@
             <div style="width: 540px;position: relative;">
               <div  class="pc-bond-div-tip2" v-show="!bond.isApproved">
                 <div>First time bond {{bond.name}}?</div>
-                <div>Please approve Crypto Dao to use your {{bond.name}} for bond.</div>
+                <div>Please approve SynAssets to use your {{bond.name}} for bond.</div>
               </div>
 
 
