@@ -385,6 +385,10 @@ export default {
         this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
         return
       }
+      if(Number(this.stakeInputAmount) > (Number(this.balance)+0.001) ){
+        this.$refs.MessageTipErrorDialog.showClick('insufficient balance');
+        return
+      }
       this.stakePending = true;
       const amount = publicJs.toBigNumber(Number(this.stakeInputAmount)*10**this.sAsset.OHMDecimals);
       wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address, this.invite_address)
@@ -401,6 +405,10 @@ export default {
     clickUnstake() {
       if (isNaN(this.unstakeInputAmount) || this.unstakeInputAmount <= 0) {
         this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
+        return
+      }
+      if(Number(this.unstakeInputAmount) > (Number(this.stakedBalance)+0.001) ){
+        this.$refs.MessageTipErrorDialog.showClick('insufficient balance');
         return
       }
       this.unstakePending = true;
