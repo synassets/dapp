@@ -297,10 +297,10 @@ export default {
       return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
     },
     DAIBalance() {
-      return publicJs.toBigNumber(this.sAsset.DAIBalanceOfUser).dividedBy(10**this.sAsset.DAIDecimals);
+      return publicJs.toBigNumber(this.sAsset.DAIBalanceOfUser).dividedBy(10**this.sAsset.DAIDecimals).toFixed(2);
     },
     OHMDAILPBalance() {
-      return publicJs.toBigNumber(this.sAsset.OHMDAILPBalanceOfUser).dividedBy(10**this.sAsset.OHMDAILPDecimals);
+      return publicJs.toBigNumber(this.sAsset.OHMDAILPBalanceOfUser).dividedBy(10**this.sAsset.OHMDAILPDecimals).toFixed(5);
     },
     backingPerOHM() {
       const OHMCirculatingSupply = this.sAsset.OHMTotalSupply - this.sAsset.OHMBalanceOfDAO;
