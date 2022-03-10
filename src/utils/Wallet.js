@@ -48,7 +48,11 @@ async function createMetaMaskProvider(){
   await window.ethereum.on('accountsChanged', function (accounts) {
     updateAddress(accounts[0]);
   })
- await window.ethereum.send('eth_requestAccounts');
+  await window.ethereum.enable();
+/*      .send('eth_requestAccounts').then( (accounts)=> {
+    if(accounts && !accounts.length && accounts.length >0)
+    updateAddress(accounts[0]);
+  });*/
   return  provider;
 }
 export async function walletDisConnect(){
