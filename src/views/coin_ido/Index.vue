@@ -1661,6 +1661,9 @@ export default {
       } else {
         this.stakeAmount = this.max_nog_swap;
       }
+      if(Number(this.stakeAmount) < Number(0.0001)){
+        this.stakeAmount = 0;
+      }
     },
     clickOgMarket(val) {
       this.isOgMarket = val;
