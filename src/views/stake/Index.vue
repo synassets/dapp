@@ -62,14 +62,14 @@
               Stake
             </div>
             <div class="pc-stake1-div-gif" v-show="isStakeMenu&&stakePending" >
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" alt="zh" />
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
             </div>
 
             <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">
               Approve
             </div>
             <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&unstakeApprovePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" alt="zh" />
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;"  />
             </div>
             <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved">
               Unstake
@@ -162,6 +162,8 @@
               type="text"
               style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
           />
+          <div  @click="clickStakeMaxValue()"  v-show="isStakeMenu"  class='h5-stake-div-input-max' >MAX</div>
+          <div  @click="clickUnstakeMaxValue()"  v-show="!isStakeMenu"  class='h5-stake-div-input-max' >MAX</div>
         </div>
 
        <div class="h5-stake-div-btn" @click="clickStake" v-show="isStakeMenu">Stake</div>
@@ -567,6 +569,9 @@ font-size: 14px;font-family: Selawik; font-weight: 400;color: #FFFFFF;padding-le
   width: 8.4rem;height: 0.93rem;background: #0792E3;border-radius: 0.13rem;text-align: center;line-height: 0.93rem;
   font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;
   margin: 0.5rem auto 0rem auto;
+}
+.h5-stake-div-input-max{
+  font-size: 0.38rem;font-family:Selawik;font-weight: 600; color: #F94F01;position: absolute;right: 0.4rem;line-height:0.93rem ;cursor: pointer;
 }
 .h5-stake-div-btn :hover{
   background: #00A0E9;
