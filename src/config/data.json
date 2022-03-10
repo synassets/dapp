@@ -49,7 +49,7 @@
         "cash_scala": "1000000",
         "cash_symbol": "TEST_USDC",
         "cash_address": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "sale_address" : "0xB1601bF2D7FE00d24ccb4037F5D87b7664b19c7e"
+        "sale_address" : "0xcFc3C76A0233e0c93D2766D02f7DB0042eAaBe67"
       },
       "NOG": {
         "enableWhiteList": false,
@@ -62,7 +62,7 @@
         "cash_scala": "1000000",
         "cash_symbol": "TEST_USDC",
         "cash_address": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "sale_address" : "0xdCde2c8CC76f9C40f439e294843D9c7DaB7a2A5e"
+        "sale_address" : "0xA15Cbf215fC22AFea42C0bb688780Afd35Dcb7Fd"
       }
     }
   }

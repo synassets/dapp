@@ -27,6 +27,7 @@
               <div  style="width: 160px;"></div>
             </div>
   <!---1---->
+<!--
             <div style="display: flex;margin-top: 24px;">
               <div class="pc-div-table-item1">
                 <img :src="icon_matic_sat_lp"  style="width: 63px;height: 38px;margin-left: 5px;" alt />
@@ -46,6 +47,7 @@
               </div>
             </div>
 
+-->
 
 
 
@@ -101,6 +103,7 @@
       </div>
 
 
+<!--
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
         <div style="position: relative;">
           <img :src="icon_matic_sat_lp"  style="width: 1.36rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
@@ -132,6 +135,7 @@
 
         <div class="h5-bond-btn"  @click="showBound(0)">Bond {{DAISymbol}}-{{OHMSymbol}} LP</div>
       </div>
+-->
 
 
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
