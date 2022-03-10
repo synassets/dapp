@@ -176,11 +176,11 @@
 
 
 
-          <div  v-show="isBondMenu&&bond.isApproved" style="  width: 8rem; height: 0.93rem;background: #FFFFFF;border-radius: 0rem 0.07rem 0.07rem 0.07rem;margin: 0 auto;">
+          <div  v-show="isBondMenu&&bond.isApproved" style="position: relative; display: flex; width: 8rem; height: 0.93rem;background: #FFFFFF;border-radius: 0rem 0.07rem 0.07rem 0.07rem;margin: 0 auto;">
             <input v-model="bondInputAmount" type="text"  @input="inputChange()" placeholder="Amount"
                    style="height:0.93rem;width: 7.59rem;line-height: 0.93rem;font-size: inherit;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
-
             />
+            <div  @click="clickMaxValue()"  class='h5-bond-div-input-max' >MAX</div>
           </div>
 
           <div @click="clickApprove" class="h5-bond-dialog-btn" v-show="isBondMenu&&!bond.isApproved">Approve</div>
@@ -579,6 +579,10 @@ export default {
 }
 .h5-bond-tab-n{
   width: 2rem; height: 0.67rem; background: #737373;font-size: 0.32rem; font-family: Selawik;font-weight: 600; color: #FFFFFF;text-align: center;line-height:0.67rem;
+}
+
+.h5-bond-div-input-max{
+  font-size: 0.38rem;font-family:Selawik;font-weight: 600; color: #F94F01;position: absolute;right: 0.4rem;line-height:0.93rem ;cursor: pointer;
 }
 ::v-deep .el-input__inner {
   -webkit-appearance: none;
