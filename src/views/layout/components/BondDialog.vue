@@ -162,6 +162,11 @@
             <div style="flex: 1">${{Number(bond.priceDisplay).toFixed(2)}}</div>
             <div style="flex: 1">${{Number(OHMPrice).toFixed(2)}}</div>
           </div>
+
+          <div style="width: 8rem;margin: 0.5rem auto 0rem auto;display: flex;" >
+            <div  @click="clickTabBond(true)"  :class="isBondMenu? 'h5-bond-tab-p':'h5-bond-tab-n'">Bond</div>
+            <div  @click="clickTabBond(false)"  :class="isBondMenu? 'h5-bond-tab-n':'h5-bond-tab-p'">Redeem</div>
+          </div>
       <div   v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
           <div  v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
           <div  v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">your Matic for bonding.</div>
@@ -169,10 +174,7 @@
 
 
 
-          <div style="width: 8rem;margin: 0.5rem auto 0rem auto;display: flex;"  v-show="isBondMenu&&bond.isApproved">
-               <div  @click="clickTabBond(true)"  :class="isBondMenu? 'h5-bond-tab-p':'h5-bond-tab-n'">Bond</div>
-               <div  @click="clickTabBond(false)"  :class="isBondMenu? 'h5-bond-tab-n':'h5-bond-tab-p'">Redeem</div>
-          </div>
+
 
           <div  v-show="isBondMenu&&bond.isApproved" style="  width: 8rem; height: 0.93rem;background: #FFFFFF;border-radius: 0rem 0.07rem 0.07rem 0.07rem;margin: 0 auto;">
             <input v-model="bondInputAmount" type="text"  @input="inputChange()" placeholder="Amount"

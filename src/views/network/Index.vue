@@ -106,14 +106,14 @@
             My PowerRate
           </div>
           <div
-              style="width: 0.5rem;height: 0.5rem;margin-right: 0.8rem;cursor: pointer;"
+              style="width: 0.9rem;height: 0.9rem;margin-right: 0.4rem;cursor: pointer;"
               v-clipboard:copy="this.share_link_url"
               v-clipboard:success="onCopy"
               v-clipboard:error="onError"
           >
           <img
               :src="icon_share"
-              style="width: 0.29rem;height: 0.29rem;cursor: pointer;margin-left: 0.15rem;margin-top: 0.04rem;"
+              style="width: 0.32rem;height: 0.32rem;cursor: pointer;margin-left: 0.15rem;margin-top: 0.04rem;"
           />
           </div>
         </div>
