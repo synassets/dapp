@@ -84,7 +84,7 @@
 
               <div style="font-size: 12px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 33px;padding-top: 15px;">Current Index</div>
 
-              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{currentIndex}} s{{OHMSymbol}}</div>
+              <div style="font-size: 18px;font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-left: 33px;padding-top: 10px;">{{Number(currentIndex).toFixed(2)}} s{{OHMSymbol}}</div>
 
               <div class="pc-dashboard-btn" @click="route('/stake')">Start Stake</div>
 
@@ -222,7 +222,7 @@
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Current Index</div>
-        <div class="h5-div-item-down" >{{currentIndex}} s{{OHMSymbol}}</div>
+        <div class="h5-div-item-down" >{{Number(currentIndex).toFixed(2)}} s{{OHMSymbol}}</div>
       </div>
       <div class="h5-div-item" >
         <div class="h5-div-item-up" >Back Per {{OHMSymbol}}</div>
@@ -307,7 +307,7 @@ export default {
      return (this.marketValueOfTreasuryAssets / (OHMCirculatingSupply / 10**this.sAsset.OHMDecimals)).toFixed(this.sAsset.OHMDecimals);
     },
     currentIndex() {
-     return (this.sAsset.currentIndex / 10**this.sAsset.sOHMDecimals).toFixed(2);
+     return (this.sAsset.currentIndex / 10**this.sAsset.sOHMDecimals);
     },
     marketValueOfTreasuryAssets() {
       const t1 = this.sAsset.OHMBalanceOfOHMDAILP * this.sAsset.DAIBalanceOfTreasury / this.sAsset.DAIBalanceOfOHMDAILP;

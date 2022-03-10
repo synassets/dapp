@@ -13,9 +13,9 @@
               <div class="pc-dialog-div-header-up">Market Price</div>
             </div>
             <div style="display: flex">
-              <div  class="pc-dialog-div-header-down">${{bond.priceDisplay}}</div>
+              <div  class="pc-dialog-div-header-down">${{Number(bond.priceDisplay).toFixed(2)}}</div>
 
-              <div  class="pc-dialog-div-header-down">${{OHMPrice}}</div>
+              <div  class="pc-dialog-div-header-down">${{Number(OHMPrice).toFixed(2)}}</div>
             </div>
           </div>
           <div class="pc-bond-tab">
@@ -62,11 +62,11 @@
           <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;">
               <div class="pc-bond-div-detail-left">Your Balance</div>
-              <div class="pc-bond-div-detail-right"> {{bond.yourBalance}} {{bond.symbol}}</div>
+              <div class="pc-bond-div-detail-right"> {{Number(bond.yourBalance).toFixed(2)}} {{bond.symbol}}</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">Max You Can Buy</div>
-              <div  class="pc-bond-div-detail-right"> {{bond.maxYouCanBuy}} {{bond.symbol}}</div>
+              <div  class="pc-bond-div-detail-right"> {{Number(bond.maxYouCanBuy).toFixed(2)}} {{bond.symbol}}</div>
             </div>
             <div class="pc-bond-div-detail">
               <div  class="pc-bond-div-detail-left">Pending Rewards</div>
@@ -159,8 +159,8 @@
 
 
           <div style="display: flex; font-size: 0.48rem; font-family: Selawik;font-weight: 600;color: #FFFFFF;padding-top: 0.2rem;text-align: center;">
-            <div style="flex: 1">${{bond.priceDisplay}}</div>
-            <div style="flex: 1">${{OHMPrice}}</div>
+            <div style="flex: 1">${{Number(bond.priceDisplay).toFixed(2)}}</div>
+            <div style="flex: 1">${{Number(OHMPrice).toFixed(2)}}</div>
           </div>
       <div   v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
           <div  v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
@@ -323,7 +323,7 @@ export default {
 
     OHMDAILPBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
-      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(3);
     },
     OHMDAILPBondMaxYouCanBuy() {
       const amount = this.sAsset.OHMDAILPBondMaxPayout / 10**this.sAsset.OHMDecimals * (this.sAsset.OHMDAILPBondPrice / 100).toFixed(2)
@@ -347,7 +347,7 @@ export default {
     },
     DAIBondPriceDisplay() {
       const DAIPriceOfOHM = publicJs.toBigNumber(this.sAsset.OHMBalanceOfOHMDAILP).dividedBy(this.sAsset.DAIBalanceOfOHMDAILP).dividedBy(10**this.sAsset.OHMDecimals);
-      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(3);
     },
     DAIBondMaxYouCanBuy() {
       const amount = this.sAsset.DAIBondMaxPayout / 10**this.sAsset.OHMDecimals * (this.sAsset.DAIBondPrice / 100).toFixed(2)

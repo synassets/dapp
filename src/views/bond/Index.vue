@@ -13,7 +13,7 @@
            </div>
            <div style="display: flex">
              <div class="pc-dev-content-down-item">${{marketValueOfTreasuryAssets}}</div>
-             <div class="pc-dev-content-down-item">${{OHMPrice}}</div>
+             <div class="pc-dev-content-down-item">${{Number(OHMPrice).toFixed(2)}}</div>
            </div>
          </div>
           <!----->
@@ -95,7 +95,7 @@
       <div style=" width: 100%;height: 4.53rem;background: #242424;margin-top: 0.7rem;">
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">{{OHMSymbol}} Price</div>
         <div style="padding-top: 0.3rem;display: flex">
-          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">${{OHMPrice}}</div>
+          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">${{Number(OHMPrice).toFixed(2)}}</div>
           <div style="padding-left: 0.3rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #22AC38;padding-top: 0.2rem;">+15%</div>
         </div>
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Treasury Balance</div>
@@ -257,7 +257,7 @@ export default {
     },
     OHMDAILPBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
-      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(3);
     },
     OHMDAILPBondROI() {
       return ((this.OHMPrice - this.OHMDAILPBondPriceDisplay) / this.OHMDAILPBondPriceDisplay * 100).toFixed(2);
@@ -271,7 +271,7 @@ export default {
     },
     DAIBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
-      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(3);
     },
     DAIBondROI() {
       return ((this.OHMPrice - this.DAIBondPriceDisplay) / this.DAIBondPriceDisplay * 100).toFixed(2);
