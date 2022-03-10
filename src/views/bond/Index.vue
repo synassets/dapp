@@ -33,7 +33,7 @@
               </div>
               <div style="flex: 1">
                 <div class="pc-div-table-item21">{{DAISymbol}}-{{OHMSymbol}} LP</div>
-                <div @click="viewContract(sAsset.contract.OHM_DAI_LP)"  class="pc-div-table-item22">view contract</div>
+                <div @click="viewAddLiquid"  class="pc-div-table-item22">get lp</div>
               </div>
 
               <div class="pc-div-table-item3">${{OHMDAILPBondPriceDisplay}}</div>
@@ -104,8 +104,8 @@
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
         <div style="position: relative;">
           <img :src="icon_matic_sat_lp"  style="width: 1.36rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
-          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}-{{OHMSymbol}} LP</div>
-          <div @click="viewContract(sAsset.contract.OHM_DAI_LP)">
+          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{Get-{DAISymbol}}-{{OHMSymbol}} LP</div>
+          <div @click="viewAddLiquid">
             <div style="position: absolute;left: 2.6rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
             <img :src="icon_contact" style="width: 0.25rem;height: 0.25rem;position: absolute;left: 5rem;top: 0.6rem;" alt />
           </div>
@@ -190,7 +190,6 @@ import {
   icon_contact
 
 } from "@/utils/images";
-import MyDialog from "@/views/components/myDialog";
 import BondDialog from "@/views/layout/components/BondDialog";
 import {
   getConfigData,
@@ -202,7 +201,6 @@ import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
-    MyDialog,
     BondDialog
   },
   data() {
@@ -291,6 +289,10 @@ export default {
   methods: {
     viewContract(address) {
       window.open(this.configData.blockExplorerUrls + 'address/' + address)
+    },
+    viewAddLiquid()
+    {
+      window.open("https://quickswap.exchange/#/add/0x4c1A52719d507827F8A3353bD0Aaf85BCc5Ce9a9/0x6d77dC834e86855ca1A834Fc65a6393a6aF033a2");
     },
     clickTabBond(val){
       this.isBondMenu = val;
