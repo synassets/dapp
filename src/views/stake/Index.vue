@@ -355,9 +355,15 @@ export default {
     inputChange(){},
     clickStakeMaxValue(){
       this.stakeInputAmount = this.balance
+      if(Number(this.stakeInputAmount) < Number(0.0001)){
+        this.stakeInputAmount = 0 ;
+      }
     },
     clickUnstakeMaxValue(){
       this.unstakeInputAmount = this.stakedBalance
+      if(Number(this.unstakeInputAmount) < Number(0.0001)){
+        this.unstakeInputAmount = 0 ;
+      }
     },
     goLink(){},
     clickStakeApprove() {

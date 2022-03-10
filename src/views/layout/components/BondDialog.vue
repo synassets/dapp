@@ -423,6 +423,9 @@ export default {
     inputChange(){},
     clickMaxValue(){
       this.bondInputAmount = this.bond.yourBalance;
+      if(Number(this.bondInputAmount) < Number(0.0001)){
+        this.bondInputAmount = 0;
+      }
     },
     goLink(){},
     closeDialog(){
