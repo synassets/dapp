@@ -42,16 +42,14 @@
               </div>
 
             </div>
-            <div class="pc-bond-div-btn" v-show="!bond.isApproved" @click="clickApprove">
+            <div class="pc-bond-div-btn" v-show="!bond.isApproved&&!IsPending" @click="clickApprove">
               Approve
             </div>
-            <div class="pc-bond-div-gif"  v-show="approvePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
-            </div>
-            <div class="pc-bond-div-btn" v-show="bond.isApproved" @click="clickBond">
+
+            <div class="pc-bond-div-btn" v-show="bond.isApproved&&!IsPending" @click="clickBond">
               Bond
             </div>
-            <div class="pc-bond-div-gif"  v-show="bondPending">
+            <div class="pc-bond-div-gif"  v-show="isBondMenu&&IsPending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
 
@@ -92,14 +90,12 @@
               <div  class="pc-bond-div-detail-right"> {{bond.duration}}</div>
             </div>
           </div>
-          <div v-show="!isBondMenu && !claimPending" @click="clickClaim(false)" class="pc-bond-div-btn1">Claim</div>
-          <div v-show="!isBondMenu && claimPending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
-            <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
-          </div>
+          <div v-show="!isBondMenu && !IsPending" @click="clickClaim(false)" class="pc-bond-div-btn1">Claim</div>
 
-          <div v-show="!isBondMenu && !claimAndStakePending"  @click="clickClaim(true)" class="pc-bond-div-btn1">Claim and Autostake</div>
 
-          <div v-show="!isBondMenu && claimAndStakePending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
+          <div v-show="!isBondMenu && !IsPending" @click="clickClaim(true)" class="pc-bond-div-btn1">Claim and Autostake</div>
+
+          <div v-show="!isBondMenu &&IsPending" style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
             <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
           </div>
 
@@ -181,23 +177,18 @@
             <div  @click="clickMaxValue()"  class='h5-bond-div-input-max' >MAX</div>
           </div>
 
-          <div @click="clickApprove" class="h5-bond-dialog-btn" v-show="isBondMenu&&!bond.isApproved">Approve</div>
-          <div @click="clickBond" class="h5-bond-dialog-btn" v-show="isBondMenu&&bond.isApproved">Bond</div>
-          <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu">Claim</div>
-          <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
-          <div  class="h5-gif"   v-show=" approvePending">
+          <div @click="clickApprove" class="h5-bond-dialog-btn" v-show="isBondMenu&&!bond.isApproved&&!IsPending">Approve</div>
+          <div @click="clickBond" class="h5-bond-dialog-btn" v-show="isBondMenu&&bond.isApproved&&!IsPending">Bond</div>
+          <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu&&!IsPending">Claim</div>
+          <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu&&!IsPending">Claim and AutoStake</div>
+          <div  class="h5-gif"   v-show=" isBondMenu&&IsPending">
             <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
           </div>
-          <div  class="h5-gif"   v-show=" bondPending">
+          <div  class="h5-gif"   v-show=" !isBondMenu&&IsPending">
             <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
           </div>
 
-          <div  class="h5-gif"   v-show=" claimPending">
-            <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
-          </div>
-          <div  class="h5-gif"   v-show=" claimAndStakePending">
-            <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
-          </div>
+
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"   v-show="isBondMenu">
             <div style="flex: 2;">Your Balance</div>
             <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
@@ -287,10 +278,7 @@ export default {
       showBoundPosition:1,
       isBondMenu:true,
       bondInputAmount:'',
-      approvePending: false,
-      bondPending: false,
-      claimPending: false,
-      claimAndStakePending: false,
+      IsPending: false,
     }
   },
   props: {
@@ -436,21 +424,23 @@ export default {
     closeDialog(){
       this.$emit('clickCloseDialog', {});
     },
-    clickApprove() {
-      this.approvePending = true;
-      const baseNumber = publicJs.toBigNumber(99999999999);
-      const power = publicJs.toBigNumber(10**this.bond.tokenDecimals);
-      const amount = baseNumber.multipliedBy(power)
-      wallet.callApprove(this.bond.tokenAddress, this.bond.address, amount)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-            this.$refs.MessageTipErrorDialog.showClick(reason.message);
-          }).finally(() => {
-            this.approvePending = false;
-          })
+    async clickApprove() {
+      this.IsPending = true;
+      try {
+        const baseNumber = publicJs.toBigNumber(99999999999);
+        const power = publicJs.toBigNumber(10 ** this.bond.tokenDecimals);
+        const amount = baseNumber.multipliedBy(power)
+       await wallet.callApprove(this.bond.tokenAddress, this.bond.address, amount);
+       this.$refs.MessageTipOkDialog.showClick();
+      }
+      catch (e) {
+        this.$refs.MessageTipErrorDialog.showClick(e.message);
+      }
+      finally {
+        this.IsPending = false;
+      }
     },
-    clickBond() {
+    async clickBond() {
       if (!this.invite_address) {
         this.$refs.MessageTipErrorDialog.showClick('inviter not exist');
         return;
@@ -467,36 +457,30 @@ export default {
         this.$refs.MessageTipErrorDialog.showClick('amount should be less than the max you can buy');
         return
       }
-      this.bondPending = true;
-      const amount = publicJs.toBigNumber(Number(this.bondInputAmount)*10**this.bond.tokenDecimals);
-      const maxPrice = this.bond.bondPrice * 2
-      wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address, this.invite_address)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-            this.$refs.MessageTipErrorDialog.showClick(reason.message);
-          }).finally(() => {
-            this.bondPending = false;
-          })
-    },
-    clickClaim(stake) {
-      if (stake) {
-        this.claimAndStakePending = true;
-      } else {
-        this.claimPending = true;
+      this.IsPending = true;
+      try {
+        const amount = publicJs.toBigNumber(Number(this.bondInputAmount) * 10 ** this.bond.tokenDecimals);
+        const maxPrice = this.bond.bondPrice * 2
+        await  wallet.bondDeposit(this.bond.address, amount, maxPrice, this.address, this.invite_address)
+        this.$refs.MessageTipOkDialog.showClick();
+
       }
-      wallet.bondRedeem(this.bond.address, this.address, stake)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-            this.$refs.MessageTipErrorDialog.showClick(reason.message);
-          }).finally(() => {
-            if (stake) {
-              this.claimAndStakePending = false;
-            } else {
-              this.claimPending = false;
-            }
-          })
+      catch (e) {
+        this.$refs.MessageTipErrorDialog.showClick(e.message);
+      }finally {
+        this.IsPending = false;
+      }
+    },
+    async clickClaim(stake) {
+      this.IsPending = true;
+      try {
+        await wallet.bondRedeem(this.bond.address, this.address, stake)
+        this.$refs.MessageTipOkDialog.showClick();
+      } catch (e) {
+        this.$refs.MessageTipErrorDialog.showClick(e.message);
+      } finally {
+        this.IsPending = false;
+      }
     },
   }
 }
