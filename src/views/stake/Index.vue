@@ -80,10 +80,6 @@
 
           </div>
 
-
-
-
-
           <div  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
             <div style="display: flex;"  v-show="isStakeMenu" >
               <div class="pc-stake-div-detail-left">Your Balance</div>
@@ -151,23 +147,54 @@
         <div style="padding-left: 0.8rem;padding-top: 0.3rem;font-size: 0.64rem;font-family: Selawik;font-weight: 600; color: #FFFFFF;">${{TVL}}</div>
 
 
-        <div style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
+        <div    v-show="isStakeMenu&&!isStakeApproved" style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">
+          First time staking {{OHMSymbol}}?</div>
+        <div   v-show="isStakeMenu&&!isStakeApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">
+          Please approve SynAssets to use your {{OHMSymbol}} for staking.</div>
+
+        <div     v-show="!isStakeMenu&&!isUnstakeApproved" style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">
+          First time unstaking s{{OHMSymbol}}?</div>
+        <div    v-show="!isStakeMenu&&!isUnstakeApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">
+          Please approve SynAssets to use your s{{OHMSymbol}} for unstaking.</div>
+
+
+
+        <div v-show="isStakeMenu&&isStakeApproved" style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
           <input
-              v-model="stakeInputAmount" v-show="isStakeMenu" placeholder="Amount"
+              v-model="stakeInputAmount"  placeholder="Amount"
               type="text"
               style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
           />
-          <input
-              v-model="unstakeInputAmount" v-show="!isStakeMenu" placeholder="Amount"
-              type="text"
-              style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
-          />
-          <div  @click="clickStakeMaxValue()"  v-show="isStakeMenu"  class='h5-stake-div-input-max' >MAX</div>
-          <div  @click="clickUnstakeMaxValue()"  v-show="!isStakeMenu"  class='h5-stake-div-input-max' >MAX</div>
+          <div  @click="clickStakeMaxValue()"    class='h5-stake-div-input-max' >MAX</div>
         </div>
 
-       <div class="h5-stake-div-btn" @click="clickStake" v-show="isStakeMenu">Stake</div>
-        <div class="h5-stake-div-btn" @click="clickUnstake" v-show="!isStakeMenu">Unstake</div>
+        <div  v-show="!isStakeMenu&&isUnstakeApproved" style=" width: 8.4rem; height: 0.93rem;background: #FFFFFF; border-radius: 0.13rem;margin: 0.85rem auto 0rem auto;position: relative;">
+          <input
+              v-model="unstakeInputAmount"  placeholder="Amount"
+              type="text"
+              style="height:0.73rem;width: 3rem;margin-left: 0.2rem;position: absolute;top: 0.1rem;left: 0.1rem"
+          />
+          <div  @click="clickUnstakeMaxValue()"    class='h5-stake-div-input-max' >MAX</div>
+        </div>
+
+        <div class="h5-stake-div-btn" @click="clickStake"  v-show="isStakeMenu&&isStakeApproved">Stake</div>
+        <div class="h5-stake-div-btn" @click="clickUnstake" v-show="!isStakeMenu&&isUnstakeApproved">Unstake</div>
+
+        <div class="h5-stake-div-btn" @click="clickUnstakeApprove" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">Approve</div>
+        <div class="h5-stake-div-btn" @click="clickStakeApprove" v-show="isStakeMenu&&!isStakeApproved&&!stakeApprovePending">Approve</div>
+
+        <div  class="h5-gif" v-show="!isStakeMenu&&unstakeApprovePending">
+          <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+        </div>
+        <div  class="h5-gif" v-show="isStakeMenu&&stakePending">
+          <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+        </div>
+        <div  class="h5-gif" v-show="isStakeMenu&&stakeApprovePending">
+          <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+        </div>
+        <div  class="h5-gif" v-show="!isStakeMenu&&unstakePending">
+          <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+        </div>
 
        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
@@ -198,22 +225,6 @@
           <div style="flex: 1;text-align: right;">{{ROI}}%</div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <MessageTipErrorDialog   ref="MessageTipErrorDialog" />
       <MessageTipOkDialog   ref="MessageTipOkDialog" />
@@ -571,7 +582,12 @@ font-size: 14px;font-family: Selawik; font-weight: 400;color: #FFFFFF;padding-le
   margin: 0.5rem auto 0rem auto;
 }
 .h5-stake-div-input-max{
-  font-size: 0.38rem;font-family:Selawik;font-weight: 600; color: #F94F01;position: absolute;right: 0.4rem;line-height:0.93rem ;cursor: pointer;
+  font-size:0.38rem;font-family:Selawik;font-weight: 600; color: #F94F01;position: absolute;right: 0.4rem;line-height:0.93rem ;cursor: pointer;
+}
+.h5-gif {
+  width: 8.4rem;height: 0.93rem;background: #414346;border-radius: 0.13rem;text-align: center;
+  font-size: 0.35rem;font-family: Selawik; font-weight: 600;color: #FFFFFF;
+  margin: 0.5rem auto 0rem auto;text-align: center;
 }
 .h5-stake-div-btn :hover{
   background: #00A0E9;
