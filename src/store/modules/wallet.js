@@ -13,7 +13,8 @@ const wallet  ={
     my_amount_og_swapped:0,
     my_amount_nog_swapped:0,
     refresh_flag: 0,
-    share_link_url:""
+    share_link_url:"",
+    og_enableWhiteList:false
    },
   getters: {
     is_connected: state => {
@@ -61,6 +62,9 @@ const wallet  ={
     },
     SET_AMOUNT_NOG_SWAPPED:(state, payload)=> {
       state.my_amount_nog_swapped = payload
+    },
+    SET_OG_ENABLE_WHITE_LIST:(state, payload)=> {
+      state.og_enableWhiteList = payload
     },
 
     SET_USDC_BALANCE:(state, payload)=> {
