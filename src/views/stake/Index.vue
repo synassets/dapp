@@ -30,11 +30,11 @@
             <div style="width: 540px;position: relative;">
              <div  class="pc-stake-div-tip2" v-show="isStakeMenu&&!isStakeApproved">
                 <div>First time staking {{OHMSymbol}}?</div>
-                <div>Please approve Crypto Dao to use your {{OHMSymbol}} for staking.</div>
+                <div>Please approve SynAssets to use your {{OHMSymbol}} for staking.</div>
               </div>
              <div  class="pc-stake-div-tip2" v-show="!isStakeMenu&&!isUnstakeApproved">
                 <div>First time unstaking s{{OHMSymbol}}?</div>
-                <div>Please approve Crypto Dao to use your s{{OHMSymbol}} for unstaking.</div>
+                <div>Please approve SynAssets to use your s{{OHMSymbol}} for unstaking.</div>
               </div>
 
               <div class='pc-stake-div-input' v-show="isStakeMenu&&isStakeApproved">
