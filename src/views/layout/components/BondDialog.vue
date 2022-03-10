@@ -93,7 +93,6 @@
               <div  class="pc-bond-div-detail-right"> {{bond.duration}}</div>
             </div>
           </div>
-
           <div v-show="!isBondMenu && !claimPending" @click="clickClaim(false)" class="pc-bond-div-btn1">Claim</div>
           <div v-show="!isBondMenu && claimPending"  style="margin: 20px auto 0px auto; width: 540px;height: 50px; background: #414346; border-radius: 5px;">
             <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 255px;" alt="zh" />
@@ -187,7 +186,13 @@
           <div @click="clickBond" class="h5-bond-dialog-btn" v-show="isBondMenu&&bond.isApproved">Bond</div>
           <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu">Claim</div>
           <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
-
+          
+          <div  class="h5-gif"   v-show="!isBondMenu && claimPending">
+            <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+          </div>
+          <div  class="h5-gif"   v-show="!isBondMenu && claimAndStakePending">
+            <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+          </div>
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"   v-show="isBondMenu">
             <div style="flex: 2;">Your Balance</div>
             <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
@@ -586,6 +591,10 @@ export default {
 
 .h5-bond-div-input-max{
   font-size: 0.38rem;font-family:Selawik;font-weight: 600; color: #F94F01;position: absolute;right: 0.4rem;line-height:0.93rem ;cursor: pointer;
+}
+.h5-gif {
+  width: 8rem;height: 0.93rem;background: #414346;border-radius: 0.13rem;text-align: center;
+  margin: 0.8rem auto 0rem auto;text-align: center;
 }
 ::v-deep .el-input__inner {
   -webkit-appearance: none;
