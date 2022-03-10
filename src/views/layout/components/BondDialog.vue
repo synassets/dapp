@@ -162,21 +162,21 @@
             <div style="flex: 1">${{bond.priceDisplay}}</div>
             <div style="flex: 1">${{OHMPrice}}</div>
           </div>
-        <!--  <div style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
-          <div style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
-          <div style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">your Matic for bonding.</div>
+      <div   v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.3rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">First time bonding Matic?</div>
+          <div  v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">Please approve SynAssets to use</div>
+          <div  v-show="isBondMenu&&!bond.isApproved" style="width: 8.27rem;text-align: center;margin: 0.1rem auto 0rem auto;  font-size: 0.32rem;font-family: Selawik;font-weight: 400; color: #808080;">your Matic for bonding.</div>
 
-         <div class="h5-bond-dialog-btn">Approve</div>
-         -->
 
-          <div style="width: 7rem;margin: 0.5rem auto 0rem auto;display: flex;">
+
+
+          <div style="width: 8rem;margin: 0.5rem auto 0rem auto;display: flex;"  v-show="isBondMenu&&bond.isApproved">
                <div  @click="clickTabBond(true)"  :class="isBondMenu? 'h5-bond-tab-p':'h5-bond-tab-n'">Bond</div>
                <div  @click="clickTabBond(false)"  :class="isBondMenu? 'h5-bond-tab-n':'h5-bond-tab-p'">Redeem</div>
           </div>
 
-          <div style="  width: 7rem; height: 0.93rem;background: #FFFFFF;border-radius: 0rem 0.07rem 0.07rem 0.07rem;margin: 0 auto;">
+          <div  v-show="isBondMenu&&bond.isApproved" style="  width: 8rem; height: 0.93rem;background: #FFFFFF;border-radius: 0rem 0.07rem 0.07rem 0.07rem;margin: 0 auto;">
             <input v-model="bondInputAmount" type="text"  @input="inputChange()" placeholder="Amount"
-                   style="height:0.93rem;width: 6.59rem;line-height: 0.93rem;font-size: inherit;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
+                   style="height:0.93rem;width: 7.59rem;line-height: 0.93rem;font-size: inherit;padding-left: 0.2rem; background: #FFFFFF; border-radius: 0.07rem;"
 
             />
           </div>
@@ -187,32 +187,32 @@
           <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
 
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"   v-show="isBondMenu">
-            <div style="flex: 1;">Your Balance</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
+            <div style="flex: 2;">Your Balance</div>
+            <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.yourBalance}} {{bond.symbol}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="isBondMenu">
-            <div style="flex: 1;">Max You Can Buy</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.maxYouCanBuy}} {{bond.symbol}}</div>
+            <div style="flex: 2;">Max You Can Buy</div>
+            <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.maxYouCanBuy}} {{bond.symbol}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="isBondMenu">
-            <div style="flex: 1;">Pending Rewards</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
+            <div style="flex: 2;">Pending Rewards</div>
+            <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="isBondMenu">
-            <div style="flex: 1;">Claimable Rewards</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
+            <div style="flex: 2;">Claimable Rewards</div>
+            <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="isBondMenu">
-            <div style="flex: 3;">Time until fully vested</div>
-            <div style="flex: 2;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
+            <div style="flex: 1;">Time until fully vested</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">ROI</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.ROI}}%</div>
+            <div style="flex: 2;text-align: right;font-weight: 600;color: #0792E3;">{{bond.ROI}}%</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="isBondMenu">
             <div style="flex: 1;">Debt Ratio</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;color: #0792E3;">{{bond.debtRatio}}%</div>
+            <div style="flex: 2;text-align: right;font-weight: 600;color: #0792E3;">{{bond.debtRatio}}%</div>
           </div>
 
 
@@ -220,25 +220,25 @@
 
 
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"  v-show="!isBondMenu">
-            <div style="flex: 1;">Pending Rewards</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
+            <div style="flex: 2;">Pending Rewards</div>
+            <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.pendingRewards}} {{OHMSymbol}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
-            <div style="flex: 1;">Claimable Rewards</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
+            <div style="flex: 2;">Claimable Rewards</div>
+            <div style="flex: 3;text-align: right;font-weight: 600;">{{bond.claimableRewards}} {{OHMSymbol}}</div>
           </div>
 
           <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
-            <div style="flex: 3;">Time until fully vested</div>
-            <div style="flex: 2;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
+            <div style="flex: 1;">Time until fully vested</div>
+            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.timeUntilFullyVested}}</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
             <div style="flex: 1;">ROI</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.ROI}}%</div>
+            <div style="flex: 2;text-align: right;font-weight: 600;">{{bond.ROI}}%</div>
           </div>
           <div class="h5-bond-dialog-item"   v-show="!isBondMenu">
             <div style="flex: 1;">Vesting Term</div>
-            <div style="flex: 1;text-align: right;font-weight: 600;">{{bond.duration}}</div>
+            <div style="flex: 2;text-align: right;font-weight: 600;">{{bond.duration}}</div>
           </div>
 
          <div style="height: 0.5rem; width: 2rem;"></div>
@@ -557,7 +557,7 @@ export default {
 }
 .h5-bond-dialog-btn{
   line-height: 0.93rem;text-align: center;margin: 0.8rem auto 0rem auto;
-  width: 7rem;
+  width: 8rem;
   height: 0.93rem;
   background: #0792E3;
   border-radius: 0.07rem;
@@ -570,7 +570,7 @@ export default {
   background: #00A0E9;
 }
 .h5-bond-dialog-item{
-  width: 7rem;margin: 0.3rem auto 0rem auto; font-size: 0.35rem; font-family: Selawik; font-weight: 400; color: #FFFFFF;display: flex;
+  width: 8rem;margin: 0.3rem auto 0rem auto; font-size: 0.35rem; font-family: Selawik; font-weight: 400; color: #FFFFFF;display: flex;
 }
 .h5-bond-tab-p{
   width: 2rem; height: 0.67rem; background: #0792E3;font-size: 0.32rem; font-family: Selawik;font-weight: 600; color: #FFFFFF;text-align: center;line-height:0.67rem;
