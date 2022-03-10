@@ -45,18 +45,17 @@
             <div class="pc-bond-div-btn" v-show="!bond.isApproved" @click="clickApprove">
               Approve
             </div>
-            <div class="pc-bond-div-gif" style="" v-show="approvePending">
+            <div class="pc-bond-div-gif"  v-show="approvePending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
             <div class="pc-bond-div-btn" v-show="bond.isApproved" @click="clickBond">
               Bond
             </div>
-            <div class="pc-bond-div-gif" style="" v-show="bondPending">
+            <div class="pc-bond-div-gif"  v-show="bondPending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 10px;margin-left: 90px;" alt="zh" />
             </div>
 
           </div>
-
 
 
           <div  v-show="isBondMenu"  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
@@ -186,11 +185,17 @@
           <div @click="clickBond" class="h5-bond-dialog-btn" v-show="isBondMenu&&bond.isApproved">Bond</div>
           <div class="h5-bond-dialog-btn" @click="clickClaim(false)" v-show="!isBondMenu">Claim</div>
           <div class="h5-bond-dialog-btn" @click="clickClaim(true)" v-show="!isBondMenu">Claim and AutoStake</div>
-          
-          <div  class="h5-gif"   v-show="!isBondMenu && claimPending">
+          <div  class="h5-gif"   v-show=" approvePending">
             <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
           </div>
-          <div  class="h5-gif"   v-show="!isBondMenu && claimAndStakePending">
+          <div  class="h5-gif"   v-show=" bondPending">
+            <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+          </div>
+
+          <div  class="h5-gif"   v-show=" claimPending">
+            <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
+          </div>
+          <div  class="h5-gif"   v-show=" claimAndStakePending">
             <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
           </div>
           <div class="h5-bond-dialog-item" style="margin-top: 0.8rem;"   v-show="isBondMenu">
