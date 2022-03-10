@@ -1229,7 +1229,7 @@ export default {
       refresh_flag:state => state.wallet.refresh_flag,
       usdc_balance:state => state.wallet.usdc_balance,
       ogWhitelist:state => {
-        return (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
+        return (state.wallet.og_enableWhiteList == false)|| (state.wallet.my_amount_og_swapped > 0 || state.wallet.whitelist_og_counter > 0)
       },
       ...mapGetters({
         is_connected: "is_connected"
@@ -1418,6 +1418,9 @@ export default {
             ],
             returns: [["OG_allowance"]]
           },
+
+
+
           {
             target: this.data.IDO.NOG.cash_address,
             call: [
@@ -1441,6 +1444,11 @@ export default {
             target: this.data.IDO.OG.sale_address,
             call: ["amountTotal1()(uint256)"],
             returns: [["og_amount_total"]]
+          },
+          {
+            target: this.data.IDO.OG.sale_address,
+            call: ["enableWhiteList()(bool)"],
+            returns: [["og_enableWhiteList"]]
           },
           {
             target: this.data.IDO.NOG.sale_address,
@@ -1585,6 +1593,9 @@ export default {
             this.is_ref_nog_ambassador = update.value;
           } else if (update.type == "ref_OG_ambassador") {
             this.is_ref_og_ambassador = update.value;
+          }
+          else if(update.type == "og_enableWhiteList"){
+            this.$store.commit("SET_OG_ENABLE_WHITE_LIST",update.value);
           }
 
           else if (update.type == "openAtOG") {

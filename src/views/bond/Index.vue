@@ -13,7 +13,7 @@
            </div>
            <div style="display: flex">
              <div class="pc-dev-content-down-item">${{marketValueOfTreasuryAssets}}</div>
-             <div class="pc-dev-content-down-item">${{OHMPrice}}</div>
+             <div class="pc-dev-content-down-item">${{Number(OHMPrice).toFixed(2)}}</div>
            </div>
          </div>
           <!----->
@@ -27,13 +27,14 @@
               <div  style="width: 160px;"></div>
             </div>
   <!---1---->
+<!--
             <div style="display: flex;margin-top: 24px;">
               <div class="pc-div-table-item1">
                 <img :src="icon_matic_sat_lp"  style="width: 63px;height: 38px;margin-left: 5px;" alt />
               </div>
               <div style="flex: 1">
                 <div class="pc-div-table-item21">{{DAISymbol}}-{{OHMSymbol}} LP</div>
-                <div @click="viewContract(sAsset.contract.OHM_DAI_LP)"  class="pc-div-table-item22">view contract</div>
+                <div @click="viewAddLiquid"  class="pc-div-table-item22">get lp</div>
               </div>
 
               <div class="pc-div-table-item3">${{OHMDAILPBondPriceDisplay}}</div>
@@ -46,6 +47,7 @@
               </div>
             </div>
 
+-->
 
 
 
@@ -93,7 +95,7 @@
       <div style=" width: 100%;height: 4.53rem;background: #242424;margin-top: 0.7rem;">
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">{{OHMSymbol}} Price</div>
         <div style="padding-top: 0.3rem;display: flex">
-          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">${{OHMPrice}}</div>
+          <div style="padding-left: 0.8rem; font-size: 0.48rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">${{Number(OHMPrice).toFixed(2)}}</div>
           <div style="padding-left: 0.3rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #22AC38;padding-top: 0.2rem;">+15%</div>
         </div>
         <div style="padding-left: 0.8rem;padding-top: 0.5rem;font-size: 0.35rem;font-family: Selawik;font-weight: 400; color: #808080;">Treasury Balance</div>
@@ -101,11 +103,12 @@
       </div>
 
 
+<!--
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
         <div style="position: relative;">
           <img :src="icon_matic_sat_lp"  style="width: 1.36rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
-          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}-{{OHMSymbol}} LP</div>
-          <div @click="viewContract(sAsset.contract.OHM_DAI_LP)">
+          <div style="position: absolute;left: 2.6rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{Get-{DAISymbol}}-{{OHMSymbol}} LP</div>
+          <div @click="viewAddLiquid">
             <div style="position: absolute;left: 2.6rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
             <img :src="icon_contact" style="width: 0.25rem;height: 0.25rem;position: absolute;left: 5rem;top: 0.6rem;" alt />
           </div>
@@ -132,6 +135,7 @@
 
         <div class="h5-bond-btn"  @click="showBound(0)">Bond {{DAISymbol}}-{{OHMSymbol}} LP</div>
       </div>
+-->
 
 
       <div style="margin-top: 0.8rem; width: 100%; height: 6.67rem; background: #242424; padding-top: 0.5rem;  ">
@@ -190,7 +194,6 @@ import {
   icon_contact
 
 } from "@/utils/images";
-import MyDialog from "@/views/components/myDialog";
 import BondDialog from "@/views/layout/components/BondDialog";
 import {
   getConfigData,
@@ -202,7 +205,6 @@ import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
-    MyDialog,
     BondDialog
   },
   data() {
@@ -255,7 +257,7 @@ export default {
     },
     OHMDAILPBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
-      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+      return (this.sAsset.OHMDAILPBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(3);
     },
     OHMDAILPBondROI() {
       return ((this.OHMPrice - this.OHMDAILPBondPriceDisplay) / this.OHMDAILPBondPriceDisplay * 100).toFixed(2);
@@ -269,7 +271,7 @@ export default {
     },
     DAIBondPriceDisplay() {
       const DAIPriceOfOHM = this.sAsset.OHMBalanceOfOHMDAILP / this.sAsset.DAIBalanceOfOHMDAILP / 10**this.sAsset.OHMDecimals;
-      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(this.sAsset.OHMDecimals);
+      return (this.sAsset.DAIBondPriceInUSD * DAIPriceOfOHM * this.OHMPrice).toFixed(3);
     },
     DAIBondROI() {
       return ((this.OHMPrice - this.DAIBondPriceDisplay) / this.DAIBondPriceDisplay * 100).toFixed(2);
@@ -291,6 +293,10 @@ export default {
   methods: {
     viewContract(address) {
       window.open(this.configData.blockExplorerUrls + 'address/' + address)
+    },
+    viewAddLiquid()
+    {
+      window.open("https://quickswap.exchange/#/add/0x4c1A52719d507827F8A3353bD0Aaf85BCc5Ce9a9/0x6d77dC834e86855ca1A834Fc65a6393a6aF033a2");
     },
     clickTabBond(val){
       this.isBondMenu = val;

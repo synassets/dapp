@@ -30,13 +30,14 @@
 
            <div style="left: 480px;position: absolute;" >
              <div style="font-size: 14px; font-family: Selawik;font-weight: bold; color: #808080;padding-top: 18px;">TVL</div>
-             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">$1,720,913,496</div>
+             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">
+               {{TVL}}</div>
            </div>
            <img :src="pc_sum_img3" style="width: 49px;height: 26px;left: 635px;top: 28px;position: absolute;"  />
 
            <div style="left: 860px;position: absolute;" >
              <div style="font-size: 14px; font-family: Selawik;font-weight: bold; color: #808080;padding-top: 18px;">APY</div>
-             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">$1,720,913,496</div>
+             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">{{APY}} %</div>
            </div>
            <img :src="pc_sum_img3" style="width: 49px;height: 26px;left: 990px;top: 28px;position: absolute;"  />
          </div>
@@ -91,17 +92,17 @@
 
         <div style="display: flex;padding-top:0.5rem;width: 8.4rem;margin: 0rem auto;">
           <div  class="h5-bond-div-detail-left">Token</div>
-          <div  class="h5-bond-div-detail-right"> {{ 'MTD'}}</div>
+          <div  class="h5-bond-div-detail-right"> {{ 'sMatic'}}</div>
         </div>
 
         <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
           <div  class="h5-bond-div-detail-left">TVL</div>
-          <div  class="h5-bond-div-detail-right"> {{ '$38,294,098.84'}}</div>
+          <div  class="h5-bond-div-detail-right"> {{ TVL}}</div>
         </div>
 
         <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
           <div  class="h5-bond-div-detail-left">APY</div>
-          <div  class="h5-bond-div-detail-right"> {{ '4,928.77%'}}</div>
+          <div  class="h5-bond-div-detail-right"> {{ APY}} %</div>
         </div>
         <div class="h5-bond-btn" @click="goDashboard">Join DAO</div>
 
@@ -123,6 +124,7 @@ import {
   pc_sum_img2,
   pc_sum_img3, h5_sum_bg, icon_matic, icon_coin5_999
 } from "../../utils/images";
+import * as publicJs from "@/utils/public";
 export default {
   name: "Index",
   components: {
@@ -149,8 +151,21 @@ export default {
     ...mapState({
 
       isMobile: state => state.sys.isMobile,
-
+      sAsset: state => state.sAsset,
     }),
+    APY() {
+      if (this.sAsset.stakingContractBalance <= 0) {
+        return 0;
+      }
+      const roi  = (this.sAsset.epochDistribute * 15 / this.sAsset.stakingContractBalance);
+      return ((1 + roi) ** (365 / 5 - 1)).toFixed(2);
+    },
+    TVL() {
+      return (this.sAsset.OHMBalanceOfStaking / 10**this.sAsset.OHMDecimals * this.OHMPrice).toFixed(2);
+    },
+    OHMPrice() {
+      return publicJs.toBigNumber(this.sAsset.USDFragmentsPerOHM).dividedBy(10**this.sAsset.USDDecimals).toFixed(this.sAsset.USDDecimals);
+    },
 
   },
   mounted() {
@@ -165,8 +180,6 @@ export default {
     goLink(url) {
       window.open(url);
     },
-
-
 
   }
 

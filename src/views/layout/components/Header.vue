@@ -379,7 +379,6 @@ export default {
       is_connected: "is_connected"
     }),
     satBalance_show(){
-      console.log("adsfafd:" +this.ido);
       return (this.satBalance/this.ido.public_sale.sale_token_scala).toFixed(2)
     },
     crash_balance_show(){
