@@ -37,7 +37,7 @@
 
            <div style="left: 860px;position: absolute;" >
              <div style="font-size: 14px; font-family: Selawik;font-weight: bold; color: #808080;padding-top: 18px;">APY</div>
-             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">{{APY}}</div>
+             <div style="font-size: 16px;font-family: Selawik; font-weight: bold;color: #FFFFFF;padding-top: 6px;">{{APY}} %</div>
            </div>
            <img :src="pc_sum_img3" style="width: 49px;height: 26px;left: 990px;top: 28px;position: absolute;"  />
          </div>
@@ -102,7 +102,7 @@
 
         <div style="display: flex;padding-top:0.3rem;width: 8.4rem;margin: 0rem auto;">
           <div  class="h5-bond-div-detail-left">APY</div>
-          <div  class="h5-bond-div-detail-right"> {{ APY}}</div>
+          <div  class="h5-bond-div-detail-right"> {{ APY}} %</div>
         </div>
         <div class="h5-bond-btn" @click="goDashboard">Join DAO</div>
 
