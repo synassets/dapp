@@ -419,6 +419,9 @@ export default {
       if(Number(this.bondInputAmount) < Number(0.0001)){
         this.bondInputAmount = 0;
       }
+      if(Number(this.bondInputAmount) >= Number(this.bond.maxYouCanBuy)){
+        this.bondInputAmount = this.bond.maxYouCanBuy;
+      }
     },
     goLink(){},
     closeDialog(){
@@ -454,7 +457,7 @@ export default {
         return
       }
       if (Number(this.bondInputAmount) > Number(this.bond.maxYouCanBuy)) {
-        this.$refs.MessageTipErrorDialog.showClick('amount should be less than the max you can buy');
+        this.$refs.MessageTipErrorDialog.showClick('invalid amount !');
         return
       }
       this.IsPending = true;
