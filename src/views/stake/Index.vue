@@ -36,36 +36,36 @@
                 <div>First time unstaking s{{OHMSymbol}}?</div>
                 <div>Please approve SynAssets to use your s{{OHMSymbol}} for unstaking.</div>
               </div>
-
-              <div class='pc-stake-div-input' v-show="isStakeMenu&&isStakeApproved">
+          <!--   -->
+              <div class='pc-stake-div-input' style="z-index: 999;"  v-show="isStakeMenu&&isStakeApproved">
                  <input v-model="stakeInputAmount" type="text"  @input="inputChange()"
-                  class='pc-stake-div-input1'
+                  class='pc-stake-div-input1'   style="z-index: 999;"
                          />
-                 <div  @click="clickStakeMaxValue()"  class='pc-stake-div-input-max' >MAX</div>
+                 <div  @click="clickStakeMaxValue()"  class='pc-stake-div-input-max'  style="z-index: 999;" >MAX</div>
                </div>
 
-              <div class='pc-stake-div-input' v-show="!isStakeMenu&&isUnstakeApproved">
+              <div class='pc-stake-div-input' v-show="!isStakeMenu&&isUnstakeApproved"  style="z-index: 999;">
                  <input v-model="unstakeInputAmount" type="text"  @input="inputChange()"
-                  class='pc-stake-div-input1'
+                  class='pc-stake-div-input1'  style="z-index: 999;"
                          />
-                 <div  @click="clickUnstakeMaxValue()"  class='pc-stake-div-input-max' >MAX</div>
+                 <div  @click="clickUnstakeMaxValue()"  class='pc-stake-div-input-max'  style="z-index: 999;">MAX</div>
                </div>
 
             </div>
-            <div @click="clickStakeApprove" class="pc-stake-div-btn" v-show="isStakeMenu&&!isStakeApproved&&!IsPending">
+            <div @click="clickStakeApprove" class="pc-stake-div-btn" v-show="isStakeMenu&&!isStakeApproved&&!IsPending"  style="z-index: 999;">
               Approve
             </div>
 
-            <div @click="clickStake" class="pc-stake-div-btn" v-show="isStakeMenu&&isStakeApproved&&!IsPending">
+            <div @click="clickStake" class="pc-stake-div-btn" v-show="isStakeMenu&&isStakeApproved&&!IsPending"  style="z-index: 999;">
               Stake
             </div>
 
 
-            <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!IsPending">
+            <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!IsPending"  style="z-index: 999;">
               Approve
             </div>
 
-            <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved&&!IsPending">
+            <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved&&!IsPending"  style="z-index: 999;">
               Unstake
             </div>
             <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&IsPending">
@@ -112,8 +112,8 @@
 
       <img
           :src="pc_ido_img1"
-          style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
-          alt="zh"
+          style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;z-index: 0;"
+
       />
   </div>
 
