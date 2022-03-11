@@ -52,32 +52,28 @@
                </div>
 
             </div>
-            <div @click="clickStakeApprove" class="pc-stake-div-btn" v-show="isStakeMenu&&!isStakeApproved&&!stakeApprovePending">
+            <div @click="clickStakeApprove" class="pc-stake-div-btn" v-show="isStakeMenu&&!isStakeApproved&&!IsPending">
               Approve
             </div>
-            <div class="pc-stake1-div-gif"   v-show="isStakeMenu&&stakeApprovePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
-            </div>
-            <div @click="clickStake" class="pc-stake-div-btn" v-show="isStakeMenu&&isStakeApproved">
+
+            <div @click="clickStake" class="pc-stake-div-btn" v-show="isStakeMenu&&isStakeApproved&&!IsPending">
               Stake
             </div>
-            <div class="pc-stake1-div-gif" v-show="isStakeMenu&&stakePending" >
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
-            </div>
 
-            <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">
+
+            <div @click="clickUnstakeApprove" class="pc-stake-div-btn" v-show="!isStakeMenu&&!isUnstakeApproved&&!IsPending">
               Approve
             </div>
-            <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&unstakeApprovePending">
-              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;"  />
-            </div>
-            <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved">
+
+            <div @click="clickUnstake" class="pc-stake-div-btn" v-show="!isStakeMenu&&isUnstakeApproved&&!IsPending">
               Unstake
             </div>
-            <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&unstakePending">
+            <div class="pc-stake1-div-gif" v-show="!isStakeMenu&&IsPending">
               <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
             </div>
-
+            <div class="pc-stake1-div-gif" v-show="isStakeMenu&&IsPending">
+              <img :src="gif" style="width: 30px;height: 30px;margin-top: 5px;margin-left: 90px;" />
+            </div>
           </div>
 
           <div  style="width: 690px;margin: 0px auto 0px auto;padding-bottom: 30px;padding-top: 75px">
@@ -177,24 +173,19 @@
           <div  @click="clickUnstakeMaxValue()"    class='h5-stake-div-input-max' >MAX</div>
         </div>
 
-        <div class="h5-stake-div-btn" @click="clickStake"  v-show="isStakeMenu&&isStakeApproved">Stake</div>
-        <div class="h5-stake-div-btn" @click="clickUnstake" v-show="!isStakeMenu&&isUnstakeApproved">Unstake</div>
+        <div class="h5-stake-div-btn" @click="clickStake"  v-show="isStakeMenu&&isStakeApproved&&!IsPending">Stake</div>
+        <div class="h5-stake-div-btn" @click="clickUnstake" v-show="!isStakeMenu&&isUnstakeApproved&&!IsPending">Unstake</div>
 
-        <div class="h5-stake-div-btn" @click="clickUnstakeApprove" v-show="!isStakeMenu&&!isUnstakeApproved&&!unstakeApprovePending">Approve</div>
-        <div class="h5-stake-div-btn" @click="clickStakeApprove" v-show="isStakeMenu&&!isStakeApproved&&!stakeApprovePending">Approve</div>
+        <div class="h5-stake-div-btn" @click="clickUnstakeApprove" v-show="!isStakeMenu&&!isUnstakeApproved&&!IsPending">Approve</div>
+        <div class="h5-stake-div-btn" @click="clickStakeApprove" v-show="isStakeMenu&&!isStakeApproved&&!IsPending">Approve</div>
 
-        <div  class="h5-gif" v-show="!isStakeMenu&&unstakeApprovePending">
+        <div  class="h5-gif" v-show="!isStakeMenu&&IsPending">
           <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
         </div>
-        <div  class="h5-gif" v-show="isStakeMenu&&stakePending">
+        <div  class="h5-gif" v-show="isStakeMenu&&IsPending">
           <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
         </div>
-        <div  class="h5-gif" v-show="isStakeMenu&&stakeApprovePending">
-          <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
-        </div>
-        <div  class="h5-gif" v-show="!isStakeMenu&&unstakePending">
-          <img :src="gif" style="width: 0.5rem;height: 0.5rem;margin-top: 0.21rem;" />
-        </div>
+
 
        <div class="h5-stake-div-item" style="margin-top: 0.8rem;"  v-show="isStakeMenu">
          <div style="flex: 2;">Your Balance</div>
@@ -270,10 +261,7 @@ export default {
       unstakeInputAmount:'',
       data:{},
       configData:{},
-      stakeApprovePending: false,
-      stakePending: false,
-      unstakeApprovePending: false,
-      unstakePending: false,
+      IsPending: false,
     };
   },
   computed: {
@@ -366,36 +354,37 @@ export default {
       }
     },
     goLink(){},
-    clickStakeApprove() {
-      this.stakeApprovePending = true;
-      const baseNumber = publicJs.toBigNumber(99999999999);
-      const power = publicJs.toBigNumber(10**this.sAsset.OHMDecimals);
-      const amount = baseNumber.multipliedBy(power)
-      wallet.callApprove(this.sAsset.contract.OHM, this.sAsset.contract.Staking_Helper, amount)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-        this.$refs.MessageTipErrorDialog.showClick(reason.message);
-      }).finally(() => {
-        this.stakeApprovePending = false;
-      })
+    async clickStakeApprove() {
+      this.IsPending = true;
+      try {
+        const baseNumber = publicJs.toBigNumber(99999999999);
+        const power = publicJs.toBigNumber(10 ** this.sAsset.OHMDecimals);
+        const amount = baseNumber.multipliedBy(power)
+        await wallet.callApprove(this.sAsset.contract.OHM, this.sAsset.contract.Staking_Helper, amount)
+        this.$refs.MessageTipOkDialog.showClick();
+      } catch (e) {
+        this.$refs.MessageTipErrorDialog.showClick(e.message);
+      } finally {
+        this.IsPending = false;
+      }
+
     },
-    clickUnstakeApprove() {
-      this.unstakeApprovePending = true;
-      const baseNumber = publicJs.toBigNumber(99999999999);
-      const power = publicJs.toBigNumber(10**this.sAsset.sOHMDecimals);
-      const amount = baseNumber.multipliedBy(power)
-      wallet.callApprove(this.sAsset.contract.sOHM, this.sAsset.contract.Staking, amount)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-        this.$refs.MessageTipErrorDialog.showClick(reason.message);
-      }).finally(() => {
-        this.unstakeApprovePending = false;
-      })
+    async clickUnstakeApprove() {
+      this.IsPending = true;
+      try {
+        const baseNumber = publicJs.toBigNumber(99999999999);
+        const power = publicJs.toBigNumber(10 ** this.sAsset.sOHMDecimals);
+        const amount = baseNumber.multipliedBy(power)
+        await wallet.callApprove(this.sAsset.contract.sOHM, this.sAsset.contract.Staking, amount)
+        this.$refs.MessageTipOkDialog.showClick();
+      } catch (e) {
+        this.$refs.MessageTipErrorDialog.showClick(e.message);
+      } finally {
+        this.IsPending = false;
+      }
     },
 
-    clickStake() {
+    async clickStake() {
       if (!this.invite_address) {
         this.$refs.MessageTipErrorDialog.showClick('inviter not exist');
         return;
@@ -408,39 +397,46 @@ export default {
         this.$refs.MessageTipErrorDialog.showClick('insufficient balance');
         return
       }
-      this.stakePending = true;
-      const amount = publicJs.toBigNumber(Number(this.stakeInputAmount)*10**this.sAsset.OHMDecimals);
-      wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address, this.invite_address)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-            console.log(reason)
-            this.$refs.MessageTipErrorDialog.showClick(reason.message);
-          }).finally(() => {
-            this.stakePending = false;
-          })
+      this.IsPending = true;
+
+      try {
+        const amount = publicJs.toBigNumber(Number(this.stakeInputAmount) * 10 ** this.sAsset.OHMDecimals);
+        await wallet.callStake(this.sAsset.contract.Staking_Helper, amount, this.address, this.invite_address)
+        this.$refs.MessageTipOkDialog.showClick();
+      } catch (e) {
+        this.$refs.MessageTipErrorDialog.showClick(e.message);
+      } finally {
+        this.IsPending = false;
+      }
+
+
+
+
+
     },
 
-    clickUnstake() {
-      if (isNaN(this.unstakeInputAmount) || this.unstakeInputAmount <= 0) {
-        this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
-        return
-      }
-      if(Number(this.unstakeInputAmount) > (Number(this.stakedBalance)+0.001) ){
-        this.$refs.MessageTipErrorDialog.showClick('insufficient balance');
-        return
-      }
-      this.unstakePending = true;
-      const amount = publicJs.toBigNumber(this.unstakeInputAmount).multipliedBy(10**this.sAsset.OHMDecimals)
-      wallet.callUnstake(this.sAsset.contract.Staking, amount, false)
-          .then(() => {
-            this.$refs.MessageTipOkDialog.showClick();
-          }).catch((reason) => {
-        this.$refs.MessageTipErrorDialog.showClick(reason.message);
-      }).finally(() => {
-        this.unstakePending = false;
-      })
-    },
+   async clickUnstake() {
+     if (isNaN(this.unstakeInputAmount) || this.unstakeInputAmount <= 0) {
+       this.$refs.MessageTipErrorDialog.showClick('amount must be positive integer');
+       return
+     }
+     if (Number(this.unstakeInputAmount) > (Number(this.stakedBalance) + 0.001)) {
+       this.$refs.MessageTipErrorDialog.showClick('insufficient balance');
+       return
+     }
+     this.IsPending = true;
+     try {
+       const amount = publicJs.toBigNumber(this.unstakeInputAmount).multipliedBy(10 ** this.sAsset.OHMDecimals)
+       await wallet.callUnstake(this.sAsset.contract.Staking, amount, false)
+
+       this.$refs.MessageTipOkDialog.showClick();
+     } catch (e) {
+       this.$refs.MessageTipErrorDialog.showClick(e.message);
+     } finally {
+       this.IsPending = false;
+     }
+
+   }
   }
 };
 </script>
