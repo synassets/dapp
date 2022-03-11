@@ -20,11 +20,11 @@
          </div>
           <!----->
           <div class="pc-stake-tab">
-            <div @click="clickTabStake(true)" v-show="isStakeMenu" class="pc-stake-tab-left-p">Stake</div>
-            <div @click="clickTabStake(true)"  v-show="!isStakeMenu" class="pc-stake-tab-left-n">Stake</div>
+            <div @click="clickTabStake(true)" v-show="isStakeMenu" class="pc-stake-tab-left-p" style="z-index: 999;">Stake</div>
+            <div @click="clickTabStake(true)"  v-show="!isStakeMenu" class="pc-stake-tab-left-n" style="z-index: 999;">Stake</div>
 
-            <div  @click="clickTabStake(false)"  v-show="!isStakeMenu" class="pc-stake-tab-right-p">Unstake</div>
-            <div @click="clickTabStake(false)"  v-show="isStakeMenu" class="pc-stake-tab-right-n" >Unstake</div>
+            <div  @click="clickTabStake(false)"  v-show="!isStakeMenu" class="pc-stake-tab-right-p" style="z-index: 999;">Unstake</div>
+            <div @click="clickTabStake(false)"  v-show="isStakeMenu" class="pc-stake-tab-right-n" style="z-index: 999;" >Unstake</div>
           </div>
           <div  class="pc-stake-div-tip1">
             <div style="width: 540px;position: relative;">

@@ -59,7 +59,7 @@
               </div>
               <div style="flex: 1">
                 <div  class="pc-div-table-item3">{{DAISymbol}}</div>
-                <div @click="viewContract(sAsset.contract.DAI)"  class="pc-div-table-item22">view contract</div>
+                <div @click="viewContract(sAsset.contract.DAI)"  class="pc-div-table-item22" style="z-index: 999;">view contract</div>
               </div>
 
               <div  class="pc-div-table-item3">${{DAIBondPriceDisplay}}</div>
@@ -142,7 +142,7 @@
         <div style="position: relative;">
           <img :src="icon_coin_test_matic"  style="width: 0.8rem;height: 0.8rem;position: absolute;left: 0.8rem;" alt />
           <div style="position: absolute;left: 2rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">{{DAISymbol}}</div>
-          <div @click="viewContract(sAsset.contract.DAI)">
+          <div @click="viewContract(sAsset.contract.DAI)" style="z-index: 999;">
             <div style="position: absolute;left: 2rem;top: 0.5rem; font-size: 0.32rem;font-family: Selawik;font-weight: 600;color: #FFFFFF;">View Asset</div>
             <img :src="icon_contact" style="width: 0.25rem;height: 0.25rem;position: absolute;left: 4.3rem;top: 0.6rem;" alt />
           </div>
