@@ -4,7 +4,7 @@
     <div v-show="!isMobile"  style="padding-bottom:20px;width: 100%;min-height: 1500px;background: #161616;padding-top: 170px;">
       <div style="width: 100%; display: flex;">
     <div style="width: 249px;height: 100px;"></div>
-        <div style=" width: 1080px; height: 60px;background: #242424;border-radius: 5px;margin: 0px auto;position: relative;">
+        <div @click="coming_soon()" style=" width: 1080px; height: 60px;background: #242424;border-radius: 5px;margin: 0px auto;position: relative;">
           <img :src="pc_sum_img1" style="width: 20px;height:  20px;left: 50px;top: 20px;position: absolute;"  />
           <input  v-model="searchText" type="text" placeholder="search"
                   style="height:40px;width: 900px;position: absolute;top: 10px;left: 100px;padding-left: 10px;background:#242424;color: #FFFFFF; "
@@ -65,13 +65,13 @@
 
       <div style="padding-top: 1.8rem;padding-left: 0.9rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Dashboard</div>
 
-      <div style="width: 100%;height: 0.93rem; background: #FFFFFF;margin-top: 0.7rem;position: relative">
+      <div @click="coming_soon()" style="width: 100%;height: 0.93rem; background:  #242424;margin-top: 0.7rem;position: relative">
         <div style="width: 0.36rem; height: 0.36rem;border: 0.05rem solid #00A0E9;border-radius: 50%;position: absolute;top: 0.28rem;left: 0.8rem;">
           <div style="  width: 0.16rem; height: 0.16rem;background: #00A0E9;border: 0.1rem solid #ffffff;border-radius: 50%;"></div>
         </div>
 
         <input v-model="searchText" type="text"  @input="inputChange()" placeholder="Search"
-               style="height:0.8rem;width: 6rem;line-height: 0.8rem;padding-left: 0.2rem; background: #FFFFFF; position: absolute;left: 1.7rem;top: 0.1rem;"
+               style="height:0.8rem;width: 6rem;line-height: 0.8rem;padding-left: 0.2rem; background: #242424; position: absolute;left: 1.7rem;top: 0.1rem;"
         />
       </div>
 
@@ -107,7 +107,7 @@
         <div class="h5-bond-btn" @click="goDashboard">Join DAO</div>
 
       </div>
-
+      <MessageTipWarnDialog   ref="messageTipWarnDialog" />
     </div>
 
 
@@ -125,10 +125,11 @@ import {
   pc_sum_img3, h5_sum_bg, icon_matic, icon_coin5_999
 } from "../../utils/images";
 import * as publicJs from "@/utils/public";
+import MessageTipWarnDialog from "@/views/layout/components/MessageTipWarnDialog";
 export default {
   name: "Index",
   components: {
-
+    MessageTipWarnDialog,
   },
   data() {
     return {
@@ -175,6 +176,9 @@ export default {
   methods: {
     goDashboard(){
       this.$router.push("/dashboard").catch(err => {err});
+    }
+    ,coming_soon(){
+      this.$refs.messageTipWarnDialog.showClick("coming soon");
     },
     inputChange(){},
     goLink(url) {
