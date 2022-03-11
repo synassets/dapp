@@ -65,7 +65,7 @@
               <div  class="pc-div-table-item3">${{DAIBondPriceDisplay}}</div>
               <div  class="pc-div-table-item3"> {{DAIBondROI}}%</div>
               <div  class="pc-div-table-item3">${{DAIBondPurchased}}</div>
-              <div  class="pc-div-table-item4">
+              <div  class="pc-div-table-item4"  style="z-index: 999">
                 <div @click="showBound(1)"   class="class_bound" style="z-index: 999">
                   Bond
                 </div>
@@ -80,7 +80,7 @@
       </div>
       <img
           :src="pc_ido_img1"
-          style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;"
+          style="width: 1135px;height: 294px;position: fixed;bottom:0px ;left: 110px;z-index: 0"
           alt="zh"
       />
 
