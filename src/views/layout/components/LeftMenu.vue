@@ -514,13 +514,14 @@ export default {
       this.isShowMenu = false;
 
       if(index == 1){
-
-      this.tabPcIndex = 0;
+        this.tabPcIndexRight = 0;
+        this.tabPcIndex = 0;
         this.tabIndex = 0;
         this.currency = this.currencyNo;
         Cookies.set("CHAIN_TYPE", this.currencyNo, { expires: 31 });
         this.$router.push("/dboard");
       }else if(index == 2){
+        this.tabPcIndexRight = 0;
         this.tabPcIndex = 0;
         this.tabIndex = 0;
         this.currency = this.currencyNo;
