@@ -5,7 +5,7 @@
 
       <div style="width: 100%;padding-top: 40px;">
 
-        <div style=" width:834px;margin: 0px auto; padding-bottom: 30px; padding-left: 380px;">
+        <div style=" width:834px;margin: 0px auto; padding-bottom: 30px; padding-left: 100px;">
           <div style=" width:834px;background: #242424; border-radius: 10px;z-index: 999;">
           <div style="font-size: 24px;font-family: Selawik;font-weight: 600; color: #FFFFFF;padding-top: 25px;padding-left: 30px;">Calculator</div>
           <div style=" font-size: 14px;font-family: Selawik;font-weight: 400; color: #FFFFFF;padding-top: 5px;padding-left: 30px;">Estimate your returns</div>

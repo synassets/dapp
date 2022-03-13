@@ -6,7 +6,7 @@
       style="padding-bottom:20px;width: 100%;min-height: 1500px;background: #161616;padding-top: 85px;"
     >
       <div style="width: 100%;display: flex;">
-        <div style="width: 380px;height: 100px;"></div>
+        <div style="width: 100px;height: 100px;"></div>
         <div
           style="flex: 1;height: 114px;background: linear-gradient(-45deg, #25434A 0%,  #4A3E48 100%);"
         >

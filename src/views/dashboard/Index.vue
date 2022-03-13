@@ -5,7 +5,7 @@
 
 
       <div style="width: 100%;display: flex;padding-top:150px;">
-        <div style="width: 380px;height: 100px;"></div>
+        <div style="width: 100px;height: 100px;"></div>
         <div style=" width:1080px;margin: 0px auto; padding-bottom: 30px;z-index: 999;">
           <div style="display: flex">
             <div style="width: 640px;height: 303px;background: #242424;border-radius: 10px;">

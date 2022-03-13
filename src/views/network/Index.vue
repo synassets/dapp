@@ -4,7 +4,7 @@
     <div v-show="!isMobile"  class="pc-div-parent">
 
 
-      <div style="display: flex;width: 1078px;margin: 0px auto 0px auto;padding-top: 150px;padding-left: 380px;">
+      <div style="display: flex;width: 1078px;margin: 0px auto 0px auto;padding-top: 150px;padding-left: 100px;">
         <div style="width: 400px;background: #242424;height: 470px;">
           <div style=" font-size: 16px;font-family: Selawik;font-weight: 400;color: #808080;padding-left: 30px;padding-top: 25px;">My Power
             <div
