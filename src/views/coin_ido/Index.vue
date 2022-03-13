@@ -2011,16 +2011,16 @@ export default {
           }
         if (!this.is_og_ambassador) {
           if (!isAddress(this.refAddress)) {
-            this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
+            this.$refs.messageTipErrorDialog.showClick('please use invitation link! ');
             return;
           }
           if (this.refAddress.length < 10) {
             // this.$message.error("Error,please use invitation link! ");
-            this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
+            this.$refs.messageTipErrorDialog.showClick('please use invitation link! ');
             return;
           }
           if (this.refAddress == this.address) {
-            this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation! ');
+            this.$refs.messageTipErrorDialog.showClick('invalid invitation! ');
             return;
           }
         } else {
@@ -2028,7 +2028,7 @@ export default {
         }
 
         if (!this.ogWhitelist) {
-          this.$refs.messageTipErrorDialog.showClick('Error,you are not in WL! ');
+          this.$refs.messageTipErrorDialog.showClick('you are not in WL! ');
           return;
         }
         if (this.isOgNotStart) {

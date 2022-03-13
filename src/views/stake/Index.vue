@@ -122,7 +122,7 @@
     <div  v-show="isMobile" style="padding-bottom:1rem;width: 100%;min-height:40rem;background: #070707;" >
 
       <div style="padding-top: 1.8rem;padding-left: 0.8rem;  font-size: 0.48rem; font-family: Selawik;font-weight: 600; color: #0792E3;">Single Stake (S, S)</div>
-      <div style="padding-top: 0.15rem;padding-left: 0.8rem;  font-size: 0.32rem; font-family: Selawik;font-weight: 400; color: #808080;">3 hrs, 47 mins to nexst rebase</div>
+      <div style="padding-top: 0.15rem;padding-left: 0.8rem;  font-size: 0.32rem; font-family: Selawik;font-weight: 400; color: #808080;">{{time2NextRebase}} to next rebase</div>
 
       <div style="margin-top: 0.8rem;margin-left: 0.8rem;display: flex;">
         <div  @click="clickTabStake(true)"  :class="isStakeMenu?'h5-stake-div-tab-p':'h5-stake-div-tab-n'">Stake</div>
@@ -386,7 +386,7 @@ export default {
 
     async clickStake() {
       if (!this.invite_address) {
-        this.$refs.MessageTipErrorDialog.showClick('inviter not exist');
+        this.$refs.MessageTipErrorDialog.showClick('Inviter Does Not Exist');
         return;
       }
       if (isNaN(this.stakeInputAmount) || this.stakeInputAmount <= 0) {
