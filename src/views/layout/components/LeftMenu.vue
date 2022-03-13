@@ -732,7 +732,6 @@ export default {
 .v-leave-to{
   opacity: 0;
   transform: translateX(-100%);
-  // 解决页面从上往下位移问题
   position: absolute;
 }
 .v-enter-active,.v-leave-active {

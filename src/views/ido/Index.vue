@@ -1066,7 +1066,6 @@ import MessageTipErrorDialog from "@/views/layout/components/MessageTipErrorDial
 import moment from "moment";
 import {
   toWei,
-  getDATA,
   doApprove2New,
   saleSwap,
   isAddress,
