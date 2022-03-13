@@ -1387,12 +1387,12 @@ export default {
 
       if (h > 12) {
         h = h - 12;
-        h = h + "pm";
+        h = h + "PM"+" UTC";
       } else {
-        h = h + "am";
+        h = h + "AM"+" UTC";
       }
       // return m + ' '+d+'th'+' @ '+h+' UTC'
-      return h + " , " + d + "th" + " ,  " + m + " UTC";
+      return h + " , " + d + "th" + " ,  " + m ;
     },
    async restartWatch()
     {

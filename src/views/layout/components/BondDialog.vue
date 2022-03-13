@@ -445,7 +445,7 @@ export default {
     },
     async clickBond() {
       if (!this.invite_address) {
-        this.$refs.MessageTipErrorDialog.showClick('inviter not exist');
+        this.$refs.MessageTipErrorDialog.showClick('Inviter Does Not Exist');
         return;
       }
       if (isNaN(this.bondInputAmount) || this.bondInputAmount <= 0) {
