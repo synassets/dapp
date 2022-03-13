@@ -246,6 +246,7 @@
 
        </div>
        <!----2---->
+
        <div style="width: 100px;background: #161616;height: 100%;" v-show="tabPcIndex==1">
          <div style="width: 100px;height: 50px;position: relative;margin-top: 70px">
            <img :src="pc_logo1"  style="width: 42px;height: 23px; position: absolute; top: 50%;left: 50%;margin-top: -15px;  margin-left: -26px;"    />
@@ -259,7 +260,7 @@
            <img :src="pc_left_img2"  style="width: 31px;height: 19px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -15px;"    />
          </div>
          <div class="pc-line100" ></div>
-         <div :class="currency=='POLYGON' ? 'pc-tab1001':'pc-tab100'"  @click="onClickMenu(3)"  >
+         <div :class="currency=='POLYGON' ? 'pc-tab1001':'pc-tab100'"  @click="onClickMenu(31)"  >
            <img :src="pc_left_img3"  style="width: 24px;height: 21px; position: absolute; top: 50%;left: 50%;margin-top: -10px;  margin-left: -12px;"    />
          </div>
          <div class="pc-line100" ></div>
@@ -282,7 +283,8 @@
           <div  @click="goLink(5)"   style="cursor: pointer;position: fixed;bottom: 100px;text-align: center;width: 100px; font-size: 16px;font-family: Selawik; font-weight: 600;color: #FFFFFF;text-decoration: underline;">Docs</div>
            <img :src="pc_twitter_png"  @click="goLink(1)"  style="width: 22px;height: 19px;position: fixed;bottom: 27px;left: 38px;cursor: pointer;"    />
        </div>
-       <div style="width: 280px;background: rgba(22, 22, 22, 0.7);min-height: 1000px;  border: 1px solid #808080;" v-show="tabPcIndex==1">
+       <transition>
+       <div style="width: 280px;background: rgba(22, 22, 22, 0.7);min-height: 1000px;  border: 1px solid #808080;" v-show="tabPcIndexRight==1">
          <div style="display: flex;padding-left: 39px;padding-top: 70px;">
            <img :src="pc_left_img3"  style="width: 30px;height: 29px;"    />
            <div style=" font-size: 20px;font-family: Selawik; font-weight: bold; color: #FFFFFF;margin-left: 15px;">{{OHMSymbol}}-DAO</div>
@@ -294,9 +296,10 @@
          <div :class="twoPcMenuIndex==4?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(11)" >Bond</div>
          <div :class="twoPcMenuIndex==5?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(12)" >Calculator</div>
          <div :class="twoPcMenuIndex==6?'pc-tab2801':'pc-tab280'"  class="pc-tab280"  @click="onClickMenu(13)" >Consensus Network</div>
-
        </div>
 
+
+       </transition>
 
      </div>
     <MessageTipWarnDialog   ref="messageTipWarnDialog" />
@@ -385,6 +388,8 @@ export default {
       tabPcIndex:0,
 
       twoPcMenuIndex:1,
+
+      tabPcIndexRight:0,
 
       currency:'',
 
@@ -531,6 +536,17 @@ export default {
         this.twoPcMenuIndex = 1;
         this.tabPcIndex = 1;
         this.tabIndex = 1;
+      }else if(index == 31){
+        // this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        // this.$message.success("Coming Soon!")
+        Cookies.set("CHAIN_TYPE", "POLYGON", { expires: 31 });
+        this.currency = "POLYGON";
+        this.isShowMenu = true;
+        this.$router.push("/dashboard").catch(err => {err});
+        this.twoPcMenuIndex = 1;
+        this.tabPcIndex = 1;
+        this.tabIndex = 1;
+        this.tabPcIndexRight = 1;
       }else if(index == 4){
          this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
         // this.$message.success("Coming Soon!")
@@ -564,21 +580,27 @@ export default {
       }else if(index == 8){
         this.$router.push("/dashboard").catch(err => {err});
         this.twoPcMenuIndex = 1;
+        this.tabPcIndexRight = 0;
       }else if(index == 9){
         //this.$router.push("/coin_ido").catch(err => {err});
         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        this.tabPcIndexRight = 0;
       }else if(index == 10){
         this.$router.push("/stake").catch(err => {err});
         this.twoPcMenuIndex = 3;
+        this.tabPcIndexRight = 0;
       }else if(index == 11){
         this.$router.push("/bond").catch(err => {err});
         this.twoPcMenuIndex = 4;
+        this.tabPcIndexRight = 0;
       }else if(index == 12){
        // this.$router.push("/calculate").catch(err => {err});
         this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        this.tabPcIndexRight = 0;
       }else if(index == 13){
         this.$router.push("/network").catch(err => {err});
         this.twoPcMenuIndex = 6;
+        this.tabPcIndexRight = 0;
       }
 
 
@@ -701,6 +723,20 @@ export default {
 }
 .pc-tab2801:hover{
   background: rgba(0, 0, 0, 0.7);
+}
+
+.v-enter{
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(-100%);
+  // 解决页面从上往下位移问题
+  position: absolute;
+}
+.v-enter-active,.v-leave-active {
+  transition: all 0.5s ease;
 }
 @media screen and (max-width: 750px) {
   .lm_wrap {
