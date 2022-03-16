@@ -2,7 +2,7 @@
 const wallet  ={
   state: {
     address: '0x0000000000000000000000000000000000000000',
-    invite_address:null,
+    invite_address:'0x0000000000000000000000000000000000000000',
     balance: 0,
     usdc_balance:0,
     chain_id:0,
@@ -94,11 +94,7 @@ const wallet  ={
       state.share_link_url = payload
     },
     SET_REF_ADDRESS:(state, payload)=> {
-      if (payload === 0) {
-        state.invite_address = ''
-      } else {
-        state.invite_address = payload
-      }
+         state.invite_address = payload
     }
   }
 }

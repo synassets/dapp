@@ -1147,8 +1147,6 @@ export default {
       step: 1, // 1 no open  2 open  3 close
 
 
-
-
       showTimestamp2: "",
       showTimestamp5: "",
       stakeAmount: "",
@@ -1478,7 +1476,6 @@ export default {
             call: ["calcT1(uint256)(uint256)", this.ido.public_sale.cash_scala],
             returns: [["calcT15"]]
           },
-
           {
             target: this.ido.og_sale.sale_address,
             call: ["whitelist(address)(uint256)", this.address],
@@ -1494,6 +1491,17 @@ export default {
             call: ["inviteable(address)(bool)", this.address],
             returns: [["NOG_ambassador"]]
           },
+          {
+            target: this.ido.public_sale.sale_address,
+            call: ["inviteable(address)(bool)", this.refAddress],
+            returns: [["ref_NOG_ambassador"]]
+          },
+          {
+            target: this.ido.og_sale.sale_address,
+            call: ["inviteable(address)(bool)", this.refAddress],
+            returns: [["ref_OG_ambassador"]]
+          }
+          ,
           {
             target: this.ido.og_sale.sale_address,
             call: ["openAt()(uint256)"],
@@ -1599,7 +1607,6 @@ export default {
           else if(update.type == "og_enableWhiteList"){
             this.$store.commit("SET_OG_ENABLE_WHITE_LIST",update.value);
           }
-
           else if (update.type == "openAtOG") {
             this.openAtOG = update.value;
             this.timePurchased2 = this.openAtOG;
@@ -1646,17 +1653,12 @@ export default {
             return;
           }
         if (!this.is_og_ambassador) {
-          if (!isAddress(this.refAddress)) {
-            this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
-            return;
-          }
-          if (this.refAddress.length < 10) {
-            // this.$message.error("Error,please use invitation link! ");
-            this.$refs.messageTipErrorDialog.showClick('Error,please use invitation link! ');
+          if (!this.is_ref_og_ambassador) {
+            this.$refs.messageTipErrorDialog.showClick('invitation link is not available! ');
             return;
           }
           if (this.refAddress == this.address) {
-            this.$refs.messageTipErrorDialog.showClick('Error,invalid invitation! ');
+            this.$refs.messageTipErrorDialog.showClick('invitation link is not available! ');
             return;
           }
         } else {
@@ -1700,6 +1702,17 @@ export default {
       if( this.PreCondition() ==false){
         return;
       }
+
+      if (!this.is_nog_ambassador) {
+          if (!this.is_ref_nog_ambassador) {
+            this.$refs.messageTipErrorDialog.showClick('invitation link is not available! ');
+            return;
+          }
+          if (this.refAddress == this.address) {
+            this.$refs.messageTipErrorDialog.showClick('invitation link is not available! ');
+            return;
+          }
+      }
       if (this.isNogNotStart) {
         this.$refs.messageTipErrorDialog.showClick('Coming soon.... ');
         return;
@@ -1735,21 +1748,21 @@ export default {
         return;
       }
       if(this.max_og_swap < 0.10){
-        this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        this.$refs.messageTipErrorDialog.showClick('Insufficient allocation,max per wallet address is '+(this.ido.og_sale.maxAmount1PerWallet / this.ido.og_sale.cash_scala).toFixed(0)+' USDC');
         return;
       }
       if(this.max_og_swap < this.min_og_swap){
-        this.$refs.messageTipErrorDialog.showClick('you can not swap !');
+        this.$refs.messageTipErrorDialog.showClick('you would not swap !');
         return;
       }
 
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
-             this.$refs.messageTipErrorDialog.showClick('please use the invitation link!');
+             this.$refs.messageTipErrorDialog.showClick('invitation link is not available! ');
           return;
         }
         if (this.refAddress == this.address) {
-          this.$refs.messageTipErrorDialog.showClick('you are not an ambassador,can not invite your self');
+          this.$refs.messageTipErrorDialog.showClick('invitation link is not available! ');
           return;
         }
       } else {
@@ -1820,7 +1833,7 @@ export default {
         return;
       }
       if(this.max_nog_swap < 0.10){
-        this.$refs.messageTipErrorDialog.showClick('insufficient quota');
+        this.$refs.messageTipErrorDialog.showClick('Insufficient allocation,max per wallet address is '+(this.ido.public_sale.maxAmount1PerWallet / this.ido.public_sale.cash_scala).toFixed(0)+' USDC');
         return;
       }
       // console.log(this.max_nog_swap + "werwerewr" +this.min_nog_swap +" cpm result:" + (Number(this.max_nog_swap) < Number(this.min_nog_swap)));
@@ -1855,6 +1868,8 @@ export default {
         this.$refs.messageTipErrorDialog.showClick('please enter the correct amount!');
         return;
       }
+     //
+
 
 
       if (this.stakeAmount < this.min_nog_swap -0.001 || this.stakeAmount-0.01 > this.max_nog_swap) {

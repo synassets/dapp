@@ -163,18 +163,23 @@ export async function initConnection(type) {
 
 
 export async function InitRef(){
-  let Base64 = require('js-base64').Base64
-  const url_params = new URLSearchParams(window.location.search);
-  let ref = url_params.get("ref");
-  if (ref != null) {
-    ref = Base64.decode(ref);
-   if (ref.length>15) {
-      store.commit("SET_REF_ADDRESS",ref);
+  try {
+    let Base64 = require('js-base64').Base64
+    const url_params = new URLSearchParams(window.location.search);
+    let ref = url_params.get("ref");
+    if (ref != null) {
+        ref = Base64.decode(ref);
+      if (isAddress(ref)) {
+        store.commit("SET_REF_ADDRESS", ref);
+        return;
+      }
     }
-    else {
-      store.commit("SET_REF_ADDRESS",null);
-    }
+    store.commit("SET_REF_ADDRESS", '0x0000000000000000000000000000000000000000');
+
+  } catch (e) {
+    console.error("fuck----------"+ e.reason)
   }
+
 }
 
 export async function   switchChain(){
@@ -289,7 +294,11 @@ export async function updateAddress(_address) {
 }
 
 export function isAddress(address) {
-  return web3.utils.isAddress(address);
+  if(address == "0x0000000000000000000000000000000000000000")
+  {
+    return false;
+  }
+  return Web3.utils.isAddress(address);
 }
 
 export function toWei(val) {
