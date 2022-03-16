@@ -85,13 +85,13 @@
 
         <div
             class="h5-coin-name"
-        >TEST_SAT</div>
+        >{{this.ido.public_sale.sale_token_symbol}}</div>
         <div
             class="h5-coin-balance"
         >{{satBalance_show}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 4.8rem auto 0rem auto;position: relative;">
+<!--      <div style="width: 7.87rem;margin: 4.8rem auto 0rem auto;position: relative;">
         <img
             :src="icon_coin_test_matic"
             style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
@@ -103,7 +103,7 @@
         <div
             class="h5-coin-balance"
         >{{this.DAIBalanceOfUser_show}}</div>
-      </div>
+      </div>-->
 
       <div style="width: 7.87rem;margin: 5.8rem auto 0rem auto;position: relative;">
         <img
@@ -134,9 +134,9 @@
         >{{' 0.00'}}</div>
       </div>-->
 
-      <div class="h5-add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
+      <div class="h5-add-wallet-btn" @click="addSatCoin">Add coins to wallet</div>
       <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="showWhitelistClick">Whitelist transfer</div>
-      <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="OnClaimTestCoin">Claim TestCoin</div>
+<!--      <div class="h5-add-wallet-btn"  style="margin-top: 0.6rem" @click="OnClaimTestCoin">Claim TestCoin</div>-->
       <div class="h5-disconnect-wallet-btn" @click="disconnectWallet">Disconnect</div>
     </div>
 
@@ -185,11 +185,11 @@
               <div class="pc-div-btn2-item5">{{ satBalance_show}}</div>
             </div>
 
-            <div class="pc-div-btn2-item1" >
+<!--            <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_matic" />
               <div class="pc-div-btn2-item3">{{'TEST_MATIC'}}</div>
               <div class="pc-div-btn2-item5">{{ this.DAIBalanceOfUser_show}}</div>
-            </div>
+            </div>-->
 
             <div class="pc-div-btn2-item1" >
               <img class="pc-div-btn2-item2" :src="icon_coin_test_usdc" />
@@ -203,9 +203,9 @@
               <div class="pc-div-btn2-item5">{{ '0.00 '}}</div>
             </div>-->
 
-            <div class="add-wallet-btn" @click="addSatCoin">Add to Wallet</div>
+            <div class="add-wallet-btn" @click="addSatCoin">Add coins to wallet</div>
             <div class="add-wallet-btn"  @click="showWhitelistClick">Whitelist transfer</div>
-            <div class="add-wallet-btn"  @click="OnClaimTestCoin" >Claim TestCoin</div>
+<!--            <div class="add-wallet-btn"  @click="OnClaimTestCoin" >Claim TestCoin</div>-->
           </div>
         </div>
       </div>
