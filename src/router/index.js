@@ -33,7 +33,7 @@ const constantRouter = [
         component: () => import("@/views/ido/Index"),
         meta: { title: "ido" },
       },
-      {
+    /*  {
         path: "/bond",
         name: "bond",
         component: () => import("@/views/bond/Index"),
@@ -74,7 +74,7 @@ const constantRouter = [
         name: "coin_ido",
         component: () => import("@/views/coin_ido/Index"),
         meta: { title: "coin_ido" },
-      }
+      }*/
 
 
     ],

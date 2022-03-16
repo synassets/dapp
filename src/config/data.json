@@ -40,16 +40,16 @@
     "IDO": {
       "OG": {
         "sale_token_address": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47",
-        "sale_token_symbol": "TEST_SAT",
+        "sale_token_symbol": "SAT",
         "sale_token_scala": "1000000000000000000",
         "enableWhiteList": false,
         "maxAmount1": "1000000000000",
         "maxAmount1PerWallet": "1000000000",
-        "minAmount1PerWallet": "1000000000",
+        "minAmount1PerWallet": "500000000",
         "cash_scala": "1000000",
-        "cash_symbol": "TEST_USDC",
+        "cash_symbol": "USDC",
         "cash_address": "0x70b04a9AbC8D0D2088a3D0895aD3a6363859592f",
-        "sale_address" : "0xcFc3C76A0233e0c93D2766D02f7DB0042eAaBe67"
+        "sale_address" : "0x7097006Db8715B5125eF82DD3DA79859d86598B1"
       },
       "NOG": {
         "enableWhiteList": false,

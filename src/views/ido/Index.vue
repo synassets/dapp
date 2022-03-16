@@ -1315,6 +1315,11 @@ export default {
       }
     },
     clickOgMarket(val) {
+
+      if(val == false){
+        this.$refs.messageTipWarnDialog.showClick('coming soon');
+        return;
+      }
       this.isOgMarket = val;
       this.mDay = 0;
       this.mH0 = 0;

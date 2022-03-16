@@ -513,6 +513,13 @@ export default {
    async onClickMenu(index) {
       this.isShowMenu = false;
 
+      if(index != 2)
+      {
+        this.$refs.messageTipWarnDialog.showClick('Coming Soon! ');
+        return ;
+      }
+
+
       if(index == 1){
         this.tabPcIndexRight = 0;
         this.tabPcIndex = 0;
