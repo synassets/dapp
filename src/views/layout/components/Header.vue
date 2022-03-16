@@ -401,9 +401,9 @@ export default {
 
   methods: {
     async addSatCoin() {
-     await addWatchAsset(this.ido.og_sale.sale_token_address,this.ido.og_sale.sale_token_symbol,18);
-     await addWatchAsset(this.ido.og_sale.cash_address,this.ido.og_sale.cash_symbol,6);
-     await addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
+      addWatchAsset(this.ido.og_sale.sale_token_address,this.ido.og_sale.sale_token_symbol,18);
+      addWatchAsset(this.ido.og_sale.cash_address,this.ido.og_sale.cash_symbol,6);
+     // addWatchAsset(this.sAsset.contract.DAI,this.sAsset.DAISymbol,this.sAsset.DAIDecimals);
     },
 
     async OnClaimTestCoin() {

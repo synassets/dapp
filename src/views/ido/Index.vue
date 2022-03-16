@@ -1193,6 +1193,18 @@ export default {
     min_og_swap:function (){
        return Number((this.ido.og_sale.minAmount1PerWallet / this.ido.og_sale.cash_scala).toFixed(0));
     },
+    at_least_og_swap:function (){
+      if(this.my_amount_OG_swapped > 0){
+        return 0;
+      }
+      return Number((this.ido.og_sale.minAmount1PerWallet / this.ido.og_sale.cash_scala).toFixed(0));
+    },
+    at_least_nog_swap:function (){
+      if(this.my_amount_NOG_swapped > 0){
+        return 0;
+      }
+      return Number((this.ido.public_sale.minAmount1PerWallet / this.ido.public_sale.cash_scala).toFixed(0));
+    },
     min_nog_swap:function (){
         return  Number((this.ido.public_sale.minAmount1PerWallet / this.ido.public_sale.cash_scala).toFixed(0));
     },
@@ -1795,8 +1807,8 @@ export default {
           this.$refs.messageTipErrorDialog.showClick('please enter the correct amount! ');
           return;
         }
-        if (this.stakeAmount < this.min_og_swap-0.001 || this.stakeAmount-0.001 > this.max_og_swap ) {
-          this.$refs.messageTipErrorDialog.showClick('please input '+this.min_og_swap +"~" +this.max_og_swap);
+        if (this.stakeAmount < this.at_least_og_swap-0.001 || this.stakeAmount-0.001 > this.max_og_swap ) {
+          this.$refs.messageTipErrorDialog.showClick('please input '+this.at_least_og_swap +"~" +this.max_og_swap);
           return;
         }
 
@@ -1877,8 +1889,8 @@ export default {
 
 
 
-      if (this.stakeAmount < this.min_nog_swap -0.001 || this.stakeAmount-0.01 > this.max_nog_swap) {
-        this.$refs.messageTipErrorDialog.showClick('please input '+this.min_nog_swap +"~" + this.max_nog_swap);
+      if (this.stakeAmount < this.at_least_nog_swap -0.001 || this.stakeAmount-0.01 > this.max_nog_swap) {
+        this.$refs.messageTipErrorDialog.showClick('please input '+this.at_least_nog_swap +"~" + this.max_nog_swap);
         return;
       }
       if (this.NOG_allowance < this.stakeAmount) {
