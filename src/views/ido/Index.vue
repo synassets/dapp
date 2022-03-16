@@ -1768,10 +1768,10 @@ export default {
         this.$refs.messageTipErrorDialog.showClick('Insufficient allocation,max per wallet address is '+(this.ido.og_sale.maxAmount1PerWallet / this.ido.og_sale.cash_scala).toFixed(0)+' USDC');
         return;
       }
-      if(this.max_og_swap < this.min_og_swap){
+ /*     if(this.max_og_swap < this.min_og_swap){
         this.$refs.messageTipErrorDialog.showClick('you would not swap !');
         return;
-      }
+      }*/
 
       if (!this.is_og_ambassador) {
         if (!isAddress(this.refAddress)) {
@@ -1854,10 +1854,10 @@ export default {
         return;
       }
       // console.log(this.max_nog_swap + "werwerewr" +this.min_nog_swap +" cpm result:" + (Number(this.max_nog_swap) < Number(this.min_nog_swap)));
-      if(this.max_nog_swap < this.min_nog_swap){
+ /*     if(this.max_nog_swap < this.min_nog_swap){
         this.$refs.messageTipErrorDialog.showClick('you can not swap !');
         return;
-      }
+      }*/
 
       if (!this.is_nog_ambassador) {
         if (!isAddress(this.refAddress)) {
