@@ -1,10 +1,10 @@
 <template>
   <div>
     <div
-      v-show="isMobile"
+      v-show="isMobile&&!isShowAddWallet"
       style="  width: 10rem;height: 1.5rem;  background: #070707;position: fixed;top: 0rem;z-index: 9999;"
     >
-      <div style="  width: 10rem;  background: #070707;position: relative;">
+      <div style="  width: 10rem;  background: #070707;position: relative;" >
         <div @click="onShowMenu" class="div-header-menu-btn">
           <img
             :src="h5_menu"
@@ -27,26 +27,26 @@
 
     <div
       v-show="isMobile&&isShowAddWallet"
-      style="  width: 10rem;height: 30rem;  background: #161616;position: fixed;top: 0rem;z-index: 9999;"
+      style="  width: 10rem; height: 30rem; background: #161616;z-index: 9999;  overflow-y:scroll;overflow-x:hidden;"
     >
 
 
-      <div style="width: 7.87rem;margin: 1rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin: 0.5rem auto 0rem auto;position: relative;">
         <div
           style="position: absolute;left: 0rem;font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #808080;"
         >My Wallet</div>
         <img
           :src="close"
           style="cursor: pointer;width: 0.3rem;height: 0.3rem;right: 0rem;position: absolute;top: 0.2rem;"
-          @click="isShowAddWallet=false"
+          @click="closedDialog"
         />
       </div>
 
-     <div style="width: 7.87rem;margin: 1.6rem auto 0rem auto;position: relative;">
+    <!-- <div style="width: 7.87rem;margin: 1.6rem auto 0rem auto;position: relative;">
         <div
           style="position: absolute;left: 0rem;font-size: 0.4rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;"
         ></div>
-      </div>
+      </div>-->
 
 <!--      <div style="width: 7.87rem;margin: 3.5rem auto 0rem auto;position: relative;">
         <img
@@ -63,10 +63,12 @@
       </div>-->
 
 
-      <div style="width: 7.87rem;margin: 2.8rem auto 0rem auto;position: relative;">
+
+
+      <div style="width: 7.87rem;margin: 1.5rem auto 0rem auto;display: flex">
         <img
             :src="icon_coin_matic"
-            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+            style="width: 0.68rem;height: 0.68rem;margin-top: 0.2rem;"
         />
 
         <div
@@ -77,10 +79,10 @@
         >{{this.matic_Balance_show}}</div>
       </div>
 
-    <div style="width: 7.87rem;margin: 3.8rem auto 0rem auto;position: relative;">
+    <div style="width: 7.87rem;margin:0.2rem auto 0rem auto;display: flex">
         <img
             :src="icon_coin_test_sat"
-            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+            style="width: 0.68rem;height: 0.68rem;margin-top: 0.2rem;"
         />
 
         <div
@@ -91,10 +93,10 @@
         >{{satBalance_show}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 4.8rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin:0.2rem auto 0rem auto;display: flex">
         <img
             :src="icon_coin_test_matic"
-            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+            style="width: 0.68rem;height: 0.68rem;margin-top: 0.2rem;"
         />
 
         <div
@@ -105,10 +107,10 @@
         >{{this.DAIBalanceOfUser_show}}</div>
       </div>
 
-      <div style="width: 7.87rem;margin: 5.8rem auto 0rem auto;position: relative;">
+      <div style="width: 7.87rem;margin:0.2rem auto 0rem auto;display: flex">
         <img
             :src="icon_coin_test_usdc"
-            style="width: 0.68rem;height: 0.68rem;top: 0.2rem;position: absolute;left: 0rem;"
+            style="width: 0.68rem;height: 0.68rem;margin-top: 0.2rem;"
         />
 
         <div
@@ -358,7 +360,6 @@ export default {
       showSelectWalletDialog: false,
 
       showWhitelistTransferDialog:false,
-
       configData: {
         chainId: 0
       },
@@ -418,7 +419,9 @@ export default {
     clickCloseDialog(){
       this.showWhitelistTransferDialog = false
     },
-
+    closedDialog(){
+      this.isShowAddWallet = false;
+    },
     onClickOptionItem(){
        // this.$refs.messageTipWarnDialog("coming soon " + value);
     },
@@ -521,7 +524,7 @@ export default {
   color: #808080;
   width: 7.87rem;
   height: 1.07rem;
-  margin: 8rem auto 0rem auto;
+  margin: 1rem auto 0rem auto;
   border: 1px solid #808080;
   position: relative;
   text-align: center;
@@ -557,14 +560,14 @@ export default {
   color: #ffffff;
   width: 5.4rem;
   height: 1.07rem;
-  margin: 6rem auto 0rem auto;
+  margin: 4rem auto 0rem auto;
   border: 1px solid #808080;
   position: relative;
   text-align: center;
   line-height: 1.07rem;
-  position: fixed;
-  bottom: 1rem;
-  left: 2.3rem;
+  //position: fixed;
+  //bottom: 1rem;
+  //left: 2.3rem;
   border-radius: 0.13rem;
 }
 .h5-disconnect-wallet-btn:hover {
@@ -577,10 +580,14 @@ export default {
   width: 770px;height: 50px; background: #FFFFFF;display: flex;z-index: 999;
 }
 .h5-coin-name{
-  position: absolute;left: 1.4rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0.3rem;
+  //position: absolute;left: 1.4rem;
+  font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;padding-top: 0.3rem;
+  width: 5.8rem;text-align: right;
 }
 .h5-coin-balance{
-  position: absolute;right: 0rem;font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;top: 0.3rem;
+  //position: absolute;right: 0rem;
+  font-size: 0.32rem;font-family: Selawik;font-weight: bold;color: #FFFFFF;padding-top: 0.3rem;
+  padding-left: 0.35rem;
 }
 .add-wallet-btn {
   margin: 20px auto 0px auto;
