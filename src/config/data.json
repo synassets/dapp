@@ -13,7 +13,7 @@
     "blockRateSeconds": 1.12,
     "backendUrl":"https://api.synassets.finance/synassets/",
     "USDC":"0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-    "SAT": "0x8d727C3D99892b285dD7F0D7268E6cE850532E47"
+    "SAT": "0x29bF0DA05dbabdfD625E63e227F72CF4E1488117"
   },
   "sMatic": {
     "USD": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
