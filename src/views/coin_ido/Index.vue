@@ -1693,11 +1693,11 @@ export default {
     goContract() {
       if (this.isOgMarket) {
         window.open(
-          "https://polygonscan.com/address/" + this.data.IDO.OG.sale_address
+           "https://polygonscan.com/address/" + this.data.IDO.OG.sale_token_address
         );
       } else {
         window.open(
-          "https://polygonscan.com/address/" + this.data.IDO.NOG.sale_address
+           "https://polygonscan.com/address/" + this.data.IDO.NOG.sale_token_address
         );
       }
     },

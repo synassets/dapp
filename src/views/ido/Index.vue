@@ -1359,11 +1359,11 @@ export default {
     goContract() {
       if (this.isOgMarket) {
         window.open(
-          "https://polygonscan.com/address/" + this.ido.og_sale.sale_address
+          "https://polygonscan.com/address/" + this.ido.og_sale.sale_token_address
         );
       } else {
         window.open(
-          "https://polygonscan.com/address/" + this.ido.public_sale.sale_address
+          "https://polygonscan.com/address/" + this.ido.public_sale.sale_token_address
         );
       }
     },
